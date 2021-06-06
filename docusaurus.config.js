@@ -11,7 +11,7 @@ module.exports = {
     projectName: "resonance-webapp-docs", // Usually your repo name.
     themeConfig: {
         navbar: {
-            title: "Resonance Documentation",
+            title: "Resonance Docs",
             logo: {
                 alt: "Resonance",
                 src: "img/logo.svg",
@@ -19,9 +19,15 @@ module.exports = {
             items: [
                 {
                     type: "doc",
-                    docId: "intro",
+                    docId: "concepts/intro",
                     position: "left",
                     label: "Concepts",
+                },
+                {
+                    type: "doc",
+                    docId: "apis/apis",
+                    position: "left",
+                    label: "API Reference",
                 },
                 {
                     href: "https://github.com/obfns/resonance-webapp-docs",
