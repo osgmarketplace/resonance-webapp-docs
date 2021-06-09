@@ -19,10 +19,6 @@ jobs:
       with:
         repo-token: ${{ secrets.GITHUB_TOKEN }}
         tag: "v${{ steps.extract_version.outputs.version }}"
-    - name: Update release tags for latest major and minor releases
-      uses: haya14busa/action-update-semver@v1
-      with:
-        tag: "v${{ steps.extract_version.outputs.version }}"
         
   build-deploy:
     runs-on: ubuntu-latest
