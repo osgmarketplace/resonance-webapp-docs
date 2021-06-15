@@ -1,0 +1,37 @@
+name: Default Issue Comment Handling
+
+on:
+  issue_comment:
+    types: [created, edited]
+
+jobs:
+  # Uncomment me to log out the comment
+  # troubleshooting:
+  #   runs-on: ubuntu-latest
+  #   steps:
+  #     - name: Echo comment
+  #       run: "echo ${{ github.event.comment.body }}"
+
+  # Node Commands only for speed
+  slash-commands-check:
+    runs-on: ubuntu-latest
+    timeout-minutes: 2
+    if: startsWith(github.event.comment.body, '/inprogress') # change to just / when more commands are ready
+
+    steps:
+      # If a "/" is seen, eyes it
+      - name: React to comment
+        uses: dkershner6/reaction-action@v1
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          reaction: "eyes"
+
+      # If /inprogress, call devops api
+      - if: startsWith(github.event.comment.body, '/inprogress') || startsWith(github.event.comment.body, '/inprocess')
+        name: Call API for In Progress
+        uses: dkershner6/post-api-call-action@v1
+        with:
+          url: "https://devopsapi.eformedpartners.com/api/v1/github/repos/${{ github.repository }}/issues/${{ github.event.issue.number }}/in_progress"
+          headers: '{"Authorization": "Bearer ${{ secrets.DEVOPS_API_KEY }}"}'
+
+  

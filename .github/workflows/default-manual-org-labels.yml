@@ -1,0 +1,16 @@
+name: Manual - Implement Org Labels
+# Note that the actual org labels are not accessible through the API,
+# so we use global-api-devops as the source of truth. Make sure it is updated as well.
+
+on: workflow_dispatch
+
+jobs:
+  implement-default-settings:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: Call API for Implementing Default Settings
+        uses: dkershner6/post-api-call-action@v1
+        with:
+          url: 'https://devopsapi.eformedpartners.com/api/v1/github/repos/${{ github.repository }}/org_labels'
+          headers: '{"Authorization": "Bearer ${{ secrets.DEVOPS_API_KEY }}"}'
