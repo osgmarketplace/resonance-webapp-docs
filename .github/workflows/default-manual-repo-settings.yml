@@ -5,7 +5,7 @@ on: workflow_dispatch
 jobs:
   implement-default-settings:
     runs-on: ubuntu-latest
-    timeout-minutes: 5
+    timeout-minutes: 3
     steps:
       - name: Call API for Implementing Default Settings
         uses: dkershner6/post-api-call-action@v1

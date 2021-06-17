@@ -12,10 +12,9 @@ jobs:
   #     - name: Echo comment
   #       run: "echo ${{ github.event.comment.body }}"
 
-  # Node Commands only for speed
   slash-commands-check:
     runs-on: ubuntu-latest
-    timeout-minutes: 2
+    timeout-minutes: 3
     if: startsWith(github.event.comment.body, '/inprogress') # change to just / when more commands are ready
 
     steps:
