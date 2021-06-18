@@ -15,7 +15,7 @@ jobs:
 
   in-progress-check:
     runs-on: ubuntu-latest
-    timeout-minutes: 5
+    timeout-minutes: 3
     if: github.event.action == 'labeled' && github.event.label.name == 'in progress'
     steps:
       - name: Call API for In Progress
@@ -26,6 +26,7 @@ jobs:
 
   in-progress-label-update:
     runs-on: ubuntu-latest
+    timeout-minutes: 3
     if: github.event.action != 'labeled' || github.event.label.name != 'in progress'
     steps:
       - name: Call API for In Progress Labels

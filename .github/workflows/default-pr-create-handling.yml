@@ -8,7 +8,7 @@ on:
 jobs:
   size-labeler:
     runs-on: ubuntu-latest
-    timeout-minutes: 5
+    timeout-minutes: 3
     steps:
       - name: PR Size Labeler
         uses: codelytv/pr-size-labeler@v1
