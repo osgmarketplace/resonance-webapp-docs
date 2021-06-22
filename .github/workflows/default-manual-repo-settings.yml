@@ -10,5 +10,5 @@ jobs:
       - name: Call API for Implementing Default Settings
         uses: dkershner6/post-api-call-action@v1
         with:
-          url: 'https://devopsapi.eformedpartners.com/api/v1/github/repos/${{ github.repository }}/default_settings'
+          url: 'https://api.devops.eformedpartners.com/github/repos/${{ github.repository }}/default_settings'
           headers: '{"Authorization": "Bearer ${{ secrets.DEVOPS_API_KEY }}"}'

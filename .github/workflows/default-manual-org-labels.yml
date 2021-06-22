@@ -12,5 +12,5 @@ jobs:
       - name: Call API for Implementing Org Labels
         uses: dkershner6/post-api-call-action@v1
         with:
-          url: 'https://devopsapi.eformedpartners.com/api/v1/github/repos/${{ github.repository }}/org_labels'
+          url: 'https://api.devops.eformedpartners.com/github/repos/${{ github.repository }}/org_labels'
           headers: '{"Authorization": "Bearer ${{ secrets.DEVOPS_API_KEY }}"}'
