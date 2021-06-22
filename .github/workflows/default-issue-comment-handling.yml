@@ -30,7 +30,7 @@ jobs:
         name: Call API for In Progress
         uses: dkershner6/post-api-call-action@v1
         with:
-          url: "https://devopsapi.eformedpartners.com/api/v1/github/repos/${{ github.repository }}/issues/${{ github.event.issue.number }}/in_progress"
+          url: "https://api.devops.eformedpartners.com/github/repos/${{ github.repository }}/issues/${{ github.event.issue.number }}/in_progress"
           headers: '{"Authorization": "Bearer ${{ secrets.DEVOPS_API_KEY }}"}'
 
   
