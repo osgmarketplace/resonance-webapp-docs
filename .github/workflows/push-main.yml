@@ -16,6 +16,7 @@ jobs:
       uses: Saionaro/extract-package-version@v1.0.6
     - name: Tag commit with updated version
       uses: tvdias/github-tagger@v0.0.2
+      continue-on-error: true
       with:
         repo-token: ${{ secrets.GITHUB_TOKEN }}
         tag: "v${{ steps.extract_version.outputs.version }}"
