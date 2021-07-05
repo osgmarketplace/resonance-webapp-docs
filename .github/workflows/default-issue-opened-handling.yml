@@ -22,10 +22,16 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 3
     steps:
+      - name: Get OBFnS App Token
+        id: get-token
+        uses: getsentry/action-github-app-token@v1
+        with:
+          app_id: ${{ secrets.GH_APP_ID }}
+          private_key: ${{ secrets.GH_PRIVATE_KEY }}
       - uses: z0al/dependent-issues@v1
         env:
           # (Required) The token to use to make API calls to GitHub.
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_TOKEN: ${{ steps.get-token.outputs.token }}
         with:
           # (Optional) The label to use to mark dependent issues
           label: blocked
