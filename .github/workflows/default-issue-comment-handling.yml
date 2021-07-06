@@ -15,7 +15,7 @@ jobs:
   slash-commands-check:
     runs-on: ubuntu-latest
     timeout-minutes: 3
-    if: startsWith(github.event.comment.body, '/inprogress') # change to just / when more commands are ready
+    if: startsWith(github.event.comment.body, '/inprogress') || startsWith(github.event.comment.body, '/blockcheck') || startsWith(github.event.comment.body, '/unblockcheck')
 
     steps:
       # If a "/" is seen, eyes it
@@ -32,5 +32,29 @@ jobs:
         with:
           url: "https://api.devops.eformedpartners.com/github/repos/${{ github.repository }}/issues/${{ github.event.issue.number }}/in_progress"
           headers: '{"Authorization": "Bearer ${{ secrets.DEVOPS_API_KEY }}"}'
+
+      # if /block, unblock, run the issue blocker
+      - if: startsWith(github.event.comment.body, '/blockcheck') || startsWith(github.event.comment.body, '/unblockcheck')
+        name: Get OBFnS App Token
+        id: get-token
+        uses: getsentry/action-github-app-token@v1
+        with:
+          app_id: ${{ secrets.GH_APP_ID }}
+          private_key: ${{ secrets.GH_PRIVATE_KEY }}
+      - uses: z0al/dependent-issues@v1
+        env:
+          # (Required) The token to use to make API calls to GitHub.
+          GITHUB_TOKEN: ${{ steps.get-token.outputs.token }}
+        with:
+          # (Optional) The label to use to mark dependent issues
+          label: blocked
+
+          # (Optional) Enable checking for dependencies in issues.
+          # Enable by setting the value to "on". Default "off"
+          check_issues: on
+
+          # (Optional) A comma-separated list of keywords. Default
+          # "depends on, blocked by"
+          keywords: depends on, blocked by
 
   
