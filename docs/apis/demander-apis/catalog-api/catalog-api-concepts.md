@@ -4,7 +4,7 @@ sidebar_position: 1
 
 # Catalog API Overall Concepts
 
-The Catalog API is where all of the Product data is interacted with on the Demander side. You could consider this the Product domain, but it includes other items as well, like managing Storefront visibility and static content like Product Videos and Images.
+The Catalog API is where all of the Product data is interacted with on the DemandHQ side. You could consider this the Product domain, but it includes other items as well, like managing Storefront visibility and static content like Product Videos and Images.
 
 ## Storefronts
 
@@ -12,11 +12,11 @@ These represent different ways of selling your goods. An example may be a React 
 
 ## Price
 
-Price is managed at the Demander/Storefront level. This gives the Demander a lot of control over pricing. This complexity is sometimes necessary as different storefronts have different costs, commission structures, etc, and the price must be adjusted to reflect that.
+Price is managed at the DemandHQ/Storefront level. This gives the DemandHQ a lot of control over pricing. This complexity is sometimes necessary as different storefronts have different costs, commission structures, etc, and the price must be adjusted to reflect that.
 
 ## Localization/Currency
 
-Language and Currency are handled at the default level for a given Demander, and the fields uploaded will correlate with that locale or currency. Other locales or currencies will be handled through other means. This path was chosen due to most marketplaces having a primary locale/currency that covers 99% of use cases (including many storefronts).
+Language and Currency are handled at the default level for a given DemandHQ, and the fields uploaded will correlate with that locale or currency. Other locales or currencies will be handled through other means. This path was chosen due to most marketplaces having a primary locale/currency that covers 99% of use cases (including many storefronts).
 
 ## Content Items
 
