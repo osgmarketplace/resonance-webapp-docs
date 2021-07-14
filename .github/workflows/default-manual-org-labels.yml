@@ -6,7 +6,7 @@ on: workflow_dispatch
 
 jobs:
   implement-org-labels:
-    runs-on: ubuntu-latest
+    runs-on: [self-hosted, nano]
     timeout-minutes: 3
     steps:
       - name: Call API for Implementing Org Labels
