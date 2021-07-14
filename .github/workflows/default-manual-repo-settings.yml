@@ -4,7 +4,7 @@ on: workflow_dispatch
 
 jobs:
   implement-default-settings:
-    runs-on: ubuntu-latest
+    runs-on: [self-hosted, nano]
     timeout-minutes: 3
     steps:
       - name: Call API for Implementing Default Settings

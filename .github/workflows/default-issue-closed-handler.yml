@@ -7,7 +7,7 @@ on:
 
 jobs:
   remove-labels-when-closed:
-    runs-on: ubuntu-latest
+    runs-on: [self-hosted, nano]
     timeout-minutes: 3
     steps:
       - name: Remove all specified labels if present
