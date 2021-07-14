@@ -7,7 +7,7 @@ on:
 
 jobs:
   create-tag:
-    runs-on: ubuntu-latest
+    runs-on: [self-hosted, small]
     steps:
     - name: Checkout 🛎️
       uses: actions/checkout@v2
