@@ -24,7 +24,7 @@ jobs:
         tag: "v${{ steps.extract_version.outputs.version }}"
         
   build-deploy:
-    runs-on: ubuntu-latest
+    runs-on: [self-hosted, small]
     timeout-minutes: 25
     steps:
       - name: Checkout
