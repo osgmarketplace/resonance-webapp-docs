@@ -7,7 +7,7 @@ on:
 
 jobs:
   size-labeler:
-    runs-on: [self-hosted, nano]
+    runs-on: ubuntu-latest # public repo, keep this here
     timeout-minutes: 3
     steps:
       - name: PR Size Labeler
