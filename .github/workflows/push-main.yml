@@ -9,7 +9,7 @@ on:
 
 jobs:
   create-tag:
-    runs-on: [self-hosted, small]
+    runs-on: ubuntu-latest # public repo, keep this here
     steps:
     - name: Checkout 🛎️
       uses: actions/checkout@v2
@@ -24,7 +24,7 @@ jobs:
         tag: "v${{ steps.extract_version.outputs.version }}"
         
   build-deploy:
-    runs-on: [self-hosted, small]
+    runs-on: ubuntu-latest # public repo, keep this here
     timeout-minutes: 25
     steps:
       - name: Checkout
