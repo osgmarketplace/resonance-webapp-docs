@@ -25,7 +25,7 @@ module.exports = {
                 },
                 {
                     type: "doc",
-                    docId: "apis/apis",
+                    docId: "apis/overall-concepts",
                     position: "left",
                     label: "API Reference",
                 },
@@ -80,6 +80,17 @@ module.exports = {
                 theme: {
                     customCss: require.resolve("./src/css/custom.css"),
                 },
+            },
+        ],
+    ],
+    plugins: [
+        [
+            "@edno/docusaurus2-graphql-doc-generator",
+            {
+                id: "supply-api",
+                schema: "https://api.staging.supply.buildresonance.com/graphql",
+                rootPath: "./docs",
+                baseURL: "apis/supplier-apis/supply-api/reference",
             },
         ],
     ],
