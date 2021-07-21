@@ -44,7 +44,11 @@ module.exports = {
                     items: [
                         {
                             label: "Concepts",
-                            to: "/docs/concepts/intro",
+                            to: "/concepts/intro",
+                        },
+                        {
+                            label: "APIs",
+                            to: "/apis/overall-concepts",
                         },
                     ],
                 },
