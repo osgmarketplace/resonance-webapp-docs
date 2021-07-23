@@ -1,0 +1,38 @@
+---
+id: suppliers
+title: suppliers
+---
+
+Get a list of suppliers
+
+```graphql
+suppliers(
+  first: Int = 0
+  last: Int = 0
+  before: String
+  after: String
+): SupplierConnection!
+
+```
+
+### Arguments
+
+#### `first` ([`Int`](/apis/supplier-apis/supply-api/reference/scalars/int))
+
+Returns the first n elements from the list.
+
+#### `last` ([`Int`](/apis/supplier-apis/supply-api/reference/scalars/int))
+
+Returns the last n elements from the list.
+
+#### `before` ([`String`](/apis/supplier-apis/supply-api/reference/scalars/string))
+
+Returns the elements in the list that come before the specified cursor.
+
+#### `after` ([`String`](/apis/supplier-apis/supply-api/reference/scalars/string))
+
+Returns the elements in the list that come after the specified cursor.
+
+### Type
+
+#### [`SupplierConnection`](/apis/supplier-apis/supply-api/reference/objects/supplier-connection)

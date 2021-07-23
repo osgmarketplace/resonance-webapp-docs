@@ -93,7 +93,7 @@ module.exports = {
             "@edno/docusaurus2-graphql-doc-generator",
             {
                 id: "supply-api",
-                schema: "https://api.supply.buildresonance.com/graphql",
+                schema: "./supplyschema.graphql",
                 rootPath: "./docs",
                 baseURL: "apis/supplier-apis/supply-api/reference",
             },
