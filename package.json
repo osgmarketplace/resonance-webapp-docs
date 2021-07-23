@@ -1,11 +1,12 @@
 {
   "name": "resonance-webapp-docs",
-  "version": "0.7.0",
+  "version": "0.8.0",
   "private": true,
   "scripts": {
     "docusaurus": "docusaurus",
     "start": "docusaurus start",
     "build": "docusaurus build",
+    "getgql:supply": "get-graphql-schema https://api.supply.buildresonance.com/graphql > supplyschema.graphql -h \"authorization=$AUTHHEADER\"",
     "build:gql": "docusaurus graphql-to-doc",
     "swizzle": "docusaurus swizzle",
     "deploy": "docusaurus deploy",
@@ -45,6 +46,7 @@
     "eslint-plugin-react": "^7.24.0",
     "eslint-plugin-react-hooks": "^4.2.0",
     "eslint-plugin-sonarjs": "^0.7.0",
+    "get-graphql-schema": "^2.1.2",
     "prettier": "^2.3.1",
     "source-map-support": "^0.5.19",
     "ts-node": "^10.0.0",

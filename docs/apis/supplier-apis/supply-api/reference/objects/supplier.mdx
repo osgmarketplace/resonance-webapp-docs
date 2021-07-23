@@ -1,0 +1,43 @@
+---
+id: supplier
+title: Supplier
+---
+
+No description
+
+```graphql
+type Supplier {
+  supplierId: ID!
+  name: String!
+  description: String
+  ownerUserName: String!
+  defaultLocale: ResonanceLocale!
+  defaultCurrency: String!
+  purchaseOrderNotification: PurchaseOrderNotification!
+  status: SupplierStatus!
+  createdAt: String!
+  updatedAt: String!
+}
+```
+
+### Fields
+
+#### `supplierId` ([`ID!`](/apis/supplier-apis/supply-api/reference/scalars/id))
+
+#### `name` ([`String!`](/apis/supplier-apis/supply-api/reference/scalars/string))
+
+#### `description` ([`String`](/apis/supplier-apis/supply-api/reference/scalars/string))
+
+#### `ownerUserName` ([`String!`](/apis/supplier-apis/supply-api/reference/scalars/string))
+
+#### `defaultLocale` ([`ResonanceLocale!`](/apis/supplier-apis/supply-api/reference/enums/resonance-locale))
+
+#### `defaultCurrency` ([`String!`](/apis/supplier-apis/supply-api/reference/scalars/string))
+
+#### `purchaseOrderNotification` ([`PurchaseOrderNotification!`](/apis/supplier-apis/supply-api/reference/objects/purchase-order-notification))
+
+#### `status` ([`SupplierStatus!`](/apis/supplier-apis/supply-api/reference/enums/supplier-status))
+
+#### `createdAt` ([`String!`](/apis/supplier-apis/supply-api/reference/scalars/string))
+
+#### `updatedAt` ([`String!`](/apis/supplier-apis/supply-api/reference/scalars/string))
