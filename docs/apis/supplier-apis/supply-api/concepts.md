@@ -8,4 +8,4 @@ The Supply API provides admin functionality for Suppliers. This functionality is
 
 -   Metadata
 -   Management
--   Fulfillment
+-   Distribution
