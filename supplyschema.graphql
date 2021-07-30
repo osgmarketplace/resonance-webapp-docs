@@ -8,6 +8,8 @@ directive @specifiedBy(
 type Mutation {
   """Nothing to see here, just a workaround for Apollo Server"""
   _makeEmpty(id: String): String
+
+  """Create a new supplier"""
   createSupplier(input: SupplierCreateInput!): Supplier
 }
 
@@ -19,16 +21,21 @@ type PageInfo {
   startCursor: String
 }
 
+"""
+The full notification object. Endpoint may vary based on type, but is always a string (url, email,etc).
+"""
 type PurchaseOrderNotification {
-  type: PurchaseOrderNotificationType
-  endpoint: String
+  type: PurchaseOrderNotificationType!
+  endpoint: String!
 }
 
+"""Exactly like PurchaseOrderNotification"""
 input PurchaseOrderNotificationInput {
-  type: PurchaseOrderNotificationType
-  endpoint: String
+  type: PurchaseOrderNotificationType!
+  endpoint: String!
 }
 
+"""Used to determine how a supplier recieves Purchase Orders"""
 enum PurchaseOrderNotificationType {
   WEBHOOK
 }
@@ -59,8 +66,16 @@ type Query {
   ): SupplierConnection!
 }
 
+"""Used throughout the app to give a currency to price information"""
+enum ResonanceCurrency {
+  USD
+}
+
+"""
+Used throughout the app to indicate what language and locality a given text is in
+"""
 enum ResonanceLocale {
-  ENUS
+  EN_US
 }
 
 type Supplier {
@@ -69,7 +84,7 @@ type Supplier {
   description: String
   ownerUserName: String!
   defaultLocale: ResonanceLocale!
-  defaultCurrency: String!
+  defaultCurrency: ResonanceCurrency!
   purchaseOrderNotification: PurchaseOrderNotification!
   status: SupplierStatus!
   createdAt: String!
@@ -82,6 +97,7 @@ type SupplierConnection {
   pageInfo: PageInfo!
 }
 
+"""The necessary fields in order to create a new supplier"""
 input SupplierCreateInput {
   name: String!
   description: String
@@ -94,6 +110,7 @@ type SupplierEdge {
   node: Supplier
 }
 
+"""Indication of whether the Supplier is live and accepting orders"""
 enum SupplierStatus {
   ACTIVE
   ARCHIVED

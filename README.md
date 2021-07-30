@@ -2,34 +2,18 @@
 
 Documentation Web App for Resonance
 
-This website is built using [Docusaurus 2](https://docusaurus.io/), a modern static website generator.
+# GraphQL Documentation
 
-## Installation
+The GraphQL Documentation is automatically generated, and controlled through a series of npm scripts.
 
-```console
-yarn install
-```
+The key is to get a token for the APIs (any will do that is valid). Once you have one, you can run a script like so:
 
-## Local Development
+`AUTHHEADER="Bearer ..." npm run getgql:supply`
 
-```console
-yarn start
-```
+This will get the schema for the Supply API.
 
-This command starts a local development server and opens up a browser window. Most changes are reflected live without having to restart the server.
+Once you have done so, you can run:
 
-## Build
+`npm run build:gql`
 
-```console
-yarn build
-```
-
-This command generates static content into the `build` directory and can be served using any static contents hosting service.
-
-## Deployment
-
-```console
-GIT_USER=<Your GitHub username> USE_SSH=true yarn deploy
-```
-
-If you are using GitHub pages for hosting, this command is a convenient way to build the website and push to the `gh-pages` branch.
+Which rebuilds all of the GQL documentation from the downloaded schemas.

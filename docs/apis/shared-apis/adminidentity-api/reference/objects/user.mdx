@@ -1,0 +1,102 @@
+---
+id: user
+title: User
+---
+
+Type representing a User, or human entity
+
+```graphql
+type User {
+  userName: ID!
+  createdAt: String
+  updatedAt: String
+  email: String!
+  emailVerified: String
+  sub: String!
+  phone: String
+  phoneNumberVerified: String
+  address: String
+  givenName: String
+  familyName: String
+  picture: String
+  profile: String
+  zoneinfo: String
+  birthdate: String
+  locale: String
+  gender: String
+  website: String
+}
+```
+
+### Fields
+
+#### `userName` ([`ID!`](/apis/shared-apis/adminidentity-api/reference/scalars/id))
+
+#### `createdAt` ([`String`](/apis/shared-apis/adminidentity-api/reference/scalars/string))
+
+#### `updatedAt` ([`String`](/apis/shared-apis/adminidentity-api/reference/scalars/string))
+
+#### `email` ([`String!`](/apis/shared-apis/adminidentity-api/reference/scalars/string))
+
+#### `emailVerified` ([`String`](/apis/shared-apis/adminidentity-api/reference/scalars/string))
+
+string of true or false
+
+#### `sub` ([`String!`](/apis/shared-apis/adminidentity-api/reference/scalars/string))
+
+Same as userName
+
+#### `phone` ([`String`](/apis/shared-apis/adminidentity-api/reference/scalars/string))
+
+End-User's preferred telephone number. E.164 [E.164] is RECOMMENDED as the
+format of this Claim, for example, +1 (425) 555-1212 or +56 (2) 687 2400. If
+the phone number contains an extension, it is RECOMMENDED that the extension
+be represented using the RFC 3966 [RFC3966] extension syntax, for example, +1
+(604) 555-1234;ext=5678.
+
+#### `phoneNumberVerified` ([`String`](/apis/shared-apis/adminidentity-api/reference/scalars/string))
+
+string of true or false
+
+#### `address` ([`String`](/apis/shared-apis/adminidentity-api/reference/scalars/string))
+
+#### `givenName` ([`String`](/apis/shared-apis/adminidentity-api/reference/scalars/string))
+
+#### `familyName` ([`String`](/apis/shared-apis/adminidentity-api/reference/scalars/string))
+
+#### `picture` ([`String`](/apis/shared-apis/adminidentity-api/reference/scalars/string))
+
+URL of the End-User's profile picture. This URL MUST refer to an image file
+(for example, a PNG, JPEG, or GIF image file), rather than to a Web page
+containing an image. Note that this URL SHOULD specifically reference a
+profile photo of the End-User suitable for displaying when describing the
+End-User, rather than an arbitrary photo taken by the End-User.
+
+#### `profile` ([`String`](/apis/shared-apis/adminidentity-api/reference/scalars/string))
+
+URL of the End-User's profile page. The contents of this Web page SHOULD be about the End-User.
+
+#### `zoneinfo` ([`String`](/apis/shared-apis/adminidentity-api/reference/scalars/string))
+
+Timezone - String from zoneinfo time zone database representing the End-User's
+time zone. For example, Europe/Paris or America/Los_Angeles.
+
+#### `birthdate` ([`String`](/apis/shared-apis/adminidentity-api/reference/scalars/string))
+
+End-User's birthday, represented as an ISO 8601:2004 YYYY-MM-DD format. The
+year MAY be 0000, indicating that it is omitted. To represent only the year,
+YYYY format is allowed. Note that depending on the underlying platform's date
+related function, providing just year can result in varying month and day, so
+the implementers need to take this factor into account to correctly process the dates.
+
+#### `locale` ([`String`](/apis/shared-apis/adminidentity-api/reference/scalars/string))
+
+String representing the User's locale, i.e. 'en-us'
+
+#### `gender` ([`String`](/apis/shared-apis/adminidentity-api/reference/scalars/string))
+
+#### `website` ([`String`](/apis/shared-apis/adminidentity-api/reference/scalars/string))
+
+URL of the End-User's Web page or blog. This Web page SHOULD contain
+information published by the End-User or an organization that the End-User is
+affiliated with.
