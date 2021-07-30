@@ -1,11 +1,12 @@
 {
   "name": "resonance-webapp-docs",
-  "version": "0.8.0",
+  "version": "0.9.0",
   "private": true,
   "scripts": {
     "docusaurus": "docusaurus",
     "start": "docusaurus start",
     "build": "docusaurus build",
+    "getgql:adminidentity": "get-graphql-schema https://api.adminidentity.buildresonance.com/graphql > adminidentityschema.graphql -h \"authorization=$AUTHHEADER\"",
     "getgql:supply": "get-graphql-schema https://api.supply.buildresonance.com/graphql > supplyschema.graphql -h \"authorization=$AUTHHEADER\"",
     "build:gql": "docusaurus graphql-to-doc",
     "swizzle": "docusaurus swizzle",

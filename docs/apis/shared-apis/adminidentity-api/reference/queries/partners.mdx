@@ -1,0 +1,38 @@
+---
+id: partners
+title: partners
+---
+
+Get a list of partners
+
+```graphql
+partners(
+  first: Int = 0
+  last: Int = 0
+  before: String
+  after: String
+): PartnerConnection!
+
+```
+
+### Arguments
+
+#### `first` ([`Int`](/apis/shared-apis/adminidentity-api/reference/scalars/int))
+
+Returns the first n elements from the list.
+
+#### `last` ([`Int`](/apis/shared-apis/adminidentity-api/reference/scalars/int))
+
+Returns the last n elements from the list.
+
+#### `before` ([`String`](/apis/shared-apis/adminidentity-api/reference/scalars/string))
+
+Returns the elements in the list that come before the specified cursor.
+
+#### `after` ([`String`](/apis/shared-apis/adminidentity-api/reference/scalars/string))
+
+Returns the elements in the list that come after the specified cursor.
+
+### Type
+
+#### [`PartnerConnection`](/apis/shared-apis/adminidentity-api/reference/objects/partner-connection)
