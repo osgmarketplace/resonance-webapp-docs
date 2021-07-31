@@ -1,0 +1,28 @@
+---
+id: supplier-create-input
+title: SupplierCreateInput
+---
+
+The necessary fields in order to create a new supplier
+
+```graphql
+type SupplierCreateInput {
+  name: String!
+  description: String
+  defaultLocale: ResonanceLocale!
+  defaultCurrency: String!
+  purchaseOrderNotification: PurchaseOrderNotificationInput!
+}
+```
+
+### Fields
+
+#### `name` ([`String!`](/developers/supplier-apis/supply-api/reference/scalars/string))
+
+#### `description` ([`String`](/developers/supplier-apis/supply-api/reference/scalars/string))
+
+#### `defaultLocale` ([`ResonanceLocale!`](/developers/supplier-apis/supply-api/reference/enums/resonance-locale))
+
+#### `defaultCurrency` ([`String!`](/developers/supplier-apis/supply-api/reference/scalars/string))
+
+#### `purchaseOrderNotification` ([`PurchaseOrderNotificationInput!`](/developers/supplier-apis/supply-api/reference/inputs/purchase-order-notification-input))

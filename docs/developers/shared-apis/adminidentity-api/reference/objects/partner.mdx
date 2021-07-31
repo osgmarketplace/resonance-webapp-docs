@@ -1,0 +1,57 @@
+---
+id: partner
+title: Partner
+---
+
+Represents a Partner, the parent to an App, and the parent most component for Development
+
+```graphql
+type Partner {
+  partnerId: ID!
+  name: String!
+  description: String
+  ownerUserName: String!
+  createdAt: String!
+  updatedAt: String!
+  users(
+    first: Int = 0
+    last: Int = 0
+    before: String
+    after: String
+  ): UserConnection!
+}
+```
+
+### Fields
+
+#### `partnerId` ([`ID!`](/developers/shared-apis/adminidentity-api/reference/scalars/id))
+
+#### `name` ([`String!`](/developers/shared-apis/adminidentity-api/reference/scalars/string))
+
+#### `description` ([`String`](/developers/shared-apis/adminidentity-api/reference/scalars/string))
+
+#### `ownerUserName` ([`String!`](/developers/shared-apis/adminidentity-api/reference/scalars/string))
+
+#### `createdAt` ([`String!`](/developers/shared-apis/adminidentity-api/reference/scalars/string))
+
+#### `updatedAt` ([`String!`](/developers/shared-apis/adminidentity-api/reference/scalars/string))
+
+#### `users` ([`UserConnection!`](/developers/shared-apis/adminidentity-api/reference/objects/user-connection))
+
+Return the users associated with this partner
+
+- ##### `first` ([`Int`](/developers/shared-apis/adminidentity-api/reference/scalars/int))
+
+Returns the first n elements from the list.
+
+- ##### `last` ([`Int`](/developers/shared-apis/adminidentity-api/reference/scalars/int))
+
+Returns the last n elements from the list.
+
+- ##### `before` ([`String`](/developers/shared-apis/adminidentity-api/reference/scalars/string))
+
+Returns the elements in the list that come before the specified cursor.
+
+- ##### `after` ([`String`](/developers/shared-apis/adminidentity-api/reference/scalars/string))
+
+Returns the elements in the list that come after the specified cursor.

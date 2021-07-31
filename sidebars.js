@@ -15,7 +15,7 @@ module.exports = {
     apisSidebar: [
         {
             type: "doc",
-            id: "apis/overall-concepts",
+            id: "developers/overall-concepts",
             label: "Overall Concepts",
         },
         {
@@ -29,7 +29,7 @@ module.exports = {
                         {
                             type: "doc",
                             label: "Concepts",
-                            id: "apis/demandhq-apis/demand-api/concepts",
+                            id: "developers/demandhq-apis/demand-api/concepts",
                         },
                     ],
                 },
@@ -40,7 +40,7 @@ module.exports = {
                         {
                             type: "doc",
                             label: "Concepts",
-                            id: "apis/demandhq-apis/storefront-api/concepts",
+                            id: "developers/demandhq-apis/storefront-api/concepts",
                         },
                     ],
                 },
@@ -52,12 +52,31 @@ module.exports = {
             items: [
                 {
                     type: "category",
+                    label: "Admin Identity API",
+                    items: [
+                        {
+                            type: "doc",
+                            id: "developers/shared-apis/adminidentity-api/concepts",
+                            label: "Concepts",
+                        },
+                        {
+                            type: "category",
+                            label: "Reference",
+                            items: [
+                                ...require("./docs/developers/shared-apis/adminidentity-api/reference/sidebar-schema.js")
+                                    .schemaSidebar,
+                            ],
+                        },
+                    ],
+                },
+                {
+                    type: "category",
                     label: "Events API",
                     items: [
                         {
                             type: "doc",
                             label: "Concepts",
-                            id: "apis/shared-apis/events-api/concepts",
+                            id: "developers/shared-apis/events-api/concepts",
                         },
                     ],
                 },
@@ -73,14 +92,14 @@ module.exports = {
                     items: [
                         {
                             type: "doc",
-                            id: "apis/supplier-apis/supply-api/concepts",
+                            id: "developers/supplier-apis/supply-api/concepts",
                             label: "Concepts",
                         },
                         {
                             type: "category",
                             label: "Reference",
                             items: [
-                                ...require("./docs/apis/supplier-apis/supply-api/reference/sidebar-schema.js")
+                                ...require("./docs/developers/supplier-apis/supply-api/reference/sidebar-schema.js")
                                     .schemaSidebar,
                             ],
                         },
