@@ -7,7 +7,7 @@ module.exports = {
     onBrokenLinks: "throw",
     onBrokenMarkdownLinks: "warn",
     favicon: "img/favicon.ico",
-    organizationName: "Resonance", // Usually your GitHub org/user name.
+    organizationName: "obfns", // Usually your GitHub org/user name.
     projectName: "resonance-webapp-docs", // Usually your repo name.
     themeConfig: {
         navbar: {
@@ -25,9 +25,9 @@ module.exports = {
                 },
                 {
                     type: "doc",
-                    docId: "apis/overall-concepts",
+                    docId: "developers/overall-concepts",
                     position: "left",
-                    label: "API Reference",
+                    label: "Developers",
                 },
                 {
                     href: "https://github.com/obfns/resonance-webapp-docs",
@@ -47,8 +47,8 @@ module.exports = {
                             to: "/concepts/intro",
                         },
                         {
-                            label: "APIs",
-                            to: "/apis/overall-concepts",
+                            label: "Developers",
+                            to: "/developers/overall-concepts",
                         },
                     ],
                 },
@@ -95,7 +95,7 @@ module.exports = {
                 id: "adminidentity-api",
                 schema: "./adminidentityschema.graphql",
                 rootPath: "./docs",
-                baseURL: "apis/shared-apis/adminidentity-api/reference",
+                baseURL: "developers/shared-apis/adminidentity-api/reference",
             },
         ],
         [
@@ -104,7 +104,7 @@ module.exports = {
                 id: "supply-api",
                 schema: "./supplyschema.graphql",
                 rootPath: "./docs",
-                baseURL: "apis/supplier-apis/supply-api/reference",
+                baseURL: "developers/supplier-apis/supply-api/reference",
             },
         ],
     ],
