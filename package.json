@@ -1,6 +1,6 @@
 {
   "name": "resonance-webapp-docs",
-  "version": "0.9.0",
+  "version": "0.10.0",
   "private": true,
   "scripts": {
     "docusaurus": "docusaurus",
@@ -19,6 +19,7 @@
     "type-check": "tsc --noEmit"
   },
   "dependencies": {
+    "@cmfcmf/docusaurus-search-local": "^0.6.4",
     "@docusaurus/core": "2.0.0-beta.4",
     "@docusaurus/preset-classic": "2.0.0-beta.4",
     "@edno/docusaurus2-graphql-doc-generator": "1.2.2",
