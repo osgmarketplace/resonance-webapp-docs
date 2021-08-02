@@ -72,13 +72,6 @@ module.exports = {
                 docs: {
                     routeBasePath: "/",
                     sidebarPath: require.resolve("./sidebars.js"),
-                    // Please change this to your repo.
-                    editUrl:
-                        "https://github.com/obfns/resonance-webapp-docs/tree/main",
-                },
-                blog: {
-                    showReadingTime: true,
-                    // Please change this to your repo.
                     editUrl:
                         "https://github.com/obfns/resonance-webapp-docs/tree/main",
                 },
@@ -89,6 +82,14 @@ module.exports = {
         ],
     ],
     plugins: [
+        [
+            "@cmfcmf/docusaurus-search-local",
+            {
+                docsRouteBasePath: "/",
+                indexDocSidebarParentCategories: 3,
+                indexBlog: false,
+            },
+        ],
         [
             "@edno/docusaurus2-graphql-doc-generator",
             {
