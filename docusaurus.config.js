@@ -96,7 +96,8 @@ module.exports = {
                 id: "adminidentity-api",
                 schema: "./adminidentityschema.graphql",
                 rootPath: "./docs",
-                baseURL: "developers/shared-apis/adminidentity-api/reference",
+                baseURL:
+                    "developers/shared-apis/adminidentity-api/graphql/reference",
             },
         ],
         [

@@ -1,4 +1,5 @@
 ---
+title: Overall API Concepts
 sidebar_position: 1
 ---
 
@@ -25,3 +26,5 @@ GraphQL related developer tools are a very common way to discover API functional
 -   [GraphiQL](https://github.com/graphql/graphiql)
 -   [GraphQL Playground](https://github.com/graphql/graphql-playground)
 -   [Apollo Studio](https://www.apollographql.com/docs/studio/explorer/)
+
+Note that you must authenticate in order to use these tools, however. A token can be obtained in the Identity Portal Developer Settings.

@@ -16,7 +16,12 @@ module.exports = {
         {
             type: "doc",
             id: "developers/overall-concepts",
-            label: "Overall Concepts",
+            label: "Overall API Concepts",
+        },
+        {
+            type: "doc",
+            id: "developers/authentication",
+            label: "Authentication",
         },
         {
             type: "category",
@@ -63,7 +68,7 @@ module.exports = {
                             type: "category",
                             label: "Reference",
                             items: [
-                                ...require("./docs/developers/shared-apis/adminidentity-api/reference/sidebar-schema.js")
+                                ...require("./docs/developers/shared-apis/adminidentity-api/graphql/reference/sidebar-schema.js")
                                     .schemaSidebar,
                             ],
                         },
