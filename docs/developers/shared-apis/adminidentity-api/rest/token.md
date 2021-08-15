@@ -7,6 +7,12 @@ sidebar_position: 2
 
 This route is one of the few REST routes in the APIs, and is used to get access tokens for apps.
 
+## Rate Limiting
+
+**Warning** This route is heavily rate limited in order to curb brute force attacks. You are allowed to make 5 calls to this route every 10 seconds, at which point you will receive a 429 (Too Many Requests). Please setup your apps to have a single instance create and refresh tokens and the other instances share this token.
+
+Since this route does not have a token, IP address is used as the identifier.
+
 ## Method
 
 This route only accepts POST calls.
