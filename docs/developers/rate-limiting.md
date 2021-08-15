@@ -19,4 +19,4 @@ Because we have high limits, we reserve the right to contact and potentially thr
 
 ## Storefront API
 
-The Storefront API has extremely high limits, but is subject to fair use. Please ensure you are using it responsibly (caching where possible), as we reserve the right to the right to impose smaller limits on extreme use.
+The Storefront API has extremely high limits, but is subject to fair use. Please ensure you are using it responsibly (caching and bot control where possible), as we reserve the right to the right to impose smaller limits on extreme use.
