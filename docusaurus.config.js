@@ -106,7 +106,8 @@ module.exports = {
                 id: "supply-api",
                 schema: "./supplyschema.graphql",
                 rootPath: "./docs",
-                baseURL: "developers/supplier-apis/supply-api/reference",
+                baseURL:
+                    "developers/supplier-apis/supply-api/graphql/reference",
             },
         ],
     ],

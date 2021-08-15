@@ -104,7 +104,7 @@ module.exports = {
                             type: "category",
                             label: "Reference",
                             items: [
-                                ...require("./docs/developers/supplier-apis/supply-api/reference/sidebar-schema.js")
+                                ...require("./docs/developers/supplier-apis/supply-api/graphql/reference/sidebar-schema.js")
                                     .schemaSidebar,
                             ],
                         },
