@@ -1,0 +1,43 @@
+---
+id: resonance-event
+title: ResonanceEvent
+---
+
+Main object for the Events domain, captures a single event anywhere in Resonance
+
+```graphql
+type ResonanceEvent {
+  account: String
+  detail: ResonanceEventDetail!
+  detailType: String!
+  id: ID!
+  region: String
+  time: String!
+}
+```
+
+### Fields
+
+#### `account` ([`String`](/developers/shared-apis/events-api/graphql/reference/scalars/string))
+
+Meaningless
+
+#### `detail` ([`ResonanceEventDetail!`](/developers/shared-apis/events-api/graphql/reference/objects/resonance-event-detail))
+
+Main object containing the event information
+
+#### `detailType` ([`String!`](/developers/shared-apis/events-api/graphql/reference/scalars/string))
+
+This is the scope of the event, i.e. suppliervariant/created
+
+#### `id` ([`ID!`](/developers/shared-apis/events-api/graphql/reference/scalars/id))
+
+Not a proper Resonance ID, just a UUID
+
+#### `region` ([`String`](/developers/shared-apis/events-api/graphql/reference/scalars/string))
+
+Meaningless
+
+#### `time` ([`String!`](/developers/shared-apis/events-api/graphql/reference/scalars/string))
+
+The timestamp for the event, ISO UTC
