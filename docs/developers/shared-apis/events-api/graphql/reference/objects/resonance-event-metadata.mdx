@@ -1,0 +1,30 @@
+---
+id: resonance-event-metadata
+title: ResonanceEventMetadata
+---
+
+Metadata about the event, used for categorizing
+
+```graphql
+type ResonanceEventMetadata {
+  domain: String!
+  domainEntityId: String!
+  entityId: String
+  itemType: String!
+  muationType: ResonanceEventMutationType
+}
+```
+
+### Fields
+
+#### `domain` ([`String!`](/developers/shared-apis/events-api/graphql/reference/scalars/string))
+
+#### `domainEntityId` ([`String!`](/developers/shared-apis/events-api/graphql/reference/scalars/string))
+
+This is most typically domainHqId or supplierId
+
+#### `entityId` ([`String`](/developers/shared-apis/events-api/graphql/reference/scalars/string))
+
+#### `itemType` ([`String!`](/developers/shared-apis/events-api/graphql/reference/scalars/string))
+
+#### `muationType` ([`ResonanceEventMutationType`](/developers/shared-apis/events-api/graphql/reference/enums/resonance-event-mutation-type))

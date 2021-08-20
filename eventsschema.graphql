@@ -1,0 +1,114 @@
+"""Exposes a URL that specifies the behaviour of this scalar."""
+directive @specifiedBy(
+  """The URL that specifies the behaviour of this scalar."""
+  url: String!
+) on SCALAR
+
+"""
+The `JSONObject` scalar type represents JSON objects as specified by [ECMA-404](http://www.ecma-international.org/publications/files/ECMA-ST/ECMA-404.pdf).
+"""
+scalar JSONObject
+
+"""The root mutation type for the Supply domain"""
+type Mutation {
+  """Nothing to see here, just a workaround for Apollo Server"""
+  _makeEmpty(id: String): String
+}
+
+"""Information on Pagination"""
+type PageInfo {
+  """The cursor to use when paginating forwards."""
+  endCursor: String
+
+  """The cursor to use when paginating backwards."""
+  startCursor: String
+}
+
+"""The root query type for the Supply domain"""
+type Query {
+  """Nothing to see here, just a workaround for Apollo Server"""
+  _empty: String
+
+  """Get a list of events"""
+  events(
+    """This is most typically domainHqId or supplierId"""
+    domainEntityId: String!
+
+    """This is the id of the item the event occurred for, i.e. productId"""
+    entityId: String!
+
+    """Returns the first n elements from the list."""
+    first: Int
+
+    """Returns the last n elements from the list."""
+    last: Int
+
+    """
+    Returns the elements in the list that come before the specified cursor.
+    """
+    before: String
+
+    """Returns the elements in the list that come after the specified cursor."""
+    after: String
+  ): ResonanceEventConnection!
+}
+
+"""
+Main object for the Events domain, captures a single event anywhere in Resonance
+"""
+type ResonanceEvent {
+  """Meaningless"""
+  account: String
+
+  """Main object containing the event information"""
+  detail: ResonanceEventDetail!
+
+  """This is the scope of the event, i.e. suppliervariant/created"""
+  detailType: String!
+
+  """Not a proper Resonance ID, just a UUID"""
+  id: ID!
+
+  """Meaningless"""
+  region: String
+
+  """The timestamp for the event, ISO UTC"""
+  time: String!
+}
+
+"""Lists of Resonance Events"""
+type ResonanceEventConnection {
+  edges: [ResonanceEventEdge]
+  nodes: [ResonanceEvent]
+  pageInfo: PageInfo!
+}
+
+"""Event object containing both data and metadata"""
+type ResonanceEventDetail {
+  data: JSONObject!
+  metadata: ResonanceEventMetadata!
+}
+
+"""ResonanceEvent Edge"""
+type ResonanceEventEdge {
+  node: ResonanceEvent
+}
+
+"""Metadata about the event, used for categorizing"""
+type ResonanceEventMetadata {
+  domain: String!
+
+  """This is most typically domainHqId or supplierId"""
+  domainEntityId: String!
+  entityId: String
+  itemType: String!
+  muationType: ResonanceEventMutationType
+}
+
+"""What this event accomplished"""
+enum ResonanceEventMutationType {
+  CREATED
+  DELETED
+  UPDATED
+}
+
