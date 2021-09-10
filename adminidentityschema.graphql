@@ -1,9 +1,3 @@
-"""Exposes a URL that specifies the behaviour of this scalar."""
-directive @specifiedBy(
-  """The URL that specifies the behaviour of this scalar."""
-  url: String!
-) on SCALAR
-
 """The root mutation type for the AdminIdentity domain"""
 type Mutation {
   """Nothing to see here, just a workaround for Apollo Server"""
@@ -25,28 +19,28 @@ type PageInfo {
 Represents a Partner, the parent to an App, and the parent most component for Development
 """
 type Partner {
-  partnerId: ID!
-  name: String!
-  description: String
-  ownerUserName: String!
   createdAt: String!
+  description: String
+  name: String!
+  ownerUserName: String!
+  partnerId: ID!
   updatedAt: String!
 
   """Return the users associated with this partner"""
   users(
-    """Returns the first n elements from the list."""
-    first: Int
-
-    """Returns the last n elements from the list."""
-    last: Int
+    """Returns the elements in the list that come after the specified cursor."""
+    after: String
 
     """
     Returns the elements in the list that come before the specified cursor.
     """
     before: String
 
-    """Returns the elements in the list that come after the specified cursor."""
-    after: String
+    """Returns the first n elements from the list."""
+    first: Int
+
+    """Returns the last n elements from the list."""
+    last: Int
   ): UserConnection!
 }
 
@@ -58,8 +52,8 @@ type PartnerConnection {
 
 """The necessary fields in order to create a new partner"""
 input PartnerCreateInput {
-  name: String!
   description: String
+  name: String!
 }
 
 type PartnerEdge {
@@ -79,34 +73,45 @@ type Query {
 
   """Get a list of partners"""
   partners(
-    """Returns the first n elements from the list."""
-    first: Int
-
-    """Returns the last n elements from the list."""
-    last: Int
+    """Returns the elements in the list that come after the specified cursor."""
+    after: String
 
     """
     Returns the elements in the list that come before the specified cursor.
     """
     before: String
 
-    """Returns the elements in the list that come after the specified cursor."""
-    after: String
+    """Returns the first n elements from the list."""
+    first: Int
+
+    """Returns the last n elements from the list."""
+    last: Int
   ): PartnerConnection!
 }
 
 """Type representing a User, or human entity"""
 type User {
-  userName: ID!
+  address: String
+
+  """
+  End-User's birthday, represented as an ISO 8601:2004 YYYY-MM-DD format. The
+  year MAY be 0000, indicating that it is omitted. To represent only the year,
+  YYYY format is allowed. Note that depending on the underlying platform's date
+  related function, providing just year can result in varying month and day, so
+  the implementers need to take this factor into account to correctly process the dates.
+  """
+  birthdate: String
   createdAt: String
-  updatedAt: String
   email: String!
 
   """string of true or false"""
   emailVerified: String
+  familyName: String
+  gender: String
+  givenName: String
 
-  """Same as userName"""
-  sub: String!
+  """String representing the User's locale, i.e. 'en-us'"""
+  locale: String
 
   """
   End-User's preferred telephone number. E.164 [E.164] is RECOMMENDED as the
@@ -119,9 +124,6 @@ type User {
 
   """string of true or false"""
   phoneNumberVerified: String
-  address: String
-  givenName: String
-  familyName: String
 
   """
   URL of the End-User's profile picture. This URL MUST refer to an image file
@@ -137,24 +139,10 @@ type User {
   """
   profile: String
 
-  """
-  Timezone - String from zoneinfo time zone database representing the End-User's
-  time zone. For example, Europe/Paris or America/Los_Angeles.
-  """
-  zoneinfo: String
-
-  """
-  End-User's birthday, represented as an ISO 8601:2004 YYYY-MM-DD format. The
-  year MAY be 0000, indicating that it is omitted. To represent only the year,
-  YYYY format is allowed. Note that depending on the underlying platform's date
-  related function, providing just year can result in varying month and day, so
-  the implementers need to take this factor into account to correctly process the dates.
-  """
-  birthdate: String
-
-  """String representing the User's locale, i.e. 'en-us'"""
-  locale: String
-  gender: String
+  """Same as userName"""
+  sub: String!
+  updatedAt: String
+  userName: ID!
 
   """
   URL of the End-User's Web page or blog. This Web page SHOULD contain
@@ -162,6 +150,12 @@ type User {
   affiliated with.
   """
   website: String
+
+  """
+  Timezone - String from zoneinfo time zone database representing the End-User's
+  time zone. For example, Europe/Paris or America/Los_Angeles.
+  """
+  zoneinfo: String
 }
 
 type UserConnection {
@@ -173,4 +167,3 @@ type UserConnection {
 type UserEdge {
   node: User
 }
-
