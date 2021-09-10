@@ -90,25 +90,25 @@ module.exports = {
                 indexBlog: false,
             },
         ],
-        // [
-        //     "@edno/docusaurus2-graphql-doc-generator",
-        //     {
-        //         id: "adminidentity-api",
-        //         schema: "./adminidentityschema.graphql",
-        //         rootPath: "./docs",
-        //         baseURL:
-        //             "developers/shared-apis/adminidentity-api/graphql/reference",
-        //     },
-        // ],
-        // [
-        //     "@edno/docusaurus2-graphql-doc-generator",
-        //     {
-        //         id: "events-api",
-        //         schema: "./eventsschema.graphql",
-        //         rootPath: "./docs",
-        //         baseURL: "developers/shared-apis/events-api/graphql/reference",
-        //     },
-        // ],
+        [
+            "@edno/docusaurus2-graphql-doc-generator",
+            {
+                id: "adminidentity-api",
+                schema: "./adminidentityschema.graphql",
+                rootPath: "./docs",
+                baseURL:
+                    "developers/shared-apis/adminidentity-api/graphql/reference",
+            },
+        ],
+        [
+            "@edno/docusaurus2-graphql-doc-generator",
+            {
+                id: "events-api",
+                schema: "./eventsschema.graphql",
+                rootPath: "./docs",
+                baseURL: "developers/shared-apis/events-api/graphql/reference",
+            },
+        ],
         [
             "@edno/docusaurus2-graphql-doc-generator",
             {
