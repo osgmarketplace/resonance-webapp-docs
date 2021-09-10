@@ -1,0 +1,28 @@
+---
+id: delete-supplier-identity
+title: deleteSupplierIdentity
+---
+
+Remove a SupplierIdentity from a Supplier (remove user permissions)
+
+Requires the supplieridentity/write permission on the given Supplier
+
+```graphql
+deleteSupplierIdentity(
+  supplierId: ID!
+  userName: ID!
+): SupplierIdentityDeleteOutput
+
+```
+
+### Arguments
+
+#### `supplierId` ([`ID!`](/developers/supplier-apis/supply-api/graphql/reference/scalars/id))
+
+#### `userName` ([`ID!`](/developers/supplier-apis/supply-api/graphql/reference/scalars/id))
+
+### Type
+
+#### [`SupplierIdentityDeleteOutput`](/developers/supplier-apis/supply-api/graphql/reference/objects/supplier-identity-delete-output)
+
+Returned object from deleteSupplierIdentity

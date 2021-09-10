@@ -1,0 +1,23 @@
+---
+id: supplier-variant-options
+title: SupplierVariantOptions
+---
+
+SupplierVariantOptions, with 2 and 3 being optional.
+VariantTitle is created by joining these values with " - " separating, i.e. "Blue - Small - Youth"
+
+```graphql
+type SupplierVariantOptions {
+  option1: SupplierVariantOption!
+  option2: SupplierVariantOption
+  option3: SupplierVariantOption
+}
+```
+
+### Fields
+
+#### `option1` ([`SupplierVariantOption!`](/developers/supplier-apis/supply-api/graphql/reference/objects/supplier-variant-option))
+
+#### `option2` ([`SupplierVariantOption`](/developers/supplier-apis/supply-api/graphql/reference/objects/supplier-variant-option))
+
+#### `option3` ([`SupplierVariantOption`](/developers/supplier-apis/supply-api/graphql/reference/objects/supplier-variant-option))

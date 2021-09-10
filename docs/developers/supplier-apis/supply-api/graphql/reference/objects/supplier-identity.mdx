@@ -1,0 +1,30 @@
+---
+id: supplier-identity
+title: SupplierIdentity
+---
+
+Indicates a User or App has permissions on a Supplier
+
+```graphql
+type SupplierIdentity {
+  identityType: SupplierIdentityType!
+  permissions: SupplierIdentityPermissions!
+  supplierId: ID!
+  updatedBy: String!
+  userName: ID!
+}
+```
+
+### Fields
+
+#### `identityType` ([`SupplierIdentityType!`](/developers/supplier-apis/supply-api/graphql/reference/enums/supplier-identity-type))
+
+#### `permissions` ([`SupplierIdentityPermissions!`](/developers/supplier-apis/supply-api/graphql/reference/objects/supplier-identity-permissions))
+
+#### `supplierId` ([`ID!`](/developers/supplier-apis/supply-api/graphql/reference/scalars/id))
+
+#### `updatedBy` ([`String!`](/developers/supplier-apis/supply-api/graphql/reference/scalars/string))
+
+#### `userName` ([`ID!`](/developers/supplier-apis/supply-api/graphql/reference/scalars/id))
+
+Could be a userName or an appClientId

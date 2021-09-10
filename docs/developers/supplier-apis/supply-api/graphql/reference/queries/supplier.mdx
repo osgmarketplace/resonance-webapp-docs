@@ -5,6 +5,8 @@ title: supplier
 
 Get a single supplier by SupplierId
 
+Requires supplier/read permission on the requesting user
+
 ```graphql
 supplier(
   supplierId: ID!
@@ -19,3 +21,5 @@ supplier(
 ### Type
 
 #### [`Supplier`](/developers/supplier-apis/supply-api/graphql/reference/objects/supplier)
+
+The parent-most entity of the Supplier Domain

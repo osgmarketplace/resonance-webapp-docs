@@ -7,22 +7,22 @@ The necessary fields in order to create a new supplier
 
 ```graphql
 type SupplierCreateInput {
-  name: String!
-  description: String
-  defaultLocale: ResonanceLocale!
   defaultCurrency: String!
+  defaultLocale: ResonanceLocale!
+  description: String
+  name: String!
   purchaseOrderNotification: PurchaseOrderNotificationInput!
 }
 ```
 
 ### Fields
 
-#### `name` ([`String!`](/developers/supplier-apis/supply-api/graphql/reference/scalars/string))
-
-#### `description` ([`String`](/developers/supplier-apis/supply-api/graphql/reference/scalars/string))
+#### `defaultCurrency` ([`String!`](/developers/supplier-apis/supply-api/graphql/reference/scalars/string))
 
 #### `defaultLocale` ([`ResonanceLocale!`](/developers/supplier-apis/supply-api/graphql/reference/enums/resonance-locale))
 
-#### `defaultCurrency` ([`String!`](/developers/supplier-apis/supply-api/graphql/reference/scalars/string))
+#### `description` ([`String`](/developers/supplier-apis/supply-api/graphql/reference/scalars/string))
+
+#### `name` ([`String!`](/developers/supplier-apis/supply-api/graphql/reference/scalars/string))
 
 #### `purchaseOrderNotification` ([`PurchaseOrderNotificationInput!`](/developers/supplier-apis/supply-api/graphql/reference/inputs/purchase-order-notification-input))

@@ -5,8 +5,36 @@ type Mutation {
 
   """Create a new supplier"""
   createSupplier(input: SupplierCreateInput!): Supplier
+
+  """
+  Add a new SupplierIdentity to a Supplier (give a user permissions)
+  
+  Requires the supplieridentity/write permission on the given Supplier
+  """
+  createSupplierIdentity(input: SupplierIdentityCreateInput!): SupplierIdentity
+
+  """Create a new supplierVariant"""
+  createSupplierVariant(input: SupplierVariantCreateInput!): SupplierVariant
+
+  """
+  Remove a SupplierIdentity from a Supplier (remove user permissions)
+  
+  Requires the supplieridentity/write permission on the given Supplier
+  """
+  deleteSupplierIdentity(supplierId: ID!, userName: ID!): SupplierIdentityDeleteOutput
+
+  """
+  Update a SupplierIdentity for a Supplier (give a user permissions)
+  
+  Requires the supplieridentity/write permission on the given Supplier
+  """
+  updateSupplierIdentity(input: SupplierIdentityUpdateInput!): SupplierIdentity
+
+  """Update an existing supplierVariant"""
+  updateSupplierVariant(input: SupplierVariantUpdateInput!): SupplierVariant
 }
 
+"""Information on Pagination"""
 type PageInfo {
   """The cursor to use when paginating forwards."""
   endCursor: String
@@ -39,10 +67,25 @@ type Query {
   """Nothing to see here, just a workaround for Apollo Server"""
   _empty: String
 
-  """Get a single supplier by SupplierId"""
+  """
+  Get a single supplier by SupplierId
+  
+  Requires supplier/read permission on the requesting user
+  """
   supplier(supplierId: ID!): Supplier
 
-  """Get a list of suppliers"""
+  """
+  Get a single supplierVariant by SupplierVariantId
+  
+  Requires suppliervariant/read permission on the requesting user
+  """
+  supplierVariant(supplierVariantId: ID!): SupplierVariant
+
+  """
+  Get a list of suppliers
+  
+  Requires supplier/read permission on each supplier for the requesting user
+  """
   suppliers(
     """Returns the elements in the list that come after the specified cursor."""
     after: String
@@ -72,6 +115,7 @@ enum ResonanceLocale {
   EN_US
 }
 
+"""The parent-most entity of the Supplier Domain"""
 type Supplier {
   createdAt: String!
   defaultCurrency: ResonanceCurrency!
@@ -82,9 +126,71 @@ type Supplier {
   purchaseOrderNotification: PurchaseOrderNotification!
   status: SupplierStatus!
   supplierId: ID!
+
+  """
+  Provided through SupplierIdentity Chained Resolver
+  Returns SupplierIdentities for the given Supplier
+  
+  Requires supplieridentity/read permission on the requesting user
+  """
+  supplierIdentities(
+    """Returns the elements in the list that come after the specified cursor."""
+    after: String
+
+    """
+    Returns the elements in the list that come before the specified cursor.
+    """
+    before: String
+
+    """Returns the first n elements from the list."""
+    first: Int
+
+    """Filter the results to a specific identity type (optional)"""
+    identityType: SupplierIdentityType
+
+    """Returns the last n elements from the list."""
+    last: Int
+  ): SupplierIdentityConnection!
+
+  """
+  Provided through SupplierIdentity Chained Resolver
+  Returns a single SupplierIdentity for the given Supplier
+  
+  Requires supplieridentity/read permission on the requesting user
+  """
+  supplierIdentity(userName: ID!): SupplierIdentity
+
+  """
+  Get a single supplierVariant by SupplierVariantId
+  
+  Requires suppliervariant/read permission on the requesting user
+  """
+  supplierVariant(supplierVariantId: ID!): SupplierVariant
+
+  """
+  Get a list of supplierVariants
+  
+  Requires suppliervariant/read permission on the supplier for the requesting user
+  """
+  supplierVariants(
+    """Returns the elements in the list that come after the specified cursor."""
+    after: String
+
+    """
+    Returns the elements in the list that come before the specified cursor.
+    """
+    before: String
+
+    """Returns the first n elements from the list."""
+    first: Int
+
+    """Returns the last n elements from the list."""
+    last: Int
+  ): SupplierVariantConnection!
   updatedAt: String!
 }
 
+"""Paginate through Suppliers"""
 type SupplierConnection {
   edges: [SupplierEdge]
   nodes: [Supplier]
@@ -100,12 +206,212 @@ input SupplierCreateInput {
   purchaseOrderNotification: PurchaseOrderNotificationInput!
 }
 
+"""One edge producing one Supplier Node"""
 type SupplierEdge {
   node: Supplier
+}
+
+"""Indicates a User or App has permissions on a Supplier"""
+type SupplierIdentity {
+  identityType: SupplierIdentityType!
+  permissions: SupplierIdentityPermissions!
+  supplierId: ID!
+  updatedBy: String!
+
+  """Could be a userName or an appClientId"""
+  userName: ID!
+}
+
+"""Paginate through SupplierIdentities"""
+type SupplierIdentityConnection {
+  edges: [SupplierIdentityEdge]
+  nodes: [SupplierIdentity]
+  pageInfo: PageInfo!
+}
+
+"""
+Exactly like SupplierIdentity, but no updatedBy or identityType (always User)
+"""
+input SupplierIdentityCreateInput {
+  """Should always be USER"""
+  identityType: SupplierIdentityType!
+  permissions: SupplierIdentityPermissionsInput!
+  supplierId: ID!
+
+  """Always a user's userName (not appClientId)"""
+  userName: ID!
+}
+
+"""Returned object from deleteSupplierIdentity"""
+type SupplierIdentityDeleteOutput {
+  """supplierId-userName"""
+  deletedId: ID!
+}
+
+"""One edge producing one SupplierIdentity Node"""
+type SupplierIdentityEdge {
+  node: SupplierIdentity
+}
+
+"""
+Indicates which permissions this Identity possesses on a given Supplier
+"""
+type SupplierIdentityPermissions {
+  roles: [String]!
+  scopes: [String]!
+}
+
+"""Exactly like SupplierIdentityPermissions"""
+input SupplierIdentityPermissionsInput {
+  roles: [String]!
+  scopes: [String]!
+}
+
+"""Indicates whether the user type is an app or human user"""
+enum SupplierIdentityType {
+  APP
+  USER
+}
+
+"""
+Exactly like SupplierIdentity, but no updatedBy or identityType (always User)
+"""
+input SupplierIdentityUpdateInput {
+  """Should always be USER"""
+  identityType: SupplierIdentityType!
+  permissions: SupplierIdentityPermissionsInput!
+  supplierId: ID!
+
+  """Always a user's userName (not appClientId)"""
+  userName: ID!
 }
 
 """Indication of whether the Supplier is live and accepting orders"""
 enum SupplierStatus {
   ACTIVE
   ARCHIVED
+}
+
+"""
+The main item of the Supplier Domain, represents a single SKU of a product
+Only the variant level exists, there is no parent product.
+"""
+type SupplierVariant {
+  cost: Float!
+  createdAt: String!
+  externalProductId: String!
+  externalVariantId: String!
+  inventoryPolicy: SupplierVariantInventoryPolicy!
+  inventoryQuantity: Int!
+  inventoryStatus: SupplierVariantInventoryStatus!
+  options: SupplierVariantOptions!
+  productTitle: String!
+  status: SupplierVariantStatus!
+  supplierId: ID!
+  supplierVariantId: ID!
+  updatedAt: String!
+  updatedBy: String!
+}
+
+"""Paginate through SupplierVariants"""
+type SupplierVariantConnection {
+  edges: [SupplierVariantEdge]
+  nodes: [SupplierVariant]
+  pageInfo: PageInfo!
+}
+
+"""The necessary fields in order to create a new supplierVariant"""
+input SupplierVariantCreateInput {
+  cost: Float!
+  externalProductId: String!
+  externalVariantId: String!
+  inventoryPolicy: SupplierVariantInventoryPolicy!
+  inventoryQuantity: Int!
+  inventoryStatus: SupplierVariantInventoryStatus!
+  options: SupplierVariantOptionsInput!
+  productTitle: String!
+  status: SupplierVariantStatus!
+  supplierId: ID!
+}
+
+"""One edge producing one SupplierVariant Node"""
+type SupplierVariantEdge {
+  node: SupplierVariant
+}
+
+"""
+Indicates how to handle inventory, whether a product should or can go out of stock
+"""
+enum SupplierVariantInventoryPolicy {
+  BOTTOMLESS
+  DEFAULT
+}
+
+"""Indicates whether a variant is in or out of stock"""
+enum SupplierVariantInventoryStatus {
+  INSTOCK
+  OUTOFSTOCK
+}
+
+"""
+Label corresponds to the category of the option, i.e. "Size"
+Value corresponds to the variant's choice for that category, i.e. "Smalls"
+"""
+type SupplierVariantOption {
+  label: String!
+  value: String!
+}
+
+"""
+Input for SupplierVariantOption
+Label corresponds to the category of the option, i.e. "Size"
+Value corresponds to the variant's choice for that category, i.e. "Smalls"
+"""
+input SupplierVariantOptionInput {
+  label: String!
+  value: String!
+}
+
+"""
+SupplierVariantOptions, with 2 and 3 being optional.
+VariantTitle is created by joining these values with " - " separating, i.e. "Blue - Small - Youth"
+"""
+type SupplierVariantOptions {
+  option1: SupplierVariantOption!
+  option2: SupplierVariantOption
+  option3: SupplierVariantOption
+}
+
+"""
+Input for SupplierVariantOptions, with 2 and 3 being optional.
+VariantTitle is created by joining these values with " - " separating, i.e. "Blue - Small - Youth"
+"""
+input SupplierVariantOptionsInput {
+  option1: SupplierVariantOptionInput!
+  option2: SupplierVariantOptionInput
+  option3: SupplierVariantOptionInput
+}
+
+"""
+Indication of whether the SupplierVariant is live and able to be ordered
+"""
+enum SupplierVariantStatus {
+  ARCHIVED
+  DRAFT
+  PUBLISHED
+}
+
+"""The necessary fields in order to update a supplierVariant"""
+input SupplierVariantUpdateInput {
+  cost: Float!
+  createdAt: String!
+  externalProductId: String!
+  externalVariantId: String!
+  inventoryPolicy: SupplierVariantInventoryPolicy!
+  inventoryQuantity: Int!
+  inventoryStatus: SupplierVariantInventoryStatus!
+  options: SupplierVariantOptionsInput!
+  productTitle: String!
+  status: SupplierVariantStatus!
+  supplierId: ID!
 }

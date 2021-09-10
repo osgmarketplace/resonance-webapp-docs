@@ -1,0 +1,24 @@
+---
+id: create-supplier-variant
+title: createSupplierVariant
+---
+
+Create a new supplierVariant
+
+```graphql
+createSupplierVariant(
+  input: SupplierVariantCreateInput!
+): SupplierVariant
+
+```
+
+### Arguments
+
+#### `input` ([`SupplierVariantCreateInput!`](/developers/supplier-apis/supply-api/graphql/reference/inputs/supplier-variant-create-input))
+
+### Type
+
+#### [`SupplierVariant`](/developers/supplier-apis/supply-api/graphql/reference/objects/supplier-variant)
+
+The main item of the Supplier Domain, represents a single SKU of a product
+Only the variant level exists, there is no parent product.
