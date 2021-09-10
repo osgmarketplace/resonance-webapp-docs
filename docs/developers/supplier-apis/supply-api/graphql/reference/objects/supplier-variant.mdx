@@ -1,0 +1,56 @@
+---
+id: supplier-variant
+title: SupplierVariant
+---
+
+The main item of the Supplier Domain, represents a single SKU of a product
+Only the variant level exists, there is no parent product.
+
+```graphql
+type SupplierVariant {
+  cost: Float!
+  createdAt: String!
+  externalProductId: String!
+  externalVariantId: String!
+  inventoryPolicy: SupplierVariantInventoryPolicy!
+  inventoryQuantity: Int!
+  inventoryStatus: SupplierVariantInventoryStatus!
+  options: SupplierVariantOptions!
+  productTitle: String!
+  status: SupplierVariantStatus!
+  supplierId: ID!
+  supplierVariantId: ID!
+  updatedAt: String!
+  updatedBy: String!
+}
+```
+
+### Fields
+
+#### `cost` ([`Float!`](/developers/supplier-apis/supply-api/graphql/reference/scalars/float))
+
+#### `createdAt` ([`String!`](/developers/supplier-apis/supply-api/graphql/reference/scalars/string))
+
+#### `externalProductId` ([`String!`](/developers/supplier-apis/supply-api/graphql/reference/scalars/string))
+
+#### `externalVariantId` ([`String!`](/developers/supplier-apis/supply-api/graphql/reference/scalars/string))
+
+#### `inventoryPolicy` ([`SupplierVariantInventoryPolicy!`](/developers/supplier-apis/supply-api/graphql/reference/enums/supplier-variant-inventory-policy))
+
+#### `inventoryQuantity` ([`Int!`](/developers/supplier-apis/supply-api/graphql/reference/scalars/int))
+
+#### `inventoryStatus` ([`SupplierVariantInventoryStatus!`](/developers/supplier-apis/supply-api/graphql/reference/enums/supplier-variant-inventory-status))
+
+#### `options` ([`SupplierVariantOptions!`](/developers/supplier-apis/supply-api/graphql/reference/objects/supplier-variant-options))
+
+#### `productTitle` ([`String!`](/developers/supplier-apis/supply-api/graphql/reference/scalars/string))
+
+#### `status` ([`SupplierVariantStatus!`](/developers/supplier-apis/supply-api/graphql/reference/enums/supplier-variant-status))
+
+#### `supplierId` ([`ID!`](/developers/supplier-apis/supply-api/graphql/reference/scalars/id))
+
+#### `supplierVariantId` ([`ID!`](/developers/supplier-apis/supply-api/graphql/reference/scalars/id))
+
+#### `updatedAt` ([`String!`](/developers/supplier-apis/supply-api/graphql/reference/scalars/string))
+
+#### `updatedBy` ([`String!`](/developers/supplier-apis/supply-api/graphql/reference/scalars/string))

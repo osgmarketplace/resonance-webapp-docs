@@ -1,0 +1,43 @@
+---
+id: supplier-variant-create-input
+title: SupplierVariantCreateInput
+---
+
+The necessary fields in order to create a new supplierVariant
+
+```graphql
+type SupplierVariantCreateInput {
+  cost: Float!
+  externalProductId: String!
+  externalVariantId: String!
+  inventoryPolicy: SupplierVariantInventoryPolicy!
+  inventoryQuantity: Int!
+  inventoryStatus: SupplierVariantInventoryStatus!
+  options: SupplierVariantOptionsInput!
+  productTitle: String!
+  status: SupplierVariantStatus!
+  supplierId: ID!
+}
+```
+
+### Fields
+
+#### `cost` ([`Float!`](/developers/supplier-apis/supply-api/graphql/reference/scalars/float))
+
+#### `externalProductId` ([`String!`](/developers/supplier-apis/supply-api/graphql/reference/scalars/string))
+
+#### `externalVariantId` ([`String!`](/developers/supplier-apis/supply-api/graphql/reference/scalars/string))
+
+#### `inventoryPolicy` ([`SupplierVariantInventoryPolicy!`](/developers/supplier-apis/supply-api/graphql/reference/enums/supplier-variant-inventory-policy))
+
+#### `inventoryQuantity` ([`Int!`](/developers/supplier-apis/supply-api/graphql/reference/scalars/int))
+
+#### `inventoryStatus` ([`SupplierVariantInventoryStatus!`](/developers/supplier-apis/supply-api/graphql/reference/enums/supplier-variant-inventory-status))
+
+#### `options` ([`SupplierVariantOptionsInput!`](/developers/supplier-apis/supply-api/graphql/reference/inputs/supplier-variant-options-input))
+
+#### `productTitle` ([`String!`](/developers/supplier-apis/supply-api/graphql/reference/scalars/string))
+
+#### `status` ([`SupplierVariantStatus!`](/developers/supplier-apis/supply-api/graphql/reference/enums/supplier-variant-status))
+
+#### `supplierId` ([`ID!`](/developers/supplier-apis/supply-api/graphql/reference/scalars/id))

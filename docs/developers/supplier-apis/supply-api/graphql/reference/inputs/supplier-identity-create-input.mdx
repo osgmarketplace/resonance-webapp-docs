@@ -1,0 +1,29 @@
+---
+id: supplier-identity-create-input
+title: SupplierIdentityCreateInput
+---
+
+Exactly like SupplierIdentity, but no updatedBy or identityType (always User)
+
+```graphql
+type SupplierIdentityCreateInput {
+  identityType: SupplierIdentityType!
+  permissions: SupplierIdentityPermissionsInput!
+  supplierId: ID!
+  userName: ID!
+}
+```
+
+### Fields
+
+#### `identityType` ([`SupplierIdentityType!`](/developers/supplier-apis/supply-api/graphql/reference/enums/supplier-identity-type))
+
+Should always be USER
+
+#### `permissions` ([`SupplierIdentityPermissionsInput!`](/developers/supplier-apis/supply-api/graphql/reference/inputs/supplier-identity-permissions-input))
+
+#### `supplierId` ([`ID!`](/developers/supplier-apis/supply-api/graphql/reference/scalars/id))
+
+#### `userName` ([`ID!`](/developers/supplier-apis/supply-api/graphql/reference/scalars/id))
+
+Always a user's userName (not appClientId)

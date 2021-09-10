@@ -5,17 +5,27 @@ title: suppliers
 
 Get a list of suppliers
 
+Requires supplier/read permission on each supplier for the requesting user
+
 ```graphql
 suppliers(
+  after: String
+  before: String
   first: Int = 0
   last: Int = 0
-  before: String
-  after: String
 ): SupplierConnection!
 
 ```
 
 ### Arguments
+
+#### `after` ([`String`](/developers/supplier-apis/supply-api/graphql/reference/scalars/string))
+
+Returns the elements in the list that come after the specified cursor.
+
+#### `before` ([`String`](/developers/supplier-apis/supply-api/graphql/reference/scalars/string))
+
+Returns the elements in the list that come before the specified cursor.
 
 #### `first` ([`Int`](/developers/supplier-apis/supply-api/graphql/reference/scalars/int))
 
@@ -25,14 +35,8 @@ Returns the first n elements from the list.
 
 Returns the last n elements from the list.
 
-#### `before` ([`String`](/developers/supplier-apis/supply-api/graphql/reference/scalars/string))
-
-Returns the elements in the list that come before the specified cursor.
-
-#### `after` ([`String`](/developers/supplier-apis/supply-api/graphql/reference/scalars/string))
-
-Returns the elements in the list that come after the specified cursor.
-
 ### Type
 
 #### [`SupplierConnection`](/developers/supplier-apis/supply-api/graphql/reference/objects/supplier-connection)
+
+Paginate through Suppliers
