@@ -11,7 +11,7 @@ The APIs are split into 3 different categories based on the area of the business
 
 The APIs are split into areas of context (domains):
 
--   [Shared APIs](shared-apis/concepts): This includes the Admin Identity and Events APIs. These APIs are not specific to Supply or Demand, and instead provide cross cutting functionality.
+-   [Shared APIs](shared-apis/concepts): This includes the Admin Identity API. This API is not specific to Supply or Demand, and instead provide cross cutting functionality.
 -   [Supplier APIs](supplier-apis/concepts): This includes the Supply API. In general, these APIs are used to interact with Suppliers, and can be used to manage inventory or purchase orders.
 -   [DemandHQ APIs](demandhq-apis/concepts): This includes a Demand HQ Admin API, as well as a Storefront and Search API. These APIs can be used to interact with Demand HQ's. This is either directly, in the case of the Admin API, or to populate a storefront, in the case of the Storefront and Search APIs.
 

@@ -74,25 +74,6 @@ module.exports = {
                         },
                     ],
                 },
-                {
-                    type: "category",
-                    label: "Events API",
-                    items: [
-                        {
-                            type: "doc",
-                            label: "Concepts",
-                            id: "developers/shared-apis/events-api/concepts",
-                        },
-                        {
-                            type: "category",
-                            label: "Reference",
-                            items: [
-                                ...require("./docs/developers/shared-apis/events-api/graphql/reference/sidebar-schema.js")
-                                    .schemaSidebar,
-                            ],
-                        },
-                    ],
-                },
             ],
         },
         {

@@ -11,7 +11,7 @@ All APIs are rate limited. Any information on this page will be true for every r
 
 We utilize fixed-window rate limiting. In layman's terms, this means that it is based on a clock, not when the user or app takes action. As in, a minute starts at :00 seconds and ends at :59 seconds. This is a simple method of rate limiting that decreases overhead, but does allow for large bursts of API calls if they occur at the end and beginning of a minute. To counteract this, we keep the time period the window lasts short (1 minute). To make it easy on our developers, the limits are quite generous.
 
-## Admin APIs (Demand, Supply, Events)
+## Admin APIs (Demand, Supply)
 
 The rate limit is applied per identity (app client ID), and is set at 1000 calls/min.
 

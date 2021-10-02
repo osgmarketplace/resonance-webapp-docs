@@ -103,15 +103,6 @@ module.exports = {
         [
             "@edno/docusaurus2-graphql-doc-generator",
             {
-                id: "events-api",
-                schema: "./eventsschema.graphql",
-                rootPath: "./docs",
-                baseURL: "developers/shared-apis/events-api/graphql/reference",
-            },
-        ],
-        [
-            "@edno/docusaurus2-graphql-doc-generator",
-            {
                 id: "supply-api",
                 schema: "./supplyschema.graphql",
                 rootPath: "./docs",
