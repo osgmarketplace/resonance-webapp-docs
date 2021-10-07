@@ -3,12 +3,12 @@ id: supplier-identity-update-input
 title: SupplierIdentityUpdateInput
 ---
 
-Exactly like SupplierIdentity, but no updatedBy or identityType (always User)
+ID Fields are required, but all other fields are optional, only included fields will be updated.
 
 ```graphql
 type SupplierIdentityUpdateInput {
-  identityType: SupplierIdentityType!
-  permissions: SupplierIdentityPermissionsInput!
+  identityType: SupplierIdentityType
+  permissions: SupplierIdentityPermissionsInput
   supplierId: ID!
   userName: ID!
 }
@@ -16,11 +16,11 @@ type SupplierIdentityUpdateInput {
 
 ### Fields
 
-#### `identityType` ([`SupplierIdentityType!`](/developers/supplier-apis/supply-api/graphql/reference/enums/supplier-identity-type))
+#### `identityType` ([`SupplierIdentityType`](/developers/supplier-apis/supply-api/graphql/reference/enums/supplier-identity-type))
 
 Should always be USER
 
-#### `permissions` ([`SupplierIdentityPermissionsInput!`](/developers/supplier-apis/supply-api/graphql/reference/inputs/supplier-identity-permissions-input))
+#### `permissions` ([`SupplierIdentityPermissionsInput`](/developers/supplier-apis/supply-api/graphql/reference/inputs/supplier-identity-permissions-input))
 
 #### `supplierId` ([`ID!`](/developers/supplier-apis/supply-api/graphql/reference/scalars/id))
 

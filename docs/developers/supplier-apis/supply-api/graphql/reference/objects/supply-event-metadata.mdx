@@ -1,0 +1,30 @@
+---
+id: supply-event-metadata
+title: SupplyEventMetadata
+---
+
+Items consistent to every event
+
+```graphql
+type SupplyEventMetadata {
+  domain: String!
+  domainEntityId: String!
+  entityId: String
+  itemType: String
+  mutationType: String
+}
+```
+
+### Fields
+
+#### `domain` ([`String!`](/developers/supplier-apis/supply-api/graphql/reference/scalars/string))
+
+#### `domainEntityId` ([`String!`](/developers/supplier-apis/supply-api/graphql/reference/scalars/string))
+
+This is most typically domainHqId or supplierId
+
+#### `entityId` ([`String`](/developers/supplier-apis/supply-api/graphql/reference/scalars/string))
+
+#### `itemType` ([`String`](/developers/supplier-apis/supply-api/graphql/reference/scalars/string))
+
+#### `mutationType` ([`String`](/developers/supplier-apis/supply-api/graphql/reference/scalars/string))

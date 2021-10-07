@@ -1,0 +1,34 @@
+---
+id: supply-event
+title: SupplyEvent
+---
+
+Contains before and after snapshots for every event that occurs within the Supply domain
+
+```graphql
+type SupplyEvent {
+  message: SupplyEventMessage
+  messageId: String!
+  subject: String
+  timestamp: String!
+}
+```
+
+### Fields
+
+#### `message` ([`SupplyEventMessage`](/developers/supplier-apis/supply-api/graphql/reference/objects/supply-event-message))
+
+This is the event data and metadata.
+The data is variable, but most typically contains a newItem and oldItem.
+
+#### `messageId` ([`String!`](/developers/supplier-apis/supply-api/graphql/reference/scalars/string))
+
+UUID
+
+#### `subject` ([`String`](/developers/supplier-apis/supply-api/graphql/reference/scalars/string))
+
+A human-friendly string summarizing the event
+
+#### `timestamp` ([`String!`](/developers/supplier-apis/supply-api/graphql/reference/scalars/string))
+
+ISO Date that the event occurred

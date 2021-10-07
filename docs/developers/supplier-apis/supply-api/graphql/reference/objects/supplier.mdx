@@ -9,7 +9,7 @@ The parent-most entity of the Supplier Domain
 type Supplier {
   createdAt: String!
   defaultCurrency: ResonanceCurrency!
-  defaultLocale: ResonanceLocale!
+  defaultLocaleType: ResonanceLocaleType!
   description: String
   name: String!
   ownerUserName: String!
@@ -32,6 +32,7 @@ type Supplier {
     last: Int = 0
   ): SupplierVariantConnection!
   updatedAt: String!
+  updatedBy: ID!
 }
 ```
 
@@ -41,7 +42,7 @@ type Supplier {
 
 #### `defaultCurrency` ([`ResonanceCurrency!`](/developers/supplier-apis/supply-api/graphql/reference/enums/resonance-currency))
 
-#### `defaultLocale` ([`ResonanceLocale!`](/developers/supplier-apis/supply-api/graphql/reference/enums/resonance-locale))
+#### `defaultLocaleType` ([`ResonanceLocaleType!`](/developers/supplier-apis/supply-api/graphql/reference/enums/resonance-locale-type))
 
 #### `description` ([`String`](/developers/supplier-apis/supply-api/graphql/reference/scalars/string))
 
@@ -60,7 +61,7 @@ type Supplier {
 Provided through SupplierIdentity Chained Resolver
 Returns SupplierIdentities for the given Supplier
 
-Requires supplieridentity/read permission on the requesting user
+Requires supplieridentity/read permission on the requesting identity
 
 - ##### `after` ([`String`](/developers/supplier-apis/supply-api/graphql/reference/scalars/string))
 
@@ -87,7 +88,7 @@ Returns the last n elements from the list.
 Provided through SupplierIdentity Chained Resolver
 Returns a single SupplierIdentity for the given Supplier
 
-Requires supplieridentity/read permission on the requesting user
+Requires supplieridentity/read permission on the requesting identity
 
 - ##### `userName` ([`ID!`](/developers/supplier-apis/supply-api/graphql/reference/scalars/id))
 
@@ -95,15 +96,16 @@ Requires supplieridentity/read permission on the requesting user
 
 Get a single supplierVariant by SupplierVariantId
 
-Requires suppliervariant/read permission on the requesting user
+Requires suppliervariant/read permission on the requesting identity
 
 - ##### `supplierVariantId` ([`ID!`](/developers/supplier-apis/supply-api/graphql/reference/scalars/id))
 
 #### `supplierVariants` ([`SupplierVariantConnection!`](/developers/supplier-apis/supply-api/graphql/reference/objects/supplier-variant-connection))
 
 Get a list of supplierVariants
+Default sort is by updatedAt (first for asc, last for desc).
 
-Requires suppliervariant/read permission on the supplier for the requesting user
+Requires suppliervariant/read permission on the supplier for the requesting identity
 
 - ##### `after` ([`String`](/developers/supplier-apis/supply-api/graphql/reference/scalars/string))
 
@@ -122,3 +124,5 @@ Returns the first n elements from the list.
 Returns the last n elements from the list.
 
 #### `updatedAt` ([`String!`](/developers/supplier-apis/supply-api/graphql/reference/scalars/string))
+
+#### `updatedBy` ([`ID!`](/developers/supplier-apis/supply-api/graphql/reference/scalars/id))

@@ -1,0 +1,28 @@
+---
+id: supplier-variant-image-from-url-input
+title: SupplierVariantImageFromUrlInput
+---
+
+Input object for creating an Image SupplierVariantContentItem from a URL
+
+```graphql
+type SupplierVariantImageFromUrlInput {
+  alt: String!
+  supplierId: ID!
+  supplierVariantId: ID!
+  url: String!
+  variantRelation: SupplierVariantContentRelation!
+}
+```
+
+### Fields
+
+#### `alt` ([`String!`](/developers/supplier-apis/supply-api/graphql/reference/scalars/string))
+
+#### `supplierId` ([`ID!`](/developers/supplier-apis/supply-api/graphql/reference/scalars/id))
+
+#### `supplierVariantId` ([`ID!`](/developers/supplier-apis/supply-api/graphql/reference/scalars/id))
+
+#### `url` ([`String!`](/developers/supplier-apis/supply-api/graphql/reference/scalars/string))
+
+#### `variantRelation` ([`SupplierVariantContentRelation!`](/developers/supplier-apis/supply-api/graphql/reference/enums/supplier-variant-content-relation))

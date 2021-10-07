@@ -3,44 +3,42 @@ id: supplier-variant-update-input
 title: SupplierVariantUpdateInput
 ---
 
-The necessary fields in order to update a supplierVariant
+The necessary fields in order to update a supplierVariant.
+ID fields are required, all other fields are optional, only included fields will be updated.
 
 ```graphql
 type SupplierVariantUpdateInput {
-  cost: Float!
-  createdAt: String!
-  externalProductId: String!
-  externalVariantId: String!
-  inventoryPolicy: SupplierVariantInventoryPolicy!
-  inventoryQuantity: Int!
-  inventoryStatus: SupplierVariantInventoryStatus!
-  options: SupplierVariantOptionsInput!
-  productTitle: String!
-  status: SupplierVariantStatus!
+  externalProductId: String
+  externalVariantId: String
+  inventoryPolicy: SupplierVariantInventoryPolicy
+  inventoryQuantity: Int
+  options: SupplierVariantOptionsInput
+  productTitle: String
+  status: SupplierVariantStatus
   supplierId: ID!
+  supplierVariantId: ID!
+  vendor: String
 }
 ```
 
 ### Fields
 
-#### `cost` ([`Float!`](/developers/supplier-apis/supply-api/graphql/reference/scalars/float))
+#### `externalProductId` ([`String`](/developers/supplier-apis/supply-api/graphql/reference/scalars/string))
 
-#### `createdAt` ([`String!`](/developers/supplier-apis/supply-api/graphql/reference/scalars/string))
+#### `externalVariantId` ([`String`](/developers/supplier-apis/supply-api/graphql/reference/scalars/string))
 
-#### `externalProductId` ([`String!`](/developers/supplier-apis/supply-api/graphql/reference/scalars/string))
+#### `inventoryPolicy` ([`SupplierVariantInventoryPolicy`](/developers/supplier-apis/supply-api/graphql/reference/enums/supplier-variant-inventory-policy))
 
-#### `externalVariantId` ([`String!`](/developers/supplier-apis/supply-api/graphql/reference/scalars/string))
+#### `inventoryQuantity` ([`Int`](/developers/supplier-apis/supply-api/graphql/reference/scalars/int))
 
-#### `inventoryPolicy` ([`SupplierVariantInventoryPolicy!`](/developers/supplier-apis/supply-api/graphql/reference/enums/supplier-variant-inventory-policy))
+#### `options` ([`SupplierVariantOptionsInput`](/developers/supplier-apis/supply-api/graphql/reference/inputs/supplier-variant-options-input))
 
-#### `inventoryQuantity` ([`Int!`](/developers/supplier-apis/supply-api/graphql/reference/scalars/int))
+#### `productTitle` ([`String`](/developers/supplier-apis/supply-api/graphql/reference/scalars/string))
 
-#### `inventoryStatus` ([`SupplierVariantInventoryStatus!`](/developers/supplier-apis/supply-api/graphql/reference/enums/supplier-variant-inventory-status))
-
-#### `options` ([`SupplierVariantOptionsInput!`](/developers/supplier-apis/supply-api/graphql/reference/inputs/supplier-variant-options-input))
-
-#### `productTitle` ([`String!`](/developers/supplier-apis/supply-api/graphql/reference/scalars/string))
-
-#### `status` ([`SupplierVariantStatus!`](/developers/supplier-apis/supply-api/graphql/reference/enums/supplier-variant-status))
+#### `status` ([`SupplierVariantStatus`](/developers/supplier-apis/supply-api/graphql/reference/enums/supplier-variant-status))
 
 #### `supplierId` ([`ID!`](/developers/supplier-apis/supply-api/graphql/reference/scalars/id))
+
+#### `supplierVariantId` ([`ID!`](/developers/supplier-apis/supply-api/graphql/reference/scalars/id))
+
+#### `vendor` ([`String`](/developers/supplier-apis/supply-api/graphql/reference/scalars/string))
