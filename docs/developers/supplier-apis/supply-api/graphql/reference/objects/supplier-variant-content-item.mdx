@@ -1,0 +1,45 @@
+---
+id: supplier-variant-content-item
+title: SupplierVariantContentItem
+---
+
+This has a many to one relationship with SupplierVariant, and provides a connection to the CDN items.
+
+```graphql
+type SupplierVariantContentItem {
+  alt: String!
+  contentItemId: ID!
+  contentKey: String!
+  contentType: SupplierVariantContentType!
+  createdAt: String!
+  supplierId: ID!
+  supplierVariantId: ID!
+  updatedAt: String!
+  updatedBy: String!
+  variantRelation: SupplierVariantContentRelation!
+}
+```
+
+### Fields
+
+#### `alt` ([`String!`](/developers/supplier-apis/supply-api/graphql/reference/scalars/string))
+
+#### `contentItemId` ([`ID!`](/developers/supplier-apis/supply-api/graphql/reference/scalars/id))
+
+#### `contentKey` ([`String!`](/developers/supplier-apis/supply-api/graphql/reference/scalars/string))
+
+The key to the file in the CDN
+
+#### `contentType` ([`SupplierVariantContentType!`](/developers/supplier-apis/supply-api/graphql/reference/enums/supplier-variant-content-type))
+
+#### `createdAt` ([`String!`](/developers/supplier-apis/supply-api/graphql/reference/scalars/string))
+
+#### `supplierId` ([`ID!`](/developers/supplier-apis/supply-api/graphql/reference/scalars/id))
+
+#### `supplierVariantId` ([`ID!`](/developers/supplier-apis/supply-api/graphql/reference/scalars/id))
+
+#### `updatedAt` ([`String!`](/developers/supplier-apis/supply-api/graphql/reference/scalars/string))
+
+#### `updatedBy` ([`String!`](/developers/supplier-apis/supply-api/graphql/reference/scalars/string))
+
+#### `variantRelation` ([`SupplierVariantContentRelation!`](/developers/supplier-apis/supply-api/graphql/reference/enums/supplier-variant-content-relation))

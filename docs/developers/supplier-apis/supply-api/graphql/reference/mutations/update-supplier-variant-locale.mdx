@@ -1,0 +1,24 @@
+---
+id: update-supplier-variant-locale
+title: updateSupplierVariantLocale
+---
+
+Update an existing supplierVariantLocale
+
+```graphql
+updateSupplierVariantLocale(
+  input: SupplierVariantLocaleUpdateInput!
+): SupplierVariantLocale
+
+```
+
+### Arguments
+
+#### `input` ([`SupplierVariantLocaleUpdateInput!`](/developers/supplier-apis/supply-api/graphql/reference/inputs/supplier-variant-locale-update-input))
+
+### Type
+
+#### [`SupplierVariantLocale`](/developers/supplier-apis/supply-api/graphql/reference/objects/supplier-variant-locale)
+
+This has a many to one relationship with SupplierVariant, and provides localized language data for the appropriate fields.
+There will often only be one of these, and it should be the one set in defaultLocale for the supplier.

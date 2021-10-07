@@ -1,0 +1,108 @@
+---
+id: supplier-variant-supplement
+title: SupplierVariantSupplement
+---
+
+This has a one to one relationship with SupplierVariant, and provides supplemental data for the SupplierVariant.
+These items get updated at a lower frequency, and are therefore separate.
+
+```graphql
+type SupplierVariantSupplement {
+  averageShippingCost: Float
+  barcode: String!
+  casePack: Int
+  cost: Float!
+  createdAt: String!
+  handlingCost: SupplierVariantHandlingCost
+  handlingCostAsCurrency: Float
+  isTaxable: Boolean
+  manufacturer: String
+  mapPrice: Float
+  mpn: String
+  msrp: Float
+  productTags: [String]
+  recommendedPrice: Float
+  shippingDimensions: SupplierVariantShippingDimensions
+  sku: String
+  standardizedColor: SupplierVariantStandardizedColor
+  supplierId: ID!
+  supplierVariantId: ID!
+  updatedAt: String!
+  updatedBy: String!
+  weight: SupplierVariantWeight
+}
+```
+
+### Fields
+
+#### `averageShippingCost` ([`Float`](/developers/supplier-apis/supply-api/graphql/reference/scalars/float))
+
+A calculated metric for some kind of average for a common region. Uncommon.
+
+#### `barcode` ([`String!`](/developers/supplier-apis/supply-api/graphql/reference/scalars/string))
+
+UPC, ISBN, GTIN, etc
+
+#### `casePack` ([`Int`](/developers/supplier-apis/supply-api/graphql/reference/scalars/int))
+
+Quantity in one variant (i.e. 12-pack)
+
+#### `cost` ([`Float!`](/developers/supplier-apis/supply-api/graphql/reference/scalars/float))
+
+COGS, or Cost of Goods Sold, in a currency
+
+#### `createdAt` ([`String!`](/developers/supplier-apis/supply-api/graphql/reference/scalars/string))
+
+ISO Date
+
+#### `handlingCost` ([`SupplierVariantHandlingCost`](/developers/supplier-apis/supply-api/graphql/reference/objects/supplier-variant-handling-cost))
+
+Additional warehouse handling charge, typically for larger items.
+
+#### `handlingCostAsCurrency` ([`Float`](/developers/supplier-apis/supply-api/graphql/reference/scalars/float))
+
+Calculated field, giving the handling cost as Currency no matter how it is stored
+
+#### `isTaxable` ([`Boolean`](/developers/supplier-apis/supply-api/graphql/reference/scalars/boolean))
+
+#### `manufacturer` ([`String`](/developers/supplier-apis/supply-api/graphql/reference/scalars/string))
+
+Often same as vendor, but not always.
+
+#### `mapPrice` ([`Float`](/developers/supplier-apis/supply-api/graphql/reference/scalars/float))
+
+Minimum Advertised Price
+
+#### `mpn` ([`String`](/developers/supplier-apis/supply-api/graphql/reference/scalars/string))
+
+Manufacturer Part Number
+
+#### `msrp` ([`Float`](/developers/supplier-apis/supply-api/graphql/reference/scalars/float))
+
+Manufacturer's Suggested Retail Price
+
+#### `productTags` ([`[String]`](/developers/supplier-apis/supply-api/graphql/reference/scalars/string))
+
+#### `recommendedPrice` ([`Float`](/developers/supplier-apis/supply-api/graphql/reference/scalars/float))
+
+AKA Price
+
+#### `shippingDimensions` ([`SupplierVariantShippingDimensions`](/developers/supplier-apis/supply-api/graphql/reference/objects/supplier-variant-shipping-dimensions))
+
+#### `sku` ([`String`](/developers/supplier-apis/supply-api/graphql/reference/scalars/string))
+
+Stock Keeping Unit
+
+#### `standardizedColor` ([`SupplierVariantStandardizedColor`](/developers/supplier-apis/supply-api/graphql/reference/enums/supplier-variant-standardized-color))
+
+#### `supplierId` ([`ID!`](/developers/supplier-apis/supply-api/graphql/reference/scalars/id))
+
+#### `supplierVariantId` ([`ID!`](/developers/supplier-apis/supply-api/graphql/reference/scalars/id))
+
+#### `updatedAt` ([`String!`](/developers/supplier-apis/supply-api/graphql/reference/scalars/string))
+
+ISO Date
+
+#### `updatedBy` ([`String!`](/developers/supplier-apis/supply-api/graphql/reference/scalars/string))
+
+#### `weight` ([`SupplierVariantWeight`](/developers/supplier-apis/supply-api/graphql/reference/objects/supplier-variant-weight))

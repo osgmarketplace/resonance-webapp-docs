@@ -1,3 +1,8 @@
+"""
+The `JSONObject` scalar type represents JSON objects as specified by [ECMA-404](http://www.ecma-international.org/publications/files/ECMA-ST/ECMA-404.pdf).
+"""
+scalar JSONObject
+
 """The root mutation type for the Supply domain"""
 type Mutation {
   """Nothing to see here, just a workaround for Apollo Server"""
@@ -16,6 +21,15 @@ type Mutation {
   """Create a new supplierVariant"""
   createSupplierVariant(input: SupplierVariantCreateInput!): SupplierVariant
 
+  """Create an Image SupplierVariantContentItem from a URL"""
+  createSupplierVariantImageFromUrl(input: SupplierVariantImageFromUrlInput): SupplierVariantContentItem
+
+  """Create a new supplierVariantLocale"""
+  createSupplierVariantLocale(input: SupplierVariantLocaleCreateInput!): SupplierVariantLocale
+
+  """Create a new supplierVariantSupplement"""
+  createSupplierVariantSupplement(input: SupplierVariantSupplementCreateInput!): SupplierVariantSupplement
+
   """
   Remove a SupplierIdentity from a Supplier (remove user permissions)
   
@@ -32,6 +46,15 @@ type Mutation {
 
   """Update an existing supplierVariant"""
   updateSupplierVariant(input: SupplierVariantUpdateInput!): SupplierVariant
+
+  """Update an existing SupplierVariantContentItem"""
+  updateSupplierVariantContentItem(input: SupplierVariantContentItemUpdateInput): SupplierVariantContentItem
+
+  """Update an existing supplierVariantLocale"""
+  updateSupplierVariantLocale(input: SupplierVariantLocaleUpdateInput!): SupplierVariantLocale
+
+  """Update an existing supplierVariantSupplement"""
+  updateSupplierVariantSupplement(input: SupplierVariantSupplementUpdateInput!): SupplierVariantSupplement
 }
 
 """Information on Pagination"""
@@ -67,24 +90,47 @@ type Query {
   """Nothing to see here, just a workaround for Apollo Server"""
   _empty: String
 
+  """See changes that have been made to this SupplierVariant"""
+  events(
+    """Returns the elements in the list that come after the specified cursor."""
+    after: String
+
+    """
+    Returns the elements in the list that come before the specified cursor.
+    """
+    before: String
+
+    """The entity to retrieve events for, like a SupplierVariantId"""
+    entityId: ID!
+
+    """Returns the first n elements from the list."""
+    first: Int
+
+    """Returns the last n elements from the list."""
+    last: Int
+
+    """The SupplierId to retrieve events for"""
+    supplierId: ID!
+  ): SupplyEventConnection!
+
   """
   Get a single supplier by SupplierId
   
-  Requires supplier/read permission on the requesting user
+  Requires supplier/read permission on the requesting identity
   """
   supplier(supplierId: ID!): Supplier
 
   """
   Get a single supplierVariant by SupplierVariantId
   
-  Requires suppliervariant/read permission on the requesting user
+  Requires suppliervariant/read permission on the requesting identity
   """
   supplierVariant(supplierVariantId: ID!): SupplierVariant
 
   """
   Get a list of suppliers
   
-  Requires supplier/read permission on each supplier for the requesting user
+  Requires supplier/read permission on each supplier for the requesting identity
   """
   suppliers(
     """Returns the elements in the list that come after the specified cursor."""
@@ -111,7 +157,7 @@ enum ResonanceCurrency {
 """
 Used throughout the app to indicate what language and locality a given text is in
 """
-enum ResonanceLocale {
+enum ResonanceLocaleType {
   EN_US
 }
 
@@ -119,7 +165,7 @@ enum ResonanceLocale {
 type Supplier {
   createdAt: String!
   defaultCurrency: ResonanceCurrency!
-  defaultLocale: ResonanceLocale!
+  defaultLocaleType: ResonanceLocaleType!
   description: String
   name: String!
   ownerUserName: String!
@@ -131,7 +177,7 @@ type Supplier {
   Provided through SupplierIdentity Chained Resolver
   Returns SupplierIdentities for the given Supplier
   
-  Requires supplieridentity/read permission on the requesting user
+  Requires supplieridentity/read permission on the requesting identity
   """
   supplierIdentities(
     """Returns the elements in the list that come after the specified cursor."""
@@ -156,21 +202,22 @@ type Supplier {
   Provided through SupplierIdentity Chained Resolver
   Returns a single SupplierIdentity for the given Supplier
   
-  Requires supplieridentity/read permission on the requesting user
+  Requires supplieridentity/read permission on the requesting identity
   """
   supplierIdentity(userName: ID!): SupplierIdentity
 
   """
   Get a single supplierVariant by SupplierVariantId
   
-  Requires suppliervariant/read permission on the requesting user
+  Requires suppliervariant/read permission on the requesting identity
   """
   supplierVariant(supplierVariantId: ID!): SupplierVariant
 
   """
   Get a list of supplierVariants
+  Default sort is by updatedAt (first for asc, last for desc).
   
-  Requires suppliervariant/read permission on the supplier for the requesting user
+  Requires suppliervariant/read permission on the supplier for the requesting identity
   """
   supplierVariants(
     """Returns the elements in the list that come after the specified cursor."""
@@ -188,19 +235,20 @@ type Supplier {
     last: Int
   ): SupplierVariantConnection!
   updatedAt: String!
+  updatedBy: ID!
 }
 
 """Paginate through Suppliers"""
 type SupplierConnection {
-  edges: [SupplierEdge]
-  nodes: [Supplier]
+  edges: [SupplierEdge]!
+  nodes: [Supplier]!
   pageInfo: PageInfo!
 }
 
 """The necessary fields in order to create a new supplier"""
 input SupplierCreateInput {
   defaultCurrency: String!
-  defaultLocale: ResonanceLocale!
+  defaultLocaleType: ResonanceLocaleType!
   description: String
   name: String!
   purchaseOrderNotification: PurchaseOrderNotificationInput!
@@ -224,8 +272,8 @@ type SupplierIdentity {
 
 """Paginate through SupplierIdentities"""
 type SupplierIdentityConnection {
-  edges: [SupplierIdentityEdge]
-  nodes: [SupplierIdentity]
+  edges: [SupplierIdentityEdge]!
+  nodes: [SupplierIdentity]!
   pageInfo: PageInfo!
 }
 
@@ -274,12 +322,12 @@ enum SupplierIdentityType {
 }
 
 """
-Exactly like SupplierIdentity, but no updatedBy or identityType (always User)
+ID Fields are required, but all other fields are optional, only included fields will be updated.
 """
 input SupplierIdentityUpdateInput {
   """Should always be USER"""
-  identityType: SupplierIdentityType!
-  permissions: SupplierIdentityPermissionsInput!
+  identityType: SupplierIdentityType
+  permissions: SupplierIdentityPermissionsInput
   supplierId: ID!
 
   """Always a user's userName (not appClientId)"""
@@ -297,46 +345,171 @@ The main item of the Supplier Domain, represents a single SKU of a product
 Only the variant level exists, there is no parent product.
 """
 type SupplierVariant {
-  cost: Float!
+  """
+  Get a supplierVariantContentItem for a supplierVariant
+  
+  Requires suppliervariantcontentitem/read permission on the requesting identity
+  """
+  contentItem(contentItemId: ID!): SupplierVariantContentItem
+
+  """
+  Get a list of supplierVariantContentItems
+  
+  Requires suppliervariantcontentitem/read permission on the supplier for the requesting identity
+  """
+  contentItems(
+    """Returns the elements in the list that come after the specified cursor."""
+    after: String
+
+    """
+    Returns the elements in the list that come before the specified cursor.
+    """
+    before: String
+
+    """Returns the first n elements from the list."""
+    first: Int
+
+    """Returns the last n elements from the list."""
+    last: Int
+  ): SupplierVariantContentItemConnection!
   createdAt: String!
   externalProductId: String!
   externalVariantId: String!
   inventoryPolicy: SupplierVariantInventoryPolicy!
   inventoryQuantity: Int!
   inventoryStatus: SupplierVariantInventoryStatus!
+
+  """
+  Get a single supplierVariantLocale by ResonanceLocaleType
+  
+  Requires suppliervariantlocale/read permission on the requesting identity
+  """
+  locale(localeType: ResonanceLocaleType!): SupplierVariantLocale
   options: SupplierVariantOptions!
   productTitle: String!
   status: SupplierVariantStatus!
+
+  """
+  Get the supplierVariantSupplement for a supplierVariant
+  
+  Requires suppliervariantsupplement/read permission on the requesting identity
+  """
+  supplement: SupplierVariantSupplement
   supplierId: ID!
   supplierVariantId: ID!
   updatedAt: String!
   updatedBy: String!
+  variantTitle: String!
+  vendor: String!
 }
 
 """Paginate through SupplierVariants"""
 type SupplierVariantConnection {
-  edges: [SupplierVariantEdge]
-  nodes: [SupplierVariant]
+  edges: [SupplierVariantEdge]!
+  nodes: [SupplierVariant]!
   pageInfo: PageInfo!
+}
+
+"""
+This has a many to one relationship with SupplierVariant, and provides a connection to the CDN items.
+"""
+type SupplierVariantContentItem {
+  alt: String!
+  contentItemId: ID!
+
+  """The key to the file in the CDN"""
+  contentKey: String!
+  contentType: SupplierVariantContentType!
+  createdAt: String!
+  supplierId: ID!
+  supplierVariantId: ID!
+  updatedAt: String!
+  updatedBy: String!
+  variantRelation: SupplierVariantContentRelation!
+}
+
+"""Paginate through SupplierVariantContentItems"""
+type SupplierVariantContentItemConnection {
+  edges: [SupplierVariantContentItemEdge]!
+  nodes: [SupplierVariantContentItem]!
+  pageInfo: PageInfo!
+}
+
+"""One edge producing one SupplierVariant Node"""
+type SupplierVariantContentItemEdge {
+  node: SupplierVariantContentItem
+}
+
+"""Input object for updating an existing SupplierVariantContentItem"""
+input SupplierVariantContentItemUpdateInput {
+  alt: String
+  contentItemId: ID!
+  supplierId: ID!
+  supplierVariantId: ID!
+  variantRelation: SupplierVariantContentRelation
+}
+
+"""Describes how the piece of content is related to the variant"""
+enum SupplierVariantContentRelation {
+  FEATURE
+  SUPPORT
+  VARIANTSPECIFIC
+}
+
+"""Describes what type of content the entity is"""
+enum SupplierVariantContentType {
+  IMAGE
+  VIDEO
 }
 
 """The necessary fields in order to create a new supplierVariant"""
 input SupplierVariantCreateInput {
-  cost: Float!
   externalProductId: String!
   externalVariantId: String!
   inventoryPolicy: SupplierVariantInventoryPolicy!
   inventoryQuantity: Int!
-  inventoryStatus: SupplierVariantInventoryStatus!
   options: SupplierVariantOptionsInput!
   productTitle: String!
   status: SupplierVariantStatus!
   supplierId: ID!
+  vendor: String!
 }
 
 """One edge producing one SupplierVariant Node"""
 type SupplierVariantEdge {
   node: SupplierVariant
+}
+
+"""Object to indicate both amount and unit of handling cost."""
+type SupplierVariantHandlingCost {
+  amount: Float!
+  unit: SupplierVariantHandlingCostUnit!
+}
+
+"""Input object to indicate both amount and unit of handling cost."""
+input SupplierVariantHandlingCostInput {
+  amount: Float!
+  unit: SupplierVariantHandlingCostUnit!
+}
+
+"""Indicates what unit the amount is in"""
+enum SupplierVariantHandlingCostUnit {
+  """The amount is in a currency, i.e. $"""
+  CURRENCY
+
+  """The amount is a percentage of the Cost field"""
+  PERCENTAGE_OF_COST
+}
+
+"""
+Input object for creating an Image SupplierVariantContentItem from a URL
+"""
+input SupplierVariantImageFromUrlInput {
+  alt: String!
+  supplierId: ID!
+  supplierVariantId: ID!
+  url: String!
+  variantRelation: SupplierVariantContentRelation!
 }
 
 """
@@ -351,6 +524,48 @@ enum SupplierVariantInventoryPolicy {
 enum SupplierVariantInventoryStatus {
   INSTOCK
   OUTOFSTOCK
+}
+
+"""
+This has a many to one relationship with SupplierVariant, and provides localized language data for the appropriate fields.
+There will often only be one of these, and it should be the one set in defaultLocale for the supplier.
+"""
+type SupplierVariantLocale {
+  createdAt: String!
+
+  """Limited to 5 bullets"""
+  featureBullets: [String]
+  isDefault: Boolean!
+  localeType: ResonanceLocaleType!
+  productDescription: String
+  supplierId: ID!
+  supplierVariantId: ID!
+  updatedAt: String!
+  updatedBy: String!
+}
+
+"""The necessary fields in order to create a new supplierVariantLocale"""
+input SupplierVariantLocaleCreateInput {
+  featureBullets: [String]
+  isDefault: Boolean!
+  localeType: ResonanceLocaleType!
+  productDescription: String
+  supplierId: ID!
+  supplierVariantId: ID!
+}
+
+"""
+The necessary fields in order to update a supplierVariantLocale.
+ID fields are required, others are optional, only included fields will be updated.
+"""
+input SupplierVariantLocaleUpdateInput {
+  """Limited to 5 bullets"""
+  featureBullets: [String]
+  isDefault: Boolean
+  localeType: ResonanceLocaleType!
+  productDescription: String
+  supplierId: ID!
+  supplierVariantId: ID!
 }
 
 """
@@ -392,6 +607,50 @@ input SupplierVariantOptionsInput {
   option3: SupplierVariantOptionInput
 }
 
+"""Metric or Standard Dimension?"""
+enum SupplierVariantShippingDimensionUnit {
+  CM
+  IN
+}
+
+"""Object to indicate all three shipping box dimensions and a unit"""
+type SupplierVariantShippingDimensions {
+  height: Float!
+  length: Float!
+  unit: SupplierVariantShippingDimensionUnit!
+  width: Float!
+}
+
+"""Input object to indicate all three shipping box dimensions and a unit"""
+input SupplierVariantShippingDimensionsInput {
+  height: Float!
+  length: Float!
+  unit: SupplierVariantShippingDimensionUnit!
+  width: Float!
+}
+
+"""Indicates a standardized color for a variant, i.e. Blue for 'Topaz'"""
+enum SupplierVariantStandardizedColor {
+  BEIGE
+  BLACK
+  BLUE
+  BRONZE
+  BROWN
+  CLEAR
+  GOLD
+  GRAY
+  GREEN
+  MULTICOLOR
+  OFFWHITE
+  ORANGE
+  PINK
+  PURPLE
+  RED
+  SILVER
+  WHITE
+  YELLOW
+}
+
 """
 Indication of whether the SupplierVariant is live and able to be ordered
 """
@@ -401,17 +660,247 @@ enum SupplierVariantStatus {
   PUBLISHED
 }
 
-"""The necessary fields in order to update a supplierVariant"""
-input SupplierVariantUpdateInput {
+"""
+This has a one to one relationship with SupplierVariant, and provides supplemental data for the SupplierVariant.
+These items get updated at a lower frequency, and are therefore separate.
+"""
+type SupplierVariantSupplement {
+  """
+  A calculated metric for some kind of average for a common region. Uncommon.
+  """
+  averageShippingCost: Float
+
+  """UPC, ISBN, GTIN, etc"""
+  barcode: String!
+
+  """Quantity in one variant (i.e. 12-pack)"""
+  casePack: Int
+
+  """COGS, or Cost of Goods Sold, in a currency"""
   cost: Float!
+
+  """ISO Date"""
   createdAt: String!
-  externalProductId: String!
-  externalVariantId: String!
-  inventoryPolicy: SupplierVariantInventoryPolicy!
-  inventoryQuantity: Int!
-  inventoryStatus: SupplierVariantInventoryStatus!
-  options: SupplierVariantOptionsInput!
-  productTitle: String!
-  status: SupplierVariantStatus!
+
+  """Additional warehouse handling charge, typically for larger items."""
+  handlingCost: SupplierVariantHandlingCost
+
+  """
+  Calculated field, giving the handling cost as Currency no matter how it is stored
+  """
+  handlingCostAsCurrency: Float
+  isTaxable: Boolean
+
+  """Often same as vendor, but not always."""
+  manufacturer: String
+
+  """Minimum Advertised Price"""
+  mapPrice: Float
+
+  """Manufacturer Part Number"""
+  mpn: String
+
+  """Manufacturer's Suggested Retail Price"""
+  msrp: Float
+  productTags: [String]
+
+  """AKA Price"""
+  recommendedPrice: Float
+  shippingDimensions: SupplierVariantShippingDimensions
+
+  """Stock Keeping Unit"""
+  sku: String
+  standardizedColor: SupplierVariantStandardizedColor
   supplierId: ID!
+  supplierVariantId: ID!
+
+  """ISO Date"""
+  updatedAt: String!
+  updatedBy: String!
+  weight: SupplierVariantWeight
+}
+
+"""
+The necessary fields in order to create a new supplierVariantSupplement
+"""
+input SupplierVariantSupplementCreateInput {
+  """
+  A calculated metric for some kind of average for a common region. Uncommon.
+  """
+  averageShippingCost: Float
+
+  """UPC, ISBN, GTIN, etc"""
+  barcode: String
+
+  """Quantity in one variant (i.e. 12-pack)"""
+  casePack: Int
+
+  """COGS, or Cost of Goods Sold, in a currency"""
+  cost: Float!
+
+  """Additional warehouse handling charge, typically for larger items."""
+  handlingCost: SupplierVariantHandlingCostInput
+  isTaxable: Boolean
+
+  """Often same as vendor, but not always."""
+  manufacturer: String
+
+  """Minimum Advertised Price"""
+  mapPrice: Float
+
+  """Manufacturer Part Number"""
+  mpn: String
+
+  """Manufacturer's Suggested Retail Price"""
+  msrp: Float
+  productTags: [String]
+
+  """AKA Price"""
+  recommendedPrice: Float
+  shippingDimensions: SupplierVariantShippingDimensionsInput
+
+  """Stock Keeping Unit"""
+  sku: String
+  standardizedColor: SupplierVariantStandardizedColor
+  supplierId: ID!
+  supplierVariantId: ID!
+  weight: SupplierVariantWeightInput
+}
+
+"""
+The necessary fields in order to update a supplierVariantSupplement.
+ID fields required, all other fields optional, only included fields will be updated.
+"""
+input SupplierVariantSupplementUpdateInput {
+  """
+  A calculated metric for some kind of average for a common region. Uncommon.
+  """
+  averageShippingCost: Float
+
+  """UPC, ISBN, GTIN, etc"""
+  barcode: String!
+
+  """Quantity in one variant (i.e. 12-pack)"""
+  casePack: Int
+
+  """COGS, or Cost of Goods Sold, in a currency"""
+  cost: Float!
+
+  """Additional warehouse handling charge, typically for larger items."""
+  handlingCost: SupplierVariantHandlingCostInput
+  isTaxable: Boolean
+
+  """Often same as vendor, but not always."""
+  manufacturer: String
+
+  """Minimum Advertised Price"""
+  mapPrice: Float
+
+  """Manufacturer Part Number"""
+  mpn: String
+
+  """Manufacturer's Suggested Retail Price"""
+  msrp: Float
+  productTags: [String]
+
+  """AKA Price"""
+  recommendedPrice: Float
+  shippingDimensions: SupplierVariantShippingDimensionsInput
+
+  """Stock Keeping Unit"""
+  sku: String
+  standardizedColor: SupplierVariantStandardizedColor
+  supplierId: ID!
+  supplierVariantId: ID!
+  weight: SupplierVariantWeightInput
+}
+
+"""
+The necessary fields in order to update a supplierVariant.
+ID fields are required, all other fields are optional, only included fields will be updated.
+"""
+input SupplierVariantUpdateInput {
+  externalProductId: String
+  externalVariantId: String
+  inventoryPolicy: SupplierVariantInventoryPolicy
+  inventoryQuantity: Int
+  options: SupplierVariantOptionsInput
+  productTitle: String
+  status: SupplierVariantStatus
+  supplierId: ID!
+  supplierVariantId: ID!
+  vendor: String
+}
+
+"""Object to indicate both amount and unit of weight."""
+type SupplierVariantWeight {
+  amount: Float!
+  unit: SupplierVariantWeightUnit!
+}
+
+"""Input object to indicate both amount and unit of weight."""
+input SupplierVariantWeightInput {
+  amount: Float!
+  unit: SupplierVariantWeightUnit!
+}
+
+"""Metric or Standard Weight?"""
+enum SupplierVariantWeightUnit {
+  GRAMS
+  LBS
+}
+
+"""
+Contains before and after snapshots for every event that occurs within the Supply domain
+"""
+type SupplyEvent {
+  """
+  This is the event data and metadata.
+  The data is variable, but most typically contains a newItem and oldItem.
+  """
+  message: SupplyEventMessage
+
+  """UUID"""
+  messageId: String!
+
+  """A human-friendly string summarizing the event"""
+  subject: String
+
+  """ISO Date that the event occurred"""
+  timestamp: String!
+}
+
+"""Paginate through SupplyEvents"""
+type SupplyEventConnection {
+  edges: [SupplyEventEdge]!
+  nodes: [SupplyEvent]!
+  pageInfo: PageInfo!
+}
+
+"""One edge producing one SupplyEvent Node"""
+type SupplyEventEdge {
+  node: SupplyEvent
+}
+
+"""
+This is the event data and metadata.
+The data is variable, but most typically contains a newItem and oldItem.
+"""
+type SupplyEventMessage {
+  """Variable, but most typically contains a newItem and oldItem."""
+  data: JSONObject
+
+  """Items consistent to every event"""
+  metadata: SupplyEventMetadata
+}
+
+"""Items consistent to every event"""
+type SupplyEventMetadata {
+  domain: String!
+
+  """This is most typically domainHqId or supplierId"""
+  domainEntityId: String!
+  entityId: String
+  itemType: String
+  mutationType: String
 }

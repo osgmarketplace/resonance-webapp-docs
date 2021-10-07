@@ -1,0 +1,24 @@
+---
+id: supply-event-message
+title: SupplyEventMessage
+---
+
+This is the event data and metadata.
+The data is variable, but most typically contains a newItem and oldItem.
+
+```graphql
+type SupplyEventMessage {
+  data: JSONObject
+  metadata: SupplyEventMetadata
+}
+```
+
+### Fields
+
+#### `data` ([`JSONObject`](/developers/supplier-apis/supply-api/graphql/reference/scalars/json-object))
+
+Variable, but most typically contains a newItem and oldItem.
+
+#### `metadata` ([`SupplyEventMetadata`](/developers/supplier-apis/supply-api/graphql/reference/objects/supply-event-metadata))
+
+Items consistent to every event

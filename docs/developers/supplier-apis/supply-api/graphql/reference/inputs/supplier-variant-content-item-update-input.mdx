@@ -1,0 +1,28 @@
+---
+id: supplier-variant-content-item-update-input
+title: SupplierVariantContentItemUpdateInput
+---
+
+Input object for updating an existing SupplierVariantContentItem
+
+```graphql
+type SupplierVariantContentItemUpdateInput {
+  alt: String
+  contentItemId: ID!
+  supplierId: ID!
+  supplierVariantId: ID!
+  variantRelation: SupplierVariantContentRelation
+}
+```
+
+### Fields
+
+#### `alt` ([`String`](/developers/supplier-apis/supply-api/graphql/reference/scalars/string))
+
+#### `contentItemId` ([`ID!`](/developers/supplier-apis/supply-api/graphql/reference/scalars/id))
+
+#### `supplierId` ([`ID!`](/developers/supplier-apis/supply-api/graphql/reference/scalars/id))
+
+#### `supplierVariantId` ([`ID!`](/developers/supplier-apis/supply-api/graphql/reference/scalars/id))
+
+#### `variantRelation` ([`SupplierVariantContentRelation`](/developers/supplier-apis/supply-api/graphql/reference/enums/supplier-variant-content-relation))
