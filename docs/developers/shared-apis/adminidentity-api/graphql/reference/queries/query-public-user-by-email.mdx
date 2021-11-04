@@ -1,0 +1,23 @@
+---
+id: query-public-user-by-email
+title: queryPublicUserByEmail
+---
+
+Given an email, returns PublicUser if the user exists. Exact match.
+
+```graphql
+queryPublicUserByEmail(
+  email: String!
+): PublicUser
+
+```
+
+### Arguments
+
+#### `email` ([`String!`](/developers/shared-apis/adminidentity-api/graphql/reference/scalars/string))
+
+### Type
+
+#### [`PublicUser`](/developers/shared-apis/adminidentity-api/graphql/reference/objects/public-user)
+
+This User type is returned on routes with no permissions attached to protect Personally Identifiable Information

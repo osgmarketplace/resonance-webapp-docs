@@ -3,20 +3,20 @@ id: partner-connection
 title: PartnerConnection
 ---
 
-No description
+Paginate through Partners
 
 ```graphql
 type PartnerConnection {
-  edges: [PartnerEdge]
-  nodes: [Partner]
+  edges: [PartnerEdge]!
+  nodes: [Partner]!
   pageInfo: PageInfo!
 }
 ```
 
 ### Fields
 
-#### `edges` ([`[PartnerEdge]`](/developers/shared-apis/adminidentity-api/graphql/reference/objects/partner-edge))
+#### `edges` ([`[PartnerEdge]!`](/developers/shared-apis/adminidentity-api/graphql/reference/objects/partner-edge))
 
-#### `nodes` ([`[Partner]`](/developers/shared-apis/adminidentity-api/graphql/reference/objects/partner))
+#### `nodes` ([`[Partner]!`](/developers/shared-apis/adminidentity-api/graphql/reference/objects/partner))
 
 #### `pageInfo` ([`PageInfo!`](/developers/shared-apis/adminidentity-api/graphql/reference/objects/page-info))

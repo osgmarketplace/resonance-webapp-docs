@@ -1,0 +1,38 @@
+---
+id: partner-user-permission
+title: PartnerUserPermission
+---
+
+Type representing a PartnerUserPermission, the permissions given to a User for a Partner
+
+```graphql
+type PartnerUserPermission {
+  partnerId: ID!
+  permissions: PartnerUserPermissionPermissions!
+  updatedBy: ID!
+  user: User
+  userName: ID!
+}
+```
+
+### Fields
+
+#### `partnerId` ([`ID!`](/developers/shared-apis/adminidentity-api/graphql/reference/scalars/id))
+
+The ID of the Partner this permission pertains to
+
+#### `permissions` ([`PartnerUserPermissionPermissions!`](/developers/shared-apis/adminidentity-api/graphql/reference/objects/partner-user-permission-permissions))
+
+Object representing exactly what permissions are given
+
+#### `updatedBy` ([`ID!`](/developers/shared-apis/adminidentity-api/graphql/reference/scalars/id))
+
+The identity to last update this entity
+
+#### `user` ([`User`](/developers/shared-apis/adminidentity-api/graphql/reference/objects/user))
+
+Return the users associated with this partner
+
+#### `userName` ([`ID!`](/developers/shared-apis/adminidentity-api/graphql/reference/scalars/id))
+
+The user these permissions pertain to

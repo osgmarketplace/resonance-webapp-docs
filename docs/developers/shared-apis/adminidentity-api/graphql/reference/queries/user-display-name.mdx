@@ -1,0 +1,25 @@
+---
+id: user-display-name
+title: userDisplayName
+---
+
+Gets the displayName for any user.
+
+This works for any authenticated user with any permissions.
+
+```graphql
+userDisplayName(
+  userName: ID!
+): String
+
+```
+
+### Arguments
+
+#### `userName` ([`ID!`](/developers/shared-apis/adminidentity-api/graphql/reference/scalars/id))
+
+### Type
+
+#### [`String`](/developers/shared-apis/adminidentity-api/graphql/reference/scalars/string)
+
+The `String` scalar type represents textual data, represented as UTF-8 character sequences. The String type is most often used by GraphQL to represent free-form human-readable text.

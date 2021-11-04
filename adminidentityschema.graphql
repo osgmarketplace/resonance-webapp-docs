@@ -1,12 +1,146 @@
+"""
+Represents a App, which are machine users that perform a small context, unified set of tasks
+"""
+type App {
+  appClientIds: [String!]!
+  appId: ID!
+  appSlug: String!
+  appType: AppType!
+  createdAt: String!
+  description: String
+  installationWebhook: String!
+  name: String!
+  notificationEmail: String!
+  partnerId: ID!
+  requestedScopes: [String!]!
+  uninstallationWebhook: String!
+  updatedAt: String!
+}
+
+"""The output from creating or resetting client secrets"""
+type AppClientOutput {
+  appClientId: ID!
+  appSecret: String!
+}
+
+"""Paginate through Apps"""
+type AppConnection {
+  edges: [AppEdge]
+  nodes: [App]
+  pageInfo: PageInfo!
+}
+
+"""The necessary fields in order to create a new app"""
+input AppCreateInput {
+  appSlug: String!
+  appType: AppType!
+  description: String
+  installationWebhook: String!
+  name: String!
+  notificationEmail: String!
+  partnerId: ID!
+  requestedScopes: [String!]!
+  uninstallationWebhook: String!
+}
+
+"""The output when creating an App"""
+type AppCreateOutput {
+  app: App!
+  appClients: [AppClientOutput!]!
+}
+
+"""One edge producing one App node"""
+type AppEdge {
+  node: App
+}
+
+"""
+This is the primary determination of which permission scopes can be requested.
+An app cannot be more than one of these.
+If something cross domain needs to exist, it should be two apps and they can communicate.
+"""
+enum AppType {
+  DEMANDHQAPP
+  STOREFRONTAPP
+  SUPPLIERAPP
+}
+
+"""The necessary fields in order to update an app"""
+input AppUpdateInput {
+  appId: ID!
+  appSlug: String
+  description: String
+  installationWebhook: String
+  name: String
+  notificationEmail: String
+  partnerId: ID!
+  uninstallationWebhook: String
+}
+
 """The root mutation type for the AdminIdentity domain"""
 type Mutation {
   """Nothing to see here, just a workaround for Apollo Server"""
   _makeEmpty(id: String): String
 
+  """Create a new app"""
+  createApp(input: AppCreateInput!): AppCreateOutput!
+
   """Create a new partner"""
   createPartner(input: PartnerCreateInput!): Partner
+
+  """
+  Create a new PartnerUserPermission (give a User permission to a Partner)
+  """
+  createPartnerUserPermission(input: PartnerUserPermissionCreateInput): PartnerUserPermission
+
+  """
+  Delete a PartnerUserPermission (remove User's permissions to a Partner)
+  """
+  deletePartnerUserPermission(partnerId: ID!, userName: ID!): PartnerUserPermissionDeleteOutput!
+
+  """Invite a new User to Resonance"""
+  inviteUser(email: String!): User!
+
+  """Update an app"""
+  updateApp(input: AppUpdateInput!): App!
+
+  """Update an existing partner"""
+  updatePartner(input: PartnerUpdateInput!): Partner
+
+  """
+  Update a PartnerUserPermission (give a User more or less permissions to a Partner)
+  """
+  updatePartnerUserPermission(input: PartnerUserPermissionUpdateInput): PartnerUserPermission
+
+  """Update an existing User"""
+  updateUser(input: UserUpdateInput!): User!
+
+  """Update the status of a UserNotification"""
+  updateUserNotificationStatus(input: UserNotificationUpdateStatusInput!): UserNotification!
 }
 
+"""Should this notification be delivered outside the portal?"""
+enum NotificationExternalDeliveryType {
+  EMAIL
+  SMS
+}
+
+"""Denotes the tone of the message, may affect display"""
+enum NotificationSentiment {
+  NEGATIVE
+  NEUTRAL
+  POSITIVE
+  SEMINEGATIVE
+}
+
+"""Denotes how urgent and whether the Notification is archived"""
+enum NotificationStatus {
+  ARCHIVED
+  STANDARD
+  URGENT
+}
+
+"""Information on Pagination"""
 type PageInfo {
   """The cursor to use when paginating forwards."""
   endCursor: String
@@ -19,15 +153,11 @@ type PageInfo {
 Represents a Partner, the parent to an App, and the parent most component for Development
 """
 type Partner {
-  createdAt: String!
-  description: String
-  name: String!
-  ownerUserName: String!
-  partnerId: ID!
-  updatedAt: String!
+  """Get a single app"""
+  app(appId: ID!): App
 
-  """Return the users associated with this partner"""
-  users(
+  """Get a list of app"""
+  apps(
     """Returns the elements in the list that come after the specified cursor."""
     after: String
 
@@ -41,12 +171,39 @@ type Partner {
 
     """Returns the last n elements from the list."""
     last: Int
-  ): UserConnection!
+  ): AppConnection!
+  createdAt: String!
+  description: String
+  name: String!
+  ownerUserName: String!
+  partnerId: ID!
+
+  """Return a single users' permissions associated with this partner"""
+  partnerUserPermission(userName: ID!): PartnerUserPermission
+
+  """Return the users' permissions associated with this partner"""
+  partnerUserPermissions(
+    """Returns the elements in the list that come after the specified cursor."""
+    after: String
+
+    """
+    Returns the elements in the list that come before the specified cursor.
+    """
+    before: String
+
+    """Returns the first n elements from the list."""
+    first: Int
+
+    """Returns the last n elements from the list."""
+    last: Int
+  ): PartnerUserPermissionConnection!
+  updatedAt: String!
 }
 
+"""Paginate through Partners"""
 type PartnerConnection {
-  edges: [PartnerEdge]
-  nodes: [Partner]
+  edges: [PartnerEdge]!
+  nodes: [Partner]!
   pageInfo: PageInfo!
 }
 
@@ -56,8 +213,126 @@ input PartnerCreateInput {
   name: String!
 }
 
+"""One edge producing one Partner node"""
 type PartnerEdge {
   node: Partner
+}
+
+"""Roles are groups of permission scopes, for ease of assigning"""
+enum PartnerRole {
+  """ADMIN represents all possible scopes being given write permission"""
+  ADMIN
+}
+
+"""The fields in order to update an existing partner"""
+input PartnerUpdateInput {
+  description: String
+  name: String
+  ownerUserName: String
+  partnerId: ID!
+}
+
+"""
+Type representing a PartnerUserPermission, the permissions given to a User for a Partner
+"""
+type PartnerUserPermission {
+  """The ID of the Partner this permission pertains to"""
+  partnerId: ID!
+
+  """Object representing exactly what permissions are given"""
+  permissions: PartnerUserPermissionPermissions!
+
+  """The identity to last update this entity"""
+  updatedBy: ID!
+
+  """Return the users associated with this partner"""
+  user: User
+
+  """The user these permissions pertain to"""
+  userName: ID!
+}
+
+"""Paginate through PartnerUserPermissions"""
+type PartnerUserPermissionConnection {
+  edges: [PartnerUserPermissionEdge]
+  nodes: [PartnerUserPermission]
+  pageInfo: PageInfo!
+}
+
+"""
+Input object to create a PartnerUserPermission, the permissions given to a User for a Partner
+"""
+input PartnerUserPermissionCreateInput {
+  """The ID of the Partner this permission pertains to"""
+  partnerId: ID!
+
+  """Object representing exactly what permissions are given"""
+  permissions: PartnerUserPermissionPermissionsInput!
+
+  """The user these permissions pertain to"""
+  userName: ID!
+}
+
+"""The output when a PartnerUserPermission is deleted"""
+type PartnerUserPermissionDeleteOutput {
+  deletedId: PartnerUserPermissionDeletedId
+}
+
+"""Object representing a deleted PartnerUserPermission Id"""
+type PartnerUserPermissionDeletedId {
+  partnerId: ID!
+  userName: ID!
+}
+
+"""One edge producing one PartnerUserPermission node"""
+type PartnerUserPermissionEdge {
+  node: PartnerUserPermission
+}
+
+"""Object representing exactly what permissions are given"""
+type PartnerUserPermissionPermissions {
+  """Roles are groups of permission scopes, for ease of assigning"""
+  roles: [PartnerRole]!
+
+  """
+  Scopes are individual permissions representing a single item and action, in
+  all lowercase, i.e. partneruserpermission/write
+  """
+  scopes: [String]!
+}
+
+"""Input object representing exactly what permissions are given"""
+input PartnerUserPermissionPermissionsInput {
+  """Roles are groups of permission scopes, for ease of assigning"""
+  roles: [PartnerRole]!
+
+  """
+  Scopes are individual permissions representing a single item and action, in
+  all lowercase, i.e. partneruserpermission/write
+  """
+  scopes: [String]!
+}
+
+"""
+Input object to update a PartnerUserPermission, the permissions given to a User for a Partner
+"""
+input PartnerUserPermissionUpdateInput {
+  """The ID of the Partner this permission pertains to"""
+  partnerId: ID!
+
+  """Object representing exactly what permissions are given"""
+  permissions: PartnerUserPermissionPermissionsInput
+
+  """The user these permissions pertain to"""
+  userName: ID!
+}
+
+"""
+This User type is returned on routes with no permissions attached to protect Personally Identifiable Information
+"""
+type PublicUser {
+  displayName: String!
+  userName: ID!
 }
 
 """The root query type for the AdminIdentity domain"""
@@ -67,6 +342,30 @@ type Query {
 
   """Get the logged in User"""
   me: User
+  myNotifications(
+    """Returns the elements in the list that come after the specified cursor."""
+    after: String
+
+    """
+    Returns the elements in the list that come before the specified cursor.
+    """
+    before: String
+
+    """
+    Declare which UserNotificationCategory you would like notifications for.
+    status is required when this variable is present, or it will be ignored.
+    """
+    category: UserNotificationCategory
+
+    """Returns the first n elements from the list."""
+    first: Int
+
+    """Returns the last n elements from the list."""
+    last: Int
+
+    """Declare which NotificationStatus you would like notifications for"""
+    status: NotificationStatus
+  ): UserNotificationConnection!
 
   """Get a single partner by PartnerId"""
   partner(partnerId: ID!): Partner
@@ -87,6 +386,16 @@ type Query {
     """Returns the last n elements from the list."""
     last: Int
   ): PartnerConnection!
+
+  """Given an email, returns PublicUser if the user exists. Exact match."""
+  queryPublicUserByEmail(email: String!): PublicUser
+
+  """
+  Gets the displayName for any user.
+  
+  This works for any authenticated user with any permissions.
+  """
+  userDisplayName(userName: ID!): String
 }
 
 """Type representing a User, or human entity"""
@@ -102,6 +411,7 @@ type User {
   """
   birthdate: String
   createdAt: String
+  displayName: String!
   email: String!
 
   """string of true or false"""
@@ -112,6 +422,9 @@ type User {
 
   """String representing the User's locale, i.e. 'en-us'"""
   locale: String
+
+  """The display name for the User"""
+  nickname: String
 
   """
   End-User's preferred telephone number. E.164 [E.164] is RECOMMENDED as the
@@ -139,7 +452,7 @@ type User {
   """
   profile: String
 
-  """Same as userName"""
+  """A secondary ID, UUID"""
   sub: String!
   updatedAt: String
   userName: ID!
@@ -158,12 +471,153 @@ type User {
   zoneinfo: String
 }
 
-type UserConnection {
-  edges: [UserEdge]
-  nodes: [User]
+"""Represents a notification specific to a User"""
+type UserNotification {
+  """These denote where the message is from and what it pertains to."""
+  category: UserNotificationCategory!
+
+  """
+  The actual message. It's optional, and potentially only the subject is needed. Should be short.
+  """
+  content: String
+
+  """ISO Date"""
+  createdAt: String!
+
+  """Identity who created the notification"""
+  createdBy: ID!
+
+  """Epoch date when this notification will expire"""
+  expiresAt: Int
+
+  """Should this notification be delivered outside the portal?"""
+  externalDeliveries: [NotificationExternalDeliveryType]
+
+  """Where the button in the notification should link to"""
+  link: String
+
+  """The sender of the notification can use this to reference it later"""
+  senderReferenceKey: String
+
+  """Denotes the tone of the message, may affect display"""
+  sentiment: NotificationSentiment
+
+  """Denotes how urgent and whether the Notification is archived"""
+  status: NotificationStatus!
+
+  """The subject of the notification, is required"""
+  subject: String!
+
+  """ISO Date"""
+  updatedAt: String!
+
+  """The last identity to alter this record"""
+  updatedBy: ID!
+
+  """The user this notification pertains to"""
+  userName: ID!
+
+  """The ID of this userNotification"""
+  userNotificationId: ID!
+}
+
+"""These denote where the message is from and what it pertains to."""
+enum UserNotificationCategory {
+  PARTNER
+}
+
+"""Paginate through UserNotifications"""
+type UserNotificationConnection {
+  edges: [UserNotificationEdge]
+  nodes: [UserNotification]
   pageInfo: PageInfo!
 }
 
-type UserEdge {
-  node: User
+"""One edge producing one UserNotification node"""
+type UserNotificationEdge {
+  node: UserNotification
+}
+
+"""Input to change the status of a UserNotification"""
+input UserNotificationUpdateStatusInput {
+  """Denotes how urgent and whether the Notification is archived"""
+  status: NotificationStatus!
+
+  """The user this notification pertains to"""
+  userName: ID!
+
+  """The ID of this userNotification"""
+  userNotificationId: ID!
+}
+
+"""
+Input object to update a User.
+Very similiar to User, but does not include sub and email is not required.
+"""
+input UserUpdateInput {
+  address: String
+
+  """
+  End-User's birthday, represented as an ISO 8601:2004 YYYY-MM-DD format. The
+  year MAY be 0000, indicating that it is omitted. To represent only the year,
+  YYYY format is allowed. Note that depending on the underlying platform's date
+  related function, providing just year can result in varying month and day, so
+  the implementers need to take this factor into account to correctly process the dates.
+  """
+  birthdate: String
+  createdAt: String
+  email: String
+
+  """string of true or false"""
+  emailVerified: String
+  familyName: String
+  gender: String
+  givenName: String
+
+  """String representing the User's locale, i.e. 'en-us'"""
+  locale: String
+
+  """The display name for the User"""
+  nickname: String
+
+  """
+  End-User's preferred telephone number. E.164 [E.164] is RECOMMENDED as the
+  format of this Claim, for example, +1 (425) 555-1212 or +56 (2) 687 2400. If
+  the phone number contains an extension, it is RECOMMENDED that the extension
+  be represented using the RFC 3966 [RFC3966] extension syntax, for example, +1
+  (604) 555-1234;ext=5678.
+  """
+  phone: String
+
+  """string of true or false"""
+  phoneNumberVerified: String
+
+  """
+  URL of the End-User's profile picture. This URL MUST refer to an image file
+  (for example, a PNG, JPEG, or GIF image file), rather than to a Web page
+  containing an image. Note that this URL SHOULD specifically reference a
+  profile photo of the End-User suitable for displaying when describing the
+  End-User, rather than an arbitrary photo taken by the End-User.
+  """
+  picture: String
+
+  """
+  URL of the End-User's profile page. The contents of this Web page SHOULD be about the End-User.
+  """
+  profile: String
+  updatedAt: String
+  userName: ID!
+
+  """
+  URL of the End-User's Web page or blog. This Web page SHOULD contain
+  information published by the End-User or an organization that the End-User is
+  affiliated with.
+  """
+  website: String
+
+  """
+  Timezone - String from zoneinfo time zone database representing the End-User's
+  time zone. For example, Europe/Paris or America/Los_Angeles.
+  """
+  zoneinfo: String
 }
