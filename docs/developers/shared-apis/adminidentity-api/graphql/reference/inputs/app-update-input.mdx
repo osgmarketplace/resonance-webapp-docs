@@ -1,0 +1,37 @@
+---
+id: app-update-input
+title: AppUpdateInput
+---
+
+The necessary fields in order to update an app
+
+```graphql
+type AppUpdateInput {
+  appId: ID!
+  appSlug: String
+  description: String
+  installationWebhook: String
+  name: String
+  notificationEmail: String
+  partnerId: ID!
+  uninstallationWebhook: String
+}
+```
+
+### Fields
+
+#### `appId` ([`ID!`](/developers/shared-apis/adminidentity-api/graphql/reference/scalars/id))
+
+#### `appSlug` ([`String`](/developers/shared-apis/adminidentity-api/graphql/reference/scalars/string))
+
+#### `description` ([`String`](/developers/shared-apis/adminidentity-api/graphql/reference/scalars/string))
+
+#### `installationWebhook` ([`String`](/developers/shared-apis/adminidentity-api/graphql/reference/scalars/string))
+
+#### `name` ([`String`](/developers/shared-apis/adminidentity-api/graphql/reference/scalars/string))
+
+#### `notificationEmail` ([`String`](/developers/shared-apis/adminidentity-api/graphql/reference/scalars/string))
+
+#### `partnerId` ([`ID!`](/developers/shared-apis/adminidentity-api/graphql/reference/scalars/id))
+
+#### `uninstallationWebhook` ([`String`](/developers/shared-apis/adminidentity-api/graphql/reference/scalars/string))

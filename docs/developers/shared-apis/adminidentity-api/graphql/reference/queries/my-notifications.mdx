@@ -1,0 +1,51 @@
+---
+id: my-notifications
+title: myNotifications
+---
+
+No description
+
+```graphql
+myNotifications(
+  after: String
+  before: String
+  category: UserNotificationCategory
+  first: Int = 0
+  last: Int = 0
+  status: NotificationStatus
+): UserNotificationConnection!
+
+```
+
+### Arguments
+
+#### `after` ([`String`](/developers/shared-apis/adminidentity-api/graphql/reference/scalars/string))
+
+Returns the elements in the list that come after the specified cursor.
+
+#### `before` ([`String`](/developers/shared-apis/adminidentity-api/graphql/reference/scalars/string))
+
+Returns the elements in the list that come before the specified cursor.
+
+#### `category` ([`UserNotificationCategory`](/developers/shared-apis/adminidentity-api/graphql/reference/enums/user-notification-category))
+
+Declare which UserNotificationCategory you would like notifications for.
+status is required when this variable is present, or it will be ignored.
+
+#### `first` ([`Int`](/developers/shared-apis/adminidentity-api/graphql/reference/scalars/int))
+
+Returns the first n elements from the list.
+
+#### `last` ([`Int`](/developers/shared-apis/adminidentity-api/graphql/reference/scalars/int))
+
+Returns the last n elements from the list.
+
+#### `status` ([`NotificationStatus`](/developers/shared-apis/adminidentity-api/graphql/reference/enums/notification-status))
+
+Declare which NotificationStatus you would like notifications for
+
+### Type
+
+#### [`UserNotificationConnection`](/developers/shared-apis/adminidentity-api/graphql/reference/objects/user-notification-connection)
+
+Paginate through UserNotifications

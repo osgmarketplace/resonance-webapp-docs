@@ -1,0 +1,52 @@
+---
+id: app
+title: App
+---
+
+Represents a App, which are machine users that perform a small context, unified set of tasks
+
+```graphql
+type App {
+  appClientIds: [String!]!
+  appId: ID!
+  appSlug: String!
+  appType: AppType!
+  createdAt: String!
+  description: String
+  installationWebhook: String!
+  name: String!
+  notificationEmail: String!
+  partnerId: ID!
+  requestedScopes: [String!]!
+  uninstallationWebhook: String!
+  updatedAt: String!
+}
+```
+
+### Fields
+
+#### `appClientIds` ([`[String!]!`](/developers/shared-apis/adminidentity-api/graphql/reference/scalars/string))
+
+#### `appId` ([`ID!`](/developers/shared-apis/adminidentity-api/graphql/reference/scalars/id))
+
+#### `appSlug` ([`String!`](/developers/shared-apis/adminidentity-api/graphql/reference/scalars/string))
+
+#### `appType` ([`AppType!`](/developers/shared-apis/adminidentity-api/graphql/reference/enums/app-type))
+
+#### `createdAt` ([`String!`](/developers/shared-apis/adminidentity-api/graphql/reference/scalars/string))
+
+#### `description` ([`String`](/developers/shared-apis/adminidentity-api/graphql/reference/scalars/string))
+
+#### `installationWebhook` ([`String!`](/developers/shared-apis/adminidentity-api/graphql/reference/scalars/string))
+
+#### `name` ([`String!`](/developers/shared-apis/adminidentity-api/graphql/reference/scalars/string))
+
+#### `notificationEmail` ([`String!`](/developers/shared-apis/adminidentity-api/graphql/reference/scalars/string))
+
+#### `partnerId` ([`ID!`](/developers/shared-apis/adminidentity-api/graphql/reference/scalars/id))
+
+#### `requestedScopes` ([`[String!]!`](/developers/shared-apis/adminidentity-api/graphql/reference/scalars/string))
+
+#### `uninstallationWebhook` ([`String!`](/developers/shared-apis/adminidentity-api/graphql/reference/scalars/string))
+
+#### `updatedAt` ([`String!`](/developers/shared-apis/adminidentity-api/graphql/reference/scalars/string))

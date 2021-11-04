@@ -1,0 +1,28 @@
+---
+id: partner-user-permission-create-input
+title: PartnerUserPermissionCreateInput
+---
+
+Input object to create a PartnerUserPermission, the permissions given to a User for a Partner
+
+```graphql
+type PartnerUserPermissionCreateInput {
+  partnerId: ID!
+  permissions: PartnerUserPermissionPermissionsInput!
+  userName: ID!
+}
+```
+
+### Fields
+
+#### `partnerId` ([`ID!`](/developers/shared-apis/adminidentity-api/graphql/reference/scalars/id))
+
+The ID of the Partner this permission pertains to
+
+#### `permissions` ([`PartnerUserPermissionPermissionsInput!`](/developers/shared-apis/adminidentity-api/graphql/reference/inputs/partner-user-permission-permissions-input))
+
+Object representing exactly what permissions are given
+
+#### `userName` ([`ID!`](/developers/shared-apis/adminidentity-api/graphql/reference/scalars/id))
+
+The user these permissions pertain to

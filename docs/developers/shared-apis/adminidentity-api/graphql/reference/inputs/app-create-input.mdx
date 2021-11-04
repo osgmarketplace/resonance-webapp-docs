@@ -1,0 +1,40 @@
+---
+id: app-create-input
+title: AppCreateInput
+---
+
+The necessary fields in order to create a new app
+
+```graphql
+type AppCreateInput {
+  appSlug: String!
+  appType: AppType!
+  description: String
+  installationWebhook: String!
+  name: String!
+  notificationEmail: String!
+  partnerId: ID!
+  requestedScopes: [String!]!
+  uninstallationWebhook: String!
+}
+```
+
+### Fields
+
+#### `appSlug` ([`String!`](/developers/shared-apis/adminidentity-api/graphql/reference/scalars/string))
+
+#### `appType` ([`AppType!`](/developers/shared-apis/adminidentity-api/graphql/reference/enums/app-type))
+
+#### `description` ([`String`](/developers/shared-apis/adminidentity-api/graphql/reference/scalars/string))
+
+#### `installationWebhook` ([`String!`](/developers/shared-apis/adminidentity-api/graphql/reference/scalars/string))
+
+#### `name` ([`String!`](/developers/shared-apis/adminidentity-api/graphql/reference/scalars/string))
+
+#### `notificationEmail` ([`String!`](/developers/shared-apis/adminidentity-api/graphql/reference/scalars/string))
+
+#### `partnerId` ([`ID!`](/developers/shared-apis/adminidentity-api/graphql/reference/scalars/id))
+
+#### `requestedScopes` ([`[String!]!`](/developers/shared-apis/adminidentity-api/graphql/reference/scalars/string))
+
+#### `uninstallationWebhook` ([`String!`](/developers/shared-apis/adminidentity-api/graphql/reference/scalars/string))
