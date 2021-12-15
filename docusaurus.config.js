@@ -85,7 +85,6 @@ module.exports = {
         [
             "@cmfcmf/docusaurus-search-local",
             {
-                docsRouteBasePath: "/",
                 indexDocSidebarParentCategories: 3,
                 indexBlog: false,
             },

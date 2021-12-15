@@ -19,18 +19,18 @@ type Supplier {
   supplierIdentities(
     after: String
     before: String
-    first: Int = 0
-    identityParentEntityId: ID = 0
+    first: Int
+    identityParentEntityId: ID
     identityType: SupplierIdentityType
-    last: Int = 0
+    last: Int
   ): SupplierIdentityConnection!
   supplierIdentity(identityId: ID!): SupplierIdentity
   supplierVariant(supplierVariantId: ID!): SupplierVariant
   supplierVariants(
     after: String
     before: String
-    first: Int = 0
-    last: Int = 0
+    first: Int
+    last: Int
   ): SupplierVariantConnection!
   updatedAt: String!
   updatedBy: ID!
@@ -39,27 +39,27 @@ type Supplier {
 
 ### Fields
 
-#### `createdAt` ([`String!`](/developers/supplier-apis/supply-api/graphql/reference/scalars/string))
+#### `createdAt` ([`String`](/developers/supplier-apis/supply-api/graphql/reference/scalars/string))
 
-#### `defaultCurrency` ([`ResonanceCurrency!`](/developers/supplier-apis/supply-api/graphql/reference/enums/resonance-currency))
+#### `defaultCurrency` ([`ResonanceCurrency`](/developers/supplier-apis/supply-api/graphql/reference/enums/resonance-currency))
 
-#### `defaultLocaleType` ([`ResonanceLocaleType!`](/developers/supplier-apis/supply-api/graphql/reference/enums/resonance-locale-type))
+#### `defaultLocaleType` ([`ResonanceLocaleType`](/developers/supplier-apis/supply-api/graphql/reference/enums/resonance-locale-type))
 
 #### `description` ([`String`](/developers/supplier-apis/supply-api/graphql/reference/scalars/string))
 
-#### `name` ([`String!`](/developers/supplier-apis/supply-api/graphql/reference/scalars/string))
+#### `name` ([`String`](/developers/supplier-apis/supply-api/graphql/reference/scalars/string))
 
-#### `ownerUserName` ([`String!`](/developers/supplier-apis/supply-api/graphql/reference/scalars/string))
+#### `ownerUserName` ([`String`](/developers/supplier-apis/supply-api/graphql/reference/scalars/string))
 
-#### `purchaseOrderNotifications` ([`[PurchaseOrderNotification!]`](/developers/supplier-apis/supply-api/graphql/reference/objects/purchase-order-notification))
+#### `purchaseOrderNotifications` ([`PurchaseOrderNotification`](/developers/supplier-apis/supply-api/graphql/reference/objects/purchase-order-notification))
 
 One purchaseOrderNotification must be present to publish (private or public)
 
-#### `status` ([`SupplierStatus!`](/developers/supplier-apis/supply-api/graphql/reference/enums/supplier-status))
+#### `status` ([`SupplierStatus`](/developers/supplier-apis/supply-api/graphql/reference/enums/supplier-status))
 
-#### `supplierId` ([`ID!`](/developers/supplier-apis/supply-api/graphql/reference/scalars/id))
+#### `supplierId` ([`ID`](/developers/supplier-apis/supply-api/graphql/reference/scalars/id))
 
-#### `supplierIdentities` ([`SupplierIdentityConnection!`](/developers/supplier-apis/supply-api/graphql/reference/objects/supplier-identity-connection))
+#### `supplierIdentities` ([`SupplierIdentityConnection`](/developers/supplier-apis/supply-api/graphql/reference/objects/supplier-identity-connection))
 
 Provided through SupplierIdentity Chained Resolver
 Returns SupplierIdentities for the given Supplier
@@ -97,7 +97,7 @@ Returns a single SupplierIdentity for the given Supplier
 
 Requires supplieridentity/read permission on the requesting identity, or you can request your own identity.
 
-- ##### `identityId` ([`ID!`](/developers/supplier-apis/supply-api/graphql/reference/scalars/id))
+- ##### `identityId` ([`ID`](/developers/supplier-apis/supply-api/graphql/reference/scalars/id))
 
 #### `supplierVariant` ([`SupplierVariant`](/developers/supplier-apis/supply-api/graphql/reference/objects/supplier-variant))
 
@@ -105,9 +105,9 @@ Get a single supplierVariant by SupplierVariantId
 
 Requires suppliervariant/read permission on the requesting identity
 
-- ##### `supplierVariantId` ([`ID!`](/developers/supplier-apis/supply-api/graphql/reference/scalars/id))
+- ##### `supplierVariantId` ([`ID`](/developers/supplier-apis/supply-api/graphql/reference/scalars/id))
 
-#### `supplierVariants` ([`SupplierVariantConnection!`](/developers/supplier-apis/supply-api/graphql/reference/objects/supplier-variant-connection))
+#### `supplierVariants` ([`SupplierVariantConnection`](/developers/supplier-apis/supply-api/graphql/reference/objects/supplier-variant-connection))
 
 Get a list of supplierVariants
 Default sort is by updatedAt (first for asc, last for desc).
@@ -130,6 +130,6 @@ Returns the first n elements from the list.
 
 Returns the last n elements from the list.
 
-#### `updatedAt` ([`String!`](/developers/supplier-apis/supply-api/graphql/reference/scalars/string))
+#### `updatedAt` ([`String`](/developers/supplier-apis/supply-api/graphql/reference/scalars/string))
 
-#### `updatedBy` ([`ID!`](/developers/supplier-apis/supply-api/graphql/reference/scalars/id))
+#### `updatedBy` ([`ID`](/developers/supplier-apis/supply-api/graphql/reference/scalars/id))

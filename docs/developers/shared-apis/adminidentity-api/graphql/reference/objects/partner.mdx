@@ -8,12 +8,7 @@ Represents a Partner, the parent to an App, and the parent most component for De
 ```graphql
 type Partner {
   app(appId: ID!): App
-  apps(
-    after: String
-    before: String
-    first: Int = 0
-    last: Int = 0
-  ): AppConnection!
+  apps(after: String, before: String, first: Int, last: Int): AppConnection!
   createdAt: String!
   description: String
   name: String!
@@ -23,8 +18,8 @@ type Partner {
   partnerIdentities(
     after: String
     before: String
-    first: Int = 0
-    last: Int = 0
+    first: Int
+    last: Int
   ): PartnerIdentityConnection!
   partnerIdentity(identityId: ID!): PartnerIdentity
   updatedAt: String!
@@ -37,9 +32,9 @@ type Partner {
 
 Get a single app
 
-- ##### `appId` ([`ID!`](/developers/shared-apis/adminidentity-api/graphql/reference/scalars/id))
+- ##### `appId` ([`ID`](/developers/shared-apis/adminidentity-api/graphql/reference/scalars/id))
 
-#### `apps` ([`AppConnection!`](/developers/shared-apis/adminidentity-api/graphql/reference/objects/app-connection))
+#### `apps` ([`AppConnection`](/developers/shared-apis/adminidentity-api/graphql/reference/objects/app-connection))
 
 Get a list of app
 
@@ -59,19 +54,19 @@ Returns the first n elements from the list.
 
 Returns the last n elements from the list.
 
-#### `createdAt` ([`String!`](/developers/shared-apis/adminidentity-api/graphql/reference/scalars/string))
+#### `createdAt` ([`String`](/developers/shared-apis/adminidentity-api/graphql/reference/scalars/string))
 
 #### `description` ([`String`](/developers/shared-apis/adminidentity-api/graphql/reference/scalars/string))
 
-#### `name` ([`String!`](/developers/shared-apis/adminidentity-api/graphql/reference/scalars/string))
+#### `name` ([`String`](/developers/shared-apis/adminidentity-api/graphql/reference/scalars/string))
 
 #### `notificationUserNames` ([`PartnerNotificationUserNames`](/developers/shared-apis/adminidentity-api/graphql/reference/objects/partner-notification-user-names))
 
-#### `ownerUserName` ([`String!`](/developers/shared-apis/adminidentity-api/graphql/reference/scalars/string))
+#### `ownerUserName` ([`String`](/developers/shared-apis/adminidentity-api/graphql/reference/scalars/string))
 
-#### `partnerId` ([`ID!`](/developers/shared-apis/adminidentity-api/graphql/reference/scalars/id))
+#### `partnerId` ([`ID`](/developers/shared-apis/adminidentity-api/graphql/reference/scalars/id))
 
-#### `partnerIdentities` ([`PartnerIdentityConnection!`](/developers/shared-apis/adminidentity-api/graphql/reference/objects/partner-identity-connection))
+#### `partnerIdentities` ([`PartnerIdentityConnection`](/developers/shared-apis/adminidentity-api/graphql/reference/objects/partner-identity-connection))
 
 Return the identities permissions associated with this partner
 
@@ -95,6 +90,6 @@ Returns the last n elements from the list.
 
 Return a single identity's permissions associated with this partner
 
-- ##### `identityId` ([`ID!`](/developers/shared-apis/adminidentity-api/graphql/reference/scalars/id))
+- ##### `identityId` ([`ID`](/developers/shared-apis/adminidentity-api/graphql/reference/scalars/id))
 
-#### `updatedAt` ([`String!`](/developers/shared-apis/adminidentity-api/graphql/reference/scalars/string))
+#### `updatedAt` ([`String`](/developers/shared-apis/adminidentity-api/graphql/reference/scalars/string))

@@ -10,8 +10,8 @@ events(
   after: String
   before: String
   entityId: ID!
-  first: Int = 0
-  last: Int = 0
+  first: Int
+  last: Int
   supplierId: ID!
 ): SupplyEventConnection!
 
@@ -27,7 +27,7 @@ Returns the elements in the list that come after the specified cursor.
 
 Returns the elements in the list that come before the specified cursor.
 
-#### `entityId` ([`ID!`](/developers/supplier-apis/supply-api/graphql/reference/scalars/id))
+#### `entityId` ([`ID`](/developers/supplier-apis/supply-api/graphql/reference/scalars/id))
 
 The entity to retrieve events for, like a SupplierVariantId
 
@@ -39,7 +39,7 @@ Returns the first n elements from the list.
 
 Returns the last n elements from the list.
 
-#### `supplierId` ([`ID!`](/developers/supplier-apis/supply-api/graphql/reference/scalars/id))
+#### `supplierId` ([`ID`](/developers/supplier-apis/supply-api/graphql/reference/scalars/id))
 
 The SupplierId to retrieve events for
 

@@ -27,7 +27,7 @@ type UserNotification {
 
 ### Fields
 
-#### `category` ([`UserNotificationCategory!`](/developers/shared-apis/adminidentity-api/graphql/reference/enums/user-notification-category))
+#### `category` ([`UserNotificationCategory`](/developers/shared-apis/adminidentity-api/graphql/reference/enums/user-notification-category))
 
 These denote where the message is from and what it pertains to.
 
@@ -35,11 +35,11 @@ These denote where the message is from and what it pertains to.
 
 The actual message. It's optional, and potentially only the subject is needed. Should be short.
 
-#### `createdAt` ([`String!`](/developers/shared-apis/adminidentity-api/graphql/reference/scalars/string))
+#### `createdAt` ([`String`](/developers/shared-apis/adminidentity-api/graphql/reference/scalars/string))
 
 ISO Date
 
-#### `createdBy` ([`ID!`](/developers/shared-apis/adminidentity-api/graphql/reference/scalars/id))
+#### `createdBy` ([`ID`](/developers/shared-apis/adminidentity-api/graphql/reference/scalars/id))
 
 Identity who created the notification
 
@@ -47,7 +47,7 @@ Identity who created the notification
 
 Epoch date when this notification will expire
 
-#### `externalDeliveries` ([`[NotificationExternalDeliveryType]`](/developers/shared-apis/adminidentity-api/graphql/reference/enums/notification-external-delivery-type))
+#### `externalDeliveries` ([`NotificationExternalDeliveryType`](/developers/shared-apis/adminidentity-api/graphql/reference/enums/notification-external-delivery-type))
 
 Should this notification be delivered outside the portal?
 
@@ -63,26 +63,26 @@ The sender of the notification can use this to reference it later
 
 Denotes the tone of the message, may affect display
 
-#### `status` ([`NotificationStatus!`](/developers/shared-apis/adminidentity-api/graphql/reference/enums/notification-status))
+#### `status` ([`NotificationStatus`](/developers/shared-apis/adminidentity-api/graphql/reference/enums/notification-status))
 
 Denotes how urgent and whether the Notification is archived
 
-#### `subject` ([`String!`](/developers/shared-apis/adminidentity-api/graphql/reference/scalars/string))
+#### `subject` ([`String`](/developers/shared-apis/adminidentity-api/graphql/reference/scalars/string))
 
 The subject of the notification, is required
 
-#### `updatedAt` ([`String!`](/developers/shared-apis/adminidentity-api/graphql/reference/scalars/string))
+#### `updatedAt` ([`String`](/developers/shared-apis/adminidentity-api/graphql/reference/scalars/string))
 
 ISO Date
 
-#### `updatedBy` ([`ID!`](/developers/shared-apis/adminidentity-api/graphql/reference/scalars/id))
+#### `updatedBy` ([`ID`](/developers/shared-apis/adminidentity-api/graphql/reference/scalars/id))
 
 The last identity to alter this record
 
-#### `userName` ([`ID!`](/developers/shared-apis/adminidentity-api/graphql/reference/scalars/id))
+#### `userName` ([`ID`](/developers/shared-apis/adminidentity-api/graphql/reference/scalars/id))
 
 The user this notification pertains to
 
-#### `userNotificationId` ([`ID!`](/developers/shared-apis/adminidentity-api/graphql/reference/scalars/id))
+#### `userNotificationId` ([`ID`](/developers/shared-apis/adminidentity-api/graphql/reference/scalars/id))
 
 The ID of this userNotification

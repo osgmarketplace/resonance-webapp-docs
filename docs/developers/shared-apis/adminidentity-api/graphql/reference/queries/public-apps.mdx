@@ -8,11 +8,11 @@ Get a list of PublicApps
 ```graphql
 publicApps(
   after: String
-  appIds: [ID] = []
+  appIds: [ID]
   before: String
-  first: Int = 0
-  last: Int = 0
-  partnerId: ID = 0
+  first: Int
+  last: Int
+  partnerId: ID
 ): PublicAppConnection!
 
 ```
@@ -23,7 +23,7 @@ publicApps(
 
 Returns the elements in the list that come after the specified cursor.
 
-#### `appIds` ([`[ID]`](/developers/shared-apis/adminidentity-api/graphql/reference/scalars/id))
+#### `appIds` ([`ID`](/developers/shared-apis/adminidentity-api/graphql/reference/scalars/id))
 
 Directly query PublicApps by their ids, this filter should be used alone
 

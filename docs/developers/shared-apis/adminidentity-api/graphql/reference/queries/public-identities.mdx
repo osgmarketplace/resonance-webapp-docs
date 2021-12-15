@@ -10,9 +10,9 @@ Will return in exact order of the IDs passed in, with null for missing identitie
 publicIdentities(
   after: String
   before: String
-  first: Int = 0
+  first: Int
   identityIds: [ID!]!
-  last: Int = 0
+  last: Int
 ): PublicIdentityConnection!
 
 ```
@@ -31,7 +31,7 @@ Returns the elements in the list that come before the specified cursor. Currentl
 
 Returns the first n elements from the list. Currently not supported.
 
-#### `identityIds` ([`[ID!]!`](/developers/shared-apis/adminidentity-api/graphql/reference/scalars/id))
+#### `identityIds` ([`ID`](/developers/shared-apis/adminidentity-api/graphql/reference/scalars/id))
 
 None of the relay arguments are required when this is populated.
 

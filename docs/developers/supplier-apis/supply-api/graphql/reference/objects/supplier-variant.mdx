@@ -12,8 +12,8 @@ type SupplierVariant {
   contentItems(
     after: String
     before: String
-    first: Int = 0
-    last: Int = 0
+    first: Int
+    last: Int
   ): SupplierVariantContentItemConnection!
   createdAt: String!
   externalProductId: String!
@@ -43,9 +43,9 @@ Get a supplierVariantContentItem for a supplierVariant
 
 Requires suppliervariantcontentitem/read permission on the requesting identity
 
-- ##### `contentItemId` ([`ID!`](/developers/supplier-apis/supply-api/graphql/reference/scalars/id))
+- ##### `contentItemId` ([`ID`](/developers/supplier-apis/supply-api/graphql/reference/scalars/id))
 
-#### `contentItems` ([`SupplierVariantContentItemConnection!`](/developers/supplier-apis/supply-api/graphql/reference/objects/supplier-variant-content-item-connection))
+#### `contentItems` ([`SupplierVariantContentItemConnection`](/developers/supplier-apis/supply-api/graphql/reference/objects/supplier-variant-content-item-connection))
 
 Get a list of supplierVariantContentItems
 
@@ -67,17 +67,17 @@ Returns the first n elements from the list.
 
 Returns the last n elements from the list.
 
-#### `createdAt` ([`String!`](/developers/supplier-apis/supply-api/graphql/reference/scalars/string))
+#### `createdAt` ([`String`](/developers/supplier-apis/supply-api/graphql/reference/scalars/string))
 
-#### `externalProductId` ([`String!`](/developers/supplier-apis/supply-api/graphql/reference/scalars/string))
+#### `externalProductId` ([`String`](/developers/supplier-apis/supply-api/graphql/reference/scalars/string))
 
-#### `externalVariantId` ([`String!`](/developers/supplier-apis/supply-api/graphql/reference/scalars/string))
+#### `externalVariantId` ([`String`](/developers/supplier-apis/supply-api/graphql/reference/scalars/string))
 
-#### `inventoryPolicy` ([`SupplierVariantInventoryPolicy!`](/developers/supplier-apis/supply-api/graphql/reference/enums/supplier-variant-inventory-policy))
+#### `inventoryPolicy` ([`SupplierVariantInventoryPolicy`](/developers/supplier-apis/supply-api/graphql/reference/enums/supplier-variant-inventory-policy))
 
-#### `inventoryQuantity` ([`Int!`](/developers/supplier-apis/supply-api/graphql/reference/scalars/int))
+#### `inventoryQuantity` ([`Int`](/developers/supplier-apis/supply-api/graphql/reference/scalars/int))
 
-#### `inventoryStatus` ([`SupplierVariantInventoryStatus!`](/developers/supplier-apis/supply-api/graphql/reference/enums/supplier-variant-inventory-status))
+#### `inventoryStatus` ([`SupplierVariantInventoryStatus`](/developers/supplier-apis/supply-api/graphql/reference/enums/supplier-variant-inventory-status))
 
 #### `locale` ([`SupplierVariantLocale`](/developers/supplier-apis/supply-api/graphql/reference/objects/supplier-variant-locale))
 
@@ -85,13 +85,13 @@ Get a single supplierVariantLocale by ResonanceLocaleType
 
 Requires suppliervariantlocale/read permission on the requesting identity
 
-- ##### `localeType` ([`ResonanceLocaleType!`](/developers/supplier-apis/supply-api/graphql/reference/enums/resonance-locale-type))
+- ##### `localeType` ([`ResonanceLocaleType`](/developers/supplier-apis/supply-api/graphql/reference/enums/resonance-locale-type))
 
-#### `options` ([`SupplierVariantOptions!`](/developers/supplier-apis/supply-api/graphql/reference/objects/supplier-variant-options))
+#### `options` ([`SupplierVariantOptions`](/developers/supplier-apis/supply-api/graphql/reference/objects/supplier-variant-options))
 
-#### `productTitle` ([`String!`](/developers/supplier-apis/supply-api/graphql/reference/scalars/string))
+#### `productTitle` ([`String`](/developers/supplier-apis/supply-api/graphql/reference/scalars/string))
 
-#### `status` ([`SupplierVariantStatus!`](/developers/supplier-apis/supply-api/graphql/reference/enums/supplier-variant-status))
+#### `status` ([`SupplierVariantStatus`](/developers/supplier-apis/supply-api/graphql/reference/enums/supplier-variant-status))
 
 #### `supplement` ([`SupplierVariantSupplement`](/developers/supplier-apis/supply-api/graphql/reference/objects/supplier-variant-supplement))
 
@@ -99,14 +99,14 @@ Get the supplierVariantSupplement for a supplierVariant
 
 Requires suppliervariantsupplement/read permission on the requesting identity
 
-#### `supplierId` ([`ID!`](/developers/supplier-apis/supply-api/graphql/reference/scalars/id))
+#### `supplierId` ([`ID`](/developers/supplier-apis/supply-api/graphql/reference/scalars/id))
 
-#### `supplierVariantId` ([`ID!`](/developers/supplier-apis/supply-api/graphql/reference/scalars/id))
+#### `supplierVariantId` ([`ID`](/developers/supplier-apis/supply-api/graphql/reference/scalars/id))
 
-#### `updatedAt` ([`String!`](/developers/supplier-apis/supply-api/graphql/reference/scalars/string))
+#### `updatedAt` ([`String`](/developers/supplier-apis/supply-api/graphql/reference/scalars/string))
 
-#### `updatedBy` ([`String!`](/developers/supplier-apis/supply-api/graphql/reference/scalars/string))
+#### `updatedBy` ([`String`](/developers/supplier-apis/supply-api/graphql/reference/scalars/string))
 
-#### `variantTitle` ([`String!`](/developers/supplier-apis/supply-api/graphql/reference/scalars/string))
+#### `variantTitle` ([`String`](/developers/supplier-apis/supply-api/graphql/reference/scalars/string))
 
-#### `vendor` ([`String!`](/developers/supplier-apis/supply-api/graphql/reference/scalars/string))
+#### `vendor` ([`String`](/developers/supplier-apis/supply-api/graphql/reference/scalars/string))

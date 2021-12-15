@@ -21,12 +21,12 @@ type PageInfo {
 The cursor to use when paginating forwards (using first/after). Will always be
 populated regardless of if a next page exists.
 
-#### `hasNextPage` ([`Boolean!`](/developers/shared-apis/adminidentity-api/graphql/reference/scalars/boolean))
+#### `hasNextPage` ([`Boolean`](/developers/shared-apis/adminidentity-api/graphql/reference/scalars/boolean))
 
 Whether or not using the endCursor will result in more results. Always
 populated, but will always be false when paginating using last/before.
 
-#### `hasPreviousPage` ([`Boolean!`](/developers/shared-apis/adminidentity-api/graphql/reference/scalars/boolean))
+#### `hasPreviousPage` ([`Boolean`](/developers/shared-apis/adminidentity-api/graphql/reference/scalars/boolean))
 
 Whether or not using the startCursor will result in more results. Always
 populated, but will always be false when paginating using first/after.
