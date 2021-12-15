@@ -1,0 +1,26 @@
+---
+id: delete-partner-identity
+title: deletePartnerIdentity
+---
+
+Delete a PartnerIdentity (remove Identity's permissions to a Partner)
+
+```graphql
+deletePartnerIdentity(
+  identityId: ID!
+  partnerId: ID!
+): PartnerIdentityDeleteOutput!
+
+```
+
+### Arguments
+
+#### `identityId` ([`ID`](/developers/shared-apis/adminidentity-api/graphql/reference/scalars/id))
+
+#### `partnerId` ([`ID`](/developers/shared-apis/adminidentity-api/graphql/reference/scalars/id))
+
+### Type
+
+#### [`PartnerIdentityDeleteOutput`](/developers/shared-apis/adminidentity-api/graphql/reference/objects/partner-identity-delete-output)
+
+The output when a PartnerIdentity is deleted

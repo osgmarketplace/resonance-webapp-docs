@@ -7,24 +7,33 @@ Indicates a User or App has permissions on a Supplier
 
 ```graphql
 type SupplierIdentity {
+  identityId: ID!
+  identityParentEntityId: ID
   identityType: SupplierIdentityType!
   permissions: SupplierIdentityPermissions!
+  publicIdentity: PublicIdentity
+  publicIdentityParent: PublicIdentityParent
   supplierId: ID!
   updatedBy: String!
-  userName: ID!
 }
 ```
 
 ### Fields
 
-#### `identityType` ([`SupplierIdentityType!`](/developers/supplier-apis/supply-api/graphql/reference/enums/supplier-identity-type))
-
-#### `permissions` ([`SupplierIdentityPermissions!`](/developers/supplier-apis/supply-api/graphql/reference/objects/supplier-identity-permissions))
-
-#### `supplierId` ([`ID!`](/developers/supplier-apis/supply-api/graphql/reference/scalars/id))
-
-#### `updatedBy` ([`String!`](/developers/supplier-apis/supply-api/graphql/reference/scalars/string))
-
-#### `userName` ([`ID!`](/developers/supplier-apis/supply-api/graphql/reference/scalars/id))
+#### `identityId` ([`ID`](/developers/supplier-apis/supply-api/graphql/reference/scalars/id))
 
 Could be a userName or an appClientId
+
+#### `identityParentEntityId` ([`ID`](/developers/supplier-apis/supply-api/graphql/reference/scalars/id))
+
+#### `identityType` ([`SupplierIdentityType`](/developers/supplier-apis/supply-api/graphql/reference/enums/supplier-identity-type))
+
+#### `permissions` ([`SupplierIdentityPermissions`](/developers/supplier-apis/supply-api/graphql/reference/objects/supplier-identity-permissions))
+
+#### `publicIdentity` ([`PublicIdentity`](/developers/supplier-apis/supply-api/graphql/reference/objects/public-identity))
+
+#### `publicIdentityParent` ([`PublicIdentityParent`](/developers/supplier-apis/supply-api/graphql/reference/unions/public-identity-parent))
+
+#### `supplierId` ([`ID`](/developers/supplier-apis/supply-api/graphql/reference/scalars/id))
+
+#### `updatedBy` ([`String`](/developers/supplier-apis/supply-api/graphql/reference/scalars/string))

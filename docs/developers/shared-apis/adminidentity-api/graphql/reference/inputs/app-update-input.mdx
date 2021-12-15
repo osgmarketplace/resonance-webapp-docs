@@ -8,30 +8,21 @@ The necessary fields in order to update an app
 ```graphql
 type AppUpdateInput {
   appId: ID!
-  appSlug: String
   description: String
-  installationWebhook: String
   name: String
-  notificationEmail: String
-  partnerId: ID!
-  uninstallationWebhook: String
+  requestedScopes: [String]
+  status: AppStatus
 }
 ```
 
 ### Fields
 
-#### `appId` ([`ID!`](/developers/shared-apis/adminidentity-api/graphql/reference/scalars/id))
-
-#### `appSlug` ([`String`](/developers/shared-apis/adminidentity-api/graphql/reference/scalars/string))
+#### `appId` ([`ID`](/developers/shared-apis/adminidentity-api/graphql/reference/scalars/id))
 
 #### `description` ([`String`](/developers/shared-apis/adminidentity-api/graphql/reference/scalars/string))
 
-#### `installationWebhook` ([`String`](/developers/shared-apis/adminidentity-api/graphql/reference/scalars/string))
-
 #### `name` ([`String`](/developers/shared-apis/adminidentity-api/graphql/reference/scalars/string))
 
-#### `notificationEmail` ([`String`](/developers/shared-apis/adminidentity-api/graphql/reference/scalars/string))
+#### `requestedScopes` ([`String`](/developers/shared-apis/adminidentity-api/graphql/reference/scalars/string))
 
-#### `partnerId` ([`ID!`](/developers/shared-apis/adminidentity-api/graphql/reference/scalars/id))
-
-#### `uninstallationWebhook` ([`String`](/developers/shared-apis/adminidentity-api/graphql/reference/scalars/string))
+#### `status` ([`AppStatus`](/developers/shared-apis/adminidentity-api/graphql/reference/enums/app-status))

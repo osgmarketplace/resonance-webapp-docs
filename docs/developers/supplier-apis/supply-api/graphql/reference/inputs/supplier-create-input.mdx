@@ -11,18 +11,18 @@ type SupplierCreateInput {
   defaultLocaleType: ResonanceLocaleType!
   description: String
   name: String!
-  purchaseOrderNotification: PurchaseOrderNotificationInput!
+  purchaseOrderNotifications: [PurchaseOrderNotificationInput!]
 }
 ```
 
 ### Fields
 
-#### `defaultCurrency` ([`String!`](/developers/supplier-apis/supply-api/graphql/reference/scalars/string))
+#### `defaultCurrency` ([`String`](/developers/supplier-apis/supply-api/graphql/reference/scalars/string))
 
-#### `defaultLocaleType` ([`ResonanceLocaleType!`](/developers/supplier-apis/supply-api/graphql/reference/enums/resonance-locale-type))
+#### `defaultLocaleType` ([`ResonanceLocaleType`](/developers/supplier-apis/supply-api/graphql/reference/enums/resonance-locale-type))
 
 #### `description` ([`String`](/developers/supplier-apis/supply-api/graphql/reference/scalars/string))
 
-#### `name` ([`String!`](/developers/supplier-apis/supply-api/graphql/reference/scalars/string))
+#### `name` ([`String`](/developers/supplier-apis/supply-api/graphql/reference/scalars/string))
 
-#### `purchaseOrderNotification` ([`PurchaseOrderNotificationInput!`](/developers/supplier-apis/supply-api/graphql/reference/inputs/purchase-order-notification-input))
+#### `purchaseOrderNotifications` ([`PurchaseOrderNotificationInput`](/developers/supplier-apis/supply-api/graphql/reference/inputs/purchase-order-notification-input))

@@ -1,0 +1,23 @@
+---
+id: public-app
+title: publicApp
+---
+
+Get a single PublicApp
+
+```graphql
+publicApp(
+  appId: ID!
+): PublicApp
+
+```
+
+### Arguments
+
+#### `appId` ([`ID`](/developers/shared-apis/adminidentity-api/graphql/reference/scalars/id))
+
+### Type
+
+#### [`PublicApp`](/developers/shared-apis/adminidentity-api/graphql/reference/objects/public-app)
+
+Represents an App, but the fields that can be publicly consumed without scopes

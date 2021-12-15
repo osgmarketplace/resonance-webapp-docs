@@ -1,0 +1,33 @@
+---
+id: partner-identity-create-input
+title: PartnerIdentityCreateInput
+---
+
+Input object to create a PartnerIdentity, the permissions given to an Identity for a Partner
+
+```graphql
+type PartnerIdentityCreateInput {
+  identityId: ID!
+  identityType: ResonanceIdentityType!
+  partnerId: ID!
+  permissions: PartnerIdentityPermissionsInput!
+}
+```
+
+### Fields
+
+#### `identityId` ([`ID`](/developers/shared-apis/adminidentity-api/graphql/reference/scalars/id))
+
+The identityId these permissions pertain to
+
+#### `identityType` ([`ResonanceIdentityType`](/developers/shared-apis/adminidentity-api/graphql/reference/enums/resonance-identity-type))
+
+The type of identity an identityId refers to
+
+#### `partnerId` ([`ID`](/developers/shared-apis/adminidentity-api/graphql/reference/scalars/id))
+
+The ID of the Partner this permission pertains to
+
+#### `permissions` ([`PartnerIdentityPermissionsInput`](/developers/shared-apis/adminidentity-api/graphql/reference/inputs/partner-identity-permissions-input))
+
+Object representing exactly what permissions are given

@@ -1,0 +1,50 @@
+---
+id: public-apps
+title: publicApps
+---
+
+Get a list of PublicApps
+
+```graphql
+publicApps(
+  after: String
+  appIds: [ID]
+  before: String
+  first: Int
+  last: Int
+  partnerId: ID
+): PublicAppConnection!
+
+```
+
+### Arguments
+
+#### `after` ([`String`](/developers/shared-apis/adminidentity-api/graphql/reference/scalars/string))
+
+Returns the elements in the list that come after the specified cursor.
+
+#### `appIds` ([`ID`](/developers/shared-apis/adminidentity-api/graphql/reference/scalars/id))
+
+Directly query PublicApps by their ids, this filter should be used alone
+
+#### `before` ([`String`](/developers/shared-apis/adminidentity-api/graphql/reference/scalars/string))
+
+Returns the elements in the list that come before the specified cursor.
+
+#### `first` ([`Int`](/developers/shared-apis/adminidentity-api/graphql/reference/scalars/int))
+
+Returns the first n elements from the list.
+
+#### `last` ([`Int`](/developers/shared-apis/adminidentity-api/graphql/reference/scalars/int))
+
+Returns the last n elements from the list.
+
+#### `partnerId` ([`ID`](/developers/shared-apis/adminidentity-api/graphql/reference/scalars/id))
+
+Filter for a single partnerId
+
+### Type
+
+#### [`PublicAppConnection`](/developers/shared-apis/adminidentity-api/graphql/reference/objects/public-app-connection)
+
+Paginate through PublicApps

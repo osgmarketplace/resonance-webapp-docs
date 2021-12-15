@@ -9,44 +9,38 @@ Represents a App, which are machine users that perform a small context, unified 
 type App {
   appClientIds: [String!]!
   appId: ID!
-  appSlug: String!
   appType: AppType!
   createdAt: String!
   description: String
-  installationWebhook: String!
   name: String!
-  notificationEmail: String!
   partnerId: ID!
-  requestedScopes: [String!]!
-  uninstallationWebhook: String!
+  requestedScopes: [String]
+  status: AppStatus!
   updatedAt: String!
+  updatedBy: ID!
 }
 ```
 
 ### Fields
 
-#### `appClientIds` ([`[String!]!`](/developers/shared-apis/adminidentity-api/graphql/reference/scalars/string))
+#### `appClientIds` ([`String`](/developers/shared-apis/adminidentity-api/graphql/reference/scalars/string))
 
-#### `appId` ([`ID!`](/developers/shared-apis/adminidentity-api/graphql/reference/scalars/id))
+#### `appId` ([`ID`](/developers/shared-apis/adminidentity-api/graphql/reference/scalars/id))
 
-#### `appSlug` ([`String!`](/developers/shared-apis/adminidentity-api/graphql/reference/scalars/string))
+#### `appType` ([`AppType`](/developers/shared-apis/adminidentity-api/graphql/reference/enums/app-type))
 
-#### `appType` ([`AppType!`](/developers/shared-apis/adminidentity-api/graphql/reference/enums/app-type))
-
-#### `createdAt` ([`String!`](/developers/shared-apis/adminidentity-api/graphql/reference/scalars/string))
+#### `createdAt` ([`String`](/developers/shared-apis/adminidentity-api/graphql/reference/scalars/string))
 
 #### `description` ([`String`](/developers/shared-apis/adminidentity-api/graphql/reference/scalars/string))
 
-#### `installationWebhook` ([`String!`](/developers/shared-apis/adminidentity-api/graphql/reference/scalars/string))
+#### `name` ([`String`](/developers/shared-apis/adminidentity-api/graphql/reference/scalars/string))
 
-#### `name` ([`String!`](/developers/shared-apis/adminidentity-api/graphql/reference/scalars/string))
+#### `partnerId` ([`ID`](/developers/shared-apis/adminidentity-api/graphql/reference/scalars/id))
 
-#### `notificationEmail` ([`String!`](/developers/shared-apis/adminidentity-api/graphql/reference/scalars/string))
+#### `requestedScopes` ([`String`](/developers/shared-apis/adminidentity-api/graphql/reference/scalars/string))
 
-#### `partnerId` ([`ID!`](/developers/shared-apis/adminidentity-api/graphql/reference/scalars/id))
+#### `status` ([`AppStatus`](/developers/shared-apis/adminidentity-api/graphql/reference/enums/app-status))
 
-#### `requestedScopes` ([`[String!]!`](/developers/shared-apis/adminidentity-api/graphql/reference/scalars/string))
+#### `updatedAt` ([`String`](/developers/shared-apis/adminidentity-api/graphql/reference/scalars/string))
 
-#### `uninstallationWebhook` ([`String!`](/developers/shared-apis/adminidentity-api/graphql/reference/scalars/string))
-
-#### `updatedAt` ([`String!`](/developers/shared-apis/adminidentity-api/graphql/reference/scalars/string))
+#### `updatedBy` ([`ID`](/developers/shared-apis/adminidentity-api/graphql/reference/scalars/id))

@@ -1,0 +1,22 @@
+---
+id: public-app-connection
+title: PublicAppConnection
+---
+
+Paginate through PublicApps
+
+```graphql
+type PublicAppConnection {
+  edges: [PublicAppEdge]
+  nodes: [PublicApp]
+  pageInfo: PageInfo!
+}
+```
+
+### Fields
+
+#### `edges` ([`PublicAppEdge`](/developers/shared-apis/adminidentity-api/graphql/reference/objects/public-app-edge))
+
+#### `nodes` ([`PublicApp`](/developers/shared-apis/adminidentity-api/graphql/reference/objects/public-app))
+
+#### `pageInfo` ([`PageInfo`](/developers/shared-apis/adminidentity-api/graphql/reference/objects/page-info))

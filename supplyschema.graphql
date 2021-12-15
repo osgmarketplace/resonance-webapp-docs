@@ -1,4 +1,34 @@
 """
+The response recieved when an app is installed or the permissions are updated
+"""
+type AppInstallationOutput {
+  supplierIdentities: [SupplierIdentity]!
+}
+
+"""What stage and availability the app is in"""
+enum AppStatus {
+  """The app is in the process of being created"""
+  DRAFT
+
+  """The app is available to install, but only through shared links"""
+  PRIVATE
+
+  """The app is available to install, and is searchable/discoverable"""
+  PUBLIC
+}
+
+"""
+This is the primary determination of which permission scopes can be requested.
+An app cannot be more than one of these.
+If something cross domain needs to exist, it should be two apps and they can communicate.
+"""
+enum AppType {
+  DEMANDHQAPP
+  STOREFRONTAPP
+  SUPPLIERAPP
+}
+
+"""
 The `JSONObject` scalar type represents JSON objects as specified by [ECMA-404](http://www.ecma-international.org/publications/files/ECMA-ST/ECMA-404.pdf).
 """
 scalar JSONObject
@@ -9,7 +39,7 @@ type Mutation {
   _makeEmpty(id: String): String
 
   """Create a new supplier"""
-  createSupplier(input: SupplierCreateInput!): Supplier
+  createSupplier(input: SupplierCreateInput!): Supplier!
 
   """
   Add a new SupplierIdentity to a Supplier (give a user permissions)
@@ -20,6 +50,9 @@ type Mutation {
 
   """Create a new supplierVariant"""
   createSupplierVariant(input: SupplierVariantCreateInput!): SupplierVariant
+
+  """Create an Image SupplierVariantContentItem from a File"""
+  createSupplierVariantImageFromFile(input: SupplierVariantImageFromFileInput): SupplierVariantImageFromFileResponse
 
   """Create an Image SupplierVariantContentItem from a URL"""
   createSupplierVariantImageFromUrl(input: SupplierVariantImageFromUrlInput): SupplierVariantContentItem
@@ -35,7 +68,28 @@ type Mutation {
   
   Requires the supplieridentity/write permission on the given Supplier
   """
-  deleteSupplierIdentity(supplierId: ID!, userName: ID!): SupplierIdentityDeleteOutput
+  deleteSupplierIdentity(identityId: ID!, supplierId: ID!): SupplierIdentityDeleteOutput
+
+  """Delete an existing SupplierVariantContentItem"""
+  deleteSupplierVariantContentItem(input: SupplierVariantContentItemDeleteInput): SupplierVariantContentItemDeleteResponse!
+
+  """
+  Install an app to a Supplier (give an app permissions)
+  
+  Requires the supplieridentity/write permission on the given Supplier
+  """
+  installApp(appId: ID!, supplierId: ID!): AppInstallationOutput!
+
+  """
+  Update an app's permissions on a Supplier. This is a no-op if the app's
+  requested permissions are the same as the current permissions.
+  
+  Requires the supplieridentity/write permission on the given Supplier
+  """
+  updateAppPermissions(appId: ID!, supplierId: ID!): AppInstallationOutput!
+
+  """Update an existing supplier"""
+  updateSupplier(input: SupplierUpdateInput!): Supplier!
 
   """
   Update a SupplierIdentity for a Supplier (give a user permissions)
@@ -59,12 +113,65 @@ type Mutation {
 
 """Information on Pagination"""
 type PageInfo {
-  """The cursor to use when paginating forwards."""
+  """
+  The cursor to use when paginating forwards (using first/after). Will always be
+  populated regardless of if a next page exists.
+  """
   endCursor: String
 
-  """The cursor to use when paginating backwards."""
+  """
+  Whether or not using the endCursor will result in more results. Always
+  populated, but will always be false when paginating using last/before.
+  """
+  hasNextPage: Boolean!
+
+  """
+  Whether or not using the startCursor will result in more results. Always
+  populated, but will always be false when paginating using first/after.
+  """
+  hasPreviousPage: Boolean!
+
+  """
+  The cursor to use when paginating backwards (using last/before). Will always
+  be populated regardless of if a previous page exists
+  """
   startCursor: String
 }
+
+"""
+This type is returned on routes with no permissions attached to protect
+Personally Identifiable Information, but still provide minimal data.
+Provides a subset of App from the Identity domain.
+"""
+type PublicApp {
+  appClientIds: [ID!]!
+  appId: ID!
+  appType: AppType!
+  description: String
+  name: String!
+  partnerId: ID!
+  requestedScopes: [String]
+  status: AppStatus!
+}
+
+"""
+This type is returned on routes with no permissions attached to protect
+Personally Identifiable Information, but still provide minimal data.
+Can be a User or AppClient.
+"""
+type PublicIdentity {
+  displayName: String!
+
+  """A userName or appClientId"""
+  identityId: ID!
+}
+
+"""
+This type is the extension of SupplierIdentity's identityParentEntityId into the Public version of the entity,
+and encompasses all possible uses of that field.
+Currently, this is for Apps only.
+"""
+union PublicIdentityParent = PublicApp
 
 """
 The full notification object. Endpoint may vary based on type, but is always a string (url, email,etc).
@@ -121,6 +228,59 @@ type Query {
   supplier(supplierId: ID!): Supplier
 
   """
+  Get a filtered list of SupplierIdentities
+  
+  All of the filters are optional, but you must include at least one.
+  You may receive less supplierIdentities than you indicate if you do not have
+  permission to read part of the result set.
+  
+  Not all filter combinations are valid, for example you cannot filter by
+  - identityId + identityParentEntityId (requires supplierId)
+  - identityType only (requires supplierId)
+  
+  Requires supplieridentity/read permission on the requesting identity for each supplier requested,
+  or you can request your own identities.
+  """
+  supplierIdentities(
+    """Returns the elements in the list that come after the specified cursor."""
+    after: String
+
+    """
+    Returns the elements in the list that come before the specified cursor.
+    """
+    before: String
+
+    """Returns the first n elements from the list."""
+    first: Int
+
+    """
+    Filter the results to a specific identityId.
+    Use this with your own userName or appClientId in order to see "My SupplierIdentities".
+    You automatically have access to your own SupplierIdentities.
+    """
+    identityId: ID
+
+    """Filter the results to a specific identityParentEntityId (optional)"""
+    identityParentEntityId: ID
+
+    """Filter the results to a specific identity type (optional)"""
+    identityType: SupplierIdentityType
+
+    """Returns the last n elements from the list."""
+    last: Int
+
+    """Filter the results to a specific supplierId (optional)"""
+    supplierId: ID
+  ): SupplierIdentityConnection!
+
+  """
+  Get a single SupplierIdentity.
+  
+  Requires supplieridentity/read permission on the requesting identity, or you can request your own identity.
+  """
+  supplierIdentity(identityId: ID!, supplierId: ID!): SupplierIdentity
+
+  """
   Get a single supplierVariant by SupplierVariantId
   
   Requires suppliervariant/read permission on the requesting identity
@@ -169,7 +329,11 @@ type Supplier {
   description: String
   name: String!
   ownerUserName: String!
-  purchaseOrderNotification: PurchaseOrderNotification!
+
+  """
+  One purchaseOrderNotification must be present to publish (private or public)
+  """
+  purchaseOrderNotifications: [PurchaseOrderNotification!]
   status: SupplierStatus!
   supplierId: ID!
 
@@ -191,6 +355,9 @@ type Supplier {
     """Returns the first n elements from the list."""
     first: Int
 
+    """Filter the results to a specific identityParentEntityId (optional)"""
+    identityParentEntityId: ID
+
     """Filter the results to a specific identity type (optional)"""
     identityType: SupplierIdentityType
 
@@ -202,9 +369,9 @@ type Supplier {
   Provided through SupplierIdentity Chained Resolver
   Returns a single SupplierIdentity for the given Supplier
   
-  Requires supplieridentity/read permission on the requesting identity
+  Requires supplieridentity/read permission on the requesting identity, or you can request your own identity.
   """
-  supplierIdentity(userName: ID!): SupplierIdentity
+  supplierIdentity(identityId: ID!): SupplierIdentity
 
   """
   Get a single supplierVariant by SupplierVariantId
@@ -251,7 +418,7 @@ input SupplierCreateInput {
   defaultLocaleType: ResonanceLocaleType!
   description: String
   name: String!
-  purchaseOrderNotification: PurchaseOrderNotificationInput!
+  purchaseOrderNotifications: [PurchaseOrderNotificationInput!]
 }
 
 """One edge producing one Supplier Node"""
@@ -261,13 +428,15 @@ type SupplierEdge {
 
 """Indicates a User or App has permissions on a Supplier"""
 type SupplierIdentity {
+  """Could be a userName or an appClientId"""
+  identityId: ID!
+  identityParentEntityId: ID
   identityType: SupplierIdentityType!
   permissions: SupplierIdentityPermissions!
+  publicIdentity: PublicIdentity
+  publicIdentityParent: PublicIdentityParent
   supplierId: ID!
   updatedBy: String!
-
-  """Could be a userName or an appClientId"""
-  userName: ID!
 }
 
 """Paginate through SupplierIdentities"""
@@ -281,19 +450,25 @@ type SupplierIdentityConnection {
 Exactly like SupplierIdentity, but no updatedBy or identityType (always User)
 """
 input SupplierIdentityCreateInput {
+  """Always a user's userName (not appClientId)"""
+  identityId: ID!
+  identityParentEntityId: ID
+
   """Should always be USER"""
   identityType: SupplierIdentityType!
   permissions: SupplierIdentityPermissionsInput!
   supplierId: ID!
-
-  """Always a user's userName (not appClientId)"""
-  userName: ID!
 }
 
 """Returned object from deleteSupplierIdentity"""
 type SupplierIdentityDeleteOutput {
-  """supplierId-userName"""
-  deletedId: ID!
+  deletedId: SupplierIdentityDeletedId
+}
+
+"""The deleted IDs identifying the SupplierIdentity"""
+type SupplierIdentityDeletedId {
+  identityId: ID!
+  supplierId: ID!
 }
 
 """One edge producing one SupplierIdentity Node"""
@@ -317,7 +492,7 @@ input SupplierIdentityPermissionsInput {
 
 """Indicates whether the user type is an app or human user"""
 enum SupplierIdentityType {
-  APP
+  APPCLIENT
   USER
 }
 
@@ -325,19 +500,45 @@ enum SupplierIdentityType {
 ID Fields are required, but all other fields are optional, only included fields will be updated.
 """
 input SupplierIdentityUpdateInput {
+  """Always a user's userName (not appClientId)"""
+  identityId: ID!
+
   """Should always be USER"""
   identityType: SupplierIdentityType
   permissions: SupplierIdentityPermissionsInput
   supplierId: ID!
-
-  """Always a user's userName (not appClientId)"""
-  userName: ID!
 }
 
 """Indication of whether the Supplier is live and accepting orders"""
 enum SupplierStatus {
-  ACTIVE
+  """Indicates a Supplier's goods are no longer available for retailing."""
   ARCHIVED
+
+  """
+  Indicates that a Supplier's goods are not yet available for retailing. Functionally identical to ARCHIVED.
+  """
+  DRAFT
+
+  """
+  Indicates that a Supplier is activated and available, but not in the public Supplier Marketplace.
+  """
+  PRIVATE
+
+  """
+  Indicates that a Supplier is not only activated, but available in the public Supplier Marketplace.
+  """
+  PUBLIC
+}
+
+"""
+The possible fields in order to update a supplier. Partial updating in place.
+"""
+input SupplierUpdateInput {
+  description: String
+  name: String
+  purchaseOrderNotifications: [PurchaseOrderNotificationInput!]
+  status: SupplierStatus
+  supplierId: ID!
 }
 
 """
@@ -435,6 +636,25 @@ type SupplierVariantContentItemConnection {
   pageInfo: PageInfo!
 }
 
+"""Input object to delete a SupplierVariantContentItem"""
+input SupplierVariantContentItemDeleteInput {
+  contentItemId: ID!
+  supplierId: ID!
+  supplierVariantId: ID!
+}
+
+"""The response type for deleteSupplierVariantContentItem"""
+type SupplierVariantContentItemDeleteResponse {
+  deletedId: SupplierVariantContentItemDeletedId!
+}
+
+"""The returned object for deletedId for deleteSupplierVariantContentItem"""
+type SupplierVariantContentItemDeletedId {
+  contentItemId: ID!
+  supplierId: ID!
+  supplierVariantId: ID!
+}
+
 """One edge producing one SupplierVariant Node"""
 type SupplierVariantContentItemEdge {
   node: SupplierVariantContentItem
@@ -462,7 +682,10 @@ enum SupplierVariantContentType {
   VIDEO
 }
 
-"""The necessary fields in order to create a new supplierVariant"""
+"""
+The necessary fields in order to create a new supplierVariant
+status will be initially set to DRAFT
+"""
 input SupplierVariantCreateInput {
   externalProductId: String!
   externalVariantId: String!
@@ -470,7 +693,6 @@ input SupplierVariantCreateInput {
   inventoryQuantity: Int!
   options: SupplierVariantOptionsInput!
   productTitle: String!
-  status: SupplierVariantStatus!
   supplierId: ID!
   vendor: String!
 }
@@ -499,6 +721,25 @@ enum SupplierVariantHandlingCostUnit {
 
   """The amount is a percentage of the Cost field"""
   PERCENTAGE_OF_COST
+}
+
+"""
+Input object for creating an Image SupplierVariantContentItem from a File on a device
+"""
+input SupplierVariantImageFromFileInput {
+  alt: String!
+  fileExtension: String!
+  fileName: String!
+  supplierId: ID!
+  supplierVariantId: ID!
+  variantRelation: SupplierVariantContentRelation!
+}
+
+"""The response object from createSupplierVariantImageFromFile"""
+type SupplierVariantImageFromFileResponse {
+  contentItem: SupplierVariantContentItem!
+  fields: JSONObject!
+  url: String!
 }
 
 """
@@ -778,13 +1019,13 @@ input SupplierVariantSupplementUpdateInput {
   averageShippingCost: Float
 
   """UPC, ISBN, GTIN, etc"""
-  barcode: String!
+  barcode: String
 
   """Quantity in one variant (i.e. 12-pack)"""
   casePack: Int
 
   """COGS, or Cost of Goods Sold, in a currency"""
-  cost: Float!
+  cost: Float
 
   """Additional warehouse handling charge, typically for larger items."""
   handlingCost: SupplierVariantHandlingCostInput

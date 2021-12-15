@@ -8,21 +8,16 @@ Input to change the status of a UserNotification
 ```graphql
 type UserNotificationUpdateStatusInput {
   status: NotificationStatus!
-  userName: ID!
   userNotificationId: ID!
 }
 ```
 
 ### Fields
 
-#### `status` ([`NotificationStatus!`](/developers/shared-apis/adminidentity-api/graphql/reference/enums/notification-status))
+#### `status` ([`NotificationStatus`](/developers/shared-apis/adminidentity-api/graphql/reference/enums/notification-status))
 
 Denotes how urgent and whether the Notification is archived
 
-#### `userName` ([`ID!`](/developers/shared-apis/adminidentity-api/graphql/reference/scalars/id))
-
-The user this notification pertains to
-
-#### `userNotificationId` ([`ID!`](/developers/shared-apis/adminidentity-api/graphql/reference/scalars/id))
+#### `userNotificationId` ([`ID`](/developers/shared-apis/adminidentity-api/graphql/reference/scalars/id))
 
 The ID of this userNotification

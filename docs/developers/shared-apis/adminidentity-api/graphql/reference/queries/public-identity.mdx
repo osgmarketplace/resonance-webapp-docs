@@ -1,0 +1,25 @@
+---
+id: public-identity
+title: publicIdentity
+---
+
+Get a PublicIdentity by their userName or appClientId
+
+```graphql
+publicIdentity(
+  identityId: ID!
+): PublicIdentity
+
+```
+
+### Arguments
+
+#### `identityId` ([`ID`](/developers/shared-apis/adminidentity-api/graphql/reference/scalars/id))
+
+### Type
+
+#### [`PublicIdentity`](/developers/shared-apis/adminidentity-api/graphql/reference/objects/public-identity)
+
+This type is returned on routes with no permissions attached to protect
+Personally Identifiable Information, but still provide minimal data.
+Can be a User or Identity.
