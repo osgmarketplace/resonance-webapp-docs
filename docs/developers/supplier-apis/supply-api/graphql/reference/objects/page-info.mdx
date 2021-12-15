@@ -8,6 +8,8 @@ Information on Pagination
 ```graphql
 type PageInfo {
   endCursor: String
+  hasNextPage: Boolean!
+  hasPreviousPage: Boolean!
   startCursor: String
 }
 ```
@@ -16,8 +18,20 @@ type PageInfo {
 
 #### `endCursor` ([`String`](/developers/supplier-apis/supply-api/graphql/reference/scalars/string))
 
-The cursor to use when paginating forwards.
+The cursor to use when paginating forwards (using first/after). Will always be
+populated regardless of if a next page exists.
+
+#### `hasNextPage` ([`Boolean!`](/developers/supplier-apis/supply-api/graphql/reference/scalars/boolean))
+
+Whether or not using the endCursor will result in more results. Always
+populated, but will always be false when paginating using last/before.
+
+#### `hasPreviousPage` ([`Boolean!`](/developers/supplier-apis/supply-api/graphql/reference/scalars/boolean))
+
+Whether or not using the startCursor will result in more results. Always
+populated, but will always be false when paginating using first/after.
 
 #### `startCursor` ([`String`](/developers/supplier-apis/supply-api/graphql/reference/scalars/string))
 
-The cursor to use when paginating backwards.
+The cursor to use when paginating backwards (using last/before). Will always
+be populated regardless of if a previous page exists

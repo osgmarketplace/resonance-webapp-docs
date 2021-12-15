@@ -4,6 +4,7 @@ title: SupplierVariantCreateInput
 ---
 
 The necessary fields in order to create a new supplierVariant
+status will be initially set to DRAFT
 
 ```graphql
 type SupplierVariantCreateInput {
@@ -13,7 +14,6 @@ type SupplierVariantCreateInput {
   inventoryQuantity: Int!
   options: SupplierVariantOptionsInput!
   productTitle: String!
-  status: SupplierVariantStatus!
   supplierId: ID!
   vendor: String!
 }
@@ -32,8 +32,6 @@ type SupplierVariantCreateInput {
 #### `options` ([`SupplierVariantOptionsInput!`](/developers/supplier-apis/supply-api/graphql/reference/inputs/supplier-variant-options-input))
 
 #### `productTitle` ([`String!`](/developers/supplier-apis/supply-api/graphql/reference/scalars/string))
-
-#### `status` ([`SupplierVariantStatus!`](/developers/supplier-apis/supply-api/graphql/reference/enums/supplier-variant-status))
 
 #### `supplierId` ([`ID!`](/developers/supplier-apis/supply-api/graphql/reference/scalars/id))
 

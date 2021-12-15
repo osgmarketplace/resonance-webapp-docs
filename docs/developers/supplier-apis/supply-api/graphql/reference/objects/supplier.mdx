@@ -13,17 +13,18 @@ type Supplier {
   description: String
   name: String!
   ownerUserName: String!
-  purchaseOrderNotification: PurchaseOrderNotification!
+  purchaseOrderNotifications: [PurchaseOrderNotification!]
   status: SupplierStatus!
   supplierId: ID!
   supplierIdentities(
     after: String
     before: String
     first: Int = 0
+    identityParentEntityId: ID = 0
     identityType: SupplierIdentityType
     last: Int = 0
   ): SupplierIdentityConnection!
-  supplierIdentity(userName: ID!): SupplierIdentity
+  supplierIdentity(identityId: ID!): SupplierIdentity
   supplierVariant(supplierVariantId: ID!): SupplierVariant
   supplierVariants(
     after: String
@@ -50,7 +51,9 @@ type Supplier {
 
 #### `ownerUserName` ([`String!`](/developers/supplier-apis/supply-api/graphql/reference/scalars/string))
 
-#### `purchaseOrderNotification` ([`PurchaseOrderNotification!`](/developers/supplier-apis/supply-api/graphql/reference/objects/purchase-order-notification))
+#### `purchaseOrderNotifications` ([`[PurchaseOrderNotification!]`](/developers/supplier-apis/supply-api/graphql/reference/objects/purchase-order-notification))
+
+One purchaseOrderNotification must be present to publish (private or public)
 
 #### `status` ([`SupplierStatus!`](/developers/supplier-apis/supply-api/graphql/reference/enums/supplier-status))
 
@@ -75,6 +78,10 @@ Returns the elements in the list that come before the specified cursor.
 
 Returns the first n elements from the list.
 
+- ##### `identityParentEntityId` ([`ID`](/developers/supplier-apis/supply-api/graphql/reference/scalars/id))
+
+Filter the results to a specific identityParentEntityId (optional)
+
 - ##### `identityType` ([`SupplierIdentityType`](/developers/supplier-apis/supply-api/graphql/reference/enums/supplier-identity-type))
 
 Filter the results to a specific identity type (optional)
@@ -88,9 +95,9 @@ Returns the last n elements from the list.
 Provided through SupplierIdentity Chained Resolver
 Returns a single SupplierIdentity for the given Supplier
 
-Requires supplieridentity/read permission on the requesting identity
+Requires supplieridentity/read permission on the requesting identity, or you can request your own identity.
 
-- ##### `userName` ([`ID!`](/developers/supplier-apis/supply-api/graphql/reference/scalars/id))
+- ##### `identityId` ([`ID!`](/developers/supplier-apis/supply-api/graphql/reference/scalars/id))
 
 #### `supplierVariant` ([`SupplierVariant`](/developers/supplier-apis/supply-api/graphql/reference/objects/supplier-variant))
 

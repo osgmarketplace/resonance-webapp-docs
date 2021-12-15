@@ -1,12 +1,12 @@
 ---
-id: partner-user-permission-permissions
-title: PartnerUserPermissionPermissions
+id: partner-identity-permissions
+title: PartnerIdentityPermissions
 ---
 
 Object representing exactly what permissions are given
 
 ```graphql
-type PartnerUserPermissionPermissions {
+type PartnerIdentityPermissions {
   roles: [PartnerRole]!
   scopes: [String]!
 }
@@ -20,5 +20,4 @@ Roles are groups of permission scopes, for ease of assigning
 
 #### `scopes` ([`[String]!`](/developers/shared-apis/adminidentity-api/graphql/reference/scalars/string))
 
-Scopes are individual permissions representing a single item and action, in
-all lowercase, i.e. partneruserpermission/write
+Scopes are individual permissions representing a single item and action, in all lowercase, i.e. partneridentity/write

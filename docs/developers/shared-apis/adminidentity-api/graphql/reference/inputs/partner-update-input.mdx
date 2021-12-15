@@ -9,6 +9,7 @@ The fields in order to update an existing partner
 type PartnerUpdateInput {
   description: String
   name: String
+  notificationUserNames: PartnerNotificationUserNamesInput
   ownerUserName: String
   partnerId: ID!
 }
@@ -19,6 +20,8 @@ type PartnerUpdateInput {
 #### `description` ([`String`](/developers/shared-apis/adminidentity-api/graphql/reference/scalars/string))
 
 #### `name` ([`String`](/developers/shared-apis/adminidentity-api/graphql/reference/scalars/string))
+
+#### `notificationUserNames` ([`PartnerNotificationUserNamesInput`](/developers/shared-apis/adminidentity-api/graphql/reference/inputs/partner-notification-user-names-input))
 
 #### `ownerUserName` ([`String`](/developers/shared-apis/adminidentity-api/graphql/reference/scalars/string))
 

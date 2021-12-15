@@ -17,15 +17,16 @@ type Partner {
   createdAt: String!
   description: String
   name: String!
+  notificationUserNames: PartnerNotificationUserNames
   ownerUserName: String!
   partnerId: ID!
-  partnerUserPermission(userName: ID!): PartnerUserPermission
-  partnerUserPermissions(
+  partnerIdentities(
     after: String
     before: String
     first: Int = 0
     last: Int = 0
-  ): PartnerUserPermissionConnection!
+  ): PartnerIdentityConnection!
+  partnerIdentity(identityId: ID!): PartnerIdentity
   updatedAt: String!
 }
 ```
@@ -64,19 +65,15 @@ Returns the last n elements from the list.
 
 #### `name` ([`String!`](/developers/shared-apis/adminidentity-api/graphql/reference/scalars/string))
 
+#### `notificationUserNames` ([`PartnerNotificationUserNames`](/developers/shared-apis/adminidentity-api/graphql/reference/objects/partner-notification-user-names))
+
 #### `ownerUserName` ([`String!`](/developers/shared-apis/adminidentity-api/graphql/reference/scalars/string))
 
 #### `partnerId` ([`ID!`](/developers/shared-apis/adminidentity-api/graphql/reference/scalars/id))
 
-#### `partnerUserPermission` ([`PartnerUserPermission`](/developers/shared-apis/adminidentity-api/graphql/reference/objects/partner-user-permission))
+#### `partnerIdentities` ([`PartnerIdentityConnection!`](/developers/shared-apis/adminidentity-api/graphql/reference/objects/partner-identity-connection))
 
-Return a single users' permissions associated with this partner
-
-- ##### `userName` ([`ID!`](/developers/shared-apis/adminidentity-api/graphql/reference/scalars/id))
-
-#### `partnerUserPermissions` ([`PartnerUserPermissionConnection!`](/developers/shared-apis/adminidentity-api/graphql/reference/objects/partner-user-permission-connection))
-
-Return the users' permissions associated with this partner
+Return the identities permissions associated with this partner
 
 - ##### `after` ([`String`](/developers/shared-apis/adminidentity-api/graphql/reference/scalars/string))
 
@@ -93,5 +90,11 @@ Returns the first n elements from the list.
 - ##### `last` ([`Int`](/developers/shared-apis/adminidentity-api/graphql/reference/scalars/int))
 
 Returns the last n elements from the list.
+
+#### `partnerIdentity` ([`PartnerIdentity`](/developers/shared-apis/adminidentity-api/graphql/reference/objects/partner-identity))
+
+Return a single identity's permissions associated with this partner
+
+- ##### `identityId` ([`ID!`](/developers/shared-apis/adminidentity-api/graphql/reference/scalars/id))
 
 #### `updatedAt` ([`String!`](/developers/shared-apis/adminidentity-api/graphql/reference/scalars/string))

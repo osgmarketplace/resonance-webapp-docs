@@ -1,0 +1,22 @@
+---
+id: public-identity-connection
+title: PublicIdentityConnection
+---
+
+Paginate through PublicIdentities
+
+```graphql
+type PublicIdentityConnection {
+  edges: [PublicIdentityEdge]
+  nodes: [PublicIdentity]
+  pageInfo: PageInfo!
+}
+```
+
+### Fields
+
+#### `edges` ([`[PublicIdentityEdge]`](/developers/shared-apis/adminidentity-api/graphql/reference/objects/public-identity-edge))
+
+#### `nodes` ([`[PublicIdentity]`](/developers/shared-apis/adminidentity-api/graphql/reference/objects/public-identity))
+
+#### `pageInfo` ([`PageInfo!`](/developers/shared-apis/adminidentity-api/graphql/reference/objects/page-info))

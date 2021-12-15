@@ -4,17 +4,15 @@ Represents a App, which are machine users that perform a small context, unified 
 type App {
   appClientIds: [String!]!
   appId: ID!
-  appSlug: String!
   appType: AppType!
   createdAt: String!
   description: String
-  installationWebhook: String!
   name: String!
-  notificationEmail: String!
   partnerId: ID!
-  requestedScopes: [String!]!
-  uninstallationWebhook: String!
+  requestedScopes: [String]
+  status: AppStatus!
   updatedAt: String!
+  updatedBy: ID!
 }
 
 """The output from creating or resetting client secrets"""
@@ -32,15 +30,12 @@ type AppConnection {
 
 """The necessary fields in order to create a new app"""
 input AppCreateInput {
-  appSlug: String!
   appType: AppType!
   description: String
-  installationWebhook: String!
   name: String!
-  notificationEmail: String!
   partnerId: ID!
-  requestedScopes: [String!]!
-  uninstallationWebhook: String!
+  requestedScopes: [String]
+  status: AppStatus!
 }
 
 """The output when creating an App"""
@@ -52,6 +47,18 @@ type AppCreateOutput {
 """One edge producing one App node"""
 type AppEdge {
   node: App
+}
+
+"""What stage and availability the app is in"""
+enum AppStatus {
+  """The app is in the process of being created"""
+  DRAFT
+
+  """The app is available to install, but only through shared links"""
+  PRIVATE
+
+  """The app is available to install, and is searchable/discoverable"""
+  PUBLIC
 }
 
 """
@@ -68,13 +75,10 @@ enum AppType {
 """The necessary fields in order to update an app"""
 input AppUpdateInput {
   appId: ID!
-  appSlug: String
   description: String
-  installationWebhook: String
   name: String
-  notificationEmail: String
-  partnerId: ID!
-  uninstallationWebhook: String
+  requestedScopes: [String]
+  status: AppStatus
 }
 
 """The root mutation type for the AdminIdentity domain"""
@@ -89,14 +93,12 @@ type Mutation {
   createPartner(input: PartnerCreateInput!): Partner
 
   """
-  Create a new PartnerUserPermission (give a User permission to a Partner)
+  Create a new PartnerIdentity (give an Identity permission to a Partner)
   """
-  createPartnerUserPermission(input: PartnerUserPermissionCreateInput): PartnerUserPermission
+  createPartnerIdentity(input: PartnerIdentityCreateInput): PartnerIdentity
 
-  """
-  Delete a PartnerUserPermission (remove User's permissions to a Partner)
-  """
-  deletePartnerUserPermission(partnerId: ID!, userName: ID!): PartnerUserPermissionDeleteOutput!
+  """Delete a PartnerIdentity (remove Identity's permissions to a Partner)"""
+  deletePartnerIdentity(identityId: ID!, partnerId: ID!): PartnerIdentityDeleteOutput!
 
   """Invite a new User to Resonance"""
   inviteUser(email: String!): User!
@@ -108,9 +110,9 @@ type Mutation {
   updatePartner(input: PartnerUpdateInput!): Partner
 
   """
-  Update a PartnerUserPermission (give a User more or less permissions to a Partner)
+  Update a PartnerIdentity (give an Identity more or less permissions to a Partner)
   """
-  updatePartnerUserPermission(input: PartnerUserPermissionUpdateInput): PartnerUserPermission
+  updatePartnerIdentity(input: PartnerIdentityUpdateInput): PartnerIdentity
 
   """Update an existing User"""
   updateUser(input: UserUpdateInput!): User!
@@ -142,10 +144,28 @@ enum NotificationStatus {
 
 """Information on Pagination"""
 type PageInfo {
-  """The cursor to use when paginating forwards."""
+  """
+  The cursor to use when paginating forwards (using first/after). Will always be
+  populated regardless of if a next page exists.
+  """
   endCursor: String
 
-  """The cursor to use when paginating backwards."""
+  """
+  Whether or not using the endCursor will result in more results. Always
+  populated, but will always be false when paginating using last/before.
+  """
+  hasNextPage: Boolean!
+
+  """
+  Whether or not using the startCursor will result in more results. Always
+  populated, but will always be false when paginating using first/after.
+  """
+  hasPreviousPage: Boolean!
+
+  """
+  The cursor to use when paginating backwards (using last/before). Will always
+  be populated regardless of if a previous page exists
+  """
   startCursor: String
 }
 
@@ -175,14 +195,12 @@ type Partner {
   createdAt: String!
   description: String
   name: String!
+  notificationUserNames: PartnerNotificationUserNames
   ownerUserName: String!
   partnerId: ID!
 
-  """Return a single users' permissions associated with this partner"""
-  partnerUserPermission(userName: ID!): PartnerUserPermission
-
-  """Return the users' permissions associated with this partner"""
-  partnerUserPermissions(
+  """Return the identities permissions associated with this partner"""
+  partnerIdentities(
     """Returns the elements in the list that come after the specified cursor."""
     after: String
 
@@ -196,7 +214,10 @@ type Partner {
 
     """Returns the last n elements from the list."""
     last: Int
-  ): PartnerUserPermissionConnection!
+  ): PartnerIdentityConnection!
+
+  """Return a single identity's permissions associated with this partner"""
+  partnerIdentity(identityId: ID!): PartnerIdentity
   updatedAt: String!
 }
 
@@ -218,6 +239,113 @@ type PartnerEdge {
   node: Partner
 }
 
+"""
+Type representing a PartnerIdentity, the permissions given to a User for a Partner
+"""
+type PartnerIdentity {
+  """The identityId these permissions pertain to"""
+  identityId: ID!
+
+  """The type of identity an identityId refers to"""
+  identityType: ResonanceIdentityType!
+
+  """The ID of the Partner this permission pertains to"""
+  partnerId: ID!
+
+  """Object representing exactly what permissions are given"""
+  permissions: PartnerIdentityPermissions!
+  publicIdentity: PublicIdentity
+
+  """The identity to last update this entity"""
+  updatedBy: ID!
+}
+
+"""Paginate through PartnerIdentities"""
+type PartnerIdentityConnection {
+  edges: [PartnerIdentityEdge]
+  nodes: [PartnerIdentity]
+  pageInfo: PageInfo!
+}
+
+"""
+Input object to create a PartnerIdentity, the permissions given to an Identity for a Partner
+"""
+input PartnerIdentityCreateInput {
+  """The identityId these permissions pertain to"""
+  identityId: ID!
+
+  """The type of identity an identityId refers to"""
+  identityType: ResonanceIdentityType!
+
+  """The ID of the Partner this permission pertains to"""
+  partnerId: ID!
+
+  """Object representing exactly what permissions are given"""
+  permissions: PartnerIdentityPermissionsInput!
+}
+
+"""The output when a PartnerIdentity is deleted"""
+type PartnerIdentityDeleteOutput {
+  deletedId: PartnerIdentityDeletedId
+}
+
+"""Object representing a deleted PartnerIdentity Id"""
+type PartnerIdentityDeletedId {
+  identityId: ID!
+  partnerId: ID!
+}
+
+"""One edge producing one PartnerIdentity node"""
+type PartnerIdentityEdge {
+  node: PartnerIdentity
+}
+
+"""Object representing exactly what permissions are given"""
+type PartnerIdentityPermissions {
+  """Roles are groups of permission scopes, for ease of assigning"""
+  roles: [PartnerRole]!
+
+  """
+  Scopes are individual permissions representing a single item and action, in all lowercase, i.e. partneridentity/write
+  """
+  scopes: [String]!
+}
+
+"""Input object representing exactly what permissions are given"""
+input PartnerIdentityPermissionsInput {
+  """Roles are groups of permission scopes, for ease of assigning"""
+  roles: [PartnerRole]!
+
+  """
+  Scopes are individual permissions representing a single item and action, in all lowercase, i.e. partneridentity/write
+  """
+  scopes: [String]!
+}
+
+"""
+Input object to update a PartnerIdentity, the permissions given to a User for a Partner
+"""
+input PartnerIdentityUpdateInput {
+  """The identityId these permissions pertain to"""
+  identityId: ID!
+
+  """The ID of the Partner this permission pertains to"""
+  partnerId: ID!
+
+  """Object representing exactly what permissions are given"""
+  permissions: PartnerIdentityPermissionsInput
+}
+
+"""Represents the users to be notified for certain events"""
+type PartnerNotificationUserNames {
+  apps: [String]
+}
+
+"""The fields to notify users for certain events"""
+input PartnerNotificationUserNamesInput {
+  apps: [String]
+}
+
 """Roles are groups of permission scopes, for ease of assigning"""
 enum PartnerRole {
   """ADMIN represents all possible scopes being given write permission"""
@@ -228,117 +356,68 @@ enum PartnerRole {
 input PartnerUpdateInput {
   description: String
   name: String
+  notificationUserNames: PartnerNotificationUserNamesInput
   ownerUserName: String
   partnerId: ID!
 }
 
 """
-Type representing a PartnerUserPermission, the permissions given to a User for a Partner
+Represents an App, but the fields that can be publicly consumed without scopes
 """
-type PartnerUserPermission {
-  """The ID of the Partner this permission pertains to"""
+type PublicApp {
+  appClientIds: [String!]!
+  appId: ID!
+  appType: AppType!
+  description: String
+  name: String!
   partnerId: ID!
-
-  """Object representing exactly what permissions are given"""
-  permissions: PartnerUserPermissionPermissions!
-
-  """The identity to last update this entity"""
-  updatedBy: ID!
-
-  """Return the users associated with this partner"""
-  user: User
-
-  """The user these permissions pertain to"""
-  userName: ID!
+  requestedScopes: [String]
+  status: AppStatus!
 }
 
-"""Paginate through PartnerUserPermissions"""
-type PartnerUserPermissionConnection {
-  edges: [PartnerUserPermissionEdge]
-  nodes: [PartnerUserPermission]
+"""Paginate through PublicApps"""
+type PublicAppConnection {
+  edges: [PublicAppEdge]
+  nodes: [PublicApp]
   pageInfo: PageInfo!
 }
 
-"""
-Input object to create a PartnerUserPermission, the permissions given to a User for a Partner
-"""
-input PartnerUserPermissionCreateInput {
-  """The ID of the Partner this permission pertains to"""
-  partnerId: ID!
-
-  """Object representing exactly what permissions are given"""
-  permissions: PartnerUserPermissionPermissionsInput!
-
-  """The user these permissions pertain to"""
-  userName: ID!
-}
-
-"""The output when a PartnerUserPermission is deleted"""
-type PartnerUserPermissionDeleteOutput {
-  deletedId: PartnerUserPermissionDeletedId
-}
-
-"""Object representing a deleted PartnerUserPermission Id"""
-type PartnerUserPermissionDeletedId {
-  partnerId: ID!
-  userName: ID!
-}
-
-"""One edge producing one PartnerUserPermission node"""
-type PartnerUserPermissionEdge {
-  node: PartnerUserPermission
-}
-
-"""Object representing exactly what permissions are given"""
-type PartnerUserPermissionPermissions {
-  """Roles are groups of permission scopes, for ease of assigning"""
-  roles: [PartnerRole]!
-
-  """
-  Scopes are individual permissions representing a single item and action, in
-  all lowercase, i.e. partneruserpermission/write
-  """
-  scopes: [String]!
-}
-
-"""Input object representing exactly what permissions are given"""
-input PartnerUserPermissionPermissionsInput {
-  """Roles are groups of permission scopes, for ease of assigning"""
-  roles: [PartnerRole]!
-
-  """
-  Scopes are individual permissions representing a single item and action, in
-  all lowercase, i.e. partneruserpermission/write
-  """
-  scopes: [String]!
+"""One edge producing one App node"""
+type PublicAppEdge {
+  node: PublicApp
 }
 
 """
-Input object to update a PartnerUserPermission, the permissions given to a User for a Partner
+This type is returned on routes with no permissions attached to protect
+Personally Identifiable Information, but still provide minimal data.
+Can be a User or Identity.
 """
-input PartnerUserPermissionUpdateInput {
-  """The ID of the Partner this permission pertains to"""
-  partnerId: ID!
-
-  """Object representing exactly what permissions are given"""
-  permissions: PartnerUserPermissionPermissionsInput
-
-  """The user these permissions pertain to"""
-  userName: ID!
-}
-
-"""
-This User type is returned on routes with no permissions attached to protect Personally Identifiable Information
-"""
-type PublicUser {
+type PublicIdentity {
   displayName: String!
-  userName: ID!
+
+  """A userName or appClientId"""
+  identityId: ID!
+}
+
+"""Paginate through PublicIdentities"""
+type PublicIdentityConnection {
+  edges: [PublicIdentityEdge]
+  nodes: [PublicIdentity]
+  pageInfo: PageInfo!
+}
+
+"""One edge producing one PublicIdentity node"""
+type PublicIdentityEdge {
+  node: PublicIdentity
 }
 
 """The root query type for the AdminIdentity domain"""
 type Query {
   """Nothing to see here, just a workaround for Apollo Server"""
   _empty: String
+
+  """Get a single app"""
+  app(appId: ID!): App
 
   """Get the logged in User"""
   me: User
@@ -387,15 +466,70 @@ type Query {
     last: Int
   ): PartnerConnection!
 
-  """Given an email, returns PublicUser if the user exists. Exact match."""
-  queryPublicUserByEmail(email: String!): PublicUser
+  """Get a single PublicApp"""
+  publicApp(appId: ID!): PublicApp
+
+  """Get a list of PublicApps"""
+  publicApps(
+    """Returns the elements in the list that come after the specified cursor."""
+    after: String
+
+    """
+    Directly query PublicApps by their ids, this filter should be used alone
+    """
+    appIds: [ID]
+
+    """
+    Returns the elements in the list that come before the specified cursor.
+    """
+    before: String
+
+    """Returns the first n elements from the list."""
+    first: Int
+
+    """Returns the last n elements from the list."""
+    last: Int
+
+    """Filter for a single partnerId"""
+    partnerId: ID
+  ): PublicAppConnection!
 
   """
-  Gets the displayName for any user.
-  
-  This works for any authenticated user with any permissions.
+  Get several public identities by their IDs.
+  Will return in exact order of the IDs passed in, with null for missing identities.
   """
-  userDisplayName(userName: ID!): String
+  publicIdentities(
+    """
+    Returns the elements in the list that come after the specified cursor. Currently not supported.
+    """
+    after: String
+
+    """
+    Returns the elements in the list that come before the specified cursor. Currently not supported.
+    """
+    before: String
+
+    """Returns the first n elements from the list. Currently not supported."""
+    first: Int
+
+    """None of the relay arguments are required when this is populated."""
+    identityIds: [ID!]!
+
+    """Returns the last n elements from the list. Currently not supported."""
+    last: Int
+  ): PublicIdentityConnection!
+
+  """Get a PublicIdentity by their userName or appClientId"""
+  publicIdentity(identityId: ID!): PublicIdentity
+
+  """Given an email, returns PublicUser if the user exists. Exact match."""
+  queryPublicIdentityByEmail(email: String!): PublicIdentity
+}
+
+"""The type of identity an identityId refers to"""
+enum ResonanceIdentityType {
+  APPCLIENT
+  USER
 }
 
 """Type representing a User, or human entity"""
@@ -542,9 +676,6 @@ type UserNotificationEdge {
 input UserNotificationUpdateStatusInput {
   """Denotes how urgent and whether the Notification is archived"""
   status: NotificationStatus!
-
-  """The user this notification pertains to"""
-  userName: ID!
 
   """The ID of this userNotification"""
   userNotificationId: ID!

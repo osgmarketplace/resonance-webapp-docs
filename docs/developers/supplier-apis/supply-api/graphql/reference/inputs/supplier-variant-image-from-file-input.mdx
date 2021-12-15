@@ -1,0 +1,31 @@
+---
+id: supplier-variant-image-from-file-input
+title: SupplierVariantImageFromFileInput
+---
+
+Input object for creating an Image SupplierVariantContentItem from a File on a device
+
+```graphql
+type SupplierVariantImageFromFileInput {
+  alt: String!
+  fileExtension: String!
+  fileName: String!
+  supplierId: ID!
+  supplierVariantId: ID!
+  variantRelation: SupplierVariantContentRelation!
+}
+```
+
+### Fields
+
+#### `alt` ([`String!`](/developers/supplier-apis/supply-api/graphql/reference/scalars/string))
+
+#### `fileExtension` ([`String!`](/developers/supplier-apis/supply-api/graphql/reference/scalars/string))
+
+#### `fileName` ([`String!`](/developers/supplier-apis/supply-api/graphql/reference/scalars/string))
+
+#### `supplierId` ([`ID!`](/developers/supplier-apis/supply-api/graphql/reference/scalars/id))
+
+#### `supplierVariantId` ([`ID!`](/developers/supplier-apis/supply-api/graphql/reference/scalars/id))
+
+#### `variantRelation` ([`SupplierVariantContentRelation!`](/developers/supplier-apis/supply-api/graphql/reference/enums/supplier-variant-content-relation))

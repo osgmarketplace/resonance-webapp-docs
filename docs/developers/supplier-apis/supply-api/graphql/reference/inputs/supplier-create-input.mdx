@@ -11,7 +11,7 @@ type SupplierCreateInput {
   defaultLocaleType: ResonanceLocaleType!
   description: String
   name: String!
-  purchaseOrderNotification: PurchaseOrderNotificationInput!
+  purchaseOrderNotifications: [PurchaseOrderNotificationInput!]
 }
 ```
 
@@ -25,4 +25,4 @@ type SupplierCreateInput {
 
 #### `name` ([`String!`](/developers/supplier-apis/supply-api/graphql/reference/scalars/string))
 
-#### `purchaseOrderNotification` ([`PurchaseOrderNotificationInput!`](/developers/supplier-apis/supply-api/graphql/reference/inputs/purchase-order-notification-input))
+#### `purchaseOrderNotifications` ([`[PurchaseOrderNotificationInput!]`](/developers/supplier-apis/supply-api/graphql/reference/inputs/purchase-order-notification-input))
