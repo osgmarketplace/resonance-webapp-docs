@@ -1,0 +1,51 @@
+---
+id: supplier-product-content-item
+title: SupplierProductContentItem
+---
+
+This has a many to one relationship with SupplierProduct, and provides a connection to the CDN items.
+
+```graphql
+type SupplierProductContentItem {
+  alt: String!
+  category: String
+  contentItemId: ID!
+  contentKey: String!
+  contentType: SupplierProductContentType!
+  createdAt: String!
+  position: Float
+  supplierId: ID!
+  supplierProductId: ID!
+  updatedAt: String!
+  updatedBy: String!
+}
+```
+
+### Fields
+
+#### `alt` ([`String`](/developers/supplier-apis/supply-api/graphql/reference/scalars/string))
+
+#### `category` ([`String`](/developers/supplier-apis/supply-api/graphql/reference/scalars/string))
+
+#### `contentItemId` ([`ID`](/developers/supplier-apis/supply-api/graphql/reference/scalars/id))
+
+#### `contentKey` ([`String`](/developers/supplier-apis/supply-api/graphql/reference/scalars/string))
+
+The key to the file in the CDN
+
+#### `contentType` ([`SupplierProductContentType`](/developers/supplier-apis/supply-api/graphql/reference/enums/supplier-product-content-type))
+
+#### `createdAt` ([`String`](/developers/supplier-apis/supply-api/graphql/reference/scalars/string))
+
+#### `position` ([`Float`](/developers/supplier-apis/supply-api/graphql/reference/scalars/float))
+
+Used to determine what order the content comes out in.
+You can place any number here, including non-integers and negatives, and it does not have to be unique or sequential.
+
+#### `supplierId` ([`ID`](/developers/supplier-apis/supply-api/graphql/reference/scalars/id))
+
+#### `supplierProductId` ([`ID`](/developers/supplier-apis/supply-api/graphql/reference/scalars/id))
+
+#### `updatedAt` ([`String`](/developers/supplier-apis/supply-api/graphql/reference/scalars/string))
+
+#### `updatedBy` ([`String`](/developers/supplier-apis/supply-api/graphql/reference/scalars/string))

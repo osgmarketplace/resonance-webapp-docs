@@ -1,0 +1,68 @@
+---
+id: supply-event-subscription
+title: SupplyEventSubscription
+---
+
+Entity representing a subscription to supply events.
+
+```graphql
+type SupplyEventSubscription {
+  createdAt: String!
+  endpoint: String!
+  eventSubscriptionId: ID!
+  itemType: String!
+  mutationType: SupplyEventMutationType!
+  protocol: SupplyEventProtocol!
+  subscriptionEntityId: ID!
+  subscriptionEntityType: SupplyEventSubscriptionEntityType!
+  subscriptionOwnerId: ID!
+  updatedAt: String!
+  updatedBy: ID!
+}
+```
+
+### Fields
+
+#### `createdAt` ([`String`](/developers/supplier-apis/supply-api/graphql/reference/scalars/string))
+
+#### `endpoint` ([`String`](/developers/supplier-apis/supply-api/graphql/reference/scalars/string))
+
+Changes based on protocol, but indicates the exact target.
+
+#### `eventSubscriptionId` ([`ID`](/developers/supplier-apis/supply-api/graphql/reference/scalars/id))
+
+#### `itemType` ([`String`](/developers/supplier-apis/supply-api/graphql/reference/scalars/string))
+
+The SupplyEntity to subscribe to, all lowercase.
+
+#### `mutationType` ([`SupplyEventMutationType`](/developers/supplier-apis/supply-api/graphql/reference/enums/supply-event-mutation-type))
+
+What type of event to listen for.
+
+#### `protocol` ([`SupplyEventProtocol`](/developers/supplier-apis/supply-api/graphql/reference/enums/supply-event-protocol))
+
+The protocol to use to supply the event.
+
+#### `subscriptionEntityId` ([`ID`](/developers/supplier-apis/supply-api/graphql/reference/scalars/id))
+
+This is the "main" entity that is being subscribed to.
+
+This can either be a ResonanceDomainEntityId (SupplierId, DemandHqId) to subscribe to an entity to which they have access.
+This is useful to monitor things like changes to Products and such.
+
+Or an Identity (AppClientId, UserName) to subscribe to THEMSELF.
+This is useful to monitor things like app installations, uninstallations, and such.
+
+subscriptionEntityType indicates what type of entity this is.
+
+#### `subscriptionEntityType` ([`SupplyEventSubscriptionEntityType`](/developers/supplier-apis/supply-api/graphql/reference/enums/supply-event-subscription-entity-type))
+
+This distinguishes between the types of subscriptions.
+
+#### `subscriptionOwnerId` ([`ID`](/developers/supplier-apis/supply-api/graphql/reference/scalars/id))
+
+The app (not appClient) or user that owns the subscription.
+
+#### `updatedAt` ([`String`](/developers/supplier-apis/supply-api/graphql/reference/scalars/string))
+
+#### `updatedBy` ([`ID`](/developers/supplier-apis/supply-api/graphql/reference/scalars/id))

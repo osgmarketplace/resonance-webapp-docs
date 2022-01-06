@@ -8,22 +8,20 @@ ID fields are required, all other fields are optional, only included fields will
 
 ```graphql
 type SupplierVariantUpdateInput {
-  externalProductId: String
+  contentItemId: ID
   externalVariantId: String
   inventoryPolicy: SupplierVariantInventoryPolicy
   inventoryQuantity: Int
-  options: SupplierVariantOptionsInput
-  productTitle: String
-  status: SupplierVariantStatus
-  supplierId: ID!
+  optionValues: [String!]
   supplierVariantId: ID!
-  vendor: String
 }
 ```
 
 ### Fields
 
-#### `externalProductId` ([`String`](/developers/supplier-apis/supply-api/graphql/reference/scalars/string))
+#### `contentItemId` ([`ID`](/developers/supplier-apis/supply-api/graphql/reference/scalars/id))
+
+Associates a contentItem with this variant
 
 #### `externalVariantId` ([`String`](/developers/supplier-apis/supply-api/graphql/reference/scalars/string))
 
@@ -31,14 +29,12 @@ type SupplierVariantUpdateInput {
 
 #### `inventoryQuantity` ([`Int`](/developers/supplier-apis/supply-api/graphql/reference/scalars/int))
 
-#### `options` ([`SupplierVariantOptionsInput`](/developers/supplier-apis/supply-api/graphql/reference/inputs/supplier-variant-options-input))
+#### `optionValues` ([`String`](/developers/supplier-apis/supply-api/graphql/reference/scalars/string))
 
-#### `productTitle` ([`String`](/developers/supplier-apis/supply-api/graphql/reference/scalars/string))
+An array of the option values that make up this variant.
+For example, a product with a color and size option would have two option values,
+one for each of the color and size options, i.e. ["Red", "Small"]
 
-#### `status` ([`SupplierVariantStatus`](/developers/supplier-apis/supply-api/graphql/reference/enums/supplier-variant-status))
-
-#### `supplierId` ([`ID`](/developers/supplier-apis/supply-api/graphql/reference/scalars/id))
+Limit 3, and it should match the number of options in the product, but there is no constraint to do so.
 
 #### `supplierVariantId` ([`ID`](/developers/supplier-apis/supply-api/graphql/reference/scalars/id))
-
-#### `vendor` ([`String`](/developers/supplier-apis/supply-api/graphql/reference/scalars/string))

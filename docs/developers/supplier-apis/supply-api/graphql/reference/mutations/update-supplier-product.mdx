@@ -1,0 +1,25 @@
+---
+id: update-supplier-product
+title: updateSupplierProduct
+---
+
+Update an existing SupplierProduct
+
+```graphql
+updateSupplierProduct(
+  input: SupplierProductUpdateInput!
+): SupplierProduct!
+
+```
+
+### Arguments
+
+#### `input` ([`SupplierProductUpdateInput`](/developers/supplier-apis/supply-api/graphql/reference/inputs/supplier-product-update-input))
+
+### Type
+
+#### [`SupplierProduct`](/developers/supplier-apis/supply-api/graphql/reference/objects/supplier-product)
+
+This is the main entity of the Supplier domain, and is used to represent a product, which is a group of SKUs.
+SKUs are represented by SupplierVariants, a child of this entity.
+This entity is less frequently updated, it is more likely that SupplyVariant will be updated frequently.

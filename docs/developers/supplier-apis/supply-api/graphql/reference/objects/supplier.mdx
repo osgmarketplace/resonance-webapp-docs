@@ -11,6 +11,14 @@ type Supplier {
   defaultCurrency: ResonanceCurrency!
   defaultLocaleType: ResonanceLocaleType!
   description: String
+  mySupplyEventSubscriptions(
+    after: String
+    before: String
+    first: Int
+    itemType: String
+    last: Int
+    mutationType: SupplyEventMutationType
+  ): SupplyEventSubscriptionConnection!
   name: String!
   ownerUserName: String!
   purchaseOrderNotifications: [PurchaseOrderNotification!]
@@ -25,13 +33,13 @@ type Supplier {
     last: Int
   ): SupplierIdentityConnection!
   supplierIdentity(identityId: ID!): SupplierIdentity
-  supplierVariant(supplierVariantId: ID!): SupplierVariant
-  supplierVariants(
+  supplierProduct(supplierProductId: ID!): SupplierProduct
+  supplierProducts(
     after: String
     before: String
     first: Int
     last: Int
-  ): SupplierVariantConnection!
+  ): SupplierProductConnection!
   updatedAt: String!
   updatedBy: ID!
 }
@@ -46,6 +54,34 @@ type Supplier {
 #### `defaultLocaleType` ([`ResonanceLocaleType`](/developers/supplier-apis/supply-api/graphql/reference/enums/resonance-locale-type))
 
 #### `description` ([`String`](/developers/supplier-apis/supply-api/graphql/reference/scalars/string))
+
+#### `mySupplyEventSubscriptions` ([`SupplyEventSubscriptionConnection`](/developers/supplier-apis/supply-api/graphql/reference/objects/supply-event-subscription-connection))
+
+List supplyEventSubscriptions by filtering for your identity.
+
+- ##### `after` ([`String`](/developers/supplier-apis/supply-api/graphql/reference/scalars/string))
+
+Returns the elements in the list that come after the specified cursor.
+
+- ##### `before` ([`String`](/developers/supplier-apis/supply-api/graphql/reference/scalars/string))
+
+Returns the elements in the list that come before the specified cursor.
+
+- ##### `first` ([`Int`](/developers/supplier-apis/supply-api/graphql/reference/scalars/int))
+
+Returns the first n elements from the list.
+
+- ##### `itemType` ([`String`](/developers/supplier-apis/supply-api/graphql/reference/scalars/string))
+
+In order to use this filter, you must also provide subscriptionEntityId
+
+- ##### `last` ([`Int`](/developers/supplier-apis/supply-api/graphql/reference/scalars/int))
+
+Returns the last n elements from the list.
+
+- ##### `mutationType` ([`SupplyEventMutationType`](/developers/supplier-apis/supply-api/graphql/reference/enums/supply-event-mutation-type))
+
+In order to use this filter, you must also include itemType
 
 #### `name` ([`String`](/developers/supplier-apis/supply-api/graphql/reference/scalars/string))
 
@@ -99,20 +135,19 @@ Requires supplieridentity/read permission on the requesting identity, or you can
 
 - ##### `identityId` ([`ID`](/developers/supplier-apis/supply-api/graphql/reference/scalars/id))
 
-#### `supplierVariant` ([`SupplierVariant`](/developers/supplier-apis/supply-api/graphql/reference/objects/supplier-variant))
+#### `supplierProduct` ([`SupplierProduct`](/developers/supplier-apis/supply-api/graphql/reference/objects/supplier-product))
 
-Get a single supplierVariant by SupplierVariantId
+Get a single SupplierProduct by its ID.
 
-Requires suppliervariant/read permission on the requesting identity
+Requires supplierproduct/read permission on the requesting identity
 
-- ##### `supplierVariantId` ([`ID`](/developers/supplier-apis/supply-api/graphql/reference/scalars/id))
+- ##### `supplierProductId` ([`ID`](/developers/supplier-apis/supply-api/graphql/reference/scalars/id))
 
-#### `supplierVariants` ([`SupplierVariantConnection`](/developers/supplier-apis/supply-api/graphql/reference/objects/supplier-variant-connection))
+#### `supplierProducts` ([`SupplierProductConnection`](/developers/supplier-apis/supply-api/graphql/reference/objects/supplier-product-connection))
 
-Get a list of supplierVariants
-Default sort is by updatedAt (first for asc, last for desc).
+List SupplierProducts for a Supplier.
 
-Requires suppliervariant/read permission on the supplier for the requesting identity
+Requires supplierproduct/read permission on the requesting identity
 
 - ##### `after` ([`String`](/developers/supplier-apis/supply-api/graphql/reference/scalars/string))
 
