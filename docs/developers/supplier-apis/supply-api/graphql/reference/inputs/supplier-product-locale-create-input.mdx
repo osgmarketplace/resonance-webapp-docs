@@ -1,0 +1,31 @@
+---
+id: supplier-product-locale-create-input
+title: SupplierProductLocaleCreateInput
+---
+
+The necessary fields in order to create a new supplierProductLocale
+
+```graphql
+type SupplierProductLocaleCreateInput {
+  description: String
+  featureBullets: [String]
+  isDefault: Boolean!
+  localeType: ResonanceLocaleType!
+  supplierId: ID!
+  supplierProductId: ID!
+}
+```
+
+### Fields
+
+#### `description` ([`String`](/developers/supplier-apis/supply-api/graphql/reference/scalars/string))
+
+#### `featureBullets` ([`String`](/developers/supplier-apis/supply-api/graphql/reference/scalars/string))
+
+#### `isDefault` ([`Boolean`](/developers/supplier-apis/supply-api/graphql/reference/scalars/boolean))
+
+#### `localeType` ([`ResonanceLocaleType`](/developers/supplier-apis/supply-api/graphql/reference/enums/resonance-locale-type))
+
+#### `supplierId` ([`ID`](/developers/supplier-apis/supply-api/graphql/reference/scalars/id))
+
+#### `supplierProductId` ([`ID`](/developers/supplier-apis/supply-api/graphql/reference/scalars/id))

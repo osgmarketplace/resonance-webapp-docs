@@ -1,0 +1,47 @@
+---
+id: supplier-product-create-input
+title: SupplierProductCreateInput
+---
+
+The necessary fields to create a new SupplierProduct.
+status will be initially set to DRAFT
+
+```graphql
+type SupplierProductCreateInput {
+  externalProductId: String!
+  optionLabels: [String!]!
+  supplierId: ID!
+  tags: [String]
+  title: String!
+  vendor: String!
+}
+```
+
+### Fields
+
+#### `externalProductId` ([`String`](/developers/supplier-apis/supply-api/graphql/reference/scalars/string))
+
+Passed along in PurchaseOrders so the Supplier can identify items in their warehouse.
+
+#### `optionLabels` ([`String`](/developers/supplier-apis/supply-api/graphql/reference/scalars/string))
+
+The labels for the options of this product, i.e. ["Color", "Size"]
+These will match with the order of the optionValues on the SupplierVariants.
+
+Must have 1-3, and it should match the number of options in the variants, but there is no validation to do so.
+
+#### `supplierId` ([`ID`](/developers/supplier-apis/supply-api/graphql/reference/scalars/id))
+
+Reference to the Supplier that owns this product.
+
+#### `tags` ([`String`](/developers/supplier-apis/supply-api/graphql/reference/scalars/string))
+
+Categories and other groupings that apply to this product.
+
+#### `title` ([`String`](/developers/supplier-apis/supply-api/graphql/reference/scalars/string))
+
+The title of the product.
+
+#### `vendor` ([`String`](/developers/supplier-apis/supply-api/graphql/reference/scalars/string))
+
+The brand or manufacturer of the product.

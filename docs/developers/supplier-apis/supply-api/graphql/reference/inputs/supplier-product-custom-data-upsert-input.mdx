@@ -1,0 +1,20 @@
+---
+id: supplier-product-custom-data-upsert-input
+title: SupplierProductCustomDataUpsertInput
+---
+
+The input type to upsert SupplierProductCustomData.
+The data object is required, but is a partial update, and keys not mentioned will be left alone.
+
+```graphql
+type SupplierProductCustomDataUpsertInput {
+  data: JSONObject!
+  supplierProductId: ID!
+}
+```
+
+### Fields
+
+#### `data` ([`JSONObject`](/developers/supplier-apis/supply-api/graphql/reference/scalars/jsonobject))
+
+#### `supplierProductId` ([`ID`](/developers/supplier-apis/supply-api/graphql/reference/scalars/id))

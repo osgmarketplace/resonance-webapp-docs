@@ -1,0 +1,43 @@
+---
+id: supplier-product-locale
+title: SupplierProductLocale
+---
+
+This has a many to one relationship with SupplierProduct, and provides localized language data for the appropriate fields.
+There will often only be one of these, and it should be the one set in defaultLocale for the supplier.
+
+```graphql
+type SupplierProductLocale {
+  createdAt: String!
+  description: String
+  featureBullets: [String]
+  isDefault: Boolean!
+  localeType: ResonanceLocaleType!
+  supplierId: ID!
+  supplierProductId: ID!
+  updatedAt: String!
+  updatedBy: String!
+}
+```
+
+### Fields
+
+#### `createdAt` ([`String`](/developers/supplier-apis/supply-api/graphql/reference/scalars/string))
+
+#### `description` ([`String`](/developers/supplier-apis/supply-api/graphql/reference/scalars/string))
+
+#### `featureBullets` ([`String`](/developers/supplier-apis/supply-api/graphql/reference/scalars/string))
+
+Limited to 5 bullets
+
+#### `isDefault` ([`Boolean`](/developers/supplier-apis/supply-api/graphql/reference/scalars/boolean))
+
+#### `localeType` ([`ResonanceLocaleType`](/developers/supplier-apis/supply-api/graphql/reference/enums/resonance-locale-type))
+
+#### `supplierId` ([`ID`](/developers/supplier-apis/supply-api/graphql/reference/scalars/id))
+
+#### `supplierProductId` ([`ID`](/developers/supplier-apis/supply-api/graphql/reference/scalars/id))
+
+#### `updatedAt` ([`String`](/developers/supplier-apis/supply-api/graphql/reference/scalars/string))
+
+#### `updatedBy` ([`String`](/developers/supplier-apis/supply-api/graphql/reference/scalars/string))

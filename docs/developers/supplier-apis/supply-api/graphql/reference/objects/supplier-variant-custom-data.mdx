@@ -1,0 +1,28 @@
+---
+id: supplier-variant-custom-data
+title: SupplierVariantCustomData
+---
+
+Data that doesn't fit in the provided SupplierVariant fields needs to live here.
+
+```graphql
+type SupplierVariantCustomData {
+  createdAt: String!
+  data: JSONObject!
+  supplierVariantId: ID!
+  updatedAt: String!
+  updatedBy: String!
+}
+```
+
+### Fields
+
+#### `createdAt` ([`String`](/developers/supplier-apis/supply-api/graphql/reference/scalars/string))
+
+#### `data` ([`JSONObject`](/developers/supplier-apis/supply-api/graphql/reference/scalars/jsonobject))
+
+#### `supplierVariantId` ([`ID`](/developers/supplier-apis/supply-api/graphql/reference/scalars/id))
+
+#### `updatedAt` ([`String`](/developers/supplier-apis/supply-api/graphql/reference/scalars/string))
+
+#### `updatedBy` ([`String`](/developers/supplier-apis/supply-api/graphql/reference/scalars/string))

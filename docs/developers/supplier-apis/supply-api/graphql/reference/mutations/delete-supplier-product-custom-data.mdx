@@ -1,0 +1,26 @@
+---
+id: delete-supplier-product-custom-data
+title: deleteSupplierProductCustomData
+---
+
+Delete specified keys from the SupplierProductCustomData
+
+```graphql
+deleteSupplierProductCustomData(
+  keysToDelete: [String!]!
+  supplierProductId: ID!
+): SupplierProductCustomData!
+
+```
+
+### Arguments
+
+#### `keysToDelete` ([`String`](/developers/supplier-apis/supply-api/graphql/reference/scalars/string))
+
+#### `supplierProductId` ([`ID`](/developers/supplier-apis/supply-api/graphql/reference/scalars/id))
+
+### Type
+
+#### [`SupplierProductCustomData`](/developers/supplier-apis/supply-api/graphql/reference/objects/supplier-product-custom-data)
+
+Data that doesn't fit in the provided SupplierProduct fields needs to live here.

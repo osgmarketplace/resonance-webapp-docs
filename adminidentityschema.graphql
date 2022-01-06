@@ -397,6 +397,12 @@ type PublicIdentity {
 
   """A userName or appClientId"""
   identityId: ID!
+
+  """
+  The parent entityId of the identity.
+  At time of writing, this is only used for AppClients, and is populated with the AppId.
+  """
+  identityParentEntityId: ID
 }
 
 """Paginate through PublicIdentities"""

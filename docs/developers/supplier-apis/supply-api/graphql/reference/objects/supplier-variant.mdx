@@ -8,66 +8,34 @@ Only the variant level exists, there is no parent product.
 
 ```graphql
 type SupplierVariant {
-  contentItem(contentItemId: ID!): SupplierVariantContentItem
-  contentItems(
-    after: String
-    before: String
-    first: Int
-    last: Int
-  ): SupplierVariantContentItemConnection!
+  contentItemId: ID
   createdAt: String!
+  customData: SupplierVariantCustomData
   externalProductId: String!
   externalVariantId: String!
   inventoryPolicy: SupplierVariantInventoryPolicy!
   inventoryQuantity: Int!
   inventoryStatus: SupplierVariantInventoryStatus!
-  locale(localeType: ResonanceLocaleType!): SupplierVariantLocale
-  options: SupplierVariantOptions!
-  productTitle: String!
-  status: SupplierVariantStatus!
+  optionValues: [String!]!
   supplement: SupplierVariantSupplement
   supplierId: ID!
+  supplierProductId: ID!
   supplierVariantId: ID!
   updatedAt: String!
   updatedBy: String!
   variantTitle: String!
-  vendor: String!
 }
 ```
 
 ### Fields
 
-#### `contentItem` ([`SupplierVariantContentItem`](/developers/supplier-apis/supply-api/graphql/reference/objects/supplier-variant-content-item))
+#### `contentItemId` ([`ID`](/developers/supplier-apis/supply-api/graphql/reference/scalars/id))
 
-Get a supplierVariantContentItem for a supplierVariant
-
-Requires suppliervariantcontentitem/read permission on the requesting identity
-
-- ##### `contentItemId` ([`ID`](/developers/supplier-apis/supply-api/graphql/reference/scalars/id))
-
-#### `contentItems` ([`SupplierVariantContentItemConnection`](/developers/supplier-apis/supply-api/graphql/reference/objects/supplier-variant-content-item-connection))
-
-Get a list of supplierVariantContentItems
-
-Requires suppliervariantcontentitem/read permission on the supplier for the requesting identity
-
-- ##### `after` ([`String`](/developers/supplier-apis/supply-api/graphql/reference/scalars/string))
-
-Returns the elements in the list that come after the specified cursor.
-
-- ##### `before` ([`String`](/developers/supplier-apis/supply-api/graphql/reference/scalars/string))
-
-Returns the elements in the list that come before the specified cursor.
-
-- ##### `first` ([`Int`](/developers/supplier-apis/supply-api/graphql/reference/scalars/int))
-
-Returns the first n elements from the list.
-
-- ##### `last` ([`Int`](/developers/supplier-apis/supply-api/graphql/reference/scalars/int))
-
-Returns the last n elements from the list.
+Associates a contentItem with this variant
 
 #### `createdAt` ([`String`](/developers/supplier-apis/supply-api/graphql/reference/scalars/string))
+
+#### `customData` ([`SupplierVariantCustomData`](/developers/supplier-apis/supply-api/graphql/reference/objects/supplier-variant-custom-data))
 
 #### `externalProductId` ([`String`](/developers/supplier-apis/supply-api/graphql/reference/scalars/string))
 
@@ -79,19 +47,13 @@ Returns the last n elements from the list.
 
 #### `inventoryStatus` ([`SupplierVariantInventoryStatus`](/developers/supplier-apis/supply-api/graphql/reference/enums/supplier-variant-inventory-status))
 
-#### `locale` ([`SupplierVariantLocale`](/developers/supplier-apis/supply-api/graphql/reference/objects/supplier-variant-locale))
+#### `optionValues` ([`String`](/developers/supplier-apis/supply-api/graphql/reference/scalars/string))
 
-Get a single supplierVariantLocale by ResonanceLocaleType
+An array of the option values that make up this variant.
+For example, a product with a color and size option would have two option values,
+one for each of the color and size options, i.e. ["Red", "Small"]
 
-Requires suppliervariantlocale/read permission on the requesting identity
-
-- ##### `localeType` ([`ResonanceLocaleType`](/developers/supplier-apis/supply-api/graphql/reference/enums/resonance-locale-type))
-
-#### `options` ([`SupplierVariantOptions`](/developers/supplier-apis/supply-api/graphql/reference/objects/supplier-variant-options))
-
-#### `productTitle` ([`String`](/developers/supplier-apis/supply-api/graphql/reference/scalars/string))
-
-#### `status` ([`SupplierVariantStatus`](/developers/supplier-apis/supply-api/graphql/reference/enums/supplier-variant-status))
+Must have 1-3, and it should match the number of options in the product, but there is no validation to do so.
 
 #### `supplement` ([`SupplierVariantSupplement`](/developers/supplier-apis/supply-api/graphql/reference/objects/supplier-variant-supplement))
 
@@ -101,6 +63,8 @@ Requires suppliervariantsupplement/read permission on the requesting identity
 
 #### `supplierId` ([`ID`](/developers/supplier-apis/supply-api/graphql/reference/scalars/id))
 
+#### `supplierProductId` ([`ID`](/developers/supplier-apis/supply-api/graphql/reference/scalars/id))
+
 #### `supplierVariantId` ([`ID`](/developers/supplier-apis/supply-api/graphql/reference/scalars/id))
 
 #### `updatedAt` ([`String`](/developers/supplier-apis/supply-api/graphql/reference/scalars/string))
@@ -108,5 +72,3 @@ Requires suppliervariantsupplement/read permission on the requesting identity
 #### `updatedBy` ([`String`](/developers/supplier-apis/supply-api/graphql/reference/scalars/string))
 
 #### `variantTitle` ([`String`](/developers/supplier-apis/supply-api/graphql/reference/scalars/string))
-
-#### `vendor` ([`String`](/developers/supplier-apis/supply-api/graphql/reference/scalars/string))
