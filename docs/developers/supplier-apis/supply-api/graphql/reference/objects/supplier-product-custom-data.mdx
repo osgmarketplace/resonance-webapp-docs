@@ -3,26 +3,47 @@ id: supplier-product-custom-data
 title: SupplierProductCustomData
 ---
 
+
 Data that doesn't fit in the provided SupplierProduct fields needs to live here.
+
 
 ```graphql
 type SupplierProductCustomData {
   createdAt: String!
-  data: JSONObject!
+  data: JSON!
   supplierProductId: ID!
   updatedAt: String!
   updatedBy: String!
 }
 ```
 
+
 ### Fields
 
 #### `createdAt` ([`String`](/developers/supplier-apis/supply-api/graphql/reference/scalars/string))
 
-#### `data` ([`JSONObject`](/developers/supplier-apis/supply-api/graphql/reference/scalars/jsonobject))
+
+
+
+#### `data` ([`JSON`](/developers/supplier-apis/supply-api/graphql/reference/scalars/json))
+
+
+
 
 #### `supplierProductId` ([`ID`](/developers/supplier-apis/supply-api/graphql/reference/scalars/id))
 
+
+
+
 #### `updatedAt` ([`String`](/developers/supplier-apis/supply-api/graphql/reference/scalars/string))
 
+
+
+
 #### `updatedBy` ([`String`](/developers/supplier-apis/supply-api/graphql/reference/scalars/string))
+
+
+
+
+
+

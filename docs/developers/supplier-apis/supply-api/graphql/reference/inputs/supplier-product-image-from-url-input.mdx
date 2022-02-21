@@ -3,32 +3,54 @@ id: supplier-product-image-from-url-input
 title: SupplierProductImageFromUrlInput
 ---
 
+
 Input object for creating an Image SupplierProductContentItem from a URL
+
 
 ```graphql
 type SupplierProductImageFromUrlInput {
   alt: String!
   category: String
-  position: Float
+  position: Int
   supplierId: ID!
   supplierProductId: ID!
   url: String!
 }
 ```
 
+
 ### Fields
 
 #### `alt` ([`String`](/developers/supplier-apis/supply-api/graphql/reference/scalars/string))
 
+
+
+
 #### `category` ([`String`](/developers/supplier-apis/supply-api/graphql/reference/scalars/string))
 
-#### `position` ([`Float`](/developers/supplier-apis/supply-api/graphql/reference/scalars/float))
+
+
+
+#### `position` ([`Int`](/developers/supplier-apis/supply-api/graphql/reference/scalars/int))
 
 Used to determine what order the content comes out in.
-You can place any number here, including non-integers and negatives, and it does not have to be unique or sequential.
+Positive Integers are allowed, up to 9,999,999,999, and it does not have to be unique or sequential.
+
 
 #### `supplierId` ([`ID`](/developers/supplier-apis/supply-api/graphql/reference/scalars/id))
 
+
+
+
 #### `supplierProductId` ([`ID`](/developers/supplier-apis/supply-api/graphql/reference/scalars/id))
 
+
+
+
 #### `url` ([`String`](/developers/supplier-apis/supply-api/graphql/reference/scalars/string))
+
+
+
+
+
+

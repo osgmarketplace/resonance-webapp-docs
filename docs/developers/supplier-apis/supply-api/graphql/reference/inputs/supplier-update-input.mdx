@@ -3,26 +3,54 @@ id: supplier-update-input
 title: SupplierUpdateInput
 ---
 
-The possible fields in order to update a supplier. Partial updating in place.
+
+The possible fields in order to update a supplier.
+
 
 ```graphql
 type SupplierUpdateInput {
   description: String
   name: String
-  purchaseOrderNotifications: [PurchaseOrderNotificationInput!]
+  notificationUserNames: SupplierNotificationUserNamesInput
+  ownerUserName: String
   status: SupplierStatus
   supplierId: ID!
 }
 ```
 
+
 ### Fields
 
 #### `description` ([`String`](/developers/supplier-apis/supply-api/graphql/reference/scalars/string))
 
+
+
+
 #### `name` ([`String`](/developers/supplier-apis/supply-api/graphql/reference/scalars/string))
 
-#### `purchaseOrderNotifications` ([`PurchaseOrderNotificationInput`](/developers/supplier-apis/supply-api/graphql/reference/inputs/purchase-order-notification-input))
+
+
+
+#### `notificationUserNames` ([`SupplierNotificationUserNamesInput`](/developers/supplier-apis/supply-api/graphql/reference/inputs/supplier-notification-user-names-input))
+
+These users will get notified if something requires attention for this Supplier.
+If none are provided, ownerUserName will be notified.
+
+
+#### `ownerUserName` ([`String`](/developers/supplier-apis/supply-api/graphql/reference/scalars/string))
+
+
+
 
 #### `status` ([`SupplierStatus`](/developers/supplier-apis/supply-api/graphql/reference/enums/supplier-status))
 
+
+
+
 #### `supplierId` ([`ID`](/developers/supplier-apis/supply-api/graphql/reference/scalars/id))
+
+
+
+
+
+

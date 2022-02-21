@@ -1,0 +1,75 @@
+---
+id: supplier-quick-links
+title: supplierQuickLinks
+---
+
+
+List multiple SupplierQuickLinks for an app.
+
+At least one filter is required, supplierId and quickLinkType are required to be used together.
+
+Permissions vary by filter:
+- appId: You must be an appClient for the app.
+- supplierId: You must have supplier/read permission for the supplier.
+
+
+```graphql
+supplierQuickLinks(
+  after: String
+  appId: ID
+  before: String
+  first: Int
+  last: Int
+  quickLinkType: SupplierQuickLinkType
+  supplierId: ID
+): SupplierQuickLinkConnection!
+
+```
+
+
+### Arguments
+
+#### `after` ([`String`](/developers/supplier-apis/supply-api/graphql/reference/scalars/string))
+
+Returns the elements in the list that come after the specified cursor.
+
+
+#### `appId` ([`ID`](/developers/supplier-apis/supply-api/graphql/reference/scalars/id))
+
+Filter for AppId, cannot be used with other filters.
+
+
+#### `before` ([`String`](/developers/supplier-apis/supply-api/graphql/reference/scalars/string))
+
+Returns the elements in the list that come before the specified cursor.
+
+
+#### `first` ([`Int`](/developers/supplier-apis/supply-api/graphql/reference/scalars/int))
+
+Returns the first n elements from the list.
+
+
+#### `last` ([`Int`](/developers/supplier-apis/supply-api/graphql/reference/scalars/int))
+
+Returns the last n elements from the list.
+
+
+#### `quickLinkType` ([`SupplierQuickLinkType`](/developers/supplier-apis/supply-api/graphql/reference/enums/supplier-quick-link-type))
+
+Filter to be used with supplierId, cannot be used with other filters.
+
+
+#### `supplierId` ([`ID`](/developers/supplier-apis/supply-api/graphql/reference/scalars/id))
+
+Filter to be used with quickLinkType, cannot be used with other filters.
+
+
+### Type
+
+#### [`SupplierQuickLinkConnection`](/developers/supplier-apis/supply-api/graphql/reference/objects/supplier-quick-link-connection) 
+
+Paginate through SupplierQuickLinks
+
+
+
+

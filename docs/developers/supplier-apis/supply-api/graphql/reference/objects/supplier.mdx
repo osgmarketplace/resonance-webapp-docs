@@ -3,7 +3,9 @@ id: supplier
 title: Supplier
 ---
 
+
 The parent-most entity of the Supplier Domain
+
 
 ```graphql
 type Supplier {
@@ -12,159 +14,272 @@ type Supplier {
   defaultLocaleType: ResonanceLocaleType!
   description: String
   mySupplyEventSubscriptions(
-    after: String
-    before: String
-    first: Int
-    itemType: String
-    last: Int
-    mutationType: SupplyEventMutationType
-  ): SupplyEventSubscriptionConnection!
+  after: String
+  before: String
+  first: Int
+  itemType: String
+  last: Int
+  mutationType: SupplyEventMutationType
+): SupplyEventSubscriptionConnection!
   name: String!
+  notificationUserNames: SupplierNotificationUserNames
   ownerUserName: String!
-  purchaseOrderNotifications: [PurchaseOrderNotification!]
+  quickLink(
+  appId: ID!
+  quickLinkType: SupplierQuickLinkType!
+): SupplierQuickLink
+  quickLinks(
+  after: String
+  before: String
+  first: Int
+  last: Int
+  quickLinkType: SupplierQuickLinkType!
+): SupplierQuickLinkConnection!
   status: SupplierStatus!
   supplierId: ID!
   supplierIdentities(
-    after: String
-    before: String
-    first: Int
-    identityParentEntityId: ID
-    identityType: SupplierIdentityType
-    last: Int
-  ): SupplierIdentityConnection!
-  supplierIdentity(identityId: ID!): SupplierIdentity
-  supplierProduct(supplierProductId: ID!): SupplierProduct
+  after: String
+  before: String
+  first: Int
+  identityParentEntityId: ID
+  identityType: SupplierIdentityType
+  last: Int
+): SupplierIdentityConnection!
+  supplierIdentity(
+  identityId: ID!
+  supplierId: ID!
+): SupplierIdentity
+  supplierProduct(
+  supplierProductId: ID!
+): SupplierProduct
   supplierProducts(
-    after: String
-    before: String
-    first: Int
-    last: Int
-  ): SupplierProductConnection!
+  after: String
+  before: String
+  first: Int
+  last: Int
+): SupplierProductConnection!
   updatedAt: String!
   updatedBy: ID!
 }
 ```
 
+
 ### Fields
 
 #### `createdAt` ([`String`](/developers/supplier-apis/supply-api/graphql/reference/scalars/string))
 
+
+
+
 #### `defaultCurrency` ([`ResonanceCurrency`](/developers/supplier-apis/supply-api/graphql/reference/enums/resonance-currency))
+
+
+
 
 #### `defaultLocaleType` ([`ResonanceLocaleType`](/developers/supplier-apis/supply-api/graphql/reference/enums/resonance-locale-type))
 
+
+
+
 #### `description` ([`String`](/developers/supplier-apis/supply-api/graphql/reference/scalars/string))
+
+
+
 
 #### `mySupplyEventSubscriptions` ([`SupplyEventSubscriptionConnection`](/developers/supplier-apis/supply-api/graphql/reference/objects/supply-event-subscription-connection))
 
-List supplyEventSubscriptions by filtering for your identity.
-
+List supplyEventSubscriptions by filtering for your identity for this supplier.
 - ##### `after` ([`String`](/developers/supplier-apis/supply-api/graphql/reference/scalars/string))
 
 Returns the elements in the list that come after the specified cursor.
+
 
 - ##### `before` ([`String`](/developers/supplier-apis/supply-api/graphql/reference/scalars/string))
 
 Returns the elements in the list that come before the specified cursor.
 
+
 - ##### `first` ([`Int`](/developers/supplier-apis/supply-api/graphql/reference/scalars/int))
 
 Returns the first n elements from the list.
+
 
 - ##### `itemType` ([`String`](/developers/supplier-apis/supply-api/graphql/reference/scalars/string))
 
 In order to use this filter, you must also provide subscriptionEntityId
 
+
 - ##### `last` ([`Int`](/developers/supplier-apis/supply-api/graphql/reference/scalars/int))
 
 Returns the last n elements from the list.
 
+
 - ##### `mutationType` ([`SupplyEventMutationType`](/developers/supplier-apis/supply-api/graphql/reference/enums/supply-event-mutation-type))
 
-In order to use this filter, you must also include itemType
+In order to use this filter, you must also include itemType and subscriptionEntityId
+
 
 #### `name` ([`String`](/developers/supplier-apis/supply-api/graphql/reference/scalars/string))
 
+
+
+
+#### `notificationUserNames` ([`SupplierNotificationUserNames`](/developers/supplier-apis/supply-api/graphql/reference/objects/supplier-notification-user-names))
+
+These users will get notified if something requires attention for this Supplier.
+If none are provided, ownerUserName will be notified.
+
+
 #### `ownerUserName` ([`String`](/developers/supplier-apis/supply-api/graphql/reference/scalars/string))
 
-#### `purchaseOrderNotifications` ([`PurchaseOrderNotification`](/developers/supplier-apis/supply-api/graphql/reference/objects/purchase-order-notification))
 
-One purchaseOrderNotification must be present to publish (private or public)
 
-#### `status` ([`SupplierStatus`](/developers/supplier-apis/supply-api/graphql/reference/enums/supplier-status))
 
-#### `supplierId` ([`ID`](/developers/supplier-apis/supply-api/graphql/reference/scalars/id))
+#### `quickLink` ([`SupplierQuickLink`](/developers/supplier-apis/supply-api/graphql/reference/objects/supplier-quick-link))
 
-#### `supplierIdentities` ([`SupplierIdentityConnection`](/developers/supplier-apis/supply-api/graphql/reference/objects/supplier-identity-connection))
+Get a single SupplierQuickLink by its ids
+- ##### `appId` ([`ID`](/developers/supplier-apis/supply-api/graphql/reference/scalars/id))
 
-Provided through SupplierIdentity Chained Resolver
-Returns SupplierIdentities for the given Supplier
 
-Requires supplieridentity/read permission on the requesting identity
 
+
+- ##### `quickLinkType` ([`SupplierQuickLinkType`](/developers/supplier-apis/supply-api/graphql/reference/enums/supplier-quick-link-type))
+
+
+
+
+#### `quickLinks` ([`SupplierQuickLinkConnection`](/developers/supplier-apis/supply-api/graphql/reference/objects/supplier-quick-link-connection))
+
+List multiple SupplierQuickLinks for a single SupplierQuickLinkType
 - ##### `after` ([`String`](/developers/supplier-apis/supply-api/graphql/reference/scalars/string))
 
 Returns the elements in the list that come after the specified cursor.
+
 
 - ##### `before` ([`String`](/developers/supplier-apis/supply-api/graphql/reference/scalars/string))
 
 Returns the elements in the list that come before the specified cursor.
 
+
 - ##### `first` ([`Int`](/developers/supplier-apis/supply-api/graphql/reference/scalars/int))
 
 Returns the first n elements from the list.
 
-- ##### `identityParentEntityId` ([`ID`](/developers/supplier-apis/supply-api/graphql/reference/scalars/id))
-
-Filter the results to a specific identityParentEntityId (optional)
-
-- ##### `identityType` ([`SupplierIdentityType`](/developers/supplier-apis/supply-api/graphql/reference/enums/supplier-identity-type))
-
-Filter the results to a specific identity type (optional)
 
 - ##### `last` ([`Int`](/developers/supplier-apis/supply-api/graphql/reference/scalars/int))
 
 Returns the last n elements from the list.
 
+
+- ##### `quickLinkType` ([`SupplierQuickLinkType`](/developers/supplier-apis/supply-api/graphql/reference/enums/supplier-quick-link-type))
+
+
+
+
+#### `status` ([`SupplierStatus`](/developers/supplier-apis/supply-api/graphql/reference/enums/supplier-status))
+
+
+
+
+#### `supplierId` ([`ID`](/developers/supplier-apis/supply-api/graphql/reference/scalars/id))
+
+
+
+
+#### `supplierIdentities` ([`SupplierIdentityConnection`](/developers/supplier-apis/supply-api/graphql/reference/objects/supplier-identity-connection))
+
+Returns SupplierIdentities for the given Supplier
+
+Requires supplieridentity/read permission on the requesting identity
+- ##### `after` ([`String`](/developers/supplier-apis/supply-api/graphql/reference/scalars/string))
+
+Returns the elements in the list that come after the specified cursor.
+
+
+- ##### `before` ([`String`](/developers/supplier-apis/supply-api/graphql/reference/scalars/string))
+
+Returns the elements in the list that come before the specified cursor.
+
+
+- ##### `first` ([`Int`](/developers/supplier-apis/supply-api/graphql/reference/scalars/int))
+
+Returns the first n elements from the list.
+
+
+- ##### `identityParentEntityId` ([`ID`](/developers/supplier-apis/supply-api/graphql/reference/scalars/id))
+
+Filter the results to a specific identityParentEntityId (optional)
+
+
+- ##### `identityType` ([`SupplierIdentityType`](/developers/supplier-apis/supply-api/graphql/reference/enums/supplier-identity-type))
+
+Filter the results to a specific identity type (optional)
+
+
+- ##### `last` ([`Int`](/developers/supplier-apis/supply-api/graphql/reference/scalars/int))
+
+Returns the last n elements from the list.
+
+
 #### `supplierIdentity` ([`SupplierIdentity`](/developers/supplier-apis/supply-api/graphql/reference/objects/supplier-identity))
 
-Provided through SupplierIdentity Chained Resolver
-Returns a single SupplierIdentity for the given Supplier
+Returns a SupplierIdentity for the given Supplier
 
 Requires supplieridentity/read permission on the requesting identity, or you can request your own identity.
-
 - ##### `identityId` ([`ID`](/developers/supplier-apis/supply-api/graphql/reference/scalars/id))
+
+
+
+
+- ##### `supplierId` ([`ID`](/developers/supplier-apis/supply-api/graphql/reference/scalars/id))
+
+
+
 
 #### `supplierProduct` ([`SupplierProduct`](/developers/supplier-apis/supply-api/graphql/reference/objects/supplier-product))
 
 Get a single SupplierProduct by its ID.
 
 Requires supplierproduct/read permission on the requesting identity
-
 - ##### `supplierProductId` ([`ID`](/developers/supplier-apis/supply-api/graphql/reference/scalars/id))
+
+
+
 
 #### `supplierProducts` ([`SupplierProductConnection`](/developers/supplier-apis/supply-api/graphql/reference/objects/supplier-product-connection))
 
 List SupplierProducts for a Supplier.
 
 Requires supplierproduct/read permission on the requesting identity
-
 - ##### `after` ([`String`](/developers/supplier-apis/supply-api/graphql/reference/scalars/string))
 
 Returns the elements in the list that come after the specified cursor.
+
 
 - ##### `before` ([`String`](/developers/supplier-apis/supply-api/graphql/reference/scalars/string))
 
 Returns the elements in the list that come before the specified cursor.
 
+
 - ##### `first` ([`Int`](/developers/supplier-apis/supply-api/graphql/reference/scalars/int))
 
 Returns the first n elements from the list.
+
 
 - ##### `last` ([`Int`](/developers/supplier-apis/supply-api/graphql/reference/scalars/int))
 
 Returns the last n elements from the list.
 
+
 #### `updatedAt` ([`String`](/developers/supplier-apis/supply-api/graphql/reference/scalars/string))
 
+
+
+
 #### `updatedBy` ([`ID`](/developers/supplier-apis/supply-api/graphql/reference/scalars/id))
+
+
+
+
+
+

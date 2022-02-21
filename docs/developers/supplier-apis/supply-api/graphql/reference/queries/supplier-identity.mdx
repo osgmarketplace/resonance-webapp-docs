@@ -3,9 +3,11 @@ id: supplier-identity
 title: supplierIdentity
 ---
 
-Get a single SupplierIdentity.
 
-Requires supplieridentity/read permission on the requesting identity, or you can request your own identity.
+Get a single SupplierIdentity
+
+Requires supplieridentity/read permission on the requesting identity for the supplier requested
+
 
 ```graphql
 supplierIdentity(
@@ -15,14 +17,25 @@ supplierIdentity(
 
 ```
 
+
 ### Arguments
 
 #### `identityId` ([`ID`](/developers/supplier-apis/supply-api/graphql/reference/scalars/id))
 
+
+
+
 #### `supplierId` ([`ID`](/developers/supplier-apis/supply-api/graphql/reference/scalars/id))
+
+
+
 
 ### Type
 
-#### [`SupplierIdentity`](/developers/supplier-apis/supply-api/graphql/reference/objects/supplier-identity)
+#### [`SupplierIdentity`](/developers/supplier-apis/supply-api/graphql/reference/objects/supplier-identity) 
 
 Indicates a User or App has permissions on a Supplier
+
+
+
+

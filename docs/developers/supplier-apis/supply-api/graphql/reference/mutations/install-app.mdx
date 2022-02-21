@@ -3,26 +3,39 @@ id: install-app
 title: installApp
 ---
 
+
 Install an app to a Supplier (give an app permissions)
 
 Requires the supplieridentity/write permission on the given Supplier
+
 
 ```graphql
 installApp(
   appId: ID!
   supplierId: ID!
-): AppInstallationOutput!
+): AppInstallationResponse!
 
 ```
+
 
 ### Arguments
 
 #### `appId` ([`ID`](/developers/supplier-apis/supply-api/graphql/reference/scalars/id))
 
+
+
+
 #### `supplierId` ([`ID`](/developers/supplier-apis/supply-api/graphql/reference/scalars/id))
+
+
+
 
 ### Type
 
-#### [`AppInstallationOutput`](/developers/supplier-apis/supply-api/graphql/reference/objects/app-installation-output)
+#### [`AppInstallationResponse`](/developers/supplier-apis/supply-api/graphql/reference/objects/app-installation-response) 
 
 The response recieved when an app is installed or the permissions are updated
+
+
+
+

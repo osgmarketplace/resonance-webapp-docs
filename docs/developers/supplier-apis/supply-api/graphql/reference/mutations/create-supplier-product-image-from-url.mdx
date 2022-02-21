@@ -3,21 +3,31 @@ id: create-supplier-product-image-from-url
 title: createSupplierProductImageFromUrl
 ---
 
-Create an Image SupplierProductContentItem from a URL
+
+Create a SupplierProductContentItem from a URL
+
 
 ```graphql
 createSupplierProductImageFromUrl(
-  input: SupplierProductImageFromUrlInput
-): SupplierProductContentItem
+  input: SupplierProductImageFromUrlInput!
+): SupplierProductContentItem!
 
 ```
+
 
 ### Arguments
 
 #### `input` ([`SupplierProductImageFromUrlInput`](/developers/supplier-apis/supply-api/graphql/reference/inputs/supplier-product-image-from-url-input))
 
+
+
+
 ### Type
 
-#### [`SupplierProductContentItem`](/developers/supplier-apis/supply-api/graphql/reference/objects/supplier-product-content-item)
+#### [`SupplierProductContentItem`](/developers/supplier-apis/supply-api/graphql/reference/objects/supplier-product-content-item) 
 
 This has a many to one relationship with SupplierProduct, and provides a connection to the CDN items.
+
+
+
+

@@ -1,0 +1,29 @@
+name: Default Issue Opened/Edited Handling
+
+on:
+  issues:
+    types:
+      - opened
+      - edited
+      - reopened
+
+jobs:
+  blocked-check:
+    runs-on: [self-hosted, nano]
+    timeout-minutes: 3
+    steps:
+      - name: Get OBFnS App Token
+        id: get-token
+        uses: getsentry/action-github-app-token@v1
+        with:
+          app_id: ${{ secrets.GH_APP_ID }}
+          private_key: ${{ secrets.GH_PRIVATE_KEY }}          
+      - name: Parse message for blockers
+        uses: z0al/dependent-issues@v1
+        env:
+          GITHUB_TOKEN: ${{ steps.get-token.outputs.token }}
+        with:
+          label: blocked
+          check_issues: on
+          keywords: depends on, blocked by
+          ignore_dependabot: on

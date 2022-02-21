@@ -1,0 +1,38 @@
+---
+id: supplier-notification-user-names
+title: SupplierNotificationUserNames
+---
+
+
+These users will get notified if something requires attention for this Supplier.
+If none are provided, ownerUserName will be notified.
+
+
+```graphql
+type SupplierNotificationUserNames {
+  distribution: [String!]
+  management: [String!]
+  purchaseOrders: [String!]
+}
+```
+
+
+### Fields
+
+#### `distribution` ([`String`](/developers/supplier-apis/supply-api/graphql/reference/scalars/string))
+
+All notifications for the distribution side, besides purchaseOrders.
+
+
+#### `management` ([`String`](/developers/supplier-apis/supply-api/graphql/reference/scalars/string))
+
+All notifications for the management side (Products, Variants, etc.).
+
+
+#### `purchaseOrders` ([`String`](/developers/supplier-apis/supply-api/graphql/reference/scalars/string))
+
+These are part of distribution, but are a specific enough case to be handled separately.
+
+
+
+

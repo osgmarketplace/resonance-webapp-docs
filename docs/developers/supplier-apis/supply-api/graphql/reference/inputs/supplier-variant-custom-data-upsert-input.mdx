@@ -3,18 +3,30 @@ id: supplier-variant-custom-data-upsert-input
 title: SupplierVariantCustomDataUpsertInput
 ---
 
+
 The input type to upsert SupplierVariantCustomData.
 The data object is required, but is a partial update, and keys not mentioned will be left alone.
 
+
 ```graphql
 type SupplierVariantCustomDataUpsertInput {
-  data: JSONObject!
+  data: JSON!
   supplierVariantId: ID!
 }
 ```
 
+
 ### Fields
 
-#### `data` ([`JSONObject`](/developers/supplier-apis/supply-api/graphql/reference/scalars/jsonobject))
+#### `data` ([`JSON`](/developers/supplier-apis/supply-api/graphql/reference/scalars/json))
+
+
+
 
 #### `supplierVariantId` ([`ID`](/developers/supplier-apis/supply-api/graphql/reference/scalars/id))
+
+
+
+
+
+

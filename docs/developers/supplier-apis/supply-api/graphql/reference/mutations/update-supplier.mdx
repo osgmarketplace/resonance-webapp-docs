@@ -3,7 +3,11 @@ id: update-supplier
 title: updateSupplier
 ---
 
+
 Update an existing supplier
+            
+Requires supplier/write permission on the requesting identity
+
 
 ```graphql
 updateSupplier(
@@ -12,12 +16,20 @@ updateSupplier(
 
 ```
 
+
 ### Arguments
 
 #### `input` ([`SupplierUpdateInput`](/developers/supplier-apis/supply-api/graphql/reference/inputs/supplier-update-input))
 
+
+
+
 ### Type
 
-#### [`Supplier`](/developers/supplier-apis/supply-api/graphql/reference/objects/supplier)
+#### [`Supplier`](/developers/supplier-apis/supply-api/graphql/reference/objects/supplier) 
 
 The parent-most entity of the Supplier Domain
+
+
+
+

@@ -1,0 +1,51 @@
+---
+id: supplier-quick-link-update-input
+title: SupplierQuickLinkUpdateInput
+---
+
+
+The required input fields to partially update an existing SupplierQuickLink
+            
+You must be calling from the pertaining app's AppClient
+
+
+```graphql
+type SupplierQuickLinkUpdateInput {
+  appId: ID!
+  dynamicUrl: String
+  label: String
+  quickLinkType: SupplierQuickLinkType!
+  supplierId: ID!
+}
+```
+
+
+### Fields
+
+#### `appId` ([`ID`](/developers/supplier-apis/supply-api/graphql/reference/scalars/id))
+
+The Id of the App this quicklink pertains to.
+
+
+#### `dynamicUrl` ([`String`](/developers/supplier-apis/supply-api/graphql/reference/scalars/string))
+
+This can have dynamic parts, using [supplierProductId] format. It represents where the link goes.
+
+
+#### `label` ([`String`](/developers/supplier-apis/supply-api/graphql/reference/scalars/string))
+
+What the text for the link should be to the user.
+
+
+#### `quickLinkType` ([`SupplierQuickLinkType`](/developers/supplier-apis/supply-api/graphql/reference/enums/supplier-quick-link-type))
+
+Indicates which page the SupplierQuickLink would live on
+
+
+#### `supplierId` ([`ID`](/developers/supplier-apis/supply-api/graphql/reference/scalars/id))
+
+The Id of the Supplier this quicklink pertains to (the one that has installed your app).
+
+
+
+

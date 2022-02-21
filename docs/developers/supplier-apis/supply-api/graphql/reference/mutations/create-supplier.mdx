@@ -3,7 +3,11 @@ id: create-supplier
 title: createSupplier
 ---
 
+
 Create a new supplier
+            
+Requires supplier/write permission on the requesting identity
+
 
 ```graphql
 createSupplier(
@@ -12,12 +16,20 @@ createSupplier(
 
 ```
 
+
 ### Arguments
 
 #### `input` ([`SupplierCreateInput`](/developers/supplier-apis/supply-api/graphql/reference/inputs/supplier-create-input))
 
+
+
+
 ### Type
 
-#### [`Supplier`](/developers/supplier-apis/supply-api/graphql/reference/objects/supplier)
+#### [`Supplier`](/developers/supplier-apis/supply-api/graphql/reference/objects/supplier) 
 
 The parent-most entity of the Supplier Domain
+
+
+
+

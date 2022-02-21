@@ -3,22 +3,34 @@ id: update-supplier-variant-supplement
 title: updateSupplierVariantSupplement
 ---
 
+
 Update an existing supplierVariantSupplement
+
+Requires suppliervariantsupplement/write permission on the requesting identity
+
 
 ```graphql
 updateSupplierVariantSupplement(
   input: SupplierVariantSupplementUpdateInput!
-): SupplierVariantSupplement
+): SupplierVariantSupplement!
 
 ```
+
 
 ### Arguments
 
 #### `input` ([`SupplierVariantSupplementUpdateInput`](/developers/supplier-apis/supply-api/graphql/reference/inputs/supplier-variant-supplement-update-input))
 
+
+
+
 ### Type
 
-#### [`SupplierVariantSupplement`](/developers/supplier-apis/supply-api/graphql/reference/objects/supplier-variant-supplement)
+#### [`SupplierVariantSupplement`](/developers/supplier-apis/supply-api/graphql/reference/objects/supplier-variant-supplement) 
 
 This has a one to one relationship with SupplierVariant, and provides supplemental data for the SupplierVariant.
 These items get updated at a lower frequency, and are therefore separate.
+
+
+
+

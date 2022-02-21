@@ -1,61 +1,272 @@
-name: Default Issue Comment Handling
+name: Default ChatOps (Issue Comment Handling)
 
 on:
   issue_comment:
-    types: [created, edited]
+    types: [created]
 
-jobs:
-  # Uncomment me to log out the comment
-  # troubleshooting:
-  #   runs-on: ubuntu-latest
-  #   steps:
-  #     - name: Echo comment
-  #       run: "echo ${{ github.event.comment.body }}"
+env: 
+  help-commands: help
+  blockcheck-commands: blockcheck,unblockcheck,block-check,unblock-check
+  bump-commands: bump,versionbump,npmbump,npmversion
+  inprogress-commands: inprogress,inprocess,in-progress,in-process
+  prreview-commands: prreview,pr-review,reviewmypr,review-my-pr
 
-  slash-commands-check:
-    runs-on: ubuntu-latest # public repo, keep this here
+jobs:  
+  detect-slash-commands:
+    if: ${{ github.event_name == 'issue_comment' && github.event.action == 'created' && startsWith(github.event.comment.body, '/') }} 
+    runs-on: [self-hosted, nano]
     timeout-minutes: 3
-    if: startsWith(github.event.comment.body, '/inprogress') || startsWith(github.event.comment.body, '/blockcheck') || startsWith(github.event.comment.body, '/unblockcheck')
+
+    outputs:
+      command: ${{ steps.switch-case.outputs.value }}
+      arg1: ${{ steps.cmd-and-args.outputs.group2 }}
 
     steps:
       # If a "/" is seen, eyes it
-      - name: React to comment
+      - name: Eyes the comment
         uses: dkershner6/reaction-action@v1
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
           reaction: "eyes"
 
-      # If /inprogress, call devops api
-      - if: startsWith(github.event.comment.body, '/inprogress') || startsWith(github.event.comment.body, '/inprocess')
-        name: Call API for In Progress
-        uses: dkershner6/post-api-call-action@v1
+      - name: Parse Command and Args
+        uses: actions-ecosystem/action-regex-match@v2
+        id: cmd-and-args
         with:
-          url: "https://api.devops.eformedpartners.com/github/repos/${{ github.repository }}/issues/${{ github.event.issue.number }}/in_progress"
-          headers: '{"Authorization": "Bearer ${{ secrets.DEVOPS_API_KEY }}"}'
+          text: ${{ github.event.comment.body }}
+          regex: '^\/([\w]+)\b *(.*)?$'
+          flags: m
+      - run: "echo parsed slash command - ${{ steps.cmd-and-args.outputs.group1 }}"
 
-      # if /block, unblock, run the issue blocker
-      - if: startsWith(github.event.comment.body, '/blockcheck') || startsWith(github.event.comment.body, '/unblockcheck')
-        name: Get OBFnS App Token
+      - name: Segment down many commands to single words for each
+        uses: dkershner6/switch-case-action@v1
+        id: switch-case
+        with:
+          default: "none"
+          conditionals-with-values: |
+            ${{ contains(env.help-commands, steps.cmd-and-args.outputs.group1) }} => help
+            ${{ contains(env.blockcheck-commands, steps.cmd-and-args.outputs.group1) }} => blockcheck
+            ${{ contains(env.bump-commands, steps.cmd-and-args.outputs.group1) }} => bump
+            ${{ contains(env.inprogress-commands, steps.cmd-and-args.outputs.group1) }} => inprogress
+            ${{ contains(env.prreview-commands, steps.cmd-and-args.outputs.group1) }} => prreview
+      - run: echo command - ${{ steps.switch-case.outputs.value }} 
+
+      # If this isn't a valid command, confused it
+      - if: ${{ steps.switch-case.outputs.value == 'none' }}
+        name: Confused the comment
+        uses: dkershner6/reaction-action@v1
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          reaction: "confused"
+
+  help-command:
+    runs-on: [self-hosted, nano]
+    timeout-minutes: 3
+    needs: [detect-slash-commands]
+    if: needs.detect-slash-commands.outputs.command == 'help'
+    steps: 
+      - name: Help Comment
+        uses: peter-evans/create-or-update-comment@v1
+        with:
+          issue-number: ${{ github.event.issue.number }}
+          # So we can make changes without redeploying to whole org
+          # In order to change, use the help command, edit, and copy the message
+          body: ${{ secrets.CHATOPS_HELP_MESSAGE }}
+          reactions: +1
+      - name: Rocket the comment
+        uses: dkershner6/reaction-action@v1
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          reaction: "rocket"
+      - name: Thumbs down on failure
+        if: failure()
+        uses: dkershner6/reaction-action@v1
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          reaction: "-1"
+
+  
+  block-check-command:
+    runs-on: [self-hosted, nano]
+    timeout-minutes: 3
+    needs: [detect-slash-commands]
+    if: ${{ needs.detect-slash-commands.outputs.command == 'blockcheck' }}
+    steps: 
+      - name: Get OBFnS App Token
         id: get-token
         uses: getsentry/action-github-app-token@v1
         with:
           app_id: ${{ secrets.GH_APP_ID }}
           private_key: ${{ secrets.GH_PRIVATE_KEY }}
-      - if: startsWith(github.event.comment.body, '/blockcheck') || startsWith(github.event.comment.body, '/unblockcheck')
-        uses: z0al/dependent-issues@v1
+      - uses: z0al/dependent-issues@v1
         env:
-          # (Required) The token to use to make API calls to GitHub.
           GITHUB_TOKEN: ${{ steps.get-token.outputs.token }}
         with:
-          # (Optional) The label to use to mark dependent issues
           label: blocked
-
-          # (Optional) Enable checking for dependencies in issues.
-          # Enable by setting the value to "on". Default "off"
           check_issues: on
+          keywords: depends on, blocked by  
+      - name: Rocket the comment
+        uses: dkershner6/reaction-action@v1
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          reaction: "rocket"
+      - name: Thumbs down on failure
+        if: failure()
+        uses: dkershner6/reaction-action@v1
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          reaction: "-1"  
 
-          # (Optional) A comma-separated list of keywords. Default
-          # "depends on, blocked by"
-          keywords: depends on, blocked by
+  # /bump - Bumps this npm package a patch version
+  bump_command:
+    runs-on: [self-hosted, nano]
+    timeout-minutes: 3
+    needs: [detect-slash-commands]
+    if: ${{ github.event.issue.pull_request && needs.detect-slash-commands.outputs.command == 'bump' }}
+    steps:
+      - name: Clean up previous run
+        continue-on-error: true
+        run: |
+          echo "Cleaning up previous run"
+          rm -rf ${{ github.workspace }}/*
+      - uses: dkershner6/get-pull-request-action@v1
+        id: get-pr
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
 
+      - name: Get OBFnS App Token
+        id: get-token
+        uses: getsentry/action-github-app-token@v1
+        with:
+          app_id: ${{ secrets.GH_APP_ID }}
+          private_key: ${{ secrets.GH_PRIVATE_KEY }}
+      - uses: actions/checkout@v2
+        with:
+          repository: ${{ fromJSON(steps.get-pr.outputs.pr).head.repo.full_name }}
+          ref: ${{ fromJSON(steps.get-pr.outputs.pr).head.ref }}
+          token: ${{ steps.get-token.outputs.token }}
+
+      - name: Use Node.js 14
+        uses: actions/setup-node@v1
+        with:
+          node-version: 14.18.3
+          registry-url: https://npm.pkg.github.com
+          scope: "@obfns"
+      # Take this step away when we go to Node 16
+      - name: Update NPM to 8.3.0
+        run: npm i -g npm@8.3.0
+
+      - run: "echo arg1 - semver - ${{ needs.detect-slash-commands.outputs.arg1 }}"
+      - name: Determine SemVer Bump
+        uses: haya14busa/action-cond@v1
+        id: semver
+        with:
+          cond: ${{ needs.detect-slash-commands.outputs.arg1 == '' }}
+          if_true: "patch"
+          if_false: ${{ needs.detect-slash-commands.outputs.arg1 }}
+
+      - name: Bump semver version in package.json with no commit or tag
+        run: "npm version --commit-hooks false --git-tag-version false ${{ steps.semver.outputs.value }}"
+
+      - name: Get New NPM Version
+        id: new-version
+        uses: martinbeentjes/npm-get-version-action@v1.1.0
+      - run: "echo New Version - ${{ steps.new-version.outputs.current-version }}"
+
+      - uses: stefanzweifel/git-auto-commit-action@v4
+        with:
+          commit_message: ${{ steps.new-version.outputs.current-version || 'Version Bump' }}
+          branch: ${{ fromJSON(steps.get-pr.outputs.pr).head.ref }}
+
+      - name: Rocket the comment
+        uses: dkershner6/reaction-action@v1
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          reaction: "rocket"
+      - name: Thumbs down on failure
+        if: failure()
+        uses: dkershner6/reaction-action@v1
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          reaction: "-1"
+      
+      - name: Clean up this run
+        if: always()
+        continue-on-error: true
+        run: |
+          echo "Cleaning up this run"
+          rm -rf ${{ github.workspace }}/*
+
+
+  in-progress-command:
+    runs-on: [self-hosted, nano]
+    timeout-minutes: 3
+    needs: [detect-slash-commands]
+    if: ${{ !github.event.issue.pull_request && needs.detect-slash-commands.outputs.command == 'inprogress' }}
+    steps: 
+      - name: Call API for In Progress
+        uses: dkershner6/post-api-call-action@v1
+        with:
+          url: "https://${{ secrets.DEVOPS_API_DOMAIN }}/github/repos/${{ github.repository }}/issues/${{ github.event.issue.number }}/in_progress"
+          headers: '{"Authorization": "Bearer ${{ secrets.DEVOPS_API_KEY }}"}'
+      - name: Rocket the comment
+        uses: dkershner6/reaction-action@v1
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          reaction: "rocket"
+      - name: Thumbs down on failure
+        if: failure()
+        uses: dkershner6/reaction-action@v1
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          reaction: "-1"
+
+      
+  pr-review-command:
+    runs-on: [self-hosted, nano]
+    timeout-minutes: 3
+    needs: [detect-slash-commands]
+    if: ${{ github.event.issue.pull_request && needs.detect-slash-commands.outputs.command == 'prreview' }}
+    steps: 
+      - uses: dkershner6/get-pull-request-action@v1
+        id: get-pr
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Truncate Labels
+        uses: 2428392/gh-truncate-string-action@v1.0.0
+        id: truncatedLabels
+        with:
+          stringToTruncate: ${{ join(fromJSON(steps.get-pr.outputs.pr).labels.*.name, '`, `') || 'No Labels' }}
+          maxLength: 100
+      - run: echo Truncated Labels - ${{ steps.truncatedLabels.outputs.string }}
+
+      - name: Truncate Body
+        uses: 2428392/gh-truncate-string-action@v1.0.0
+        id: truncatedBody
+        with:
+          stringToTruncate: ${{ fromJSON(steps.get-pr.outputs.pr).body || 'No Body' }}
+          maxLength: 100
+      - run: echo Truncated Body - ${{ steps.truncatedBody.outputs.string }}
+
+      - name: Send PR Review message to Microsoft Teams
+        uses: aliencube/microsoft-teams-actions@v0.8.0
+        with:
+          webhook_uri: ${{ secrets.TEAMS_GLOBAL_PR_REVIEW_WEBHOOK_URL }}
+          summary: "PR Review ${{ fromJSON(steps.get-pr.outputs.pr).title }}"
+          theme_color: 0078D7
+          sections: '[{"activityTitle": "[${{ fromJSON(steps.get-pr.outputs.pr).title }}](${{ github.event.issue.pull_request.html_url }}) by ${{ github.event.comment.user.login }}", "activitySubtitle": "Additions: ${{ fromJSON(steps.get-pr.outputs.pr).additions }}, Deletions: ${{ fromJSON(steps.get-pr.outputs.pr).deletions }}","facts": [{"name": "Labels:","value": "`${{ steps.truncatedLabels.outputs.string }}`"}],"text": "${{ steps.truncatedBody.outputs.string }}"}]'
+          actions: '[{ "@type": "OpenUri", "name": "View in GitHub", "targets": [{ "os": "default", "uri": "${{ github.event.issue.pull_request.html_url }}" }] }]'
+
+      - name: Rocket the comment
+        uses: dkershner6/reaction-action@v1
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          reaction: "rocket"
+      - name: Thumbs down on failure
+        if: failure()
+        uses: dkershner6/reaction-action@v1
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          reaction: "-1"
   

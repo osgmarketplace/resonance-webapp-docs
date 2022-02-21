@@ -6,7 +6,17 @@ type App {
   appId: ID!
   appType: AppType!
   createdAt: String!
+
+  """
+  Short description of the app
+  Limited to 8000 characters
+  """
   description: String
+
+  """
+  The name of the app
+  Limited to 128 characters
+  """
   name: String!
   partnerId: ID!
   requestedScopes: [String]
@@ -16,7 +26,7 @@ type App {
 }
 
 """The output from creating or resetting client secrets"""
-type AppClientOutput {
+type AppClientResponse {
   appClientId: ID!
   appSecret: String!
 }
@@ -31,7 +41,17 @@ type AppConnection {
 """The necessary fields in order to create a new app"""
 input AppCreateInput {
   appType: AppType!
+
+  """
+  Short description of the app
+  Limited to 8000 characters
+  """
   description: String
+
+  """
+  The name of the app
+  Limited to 128 characters
+  """
   name: String!
   partnerId: ID!
   requestedScopes: [String]
@@ -39,9 +59,9 @@ input AppCreateInput {
 }
 
 """The output when creating an App"""
-type AppCreateOutput {
+type AppCreateResponse {
   app: App!
-  appClients: [AppClientOutput!]!
+  appClients: [AppClientResponse!]!
 }
 
 """One edge producing one App node"""
@@ -72,47 +92,60 @@ enum AppType {
   SUPPLIERAPP
 }
 
-"""The necessary fields in order to update an app"""
+"""The possible fields in order to update an existing app"""
 input AppUpdateInput {
   appId: ID!
+
+  """
+  Short description of the app
+  Limited to 8000 characters
+  """
   description: String
+
+  """
+  The name of the app
+  Limited to 128 characters
+  """
   name: String
   requestedScopes: [String]
   status: AppStatus
 }
+
+"""A date in ISO 8601 format"""
+scalar Date
 
 """The root mutation type for the AdminIdentity domain"""
 type Mutation {
   """Nothing to see here, just a workaround for Apollo Server"""
   _makeEmpty(id: String): String
 
-  """Create a new app"""
-  createApp(input: AppCreateInput!): AppCreateOutput!
+  """Create a new App"""
+  createApp(input: AppCreateInput!): AppCreateResponse!
 
   """Create a new partner"""
-  createPartner(input: PartnerCreateInput!): Partner
+  createPartner(input: PartnerCreateInput!): Partner!
 
   """
   Create a new PartnerIdentity (give an Identity permission to a Partner)
   """
-  createPartnerIdentity(input: PartnerIdentityCreateInput): PartnerIdentity
+  createPartnerIdentity(input: PartnerIdentityCreateInput!): PartnerIdentity!
 
   """Delete a PartnerIdentity (remove Identity's permissions to a Partner)"""
-  deletePartnerIdentity(identityId: ID!, partnerId: ID!): PartnerIdentityDeleteOutput!
+  deletePartnerIdentity(identityId: ID!, partnerId: ID!): PartnerIdentityDeleteResponse!
 
   """Invite a new User to Resonance"""
   inviteUser(email: String!): User!
 
-  """Update an app"""
+  """Update an existing App"""
   updateApp(input: AppUpdateInput!): App!
 
   """Update an existing partner"""
-  updatePartner(input: PartnerUpdateInput!): Partner
+  updatePartner(input: PartnerUpdateInput!): Partner!
 
   """
   Update a PartnerIdentity (give an Identity more or less permissions to a Partner)
   """
-  updatePartnerIdentity(input: PartnerIdentityUpdateInput): PartnerIdentity
+  updatePartnerIdentity(input: PartnerIdentityUpdateInput!): PartnerIdentity!
 
   """Update an existing User"""
   updateUser(input: UserUpdateInput!): User!
@@ -173,10 +206,10 @@ type PageInfo {
 Represents a Partner, the parent to an App, and the parent most component for Development
 """
 type Partner {
-  """Get a single app"""
+  """Get an App by ID"""
   app(appId: ID!): App
 
-  """Get a list of app"""
+  """Get a list of Apps for a Partner"""
   apps(
     """Returns the elements in the list that come after the specified cursor."""
     after: String
@@ -192,14 +225,26 @@ type Partner {
     """Returns the last n elements from the list."""
     last: Int
   ): AppConnection!
-  createdAt: String!
+  createdAt: Date!
+
+  """
+  Description of the partner
+  Limited to 8000 characters
+  """
   description: String
+
+  """
+  The name of the partner
+  Limited to 128 characters
+  """
   name: String!
+
+  """Represents the users to be notified for certain events"""
   notificationUserNames: PartnerNotificationUserNames
   ownerUserName: String!
   partnerId: ID!
 
-  """Return the identities permissions associated with this partner"""
+  """Return the identities' permissions associated with this partner"""
   partnerIdentities(
     """Returns the elements in the list that come after the specified cursor."""
     after: String
@@ -218,7 +263,8 @@ type Partner {
 
   """Return a single identity's permissions associated with this partner"""
   partnerIdentity(identityId: ID!): PartnerIdentity
-  updatedAt: String!
+  updatedAt: Date!
+  updatedBy: ID!
 }
 
 """Paginate through Partners"""
@@ -230,7 +276,16 @@ type PartnerConnection {
 
 """The necessary fields in order to create a new partner"""
 input PartnerCreateInput {
+  """
+  Description of the partner
+  Limited to 8000 characters
+  """
   description: String
+
+  """
+  The name of the partner
+  Limited to 128 characters
+  """
   name: String!
 }
 
@@ -246,6 +301,9 @@ type PartnerIdentity {
   """The identityId these permissions pertain to"""
   identityId: ID!
 
+  """Unlikely to be used, unless we have Partner Apps"""
+  identityParentEntityId: ID
+
   """The type of identity an identityId refers to"""
   identityType: ResonanceIdentityType!
 
@@ -254,6 +312,8 @@ type PartnerIdentity {
 
   """Object representing exactly what permissions are given"""
   permissions: PartnerIdentityPermissions!
+
+  """Get a PublicIdentity for a given PartnerIdentity"""
   publicIdentity: PublicIdentity
 
   """The identity to last update this entity"""
@@ -262,8 +322,8 @@ type PartnerIdentity {
 
 """Paginate through PartnerIdentities"""
 type PartnerIdentityConnection {
-  edges: [PartnerIdentityEdge]
-  nodes: [PartnerIdentity]
+  edges: [PartnerIdentityEdge]!
+  nodes: [PartnerIdentity]!
   pageInfo: PageInfo!
 }
 
@@ -285,7 +345,7 @@ input PartnerIdentityCreateInput {
 }
 
 """The output when a PartnerIdentity is deleted"""
-type PartnerIdentityDeleteOutput {
+type PartnerIdentityDeleteResponse {
   deletedId: PartnerIdentityDeletedId
 }
 
@@ -323,7 +383,7 @@ input PartnerIdentityPermissionsInput {
 }
 
 """
-Input object to update a PartnerIdentity, the permissions given to a User for a Partner
+Input object to update a PartnerIdentity, the permissions given to an Identity for a Partner
 """
 input PartnerIdentityUpdateInput {
   """The identityId these permissions pertain to"""
@@ -352,10 +412,21 @@ enum PartnerRole {
   ADMIN
 }
 
-"""The fields in order to update an existing partner"""
+"""The possible fields in order to update an existing partner"""
 input PartnerUpdateInput {
+  """
+  Description of the partner
+  Limited to 8000 characters
+  """
   description: String
+
+  """
+  The name of the partner
+  Limited to 128 characters
+  """
   name: String
+
+  """Represents the users to be notified for certain events"""
   notificationUserNames: PartnerNotificationUserNamesInput
   ownerUserName: String
   partnerId: ID!
@@ -377,12 +448,12 @@ type PublicApp {
 
 """Paginate through PublicApps"""
 type PublicAppConnection {
-  edges: [PublicAppEdge]
-  nodes: [PublicApp]
+  edges: [PublicAppEdge]!
+  nodes: [PublicApp]!
   pageInfo: PageInfo!
 }
 
-"""One edge producing one App node"""
+"""One edge producing one PublicApp node"""
 type PublicAppEdge {
   node: PublicApp
 }
@@ -422,11 +493,13 @@ type Query {
   """Nothing to see here, just a workaround for Apollo Server"""
   _empty: String
 
-  """Get a single app"""
+  """Get an App by ID"""
   app(appId: ID!): App
 
   """Get the logged in User"""
   me: User
+
+  """List your UserNotifications"""
   myNotifications(
     """Returns the elements in the list that come after the specified cursor."""
     after: String
@@ -435,11 +508,6 @@ type Query {
     Returns the elements in the list that come before the specified cursor.
     """
     before: String
-
-    """
-    Declare which UserNotificationCategory you would like notifications for.
-    status is required when this variable is present, or it will be ignored.
-    """
     category: UserNotificationCategory
 
     """Returns the first n elements from the list."""
@@ -447,15 +515,13 @@ type Query {
 
     """Returns the last n elements from the list."""
     last: Int
-
-    """Declare which NotificationStatus you would like notifications for"""
     status: NotificationStatus
   ): UserNotificationConnection!
 
-  """Get a single partner by PartnerId"""
+  """Get a Partner by ID"""
   partner(partnerId: ID!): Partner
 
-  """Get a list of partners"""
+  """Get a list of Partners"""
   partners(
     """Returns the elements in the list that come after the specified cursor."""
     after: String
@@ -472,18 +538,14 @@ type Query {
     last: Int
   ): PartnerConnection!
 
-  """Get a single PublicApp"""
+  """Get a public app by id"""
   publicApp(appId: ID!): PublicApp
 
   """Get a list of PublicApps"""
   publicApps(
     """Returns the elements in the list that come after the specified cursor."""
     after: String
-
-    """
-    Directly query PublicApps by their ids, this filter should be used alone
-    """
-    appIds: [ID]
+    appIds: [ID!]
 
     """
     Returns the elements in the list that come before the specified cursor.
@@ -495,37 +557,32 @@ type Query {
 
     """Returns the last n elements from the list."""
     last: Int
-
-    """Filter for a single partnerId"""
     partnerId: ID
   ): PublicAppConnection!
 
   """
   Get several public identities by their IDs.
-  Will return in exact order of the IDs passed in, with null for missing identities.
+  In the case of using the identityIds arg, will return in exact order of the
+  IDs passed in, with null for missing identities.
   """
   publicIdentities(
-    """
-    Returns the elements in the list that come after the specified cursor. Currently not supported.
-    """
+    """Returns the elements in the list that come after the specified cursor."""
     after: String
 
     """
-    Returns the elements in the list that come before the specified cursor. Currently not supported.
+    Returns the elements in the list that come before the specified cursor.
     """
     before: String
 
-    """Returns the first n elements from the list. Currently not supported."""
+    """Returns the first n elements from the list."""
     first: Int
+    identityIds: [ID!]
 
-    """None of the relay arguments are required when this is populated."""
-    identityIds: [ID!]!
-
-    """Returns the last n elements from the list. Currently not supported."""
+    """Returns the last n elements from the list."""
     last: Int
   ): PublicIdentityConnection!
 
-  """Get a PublicIdentity by their userName or appClientId"""
+  """Get a PublicIdentity by ID"""
   publicIdentity(identityId: ID!): PublicIdentity
 
   """Given an email, returns PublicUser if the user exists. Exact match."""
@@ -551,7 +608,11 @@ type User {
   """
   birthdate: String
   createdAt: String
-  displayName: String!
+
+  """
+  Determined field based on other user information, represents the best name to use for the User.
+  """
+  displayName: String
   email: String!
 
   """string of true or false"""
@@ -663,13 +724,14 @@ type UserNotification {
 
 """These denote where the message is from and what it pertains to."""
 enum UserNotificationCategory {
+  APP
   PARTNER
 }
 
 """Paginate through UserNotifications"""
 type UserNotificationConnection {
-  edges: [UserNotificationEdge]
-  nodes: [UserNotification]
+  edges: [UserNotificationEdge]!
+  nodes: [UserNotification]!
   pageInfo: PageInfo!
 }
 
@@ -702,11 +764,7 @@ input UserUpdateInput {
   the implementers need to take this factor into account to correctly process the dates.
   """
   birthdate: String
-  createdAt: String
   email: String
-
-  """string of true or false"""
-  emailVerified: String
   familyName: String
   gender: String
   givenName: String
@@ -726,9 +784,6 @@ input UserUpdateInput {
   """
   phone: String
 
-  """string of true or false"""
-  phoneNumberVerified: String
-
   """
   URL of the End-User's profile picture. This URL MUST refer to an image file
   (for example, a PNG, JPEG, or GIF image file), rather than to a Web page
@@ -742,7 +797,6 @@ input UserUpdateInput {
   URL of the End-User's profile page. The contents of this Web page SHOULD be about the End-User.
   """
   profile: String
-  updatedAt: String
   userName: ID!
 
   """
