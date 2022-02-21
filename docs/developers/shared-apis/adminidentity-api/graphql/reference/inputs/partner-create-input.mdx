@@ -3,7 +3,9 @@ id: partner-create-input
 title: PartnerCreateInput
 ---
 
+
 The necessary fields in order to create a new partner
+
 
 ```graphql
 type PartnerCreateInput {
@@ -12,8 +14,20 @@ type PartnerCreateInput {
 }
 ```
 
+
 ### Fields
 
 #### `description` ([`String`](/developers/shared-apis/adminidentity-api/graphql/reference/scalars/string))
 
+Description of the partner
+Limited to 8000 characters
+
+
 #### `name` ([`String`](/developers/shared-apis/adminidentity-api/graphql/reference/scalars/string))
+
+The name of the partner
+Limited to 128 characters
+
+
+
+

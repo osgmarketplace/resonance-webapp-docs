@@ -3,22 +3,32 @@ id: update-supplier-product-locale
 title: updateSupplierProductLocale
 ---
 
+
 Update an existing supplierProductLocale
+
 
 ```graphql
 updateSupplierProductLocale(
   input: SupplierProductLocaleUpdateInput!
-): SupplierProductLocale
+): SupplierProductLocale!
 
 ```
+
 
 ### Arguments
 
 #### `input` ([`SupplierProductLocaleUpdateInput`](/developers/supplier-apis/supply-api/graphql/reference/inputs/supplier-product-locale-update-input))
 
+
+
+
 ### Type
 
-#### [`SupplierProductLocale`](/developers/supplier-apis/supply-api/graphql/reference/objects/supplier-product-locale)
+#### [`SupplierProductLocale`](/developers/supplier-apis/supply-api/graphql/reference/objects/supplier-product-locale) 
 
 This has a many to one relationship with SupplierProduct, and provides localized language data for the appropriate fields.
 There will often only be one of these, and it should be the one set in defaultLocale for the supplier.
+
+
+
+

@@ -3,29 +3,42 @@ id: supplier-product-locale-update-input
 title: SupplierProductLocaleUpdateInput
 ---
 
+
 The necessary fields in order to update a supplierProductLocale.
 ID fields are required, others are optional, only included fields will be updated.
+
 
 ```graphql
 type SupplierProductLocaleUpdateInput {
   description: String
   featureBullets: [String]
-  isDefault: Boolean
   localeType: ResonanceLocaleType!
   supplierProductId: ID!
 }
 ```
 
+
 ### Fields
 
 #### `description` ([`String`](/developers/supplier-apis/supply-api/graphql/reference/scalars/string))
+
+
+
 
 #### `featureBullets` ([`String`](/developers/supplier-apis/supply-api/graphql/reference/scalars/string))
 
 Limited to 5 bullets
 
-#### `isDefault` ([`Boolean`](/developers/supplier-apis/supply-api/graphql/reference/scalars/boolean))
 
 #### `localeType` ([`ResonanceLocaleType`](/developers/supplier-apis/supply-api/graphql/reference/enums/resonance-locale-type))
 
+
+
+
 #### `supplierProductId` ([`ID`](/developers/supplier-apis/supply-api/graphql/reference/scalars/id))
+
+
+
+
+
+

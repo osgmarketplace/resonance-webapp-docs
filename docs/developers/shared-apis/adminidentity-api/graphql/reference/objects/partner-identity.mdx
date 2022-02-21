@@ -3,11 +3,14 @@ id: partner-identity
 title: PartnerIdentity
 ---
 
+
 Type representing a PartnerIdentity, the permissions given to a User for a Partner
+
 
 ```graphql
 type PartnerIdentity {
   identityId: ID!
+  identityParentEntityId: ID
   identityType: ResonanceIdentityType!
   partnerId: ID!
   permissions: PartnerIdentityPermissions!
@@ -16,26 +19,43 @@ type PartnerIdentity {
 }
 ```
 
+
 ### Fields
 
 #### `identityId` ([`ID`](/developers/shared-apis/adminidentity-api/graphql/reference/scalars/id))
 
 The identityId these permissions pertain to
 
+
+#### `identityParentEntityId` ([`ID`](/developers/shared-apis/adminidentity-api/graphql/reference/scalars/id))
+
+Unlikely to be used, unless we have Partner Apps
+
+
 #### `identityType` ([`ResonanceIdentityType`](/developers/shared-apis/adminidentity-api/graphql/reference/enums/resonance-identity-type))
 
 The type of identity an identityId refers to
+
 
 #### `partnerId` ([`ID`](/developers/shared-apis/adminidentity-api/graphql/reference/scalars/id))
 
 The ID of the Partner this permission pertains to
 
+
 #### `permissions` ([`PartnerIdentityPermissions`](/developers/shared-apis/adminidentity-api/graphql/reference/objects/partner-identity-permissions))
 
 Object representing exactly what permissions are given
 
+
 #### `publicIdentity` ([`PublicIdentity`](/developers/shared-apis/adminidentity-api/graphql/reference/objects/public-identity))
+
+Get a PublicIdentity for a given PartnerIdentity
+
 
 #### `updatedBy` ([`ID`](/developers/shared-apis/adminidentity-api/graphql/reference/scalars/id))
 
 The identity to last update this entity
+
+
+
+

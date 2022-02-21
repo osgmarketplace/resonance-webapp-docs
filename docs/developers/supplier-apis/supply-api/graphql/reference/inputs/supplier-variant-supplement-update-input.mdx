@@ -3,8 +3,10 @@ id: supplier-variant-supplement-update-input
 title: SupplierVariantSupplementUpdateInput
 ---
 
+
 The necessary fields in order to update a supplierVariantSupplement.
 ID fields required, all other fields optional, only included fields will be updated.
+
 
 ```graphql
 type SupplierVariantSupplementUpdateInput {
@@ -18,16 +20,15 @@ type SupplierVariantSupplementUpdateInput {
   mapPrice: Float
   mpn: String
   msrp: Float
-  productTags: [String]
   recommendedPrice: Float
   shippingDimensions: SupplierVariantShippingDimensionsInput
   sku: String
   standardizedColor: SupplierVariantStandardizedColor
-  supplierId: ID!
   supplierVariantId: ID!
   weight: SupplierVariantWeightInput
 }
 ```
+
 
 ### Fields
 
@@ -35,56 +36,81 @@ type SupplierVariantSupplementUpdateInput {
 
 A calculated metric for some kind of average for a common region. Uncommon.
 
+
 #### `barcode` ([`String`](/developers/supplier-apis/supply-api/graphql/reference/scalars/string))
 
 UPC, ISBN, GTIN, etc
+
 
 #### `casePack` ([`Int`](/developers/supplier-apis/supply-api/graphql/reference/scalars/int))
 
 Quantity in one variant (i.e. 12-pack)
 
+
 #### `cost` ([`Float`](/developers/supplier-apis/supply-api/graphql/reference/scalars/float))
 
 COGS, or Cost of Goods Sold, in a currency
+
 
 #### `handlingCost` ([`SupplierVariantHandlingCostInput`](/developers/supplier-apis/supply-api/graphql/reference/inputs/supplier-variant-handling-cost-input))
 
 Additional warehouse handling charge, typically for larger items.
 
+
 #### `isTaxable` ([`Boolean`](/developers/supplier-apis/supply-api/graphql/reference/scalars/boolean))
+
+
+
 
 #### `manufacturer` ([`String`](/developers/supplier-apis/supply-api/graphql/reference/scalars/string))
 
 Often same as vendor, but not always.
 
+
 #### `mapPrice` ([`Float`](/developers/supplier-apis/supply-api/graphql/reference/scalars/float))
 
 Minimum Advertised Price
+
 
 #### `mpn` ([`String`](/developers/supplier-apis/supply-api/graphql/reference/scalars/string))
 
 Manufacturer Part Number
 
+
 #### `msrp` ([`Float`](/developers/supplier-apis/supply-api/graphql/reference/scalars/float))
 
 Manufacturer's Suggested Retail Price
 
-#### `productTags` ([`String`](/developers/supplier-apis/supply-api/graphql/reference/scalars/string))
 
 #### `recommendedPrice` ([`Float`](/developers/supplier-apis/supply-api/graphql/reference/scalars/float))
 
 AKA Price
 
+
 #### `shippingDimensions` ([`SupplierVariantShippingDimensionsInput`](/developers/supplier-apis/supply-api/graphql/reference/inputs/supplier-variant-shipping-dimensions-input))
+
+
+
 
 #### `sku` ([`String`](/developers/supplier-apis/supply-api/graphql/reference/scalars/string))
 
 Stock Keeping Unit
 
+
 #### `standardizedColor` ([`SupplierVariantStandardizedColor`](/developers/supplier-apis/supply-api/graphql/reference/enums/supplier-variant-standardized-color))
 
-#### `supplierId` ([`ID`](/developers/supplier-apis/supply-api/graphql/reference/scalars/id))
+
+
 
 #### `supplierVariantId` ([`ID`](/developers/supplier-apis/supply-api/graphql/reference/scalars/id))
 
+
+
+
 #### `weight` ([`SupplierVariantWeightInput`](/developers/supplier-apis/supply-api/graphql/reference/inputs/supplier-variant-weight-input))
+
+
+
+
+
+

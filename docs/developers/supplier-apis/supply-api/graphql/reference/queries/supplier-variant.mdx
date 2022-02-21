@@ -3,24 +3,34 @@ id: supplier-variant
 title: supplierVariant
 ---
 
+
 Get a single supplierVariant by SupplierVariantId
 
 Requires suppliervariant/read permission on the requesting identity
 
+
 ```graphql
 supplierVariant(
-  supplierVariantId: ID!
+  supplierVariantId: ID
 ): SupplierVariant
 
 ```
+
 
 ### Arguments
 
 #### `supplierVariantId` ([`ID`](/developers/supplier-apis/supply-api/graphql/reference/scalars/id))
 
+
+
+
 ### Type
 
-#### [`SupplierVariant`](/developers/supplier-apis/supply-api/graphql/reference/objects/supplier-variant)
+#### [`SupplierVariant`](/developers/supplier-apis/supply-api/graphql/reference/objects/supplier-variant) 
 
 The main item of the Supplier Domain, represents a single SKU of a product
 Only the variant level exists, there is no parent product.
+
+
+
+

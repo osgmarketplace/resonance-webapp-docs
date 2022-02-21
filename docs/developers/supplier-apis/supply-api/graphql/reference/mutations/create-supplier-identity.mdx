@@ -3,23 +3,33 @@ id: create-supplier-identity
 title: createSupplierIdentity
 ---
 
+
 Add a new SupplierIdentity to a Supplier (give a user permissions)
 
 Requires the supplieridentity/write permission on the given Supplier
 
+
 ```graphql
 createSupplierIdentity(
   input: SupplierIdentityCreateInput!
-): SupplierIdentity
+): SupplierIdentity!
 
 ```
+
 
 ### Arguments
 
 #### `input` ([`SupplierIdentityCreateInput`](/developers/supplier-apis/supply-api/graphql/reference/inputs/supplier-identity-create-input))
 
+
+
+
 ### Type
 
-#### [`SupplierIdentity`](/developers/supplier-apis/supply-api/graphql/reference/objects/supplier-identity)
+#### [`SupplierIdentity`](/developers/supplier-apis/supply-api/graphql/reference/objects/supplier-identity) 
 
 Indicates a User or App has permissions on a Supplier
+
+
+
+

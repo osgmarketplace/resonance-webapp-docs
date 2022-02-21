@@ -1,0 +1,44 @@
+---
+id: supplier-product-composite-create-input
+title: SupplierProductCompositeCreateInput
+---
+
+
+The necessary fields to create a SupplierProductComposite, or a SupplierProduct
+and its ContentItems, Locales, and Variants in one mutation
+
+
+```graphql
+type SupplierProductCompositeCreateInput {
+  supplierProductContentItemInputs: [SupplierProductContentItemAssociationInCompositeCreateInput]
+  supplierProductInput: SupplierProductCreateInput!
+  supplierProductLocaleInputs: [SupplierProductLocaleInCompositeCreateInput]
+  supplierVariantInputs: [SupplierVariantCompositeInCompositeCreateInput]
+}
+```
+
+
+### Fields
+
+#### `supplierProductContentItemInputs` ([`SupplierProductContentItemAssociationInCompositeCreateInput`](/developers/supplier-apis/supply-api/graphql/reference/inputs/supplier-product-content-item-association-in-composite-create-input))
+
+
+
+
+#### `supplierProductInput` ([`SupplierProductCreateInput`](/developers/supplier-apis/supply-api/graphql/reference/inputs/supplier-product-create-input))
+
+
+
+
+#### `supplierProductLocaleInputs` ([`SupplierProductLocaleInCompositeCreateInput`](/developers/supplier-apis/supply-api/graphql/reference/inputs/supplier-product-locale-in-composite-create-input))
+
+
+
+
+#### `supplierVariantInputs` ([`SupplierVariantCompositeInCompositeCreateInput`](/developers/supplier-apis/supply-api/graphql/reference/inputs/supplier-variant-composite-in-composite-create-input))
+
+
+
+
+
+

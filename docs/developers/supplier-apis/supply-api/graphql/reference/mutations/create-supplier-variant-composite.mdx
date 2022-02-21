@@ -1,0 +1,33 @@
+---
+id: create-supplier-variant-composite
+title: createSupplierVariantComposite
+---
+
+
+Create both a new supplierVariant and supplierVariantSupplement simultaneously
+
+
+```graphql
+createSupplierVariantComposite(
+  input: SupplierVariantCompositeCreateInput!
+): SupplierVariantCompositeCreateResponse!
+
+```
+
+
+### Arguments
+
+#### `input` ([`SupplierVariantCompositeCreateInput`](/developers/supplier-apis/supply-api/graphql/reference/inputs/supplier-variant-composite-create-input))
+
+
+
+
+### Type
+
+#### [`SupplierVariantCompositeCreateResponse`](/developers/supplier-apis/supply-api/graphql/reference/objects/supplier-variant-composite-create-response) 
+
+A flattended supplierVariant with an optional supplement to match the inputs and avoid clashes with subresolvers.
+
+
+
+

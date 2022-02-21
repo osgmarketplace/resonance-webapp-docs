@@ -3,14 +3,16 @@ id: user
 title: User
 ---
 
+
 Type representing a User, or human entity
+
 
 ```graphql
 type User {
   address: String
   birthdate: String
   createdAt: String
-  displayName: String!
+  displayName: String
   email: String!
   emailVerified: String
   familyName: String
@@ -30,9 +32,13 @@ type User {
 }
 ```
 
+
 ### Fields
 
 #### `address` ([`String`](/developers/shared-apis/adminidentity-api/graphql/reference/scalars/string))
+
+
+
 
 #### `birthdate` ([`String`](/developers/shared-apis/adminidentity-api/graphql/reference/scalars/string))
 
@@ -42,29 +48,51 @@ YYYY format is allowed. Note that depending on the underlying platform's date
 related function, providing just year can result in varying month and day, so
 the implementers need to take this factor into account to correctly process the dates.
 
+
 #### `createdAt` ([`String`](/developers/shared-apis/adminidentity-api/graphql/reference/scalars/string))
+
+
+
 
 #### `displayName` ([`String`](/developers/shared-apis/adminidentity-api/graphql/reference/scalars/string))
 
+Determined field based on other user information, represents the best name to use for the User.
+
+
 #### `email` ([`String`](/developers/shared-apis/adminidentity-api/graphql/reference/scalars/string))
+
+
+
 
 #### `emailVerified` ([`String`](/developers/shared-apis/adminidentity-api/graphql/reference/scalars/string))
 
 string of true or false
 
+
 #### `familyName` ([`String`](/developers/shared-apis/adminidentity-api/graphql/reference/scalars/string))
+
+
+
 
 #### `gender` ([`String`](/developers/shared-apis/adminidentity-api/graphql/reference/scalars/string))
 
+
+
+
 #### `givenName` ([`String`](/developers/shared-apis/adminidentity-api/graphql/reference/scalars/string))
+
+
+
 
 #### `locale` ([`String`](/developers/shared-apis/adminidentity-api/graphql/reference/scalars/string))
 
 String representing the User's locale, i.e. 'en-us'
 
+
 #### `nickname` ([`String`](/developers/shared-apis/adminidentity-api/graphql/reference/scalars/string))
 
 The display name for the User
+
 
 #### `phone` ([`String`](/developers/shared-apis/adminidentity-api/graphql/reference/scalars/string))
 
@@ -74,9 +102,11 @@ the phone number contains an extension, it is RECOMMENDED that the extension
 be represented using the RFC 3966 [RFC3966] extension syntax, for example, +1
 (604) 555-1234;ext=5678.
 
+
 #### `phoneNumberVerified` ([`String`](/developers/shared-apis/adminidentity-api/graphql/reference/scalars/string))
 
 string of true or false
+
 
 #### `picture` ([`String`](/developers/shared-apis/adminidentity-api/graphql/reference/scalars/string))
 
@@ -86,17 +116,26 @@ containing an image. Note that this URL SHOULD specifically reference a
 profile photo of the End-User suitable for displaying when describing the
 End-User, rather than an arbitrary photo taken by the End-User.
 
+
 #### `profile` ([`String`](/developers/shared-apis/adminidentity-api/graphql/reference/scalars/string))
 
 URL of the End-User's profile page. The contents of this Web page SHOULD be about the End-User.
+
 
 #### `sub` ([`String`](/developers/shared-apis/adminidentity-api/graphql/reference/scalars/string))
 
 A secondary ID, UUID
 
+
 #### `updatedAt` ([`String`](/developers/shared-apis/adminidentity-api/graphql/reference/scalars/string))
 
+
+
+
 #### `userName` ([`ID`](/developers/shared-apis/adminidentity-api/graphql/reference/scalars/id))
+
+
+
 
 #### `website` ([`String`](/developers/shared-apis/adminidentity-api/graphql/reference/scalars/string))
 
@@ -104,7 +143,12 @@ URL of the End-User's Web page or blog. This Web page SHOULD contain
 information published by the End-User or an organization that the End-User is
 affiliated with.
 
+
 #### `zoneinfo` ([`String`](/developers/shared-apis/adminidentity-api/graphql/reference/scalars/string))
 
 Timezone - String from zoneinfo time zone database representing the End-User's
 time zone. For example, Europe/Paris or America/Los_Angeles.
+
+
+
+

@@ -3,26 +3,48 @@ id: supplier-create-input
 title: SupplierCreateInput
 ---
 
+
 The necessary fields in order to create a new supplier
+
 
 ```graphql
 type SupplierCreateInput {
-  defaultCurrency: String!
+  defaultCurrency: ResonanceCurrency!
   defaultLocaleType: ResonanceLocaleType!
   description: String
   name: String!
-  purchaseOrderNotifications: [PurchaseOrderNotificationInput!]
+  notificationUserNames: SupplierNotificationUserNamesInput
 }
 ```
 
+
 ### Fields
 
-#### `defaultCurrency` ([`String`](/developers/supplier-apis/supply-api/graphql/reference/scalars/string))
+#### `defaultCurrency` ([`ResonanceCurrency`](/developers/supplier-apis/supply-api/graphql/reference/enums/resonance-currency))
+
+
+
 
 #### `defaultLocaleType` ([`ResonanceLocaleType`](/developers/supplier-apis/supply-api/graphql/reference/enums/resonance-locale-type))
 
+
+
+
 #### `description` ([`String`](/developers/supplier-apis/supply-api/graphql/reference/scalars/string))
+
+
+
 
 #### `name` ([`String`](/developers/supplier-apis/supply-api/graphql/reference/scalars/string))
 
-#### `purchaseOrderNotifications` ([`PurchaseOrderNotificationInput`](/developers/supplier-apis/supply-api/graphql/reference/inputs/purchase-order-notification-input))
+
+
+
+#### `notificationUserNames` ([`SupplierNotificationUserNamesInput`](/developers/supplier-apis/supply-api/graphql/reference/inputs/supplier-notification-user-names-input))
+
+These users will get notified if something requires attention for this Supplier.
+If none are provided, ownerUserName will be notified.
+
+
+
+

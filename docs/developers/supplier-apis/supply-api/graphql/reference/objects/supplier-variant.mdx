@@ -3,49 +3,68 @@ id: supplier-variant
 title: SupplierVariant
 ---
 
+
 The main item of the Supplier Domain, represents a single SKU of a product
 Only the variant level exists, there is no parent product.
 
+
 ```graphql
 type SupplierVariant {
-  contentItemId: ID
+  contentItemIds: [ID]
   createdAt: String!
   customData: SupplierVariantCustomData
-  externalProductId: String!
   externalVariantId: String!
   inventoryPolicy: SupplierVariantInventoryPolicy!
   inventoryQuantity: Int!
-  inventoryStatus: SupplierVariantInventoryStatus!
+  inventoryStatus: SupplierVariantInventoryStatus
   optionValues: [String!]!
   supplement: SupplierVariantSupplement
   supplierId: ID!
   supplierProductId: ID!
   supplierVariantId: ID!
+  title: String!
   updatedAt: String!
   updatedBy: String!
-  variantTitle: String!
 }
 ```
 
+
 ### Fields
 
-#### `contentItemId` ([`ID`](/developers/supplier-apis/supply-api/graphql/reference/scalars/id))
+#### `contentItemIds` ([`ID`](/developers/supplier-apis/supply-api/graphql/reference/scalars/id))
 
-Associates a contentItem with this variant
+Associates contentItems with this variant
+
 
 #### `createdAt` ([`String`](/developers/supplier-apis/supply-api/graphql/reference/scalars/string))
 
+
+
+
 #### `customData` ([`SupplierVariantCustomData`](/developers/supplier-apis/supply-api/graphql/reference/objects/supplier-variant-custom-data))
 
-#### `externalProductId` ([`String`](/developers/supplier-apis/supply-api/graphql/reference/scalars/string))
+Get the associated SupplierVariantCustomData
+
 
 #### `externalVariantId` ([`String`](/developers/supplier-apis/supply-api/graphql/reference/scalars/string))
 
+
+
+
 #### `inventoryPolicy` ([`SupplierVariantInventoryPolicy`](/developers/supplier-apis/supply-api/graphql/reference/enums/supplier-variant-inventory-policy))
+
+
+
 
 #### `inventoryQuantity` ([`Int`](/developers/supplier-apis/supply-api/graphql/reference/scalars/int))
 
+
+
+
 #### `inventoryStatus` ([`SupplierVariantInventoryStatus`](/developers/supplier-apis/supply-api/graphql/reference/enums/supplier-variant-inventory-status))
+
+Get the inventory status of this variant
+
 
 #### `optionValues` ([`String`](/developers/supplier-apis/supply-api/graphql/reference/scalars/string))
 
@@ -55,20 +74,46 @@ one for each of the color and size options, i.e. ["Red", "Small"]
 
 Must have 1-3, and it should match the number of options in the product, but there is no validation to do so.
 
+Set this to "No Option" if you don't want to use options for this product and this is the only variant.
+See https://docs.buildresonance.com/concepts/products/#no-option-products for more info.
+
+
 #### `supplement` ([`SupplierVariantSupplement`](/developers/supplier-apis/supply-api/graphql/reference/objects/supplier-variant-supplement))
 
 Get the supplierVariantSupplement for a supplierVariant
 
 Requires suppliervariantsupplement/read permission on the requesting identity
 
+
 #### `supplierId` ([`ID`](/developers/supplier-apis/supply-api/graphql/reference/scalars/id))
+
+
+
 
 #### `supplierProductId` ([`ID`](/developers/supplier-apis/supply-api/graphql/reference/scalars/id))
 
+
+
+
 #### `supplierVariantId` ([`ID`](/developers/supplier-apis/supply-api/graphql/reference/scalars/id))
+
+
+
+
+#### `title` ([`String`](/developers/supplier-apis/supply-api/graphql/reference/scalars/string))
+
+Get the title of this variant (combo of optionValues)
+
 
 #### `updatedAt` ([`String`](/developers/supplier-apis/supply-api/graphql/reference/scalars/string))
 
+
+
+
 #### `updatedBy` ([`String`](/developers/supplier-apis/supply-api/graphql/reference/scalars/string))
 
-#### `variantTitle` ([`String`](/developers/supplier-apis/supply-api/graphql/reference/scalars/string))
+
+
+
+
+

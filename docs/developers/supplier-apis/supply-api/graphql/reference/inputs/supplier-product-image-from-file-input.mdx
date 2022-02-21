@@ -3,7 +3,9 @@ id: supplier-product-image-from-file-input
 title: SupplierProductImageFromFileInput
 ---
 
+
 Input object for creating an Image SupplierProductContentItem from a File on a device
+
 
 ```graphql
 type SupplierProductImageFromFileInput {
@@ -11,27 +13,50 @@ type SupplierProductImageFromFileInput {
   category: String
   fileExtension: String!
   fileName: String!
-  position: Float
+  position: Int
   supplierId: ID!
   supplierProductId: ID!
 }
 ```
 
+
 ### Fields
 
 #### `alt` ([`String`](/developers/supplier-apis/supply-api/graphql/reference/scalars/string))
 
+
+
+
 #### `category` ([`String`](/developers/supplier-apis/supply-api/graphql/reference/scalars/string))
+
+
+
 
 #### `fileExtension` ([`String`](/developers/supplier-apis/supply-api/graphql/reference/scalars/string))
 
+
+
+
 #### `fileName` ([`String`](/developers/supplier-apis/supply-api/graphql/reference/scalars/string))
 
-#### `position` ([`Float`](/developers/supplier-apis/supply-api/graphql/reference/scalars/float))
+
+
+
+#### `position` ([`Int`](/developers/supplier-apis/supply-api/graphql/reference/scalars/int))
 
 Used to determine what order the content comes out in.
-You can place any number here, including non-integers and negatives, and it does not have to be unique or sequential.
+Positive Integers are allowed, up to 9,999,999,999, and it does not have to be unique or sequential.
+
 
 #### `supplierId` ([`ID`](/developers/supplier-apis/supply-api/graphql/reference/scalars/id))
 
+
+
+
 #### `supplierProductId` ([`ID`](/developers/supplier-apis/supply-api/graphql/reference/scalars/id))
+
+
+
+
+
+

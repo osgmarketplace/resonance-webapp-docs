@@ -1,0 +1,56 @@
+---
+id: supplier-variant-in-composite-create-input
+title: SupplierVariantInCompositeCreateInput
+---
+
+
+The necessary fields in order to create a new supplierVariant inside a SupplierProductCompositeCreateInput
+
+
+```graphql
+type SupplierVariantInCompositeCreateInput {
+  contentItemIds: [ID]
+  externalVariantId: String!
+  inventoryPolicy: SupplierVariantInventoryPolicy!
+  inventoryQuantity: Int!
+  optionValues: [String!]!
+}
+```
+
+
+### Fields
+
+#### `contentItemIds` ([`ID`](/developers/supplier-apis/supply-api/graphql/reference/scalars/id))
+
+Associates contentItems with this variant
+
+
+#### `externalVariantId` ([`String`](/developers/supplier-apis/supply-api/graphql/reference/scalars/string))
+
+
+
+
+#### `inventoryPolicy` ([`SupplierVariantInventoryPolicy`](/developers/supplier-apis/supply-api/graphql/reference/enums/supplier-variant-inventory-policy))
+
+
+
+
+#### `inventoryQuantity` ([`Int`](/developers/supplier-apis/supply-api/graphql/reference/scalars/int))
+
+
+
+
+#### `optionValues` ([`String`](/developers/supplier-apis/supply-api/graphql/reference/scalars/string))
+
+An array of the option values that make up this variant.
+For example, a product with a color and size option would have two option values,
+one for each of the color and size options, i.e. ["Red", "Small"]
+
+Must have 1-3, and it should match the number of options in the product, but there is no validation to do so.
+
+Set this to "No Option" if you don't want to use options for this product and this is the only variant.
+See https://docs.buildresonance.com/concepts/products/#no-option-products for more info.
+
+
+
+

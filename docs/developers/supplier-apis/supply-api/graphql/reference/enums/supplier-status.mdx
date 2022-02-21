@@ -3,7 +3,9 @@ id: supplier-status
 title: SupplierStatus
 ---
 
+
 Indication of whether the Supplier is live and accepting orders
+
 
 ```graphql
 enum SupplierStatus {
@@ -14,20 +16,28 @@ enum SupplierStatus {
 }
 ```
 
+
 ### Values
 
-#### `ARCHIVED`
+#### `ARCHIVED` 
 
 Indicates a Supplier's goods are no longer available for retailing.
 
-#### `DRAFT`
+
+#### `DRAFT` 
 
 Indicates that a Supplier's goods are not yet available for retailing. Functionally identical to ARCHIVED.
 
-#### `PRIVATE`
+
+#### `PRIVATE` 
 
 Indicates that a Supplier is activated and available, but not in the public Supplier Marketplace.
 
-#### `PUBLIC`
+
+#### `PUBLIC` 
 
 Indicates that a Supplier is not only activated, but available in the public Supplier Marketplace.
+
+
+
+

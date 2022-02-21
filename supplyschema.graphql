@@ -1,7 +1,7 @@
 """
 The response recieved when an app is installed or the permissions are updated
 """
-type AppInstallationOutput {
+type AppInstallationResponse {
   supplierIdentities: [SupplierIdentity]!
 }
 
@@ -28,17 +28,24 @@ enum AppType {
   SUPPLIERAPP
 }
 
+"""A date in ISO 8601 format"""
+scalar Date
+
 """
-The `JSONObject` scalar type represents JSON objects as specified by [ECMA-404](http://www.ecma-international.org/publications/files/ECMA-ST/ECMA-404.pdf).
+The `JSON` scalar type represents JSON values as specified by [ECMA-404](http://www.ecma-international.org/publications/files/ECMA-ST/ECMA-404.pdf).
 """
-scalar JSONObject
+scalar JSON
 
 """The root mutation type for the Supply domain"""
 type Mutation {
-  """Nothing to see here, just a workaround for Apollo Server"""
-  _makeEmpty(id: String): String
+  """Associate an existing ContentItem with a new SupplierProduct"""
+  associateSupplierProductContentItem(input: SupplierProductContentItemAssociationCreateInput): SupplierProductContentItem
 
-  """Create a new supplier"""
+  """
+  Create a new supplier
+              
+  Requires supplier/write permission on the requesting identity
+  """
   createSupplier(input: SupplierCreateInput!): Supplier!
 
   """
@@ -46,49 +53,72 @@ type Mutation {
   
   Requires the supplieridentity/write permission on the given Supplier
   """
-  createSupplierIdentity(input: SupplierIdentityCreateInput!): SupplierIdentity
+  createSupplierIdentity(input: SupplierIdentityCreateInput!): SupplierIdentity!
 
   """Create a new SupplierProduct"""
   createSupplierProduct(input: SupplierProductCreateInput!): SupplierProduct!
 
+  """
+  Create a new SupplierProduct and its associated ContentItems, Locales, and Variants in one mutation
+  """
+  createSupplierProductComposite(input: SupplierProductCompositeCreateInput!): SupplierProductCompositeCreateResponse!
+
   """Create an Image SupplierProductContentItem from a File"""
-  createSupplierProductImageFromFile(input: SupplierProductImageFromFileInput): SupplierProductImageFromFileResponse
+  createSupplierProductImageFromFile(input: SupplierProductImageFromFileInput!): SupplierProductImageFromFileResponse!
 
-  """Create an Image SupplierProductContentItem from a URL"""
-  createSupplierProductImageFromUrl(input: SupplierProductImageFromUrlInput): SupplierProductContentItem
+  """Create a SupplierProductContentItem from a URL"""
+  createSupplierProductImageFromUrl(input: SupplierProductImageFromUrlInput!): SupplierProductContentItem!
 
-  """Create a new supplierProductLocale"""
-  createSupplierProductLocale(input: SupplierProductLocaleCreateInput!): SupplierProductLocale
+  """Create a new supplierProductLocale."""
+  createSupplierProductLocale(input: SupplierProductLocaleCreateInput!): SupplierProductLocale!
+
+  """Create a new SupplierQuickLink"""
+  createSupplierQuickLink(input: SupplierQuickLinkCreateInput!): SupplierQuickLink!
 
   """Create a new supplierVariant"""
-  createSupplierVariant(input: SupplierVariantCreateInput!): SupplierVariant
+  createSupplierVariant(input: SupplierVariantCreateInput!): SupplierVariant!
 
-  """Create a new supplierVariantSupplement"""
-  createSupplierVariantSupplement(input: SupplierVariantSupplementCreateInput!): SupplierVariantSupplement
+  """
+  Create both a new supplierVariant and supplierVariantSupplement simultaneously
+  """
+  createSupplierVariantComposite(input: SupplierVariantCompositeCreateInput!): SupplierVariantCompositeCreateResponse!
 
-  """Create a subscription for a supply event."""
+  """
+  Create a new supplierVariantSupplement
+  
+  Requires suppliervariantsupplement/write permission on the requesting identity
+  """
+  createSupplierVariantSupplement(input: SupplierVariantSupplementCreateInput!): SupplierVariantSupplement!
+
+  """Create a subscription for a type of supply event."""
   createSupplyEventSubscription(input: SupplyEventSubscriptionCreateInput!): SupplyEventSubscription!
 
   """
-  Remove a SupplierIdentity from a Supplier (remove user permissions)
+  Delete a SupplierIdentity from a Supplier (remove a user's permissions)
   
   Requires the supplieridentity/write permission on the given Supplier
   """
-  deleteSupplierIdentity(identityId: ID!, supplierId: ID!): SupplierIdentityDeleteOutput
+  deleteSupplierIdentity(identityId: ID!, supplierId: ID!): SupplierIdentityDeleteResponse
+
+  """Delete a SupplierProduct (and all of its child entities)"""
+  deleteSupplierProduct(supplierProductId: ID!): SupplierProductDeleteResponse!
 
   """Delete an existing SupplierProductContentItem"""
-  deleteSupplierProductContentItem(input: SupplierProductContentItemDeleteInput): SupplierProductContentItemDeleteResponse!
+  deleteSupplierProductContentItem(contentItemId: ID!, supplierProductId: ID!): SupplierProductContentItemDeleteResponse!
 
   """Delete specified keys from the SupplierProductCustomData"""
   deleteSupplierProductCustomData(keysToDelete: [String!]!, supplierProductId: ID!): SupplierProductCustomData!
 
+  """Delete a SupplierQuickLink"""
+  deleteSupplierQuickLink(appId: ID!, quickLinkType: SupplierQuickLinkType!, supplierId: ID!): SupplierQuickLinkDeletedResponse!
+
   """Delete a supplierVariant"""
-  deleteSupplierVariant(supplierVariantId: ID!): SupplierVariantDeleteResponse!
+  deleteSupplierVariant(supplierVariantId: ID): SupplierVariantDeleteResponse!
 
   """Delete specified keys from the SupplierVariantCustomData"""
   deleteSupplierVariantCustomData(keysToDelete: [String!]!, supplierVariantId: ID!): SupplierVariantCustomData!
 
-  """Delete a subscription for a supply event."""
+  """Delete a subscription for a type of supply event."""
   deleteSupplyEventSubscription(eventSubscriptionId: ID!): SupplyEventSubscriptionDeleteResponse!
 
   """
@@ -96,7 +126,7 @@ type Mutation {
   
   Requires the supplieridentity/write permission on the given Supplier
   """
-  installApp(appId: ID!, supplierId: ID!): AppInstallationOutput!
+  installApp(appId: ID!, supplierId: ID!): AppInstallationResponse!
 
   """
   Update an app's permissions on a Supplier. This is a no-op if the app's
@@ -104,9 +134,13 @@ type Mutation {
   
   Requires the supplieridentity/write permission on the given Supplier
   """
-  updateAppPermissions(appId: ID!, supplierId: ID!): AppInstallationOutput!
+  updateAppPermissions(appId: ID!, supplierId: ID!): AppInstallationResponse!
 
-  """Update an existing supplier"""
+  """
+  Update an existing supplier
+              
+  Requires supplier/write permission on the requesting identity
+  """
   updateSupplier(input: SupplierUpdateInput!): Supplier!
 
   """
@@ -114,28 +148,62 @@ type Mutation {
   
   Requires the supplieridentity/write permission on the given Supplier
   """
-  updateSupplierIdentity(input: SupplierIdentityUpdateInput!): SupplierIdentity
+  updateSupplierIdentity(input: SupplierIdentityUpdateInput!): SupplierIdentity!
 
   """Update an existing SupplierProduct"""
   updateSupplierProduct(input: SupplierProductUpdateInput!): SupplierProduct!
 
   """Update an existing SupplierProductContentItem"""
-  updateSupplierProductContentItem(input: SupplierProductContentItemUpdateInput): SupplierProductContentItem
+  updateSupplierProductContentItem(input: SupplierProductContentItemUpdateInput!): SupplierProductContentItem!
 
   """Update an existing supplierProductLocale"""
-  updateSupplierProductLocale(input: SupplierProductLocaleUpdateInput!): SupplierProductLocale
+  updateSupplierProductLocale(input: SupplierProductLocaleUpdateInput!): SupplierProductLocale!
+
+  """
+  Bulk Update SupplierProducts
+  
+  Note that if there are Permission or UserInput Errors, the entire group will fail, not partially succeed.
+  """
+  updateSupplierProducts(inputs: [SupplierProductUpdateInput!]): [SupplierProduct!]
+
+  """Update a SupplierQuickLink"""
+  updateSupplierQuickLink(input: SupplierQuickLinkUpdateInput!): SupplierQuickLink!
 
   """Update an existing supplierVariant"""
-  updateSupplierVariant(input: SupplierVariantUpdateInput!): SupplierVariant
+  updateSupplierVariant(input: SupplierVariantUpdateInput!): SupplierVariant!
 
-  """Update an existing supplierVariantSupplement"""
-  updateSupplierVariantSupplement(input: SupplierVariantSupplementUpdateInput!): SupplierVariantSupplement
+  """
+  Update an existing supplierVariantSupplement
+  
+  Requires suppliervariantsupplement/write permission on the requesting identity
+  """
+  updateSupplierVariantSupplement(input: SupplierVariantSupplementUpdateInput!): SupplierVariantSupplement!
+
+  """
+  Bulk update supplierVariants
+  
+  Requires suppliervariant/write permission on the requesting identity
+  Note that if there are Permission or UserInput Errors, the entire group will fail, not partially succeed.
+  """
+  updateSupplierVariants(inputs: [SupplierVariantUpdateInput!]): [SupplierVariant!]
 
   """Add or update keys in the SupplierProductCustomData"""
   upsertSupplierProductCustomData(input: SupplierProductCustomDataUpsertInput!): SupplierProductCustomData!
 
   """Add or update keys in the SupplierVariantCustomData"""
   upsertSupplierVariantCustomData(input: SupplierVariantCustomDataUpsertInput!): SupplierVariantCustomData!
+
+  """
+  Bulk upsert supplierVariantSupplements.
+  If you are creating supplierVariantSupplements, you must provide
+  SupplierVariantSupplementCreateInput instead of
+  SupplierVariantSupplementUpdateInput.
+  (These are similar, but more fields are required)
+  
+  Requires suppliervariantsupplement/write permission on the requesting identity
+  Note that if there are Permission or UserInput Errors, the entire group will fail, not partially succeed.
+  """
+  upsertSupplierVariantSupplements(inputs: [SupplierVariantSupplementUpdateInput!]): [SupplierVariantSupplement!]
 }
 
 """Information on Pagination"""
@@ -191,6 +259,7 @@ type PublicIdentity {
 
   """A userName or appClientId"""
   identityId: ID!
+  identityParentEntityId: ID
 }
 
 """
@@ -199,25 +268,6 @@ and encompasses all possible uses of that field.
 Currently, this is for Apps only.
 """
 union PublicIdentityParent = PublicApp
-
-"""
-The full notification object. Endpoint may vary based on type, but is always a string (url, email,etc).
-"""
-type PurchaseOrderNotification {
-  endpoint: String!
-  type: PurchaseOrderNotificationType!
-}
-
-"""Exactly like PurchaseOrderNotification"""
-input PurchaseOrderNotificationInput {
-  endpoint: String!
-  type: PurchaseOrderNotificationType!
-}
-
-"""Used to determine how a supplier recieves Purchase Orders"""
-enum PurchaseOrderNotificationType {
-  WEBHOOK
-}
 
 """The root query type for the Supply domain"""
 type Query {
@@ -296,14 +346,14 @@ type Query {
     """Returns the last n elements from the list."""
     last: Int
 
-    """Filter the results to a specific supplierId (optional)"""
+    """Filter the results to a specific supplierId. (optional)"""
     supplierId: ID
   ): SupplierIdentityConnection!
 
   """
-  Get a single SupplierIdentity.
+  Get a single SupplierIdentity
   
-  Requires supplieridentity/read permission on the requesting identity, or you can request your own identity.
+  Requires supplieridentity/read permission on the requesting identity for the supplier requested
   """
   supplierIdentity(identityId: ID!, supplierId: ID!): SupplierIdentity
 
@@ -315,16 +365,59 @@ type Query {
   supplierProduct(supplierProductId: ID!): SupplierProduct
 
   """
+  List multiple SupplierQuickLinks for an app.
+  
+  At least one filter is required, supplierId and quickLinkType are required to be used together.
+  
+  Permissions vary by filter:
+  - appId: You must be an appClient for the app.
+  - supplierId: You must have supplier/read permission for the supplier.
+  """
+  supplierQuickLinks(
+    """Returns the elements in the list that come after the specified cursor."""
+    after: String
+
+    """Filter for AppId, cannot be used with other filters."""
+    appId: ID
+
+    """
+    Returns the elements in the list that come before the specified cursor.
+    """
+    before: String
+
+    """Returns the first n elements from the list."""
+    first: Int
+
+    """Returns the last n elements from the list."""
+    last: Int
+
+    """Filter to be used with supplierId, cannot be used with other filters."""
+    quickLinkType: SupplierQuickLinkType
+
+    """
+    Filter to be used with quickLinkType, cannot be used with other filters.
+    """
+    supplierId: ID
+  ): SupplierQuickLinkConnection!
+
+  """
   Get a single supplierVariant by SupplierVariantId
   
   Requires suppliervariant/read permission on the requesting identity
   """
-  supplierVariant(supplierVariantId: ID!): SupplierVariant
+  supplierVariant(supplierVariantId: ID): SupplierVariant
+
+  """
+  Get several supplierVariants by SupplierVariantIds (currently)
+  
+  Requires suppliervariant/read permission on the requesting identity for all associated suppliers
+  """
+  supplierVariants(supplierVariantIds: [ID!]!): SupplierVariantConnection!
 
   """
   Get a list of suppliers
   
-  Requires supplier/read permission on each supplier for the requesting identity
+  Requires supplier/read permission on the requesting identity
   """
   suppliers(
     """Returns the elements in the list that come after the specified cursor."""
@@ -342,10 +435,14 @@ type Query {
     last: Int
   ): SupplierConnection!
 
-  """Get a supplyEventSubscription by id."""
+  """
+  Get a supplyEventSubscription by id. Requires you to own the subscription.
+  """
   supplyEventSubscription(eventSubscriptionId: ID!): SupplyEventSubscription
 
-  """List supplyEventSubscriptions by filtering."""
+  """
+  List supplyEventSubscriptions by filtering. Requires you to own the subscriptions.
+  """
   supplyEventSubscriptions(
     """Returns the elements in the list that come after the specified cursor."""
     after: String
@@ -356,8 +453,8 @@ type Query {
     before: String
 
     """
-    This filter should be used alone, including without relay parameters.
-    It will supercede any other parameters.
+    This filter should be used alone, including without any relay parameters.
+                It will supercede all other parameters.
     """
     eventSubscriptionIds: [ID!]
 
@@ -372,7 +469,9 @@ type Query {
     """Returns the last n elements from the list."""
     last: Int
 
-    """In order to use this filter, you must also include itemType"""
+    """
+    In order to use this filter, you must also include itemType and subscriptionEntityId
+    """
     mutationType: SupplyEventMutationType
 
     """This filter can be used with or without subscriptionOwnerId"""
@@ -406,7 +505,9 @@ type Supplier {
   defaultLocaleType: ResonanceLocaleType!
   description: String
 
-  """List supplyEventSubscriptions by filtering for your identity."""
+  """
+  List supplyEventSubscriptions by filtering for your identity for this supplier.
+  """
   mySupplyEventSubscriptions(
     """Returns the elements in the list that come after the specified cursor."""
     after: String
@@ -427,21 +528,44 @@ type Supplier {
     """Returns the last n elements from the list."""
     last: Int
 
-    """In order to use this filter, you must also include itemType"""
+    """
+    In order to use this filter, you must also include itemType and subscriptionEntityId
+    """
     mutationType: SupplyEventMutationType
   ): SupplyEventSubscriptionConnection!
   name: String!
-  ownerUserName: String!
 
   """
-  One purchaseOrderNotification must be present to publish (private or public)
+  These users will get notified if something requires attention for this Supplier.
+  If none are provided, ownerUserName will be notified.
   """
-  purchaseOrderNotifications: [PurchaseOrderNotification!]
+  notificationUserNames: SupplierNotificationUserNames
+  ownerUserName: String!
+
+  """Get a single SupplierQuickLink by its ids"""
+  quickLink(appId: ID!, quickLinkType: SupplierQuickLinkType!): SupplierQuickLink
+
+  """List multiple SupplierQuickLinks for a single SupplierQuickLinkType"""
+  quickLinks(
+    """Returns the elements in the list that come after the specified cursor."""
+    after: String
+
+    """
+    Returns the elements in the list that come before the specified cursor.
+    """
+    before: String
+
+    """Returns the first n elements from the list."""
+    first: Int
+
+    """Returns the last n elements from the list."""
+    last: Int
+    quickLinkType: SupplierQuickLinkType!
+  ): SupplierQuickLinkConnection!
   status: SupplierStatus!
   supplierId: ID!
 
   """
-  Provided through SupplierIdentity Chained Resolver
   Returns SupplierIdentities for the given Supplier
   
   Requires supplieridentity/read permission on the requesting identity
@@ -469,12 +593,11 @@ type Supplier {
   ): SupplierIdentityConnection!
 
   """
-  Provided through SupplierIdentity Chained Resolver
-  Returns a single SupplierIdentity for the given Supplier
+  Returns a SupplierIdentity for the given Supplier
   
   Requires supplieridentity/read permission on the requesting identity, or you can request your own identity.
   """
-  supplierIdentity(identityId: ID!): SupplierIdentity
+  supplierIdentity(identityId: ID!, supplierId: ID!): SupplierIdentity
 
   """
   Get a single SupplierProduct by its ID.
@@ -516,11 +639,16 @@ type SupplierConnection {
 
 """The necessary fields in order to create a new supplier"""
 input SupplierCreateInput {
-  defaultCurrency: String!
+  defaultCurrency: ResonanceCurrency!
   defaultLocaleType: ResonanceLocaleType!
   description: String
   name: String!
-  purchaseOrderNotifications: [PurchaseOrderNotificationInput!]
+
+  """
+  These users will get notified if something requires attention for this Supplier.
+  If none are provided, ownerUserName will be notified.
+  """
+  notificationUserNames: SupplierNotificationUserNamesInput
 }
 
 """One edge producing one Supplier Node"""
@@ -535,7 +663,11 @@ type SupplierIdentity {
   identityParentEntityId: ID
   identityType: SupplierIdentityType!
   permissions: SupplierIdentityPermissions!
+
+  """Get a public identity by id"""
   publicIdentity: PublicIdentity
+
+  """Get the expanded publicIdentityParent for this SupplierIdentity"""
   publicIdentityParent: PublicIdentityParent
   supplierId: ID!
   updatedBy: String!
@@ -549,7 +681,7 @@ type SupplierIdentityConnection {
 }
 
 """
-Exactly like SupplierIdentity, but no updatedBy or identityType (always User)
+Exactly like SupplierIdentity, but no updatedBy or identityType (always User, Apps get installed)
 """
 input SupplierIdentityCreateInput {
   """Always a user's userName (not appClientId)"""
@@ -563,7 +695,7 @@ input SupplierIdentityCreateInput {
 }
 
 """Returned object from deleteSupplierIdentity"""
-type SupplierIdentityDeleteOutput {
+type SupplierIdentityDeleteResponse {
   deletedId: SupplierIdentityDeletedId
 }
 
@@ -602,13 +734,41 @@ enum SupplierIdentityType {
 ID Fields are required, but all other fields are optional, only included fields will be updated.
 """
 input SupplierIdentityUpdateInput {
-  """Always a user's userName (not appClientId)"""
+  """Could be a userName or an appClientId"""
   identityId: ID!
-
-  """Should always be USER"""
-  identityType: SupplierIdentityType
   permissions: SupplierIdentityPermissionsInput
   supplierId: ID!
+}
+
+"""
+These users will get notified if something requires attention for this Supplier.
+If none are provided, ownerUserName will be notified.
+"""
+type SupplierNotificationUserNames {
+  """All notifications for the distribution side, besides purchaseOrders."""
+  distribution: [String!]
+
+  """All notifications for the management side (Products, Variants, etc.)."""
+  management: [String!]
+
+  """
+  These are part of distribution, but are a specific enough case to be handled separately.
+  """
+  purchaseOrders: [String!]
+}
+
+"""Exactly like SupplierNotificationUserNames"""
+input SupplierNotificationUserNamesInput {
+  """All notifications for the distribution side, besides purchaseOrders."""
+  distribution: [String!]
+
+  """All notifications for the management side (Products, Variants, etc.)."""
+  management: [String!]
+
+  """
+  These are part of distribution, but are a specific enough case to be handled separately.
+  """
+  purchaseOrders: [String!]
 }
 
 """
@@ -628,6 +788,11 @@ type SupplierProduct {
   Get a list of supplierProductContentItems
   
   Requires supplierproductcontentitem/read permission on the supplier for the requesting identity
+  
+  Sorting works differently depending on which filters are used.
+  Without any filters, the sort order is by createdAt.
+  With a contentType filter, the sort order is by position.
+  This means "featuredImage" can be retrieved by using contentType: IMAGE and first: 1.
   """
   contentItems(
     """Returns the elements in the list that come after the specified cursor."""
@@ -637,14 +802,17 @@ type SupplierProduct {
     Returns the elements in the list that come before the specified cursor.
     """
     before: String
+    contentType: SupplierProductContentType
 
     """Returns the first n elements from the list."""
     first: Int
 
     """Returns the last n elements from the list."""
     last: Int
-  ): SupplierProductContentItemConnection!
-  createdAt: String!
+  ): SupplierProductContentItemConnection
+  createdAt: Date!
+
+  """Get the associated SupplierProductCustomData"""
   customData: SupplierProductCustomData
 
   """
@@ -655,7 +823,7 @@ type SupplierProduct {
   """
   Get a single supplierProductLocale by ResonanceLocaleType
   
-  Requires supplierproductlocale/read permission on the requesting identity
+      Requires supplierproductlocale/read permission on the requesting identity
   """
   locale(localeType: ResonanceLocaleType!): SupplierProductLocale
 
@@ -664,6 +832,8 @@ type SupplierProduct {
   These will match with the order of the optionValues on the SupplierVariants.
   
   Must have 1-3, and it should match the number of options in the variants, but there is no validation to do so.
+  Set the first optionLabel to "No Option" if you don't want to use options for this product.
+  See https://docs.buildresonance.com/concepts/products/#no-option-products for more info.
   """
   optionLabels: [String!]!
 
@@ -679,7 +849,7 @@ type SupplierProduct {
   
   Requires suppliervariant/read permission on the requesting identity
   """
-  supplierVariant(supplierVariantId: ID!): SupplierVariant
+  supplierVariant(supplierVariantId: ID): SupplierVariant
 
   """
   Get a list of supplierVariants
@@ -707,11 +877,30 @@ type SupplierProduct {
 
   """The title of the product."""
   title: String!
-  updatedAt: String!
+  updatedAt: Date!
   updatedBy: ID!
 
   """The brand or manufacturer of the product."""
   vendor: String!
+}
+
+"""
+The necessary fields to create a SupplierProductComposite, or a SupplierProduct
+and its ContentItems, Locales, and Variants in one mutation
+"""
+input SupplierProductCompositeCreateInput {
+  supplierProductContentItemInputs: [SupplierProductContentItemAssociationInCompositeCreateInput]
+  supplierProductInput: SupplierProductCreateInput!
+  supplierProductLocaleInputs: [SupplierProductLocaleInCompositeCreateInput]
+  supplierVariantInputs: [SupplierVariantCompositeInCompositeCreateInput]
+}
+
+"""Response for creating a SupplierProductComposite"""
+type SupplierProductCompositeCreateResponse {
+  supplierProduct: SupplierProduct!
+  supplierProductContentItems: [SupplierProductContentItem]
+  supplierProductLocales: [SupplierProductLocale]
+  supplierVariantComposites: [SupplierVariantCompositeCreateResponse]
 }
 
 """Paginate through SupplierProducts"""
@@ -732,17 +921,49 @@ type SupplierProductContentItem {
   """The key to the file in the CDN"""
   contentKey: String!
   contentType: SupplierProductContentType!
-  createdAt: String!
+  createdAt: Date!
 
   """
   Used to determine what order the content comes out in.
-  You can place any number here, including non-integers and negatives, and it does not have to be unique or sequential.
+  Positive Integers are allowed, up to 9,999,999,999, and it does not have to be unique or sequential.
   """
-  position: Float
+  position: Int
   supplierId: ID!
   supplierProductId: ID!
-  updatedAt: String!
+  updatedAt: Date!
   updatedBy: String!
+}
+
+"""
+Input object to associate an existing ContentItem with a SupplierProduct
+"""
+input SupplierProductContentItemAssociationCreateInput {
+  alt: String!
+  category: String
+  contentItemId: ID!
+
+  """
+  Used to determine what order the content comes out in.
+  Positive Integers are allowed, up to 9,999,999,999, and it does not have to be unique or sequential.
+  """
+  position: Int
+  supplierId: ID!
+  supplierProductId: ID!
+}
+
+"""
+Input object to associate an existing ContentItem with a SupplierProduct inside a SupplierProductCompositeCreateInput
+"""
+input SupplierProductContentItemAssociationInCompositeCreateInput {
+  alt: String!
+  category: String
+  contentItemId: ID!
+
+  """
+  Used to determine what order the content comes out in.
+  Positive Integers are allowed, up to 9,999,999,999, and it does not have to be unique or sequential.
+  """
+  position: Int
 }
 
 """Paginate through SupplierProductContentItems"""
@@ -750,12 +971,6 @@ type SupplierProductContentItemConnection {
   edges: [SupplierProductContentItemEdge]!
   nodes: [SupplierProductContentItem]!
   pageInfo: PageInfo!
-}
-
-"""Input object to delete a SupplierProductContentItem"""
-input SupplierProductContentItemDeleteInput {
-  contentItemId: ID!
-  supplierProductId: ID!
 }
 
 """The response type for deleteSupplierProductContentItem"""
@@ -782,9 +997,9 @@ input SupplierProductContentItemUpdateInput {
 
   """
   Used to determine what order the content comes out in.
-  You can place any number here, including non-integers and negatives, and it does not have to be unique or sequential.
+  Positive Integers are allowed, up to 9,999,999,999, and it does not have to be unique or sequential.
   """
-  position: Float
+  position: Int
   supplierProductId: ID!
 }
 
@@ -809,6 +1024,8 @@ input SupplierProductCreateInput {
   These will match with the order of the optionValues on the SupplierVariants.
   
   Must have 1-3, and it should match the number of options in the variants, but there is no validation to do so.
+  Set the first optionLabel to "No Option" if you don't want to use options for this product.
+  See https://docs.buildresonance.com/concepts/products/#no-option-products for more info.
   """
   optionLabels: [String!]!
 
@@ -830,7 +1047,7 @@ Data that doesn't fit in the provided SupplierProduct fields needs to live here.
 """
 type SupplierProductCustomData {
   createdAt: String!
-  data: JSONObject!
+  data: JSON!
   supplierProductId: ID!
   updatedAt: String!
   updatedBy: String!
@@ -841,8 +1058,13 @@ The input type to upsert SupplierProductCustomData.
 The data object is required, but is a partial update, and keys not mentioned will be left alone.
 """
 input SupplierProductCustomDataUpsertInput {
-  data: JSONObject!
+  data: JSON!
   supplierProductId: ID!
+}
+
+"""Response for deleting a SupplierProduct"""
+type SupplierProductDeleteResponse {
+  deletedId: ID
 }
 
 """One edge producing one SupplierProduct Node"""
@@ -861,9 +1083,9 @@ input SupplierProductImageFromFileInput {
 
   """
   Used to determine what order the content comes out in.
-  You can place any number here, including non-integers and negatives, and it does not have to be unique or sequential.
+  Positive Integers are allowed, up to 9,999,999,999, and it does not have to be unique or sequential.
   """
-  position: Float
+  position: Int
   supplierId: ID!
   supplierProductId: ID!
 }
@@ -871,7 +1093,7 @@ input SupplierProductImageFromFileInput {
 """The response object from createSupplierProductImageFromFile"""
 type SupplierProductImageFromFileResponse {
   contentItem: SupplierProductContentItem!
-  fields: JSONObject!
+  fields: JSON!
   url: String!
 }
 
@@ -884,9 +1106,9 @@ input SupplierProductImageFromUrlInput {
 
   """
   Used to determine what order the content comes out in.
-  You can place any number here, including non-integers and negatives, and it does not have to be unique or sequential.
+  Positive Integers are allowed, up to 9,999,999,999, and it does not have to be unique or sequential.
   """
-  position: Float
+  position: Int
   supplierId: ID!
   supplierProductId: ID!
   url: String!
@@ -902,7 +1124,6 @@ type SupplierProductLocale {
 
   """Limited to 5 bullets"""
   featureBullets: [String]
-  isDefault: Boolean!
   localeType: ResonanceLocaleType!
   supplierId: ID!
   supplierProductId: ID!
@@ -913,11 +1134,23 @@ type SupplierProductLocale {
 """The necessary fields in order to create a new supplierProductLocale"""
 input SupplierProductLocaleCreateInput {
   description: String
+
+  """Limited to 5 bullets"""
   featureBullets: [String]
-  isDefault: Boolean!
   localeType: ResonanceLocaleType!
   supplierId: ID!
   supplierProductId: ID!
+}
+
+"""
+The necessary fields in order to create a new supplierProductLocale as part of a SupplierProductCompositeCreateInput
+"""
+input SupplierProductLocaleInCompositeCreateInput {
+  description: String
+
+  """Limited to 5 bullets"""
+  featureBullets: [String]
+  localeType: ResonanceLocaleType!
 }
 
 """
@@ -929,7 +1162,6 @@ input SupplierProductLocaleUpdateInput {
 
   """Limited to 5 bullets"""
   featureBullets: [String]
-  isDefault: Boolean
   localeType: ResonanceLocaleType!
   supplierProductId: ID!
 }
@@ -938,6 +1170,7 @@ input SupplierProductLocaleUpdateInput {
 enum SupplierProductStatus {
   ARCHIVED
   DRAFT
+  NEEDSREVIEW
   PUBLISHED
 }
 
@@ -956,8 +1189,13 @@ input SupplierProductUpdateInput {
   These will match with the order of the optionValues on the SupplierVariants.
   
   Must have 1-3, and it should match the number of options in the variants, but there is no validation to do so.
+  Set the first optionLabel to "No Option" if you don't want to use options for this product.
+  See https://docs.buildresonance.com/concepts/products/#no-option-products for more info.
   """
   optionLabels: [String!]
+
+  """Indicates whether a product is live and able to be ordered."""
+  status: SupplierProductStatus
   supplierProductId: ID!
 
   """Categories and other groupings that apply to this product."""
@@ -968,6 +1206,113 @@ input SupplierProductUpdateInput {
 
   """The brand or manufacturer of the product."""
   vendor: String
+}
+
+"""Represents a link to your app from inside the Resonance Supply Portal"""
+type SupplierQuickLink {
+  """The Id of the App this quicklink pertains to."""
+  appId: ID!
+  createdAt: String!
+
+  """
+  This can have dynamic parts, using [supplierProductId] format. It represents where the link goes.
+  """
+  dynamicUrl: String!
+
+  """What the text for the link should be to the user."""
+  label: String!
+
+  """Indicates which page the SupplierQuickLink would live on"""
+  quickLinkType: SupplierQuickLinkType!
+
+  """
+  The Id of the Supplier this quicklink pertains to (the one that has installed your app).
+  """
+  supplierId: ID!
+  updatedAt: String!
+  updatedBy: String!
+}
+
+"""Paginate through SupplierQuickLinks"""
+type SupplierQuickLinkConnection {
+  edges: [SupplierQuickLinkEdge]!
+  nodes: [SupplierQuickLink]!
+  pageInfo: PageInfo!
+}
+
+"""
+The required input fields to create a new SupplierQuickLink
+            
+You must be calling from the pertaining app's AppClient
+"""
+input SupplierQuickLinkCreateInput {
+  """The Id of the App this quicklink pertains to."""
+  appId: ID!
+
+  """
+  This can have dynamic parts, using [supplierProductId] format. It represents where the link goes.
+  """
+  dynamicUrl: String!
+
+  """What the text for the link should be to the user."""
+  label: String!
+
+  """Indicates which page the SupplierQuickLink would live on"""
+  quickLinkType: SupplierQuickLinkType!
+
+  """
+  The Id of the Supplier this quicklink pertains to (the one that has installed your app).
+  """
+  supplierId: ID!
+}
+
+"""When a SupplierQuickLink is deleted, the ID is returned"""
+type SupplierQuickLinkDeletedId {
+  appId: ID!
+  quickLinkType: SupplierQuickLinkType!
+  supplierId: ID!
+}
+
+"""The response shape when a SupplierQuickLink is deleted"""
+type SupplierQuickLinkDeletedResponse {
+  deletedId: SupplierQuickLinkDeletedId!
+}
+
+"""An edge for SupplierQuickLink"""
+type SupplierQuickLinkEdge {
+  node: SupplierQuickLink!
+}
+
+"""Indicates which page the SupplierQuickLink would live on"""
+enum SupplierQuickLinkType {
+  SUPPLIERPRODUCT
+  SUPPLIERVARIANT
+}
+
+"""
+The required input fields to partially update an existing SupplierQuickLink
+            
+You must be calling from the pertaining app's AppClient
+"""
+input SupplierQuickLinkUpdateInput {
+  """The Id of the App this quicklink pertains to."""
+  appId: ID!
+
+  """
+  This can have dynamic parts, using [supplierProductId] format. It represents where the link goes.
+  """
+  dynamicUrl: String
+
+  """What the text for the link should be to the user."""
+  label: String
+
+  """Indicates which page the SupplierQuickLink would live on"""
+  quickLinkType: SupplierQuickLinkType!
+
+  """
+  The Id of the Supplier this quicklink pertains to (the one that has installed your app).
+  """
+  supplierId: ID!
 }
 
 """Indication of whether the Supplier is live and accepting orders"""
@@ -991,13 +1336,17 @@ enum SupplierStatus {
   PUBLIC
 }
 
-"""
-The possible fields in order to update a supplier. Partial updating in place.
-"""
+"""The possible fields in order to update a supplier."""
 input SupplierUpdateInput {
   description: String
   name: String
-  purchaseOrderNotifications: [PurchaseOrderNotificationInput!]
+
+  """
+  These users will get notified if something requires attention for this Supplier.
+  If none are provided, ownerUserName will be notified.
+  """
+  notificationUserNames: SupplierNotificationUserNamesInput
+  ownerUserName: String
   status: SupplierStatus
   supplierId: ID!
 }
@@ -1007,15 +1356,18 @@ The main item of the Supplier Domain, represents a single SKU of a product
 Only the variant level exists, there is no parent product.
 """
 type SupplierVariant {
-  """Associates a contentItem with this variant"""
-  contentItemId: ID
+  """Associates contentItems with this variant"""
+  contentItemIds: [ID]
   createdAt: String!
+
+  """Get the associated SupplierVariantCustomData"""
   customData: SupplierVariantCustomData
-  externalProductId: String!
   externalVariantId: String!
   inventoryPolicy: SupplierVariantInventoryPolicy!
   inventoryQuantity: Int!
-  inventoryStatus: SupplierVariantInventoryStatus!
+
+  """Get the inventory status of this variant"""
+  inventoryStatus: SupplierVariantInventoryStatus
 
   """
   An array of the option values that make up this variant.
@@ -1023,6 +1375,9 @@ type SupplierVariant {
   one for each of the color and size options, i.e. ["Red", "Small"]
   
   Must have 1-3, and it should match the number of options in the product, but there is no validation to do so.
+  
+  Set this to "No Option" if you don't want to use options for this product and this is the only variant.
+  See https://docs.buildresonance.com/concepts/products/#no-option-products for more info.
   """
   optionValues: [String!]!
 
@@ -1035,9 +1390,35 @@ type SupplierVariant {
   supplierId: ID!
   supplierProductId: ID!
   supplierVariantId: ID!
+
+  """Get the title of this variant (combo of optionValues)"""
+  title: String!
   updatedAt: String!
   updatedBy: String!
-  variantTitle: String!
+}
+
+"""
+The necessary fields in order to create a new supplierVariant and supplierVariantSupplement.
+"""
+input SupplierVariantCompositeCreateInput {
+  supplierVariantInput: SupplierVariantCreateInput!
+  supplierVariantSupplementInput: SupplierVariantSupplementInCompositeCreateInput
+}
+
+"""
+A flattended supplierVariant with an optional supplement to match the inputs and avoid clashes with subresolvers.
+"""
+type SupplierVariantCompositeCreateResponse {
+  supplierVariant: SupplierVariant!
+  supplierVariantSupplement: SupplierVariantSupplement
+}
+
+"""
+The necessary fields to create a SupplierVariant and optional Supplement as part of a SupplierProductComposite
+"""
+input SupplierVariantCompositeInCompositeCreateInput {
+  supplierVariantInput: SupplierVariantInCompositeCreateInput
+  supplierVariantSupplementInput: SupplierVariantSupplementInCompositeCreateInput
 }
 
 """Paginate through SupplierVariants"""
@@ -1049,8 +1430,8 @@ type SupplierVariantConnection {
 
 """The necessary fields in order to create a new supplierVariant"""
 input SupplierVariantCreateInput {
-  """Associates a contentItem with this variant"""
-  contentItemId: ID
+  """Associates contentItems with this variant"""
+  contentItemIds: [ID]
   externalVariantId: String!
   inventoryPolicy: SupplierVariantInventoryPolicy!
   inventoryQuantity: Int!
@@ -1060,7 +1441,10 @@ input SupplierVariantCreateInput {
   For example, a product with a color and size option would have two option values,
   one for each of the color and size options, i.e. ["Red", "Small"]
   
-  Limit 3, and it should match the number of options in the product, but there is no constraint to do so.
+  Must have 1-3, and it should match the number of options in the product, but there is no validation to do so.
+  
+  Set this to "No Option" if you don't want to use options for this product and this is the only variant.
+  See https://docs.buildresonance.com/concepts/products/#no-option-products for more info.
   """
   optionValues: [String!]!
   supplierId: ID!
@@ -1072,7 +1456,7 @@ Data that doesn't fit in the provided SupplierVariant fields needs to live here.
 """
 type SupplierVariantCustomData {
   createdAt: String!
-  data: JSONObject!
+  data: JSON!
   supplierVariantId: ID!
   updatedAt: String!
   updatedBy: String!
@@ -1083,7 +1467,7 @@ The input type to upsert SupplierVariantCustomData.
 The data object is required, but is a partial update, and keys not mentioned will be left alone.
 """
 input SupplierVariantCustomDataUpsertInput {
-  data: JSONObject!
+  data: JSON!
   supplierVariantId: ID!
 }
 
@@ -1119,11 +1503,35 @@ enum SupplierVariantHandlingCostUnit {
 }
 
 """
+The necessary fields in order to create a new supplierVariant inside a SupplierProductCompositeCreateInput
+"""
+input SupplierVariantInCompositeCreateInput {
+  """Associates contentItems with this variant"""
+  contentItemIds: [ID]
+  externalVariantId: String!
+  inventoryPolicy: SupplierVariantInventoryPolicy!
+  inventoryQuantity: Int!
+
+  """
+  An array of the option values that make up this variant.
+  For example, a product with a color and size option would have two option values,
+  one for each of the color and size options, i.e. ["Red", "Small"]
+  
+  Must have 1-3, and it should match the number of options in the product, but there is no validation to do so.
+  
+  Set this to "No Option" if you don't want to use options for this product and this is the only variant.
+  See https://docs.buildresonance.com/concepts/products/#no-option-products for more info.
+  """
+  optionValues: [String!]!
+}
+
+"""
 Indicates how to handle inventory, whether a product should or can go out of stock
 """
 enum SupplierVariantInventoryPolicy {
   BOTTOMLESS
   DEFAULT
+  HOLD
 }
 
 """Indicates whether a variant is in or out of stock"""
@@ -1246,7 +1654,7 @@ input SupplierVariantSupplementCreateInput {
   averageShippingCost: Float
 
   """UPC, ISBN, GTIN, etc"""
-  barcode: String
+  barcode: String!
 
   """Quantity in one variant (i.e. 12-pack)"""
   casePack: Int
@@ -1269,7 +1677,6 @@ input SupplierVariantSupplementCreateInput {
 
   """Manufacturer's Suggested Retail Price"""
   msrp: Float
-  productTags: [String]
 
   """AKA Price"""
   recommendedPrice: Float
@@ -1280,6 +1687,51 @@ input SupplierVariantSupplementCreateInput {
   standardizedColor: SupplierVariantStandardizedColor
   supplierId: ID!
   supplierVariantId: ID!
+  weight: SupplierVariantWeightInput
+}
+
+"""
+The necessary fields in order to create a new supplierVariantSupplement in the midst of a Composite.
+It is the same as the normal input, but with no supplierVariantId.
+"""
+input SupplierVariantSupplementInCompositeCreateInput {
+  """
+  A calculated metric for some kind of average for a common region. Uncommon.
+  """
+  averageShippingCost: Float
+
+  """UPC, ISBN, GTIN, etc"""
+  barcode: String!
+
+  """Quantity in one variant (i.e. 12-pack)"""
+  casePack: Int
+
+  """COGS, or Cost of Goods Sold, in a currency"""
+  cost: Float!
+
+  """Additional warehouse handling charge, typically for larger items."""
+  handlingCost: SupplierVariantHandlingCostInput
+  isTaxable: Boolean
+
+  """Often same as vendor, but not always."""
+  manufacturer: String
+
+  """Minimum Advertised Price"""
+  mapPrice: Float
+
+  """Manufacturer Part Number"""
+  mpn: String
+
+  """Manufacturer's Suggested Retail Price"""
+  msrp: Float
+
+  """AKA Price"""
+  recommendedPrice: Float
+  shippingDimensions: SupplierVariantShippingDimensionsInput
+
+  """Stock Keeping Unit"""
+  sku: String
+  standardizedColor: SupplierVariantStandardizedColor
   weight: SupplierVariantWeightInput
 }
 
@@ -1317,7 +1769,6 @@ input SupplierVariantSupplementUpdateInput {
 
   """Manufacturer's Suggested Retail Price"""
   msrp: Float
-  productTags: [String]
 
   """AKA Price"""
   recommendedPrice: Float
@@ -1326,18 +1777,14 @@ input SupplierVariantSupplementUpdateInput {
   """Stock Keeping Unit"""
   sku: String
   standardizedColor: SupplierVariantStandardizedColor
-  supplierId: ID!
   supplierVariantId: ID!
   weight: SupplierVariantWeightInput
 }
 
-"""
-The necessary fields in order to update a supplierVariant.
-ID fields are required, all other fields are optional, only included fields will be updated.
-"""
+"""The necessary fields in order to update an existing supplierVariant"""
 input SupplierVariantUpdateInput {
-  """Associates a contentItem with this variant"""
-  contentItemId: ID
+  """Associates contentItems with this variant"""
+  contentItemIds: [ID]
   externalVariantId: String
   inventoryPolicy: SupplierVariantInventoryPolicy
   inventoryQuantity: Int
@@ -1347,7 +1794,10 @@ input SupplierVariantUpdateInput {
   For example, a product with a color and size option would have two option values,
   one for each of the color and size options, i.e. ["Red", "Small"]
   
-  Limit 3, and it should match the number of options in the product, but there is no constraint to do so.
+  Must have 1-3, and it should match the number of options in the product, but there is no validation to do so.
+  
+  Set this to "No Option" if you don't want to use options for this product and this is the only variant.
+  See https://docs.buildresonance.com/concepts/products/#no-option-products for more info.
   """
   optionValues: [String!]
   supplierVariantId: ID!
@@ -1388,7 +1838,7 @@ type SupplyEvent {
   subject: String
 
   """ISO Date that the event occurred"""
-  timestamp: String!
+  timestamp: Date!
 }
 
 """Paginate through SupplyEvents"""
@@ -1409,7 +1859,7 @@ The data is variable, but most typically contains a newItem and oldItem.
 """
 type SupplyEventMessage {
   """Variable, but most typically contains a newItem and oldItem."""
-  data: JSONObject
+  data: JSON
 
   """Items consistent to every event"""
   metadata: SupplyEventMetadata
@@ -1420,10 +1870,12 @@ type SupplyEventMetadata {
   domain: String!
 
   """This is most typically domainHqId or supplierId"""
-  domainEntityId: String!
-  entityId: String
+  domainEntityId: ID!
+  entityId: ID
+  identityId: ID
   itemType: String
   mutationType: String
+  updatedBy: String
 }
 
 """What type of event to listen for."""

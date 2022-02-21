@@ -3,9 +3,11 @@ id: suppliers
 title: suppliers
 ---
 
+
 Get a list of suppliers
 
-Requires supplier/read permission on each supplier for the requesting identity
+Requires supplier/read permission on the requesting identity
+
 
 ```graphql
 suppliers(
@@ -17,26 +19,35 @@ suppliers(
 
 ```
 
+
 ### Arguments
 
 #### `after` ([`String`](/developers/supplier-apis/supply-api/graphql/reference/scalars/string))
 
 Returns the elements in the list that come after the specified cursor.
 
+
 #### `before` ([`String`](/developers/supplier-apis/supply-api/graphql/reference/scalars/string))
 
 Returns the elements in the list that come before the specified cursor.
+
 
 #### `first` ([`Int`](/developers/supplier-apis/supply-api/graphql/reference/scalars/int))
 
 Returns the first n elements from the list.
 
+
 #### `last` ([`Int`](/developers/supplier-apis/supply-api/graphql/reference/scalars/int))
 
 Returns the last n elements from the list.
 
+
 ### Type
 
-#### [`SupplierConnection`](/developers/supplier-apis/supply-api/graphql/reference/objects/supplier-connection)
+#### [`SupplierConnection`](/developers/supplier-apis/supply-api/graphql/reference/objects/supplier-connection) 
 
 Paginate through Suppliers
+
+
+
+

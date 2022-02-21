@@ -1,0 +1,44 @@
+---
+id: supplier-product-content-item-association-in-composite-create-input
+title: SupplierProductContentItemAssociationInCompositeCreateInput
+---
+
+
+Input object to associate an existing ContentItem with a SupplierProduct inside a SupplierProductCompositeCreateInput
+
+
+```graphql
+type SupplierProductContentItemAssociationInCompositeCreateInput {
+  alt: String!
+  category: String
+  contentItemId: ID!
+  position: Int
+}
+```
+
+
+### Fields
+
+#### `alt` ([`String`](/developers/supplier-apis/supply-api/graphql/reference/scalars/string))
+
+
+
+
+#### `category` ([`String`](/developers/supplier-apis/supply-api/graphql/reference/scalars/string))
+
+
+
+
+#### `contentItemId` ([`ID`](/developers/supplier-apis/supply-api/graphql/reference/scalars/id))
+
+
+
+
+#### `position` ([`Int`](/developers/supplier-apis/supply-api/graphql/reference/scalars/int))
+
+Used to determine what order the content comes out in.
+Positive Integers are allowed, up to 9,999,999,999, and it does not have to be unique or sequential.
+
+
+
+

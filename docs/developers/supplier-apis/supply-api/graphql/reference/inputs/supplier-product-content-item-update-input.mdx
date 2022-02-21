@@ -3,29 +3,48 @@ id: supplier-product-content-item-update-input
 title: SupplierProductContentItemUpdateInput
 ---
 
+
 Input object for updating an existing SupplierProductContentItem
+
 
 ```graphql
 type SupplierProductContentItemUpdateInput {
   alt: String
   category: String
   contentItemId: ID!
-  position: Float
+  position: Int
   supplierProductId: ID!
 }
 ```
+
 
 ### Fields
 
 #### `alt` ([`String`](/developers/supplier-apis/supply-api/graphql/reference/scalars/string))
 
+
+
+
 #### `category` ([`String`](/developers/supplier-apis/supply-api/graphql/reference/scalars/string))
+
+
+
 
 #### `contentItemId` ([`ID`](/developers/supplier-apis/supply-api/graphql/reference/scalars/id))
 
-#### `position` ([`Float`](/developers/supplier-apis/supply-api/graphql/reference/scalars/float))
+
+
+
+#### `position` ([`Int`](/developers/supplier-apis/supply-api/graphql/reference/scalars/int))
 
 Used to determine what order the content comes out in.
-You can place any number here, including non-integers and negatives, and it does not have to be unique or sequential.
+Positive Integers are allowed, up to 9,999,999,999, and it does not have to be unique or sequential.
+
 
 #### `supplierProductId` ([`ID`](/developers/supplier-apis/supply-api/graphql/reference/scalars/id))
+
+
+
+
+
+

@@ -3,18 +3,25 @@ id: public-identity-parent
 title: PublicIdentityParent
 ---
 
+
 This type is the extension of SupplierIdentity's identityParentEntityId into the Public version of the entity,
 and encompasses all possible uses of that field.
 Currently, this is for Apps only.
+
 
 ```graphql
 union PublicIdentityParent = PublicApp
 ```
 
+
 ### Possible types
 
-#### [`PublicApp`](/developers/supplier-apis/supply-api/graphql/reference/objects/public-app)
+#### [`PublicApp`](/developers/supplier-apis/supply-api/graphql/reference/objects/public-app) 
 
 This type is returned on routes with no permissions attached to protect
 Personally Identifiable Information, but still provide minimal data.
 Provides a subset of App from the Identity domain.
+
+
+
+
