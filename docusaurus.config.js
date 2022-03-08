@@ -19,9 +19,9 @@ module.exports = {
             items: [
                 {
                     type: "doc",
-                    docId: "concepts/intro",
+                    docId: "concepts/why",
                     position: "left",
-                    label: "Concepts",
+                    label: "Getting Started",
                 },
                 {
                     type: "doc",
@@ -43,8 +43,8 @@ module.exports = {
                     title: "Docs",
                     items: [
                         {
-                            label: "Concepts",
-                            to: "/concepts/intro",
+                            label: "Getting Started",
+                            to: "/concepts/why",
                         },
                         {
                             label: "Developers",
