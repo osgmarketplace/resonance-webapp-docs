@@ -1,0 +1,44 @@
+---
+id: supplier-product-connection-with-search
+title: SupplierProductConnectionWithSearch
+---
+
+
+Paginate through SupplierProducts
+
+
+```graphql
+type SupplierProductConnectionWithSearch {
+  edges: [SupplierProductEdge]!
+  nodes: [SupplierProduct]!
+  pageInfo: PageInfo!
+  querySuggestions: JSON
+}
+```
+
+
+### Fields
+
+#### `edges` ([`SupplierProductEdge`](/developers/supplier-apis/supply-api/graphql/reference/objects/supplier-product-edge))
+
+
+
+
+#### `nodes` ([`SupplierProduct`](/developers/supplier-apis/supply-api/graphql/reference/objects/supplier-product))
+
+
+
+
+#### `pageInfo` ([`PageInfo`](/developers/supplier-apis/supply-api/graphql/reference/objects/page-info))
+
+
+
+
+#### `querySuggestions` ([`JSON`](/developers/supplier-apis/supply-api/graphql/reference/scalars/json))
+
+This is an object with terms in the query as keys, and a suggestion for that
+term as the value. This is often referred to as 'Did you mean?'
+
+
+
+

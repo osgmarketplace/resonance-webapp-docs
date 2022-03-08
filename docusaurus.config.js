@@ -19,9 +19,9 @@ module.exports = {
             items: [
                 {
                     type: "doc",
-                    docId: "concepts/intro",
+                    docId: "concepts/why",
                     position: "left",
-                    label: "Concepts",
+                    label: "Getting Started",
                 },
                 {
                     type: "doc",
@@ -43,8 +43,8 @@ module.exports = {
                     title: "Docs",
                     items: [
                         {
-                            label: "Concepts",
-                            to: "/concepts/intro",
+                            label: "Getting Started",
+                            to: "/concepts/why",
                         },
                         {
                             label: "Developers",
@@ -92,21 +92,7 @@ module.exports = {
         [
             "@edno/docusaurus2-graphql-doc-generator",
             {
-                id: "adminidentity-api",
-                schema: "./adminidentityschema.graphql",
                 rootPath: "./docs",
-                baseURL:
-                    "developers/shared-apis/adminidentity-api/graphql/reference",
-            },
-        ],
-        [
-            "@edno/docusaurus2-graphql-doc-generator",
-            {
-                id: "supply-api",
-                schema: "./supplyschema.graphql",
-                rootPath: "./docs",
-                baseURL:
-                    "developers/supplier-apis/supply-api/graphql/reference",
             },
         ],
     ],

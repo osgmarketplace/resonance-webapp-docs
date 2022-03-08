@@ -1,0 +1,63 @@
+---
+id: public-suppliers
+title: publicSuppliers
+---
+
+
+List PublicSuppliers
+
+
+```graphql
+publicSuppliers(
+  after: String
+  before: String
+  first: Int
+  last: Int
+  query: String
+  supplierIds: [ID!]
+): PublicSupplierConnection!
+
+```
+
+
+### Arguments
+
+#### `after` ([`String`](/developers/supplier-apis/supply-api/graphql/reference/scalars/string))
+
+Returns the elements in the list that come after the specified cursor.
+
+
+#### `before` ([`String`](/developers/supplier-apis/supply-api/graphql/reference/scalars/string))
+
+Returns the elements in the list that come before the specified cursor.
+
+
+#### `first` ([`Int`](/developers/supplier-apis/supply-api/graphql/reference/scalars/int))
+
+Returns the first n elements from the list.
+
+
+#### `last` ([`Int`](/developers/supplier-apis/supply-api/graphql/reference/scalars/int))
+
+Returns the last n elements from the list.
+
+
+#### `query` ([`String`](/developers/supplier-apis/supply-api/graphql/reference/scalars/string))
+
+
+
+
+#### `supplierIds` ([`ID`](/developers/supplier-apis/supply-api/graphql/reference/scalars/id))
+
+
+
+
+### Type
+
+#### [`PublicSupplierConnection`](/developers/supplier-apis/supply-api/graphql/reference/objects/public-supplier-connection) 
+
+Paginate through PublicSupplier
+
+
+
+

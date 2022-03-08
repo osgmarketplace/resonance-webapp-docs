@@ -15,6 +15,7 @@ type SupplierIdentity {
   permissions: SupplierIdentityPermissions!
   publicIdentity: PublicIdentity
   publicIdentityParent: PublicIdentityParent
+  supplier: Supplier
   supplierId: ID!
   updatedBy: String!
 }
@@ -51,6 +52,11 @@ Get a public identity by id
 #### `publicIdentityParent` ([`PublicIdentityParent`](/developers/supplier-apis/supply-api/graphql/reference/unions/public-identity-parent))
 
 Get the expanded publicIdentityParent for this SupplierIdentity
+
+
+#### `supplier` ([`Supplier`](/developers/supplier-apis/supply-api/graphql/reference/objects/supplier))
+
+Get the supplier associated with this SupplierIdentity.
 
 
 #### `supplierId` ([`ID`](/developers/supplier-apis/supply-api/graphql/reference/scalars/id))

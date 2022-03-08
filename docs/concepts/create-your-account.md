@@ -1,6 +1,6 @@
 ---
 title: Create your Account
-sidebar_position: 1
+sidebar_position: 2
 ---
 
 # Create your Account
