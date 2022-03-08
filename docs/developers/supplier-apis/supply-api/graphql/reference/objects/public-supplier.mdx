@@ -1,21 +1,19 @@
 ---
-id: supplier-update-input
-title: SupplierUpdateInput
+id: public-supplier
+title: PublicSupplier
 ---
 
 
-The possible fields in order to update a supplier.
+The parent-most entity of the Supplier Domain
 
 
 ```graphql
-type SupplierUpdateInput {
+type PublicSupplier {
   category: SupplierCategory
   description: String
   inStockProducts: Int
-  name: String
-  notificationUserNames: SupplierNotificationUserNamesInput
-  ownerUserName: String
-  status: SupplierStatus
+  name: String!
+  status: SupplierStatus!
   supplierId: ID!
   topVendors: [String!]
 }
@@ -40,17 +38,6 @@ The approximate number of in stock products this Supplier has on a typical basis
 
 
 #### `name` ([`String`](/developers/supplier-apis/supply-api/graphql/reference/scalars/string))
-
-
-
-
-#### `notificationUserNames` ([`SupplierNotificationUserNamesInput`](/developers/supplier-apis/supply-api/graphql/reference/inputs/supplier-notification-user-names-input))
-
-These users will get notified if something requires attention for this Supplier.
-If none are provided, ownerUserName will be notified.
-
-
-#### `ownerUserName` ([`String`](/developers/supplier-apis/supply-api/graphql/reference/scalars/string))
 
 
 

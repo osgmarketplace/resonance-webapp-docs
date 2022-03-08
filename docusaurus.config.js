@@ -92,21 +92,7 @@ module.exports = {
         [
             "@edno/docusaurus2-graphql-doc-generator",
             {
-                id: "adminidentity-api",
-                schema: "./adminidentityschema.graphql",
                 rootPath: "./docs",
-                baseURL:
-                    "developers/shared-apis/adminidentity-api/graphql/reference",
-            },
-        ],
-        [
-            "@edno/docusaurus2-graphql-doc-generator",
-            {
-                id: "supply-api",
-                schema: "./supplyschema.graphql",
-                rootPath: "./docs",
-                baseURL:
-                    "developers/supplier-apis/supply-api/graphql/reference",
             },
         ],
     ],

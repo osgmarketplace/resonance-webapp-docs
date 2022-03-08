@@ -17,6 +17,3 @@ Once you have done so, you can run:
 `npm run build:gql`
 
 Which rebuilds all of the GQL documentation from the downloaded schemas.
-
-NOTE: At current point, the plugin only works on one at a time, so comment the config in and out while you run the command as needed.
-https://github.com/edno/graphql-markdown/issues/255

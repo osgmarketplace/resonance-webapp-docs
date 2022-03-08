@@ -9,16 +9,24 @@ The necessary fields in order to create a new supplier
 
 ```graphql
 type SupplierCreateInput {
+  category: SupplierCategory
   defaultCurrency: ResonanceCurrency!
   defaultLocaleType: ResonanceLocaleType!
   description: String
+  inStockProducts: Int
   name: String!
   notificationUserNames: SupplierNotificationUserNamesInput
+  topVendors: [String!]
 }
 ```
 
 
 ### Fields
+
+#### `category` ([`SupplierCategory`](/developers/supplier-apis/supply-api/graphql/reference/enums/supplier-category))
+
+Indicates the vertical the majority of a Supplier's goods are in.
+
 
 #### `defaultCurrency` ([`ResonanceCurrency`](/developers/supplier-apis/supply-api/graphql/reference/enums/resonance-currency))
 
@@ -35,6 +43,11 @@ type SupplierCreateInput {
 
 
 
+#### `inStockProducts` ([`Int`](/developers/supplier-apis/supply-api/graphql/reference/scalars/int))
+
+The approximate number of in stock products this Supplier has on a typical basis.
+
+
 #### `name` ([`String`](/developers/supplier-apis/supply-api/graphql/reference/scalars/string))
 
 
@@ -44,6 +57,11 @@ type SupplierCreateInput {
 
 These users will get notified if something requires attention for this Supplier.
 If none are provided, ownerUserName will be notified.
+
+
+#### `topVendors` ([`String`](/developers/supplier-apis/supply-api/graphql/reference/scalars/string))
+
+The top Brands or Vendors this Supplier carries, limit 5 and 256 characters each.
 
 
 

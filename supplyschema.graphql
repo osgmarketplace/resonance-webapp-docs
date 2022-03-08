@@ -31,6 +31,21 @@ enum AppType {
 """A date in ISO 8601 format"""
 scalar Date
 
+"""Indicates how a filter should behave, defaults to OR"""
+enum FilterOperator {
+  AND
+  NOT
+  OR
+}
+
+"""
+Filter using a min/max number range, in combination these function like an 'Any' filter.
+"""
+input FloatRangeFilterInput {
+  max: Float!
+  min: Float!
+}
+
 """
 The `JSON` scalar type represents JSON values as specified by [ECMA-404](http://www.ecma-international.org/publications/files/ECMA-ST/ECMA-404.pdf).
 """
@@ -61,7 +76,7 @@ type Mutation {
   """
   Create a new SupplierProduct and its associated ContentItems, Locales, and Variants in one mutation
   """
-  createSupplierProductComposite(input: SupplierProductCompositeCreateInput!): SupplierProductCompositeCreateResponse!
+  createSupplierProductComposite(input: SupplierProductCompositeCreateInput!): SupplierProductComposite!
 
   """Create an Image SupplierProductContentItem from a File"""
   createSupplierProductImageFromFile(input: SupplierProductImageFromFileInput!): SupplierProductImageFromFileResponse!
@@ -81,7 +96,7 @@ type Mutation {
   """
   Create both a new supplierVariant and supplierVariantSupplement simultaneously
   """
-  createSupplierVariantComposite(input: SupplierVariantCompositeCreateInput!): SupplierVariantCompositeCreateResponse!
+  createSupplierVariantComposite(input: SupplierVariantCompositeCreateInput!): SupplierVariantComposite!
 
   """
   Create a new supplierVariantSupplement
@@ -269,6 +284,38 @@ Currently, this is for Apps only.
 """
 union PublicIdentityParent = PublicApp
 
+"""The parent-most entity of the Supplier Domain"""
+type PublicSupplier {
+  """Indicates the vertical the majority of a Supplier's goods are in."""
+  category: SupplierCategory
+  description: String
+
+  """
+  The approximate number of in stock products this Supplier has on a typical basis.
+  """
+  inStockProducts: Int
+  name: String!
+  status: SupplierStatus!
+  supplierId: ID!
+
+  """
+  The top Brands or Vendors this Supplier carries, limit 5 and 256 characters each.
+  """
+  topVendors: [String!]
+}
+
+"""Paginate through PublicSupplier"""
+type PublicSupplierConnection {
+  edges: [PublicSupplierEdge]!
+  nodes: [PublicSupplier]!
+  pageInfo: PageInfo!
+}
+
+"""One edge producing one PublicSupplier Node"""
+type PublicSupplierEdge {
+  node: PublicSupplier
+}
+
 """The root query type for the Supply domain"""
 type Query {
   """Nothing to see here, just a workaround for Apollo Server"""
@@ -296,6 +343,25 @@ type Query {
     """The SupplierId to retrieve events for"""
     supplierId: ID!
   ): SupplyEventConnection!
+
+  """List PublicSuppliers"""
+  publicSuppliers(
+    """Returns the elements in the list that come after the specified cursor."""
+    after: String
+
+    """
+    Returns the elements in the list that come before the specified cursor.
+    """
+    before: String
+
+    """Returns the first n elements from the list."""
+    first: Int
+
+    """Returns the last n elements from the list."""
+    last: Int
+    query: String
+    supplierIds: [ID!]
+  ): PublicSupplierConnection!
 
   """
   Get a single supplier by SupplierId
@@ -415,27 +481,6 @@ type Query {
   supplierVariants(supplierVariantIds: [ID!]!): SupplierVariantConnection!
 
   """
-  Get a list of suppliers
-  
-  Requires supplier/read permission on the requesting identity
-  """
-  suppliers(
-    """Returns the elements in the list that come after the specified cursor."""
-    after: String
-
-    """
-    Returns the elements in the list that come before the specified cursor.
-    """
-    before: String
-
-    """Returns the first n elements from the list."""
-    first: Int
-
-    """Returns the last n elements from the list."""
-    last: Int
-  ): SupplierConnection!
-
-  """
   Get a supplyEventSubscription by id. Requires you to own the subscription.
   """
   supplyEventSubscription(eventSubscriptionId: ID!): SupplyEventSubscription
@@ -498,12 +543,31 @@ enum ResonanceLocaleType {
   EN_US
 }
 
+"""Indicates which direction to sort, defaults to ASC"""
+enum SortDirection {
+  ASC
+  DESC
+}
+
+"""Filter using a combination of operator and an array of string values"""
+input StringFilterInput {
+  operator: FilterOperator
+  values: [String!]!
+}
+
 """The parent-most entity of the Supplier Domain"""
 type Supplier {
+  """Indicates the vertical the majority of a Supplier's goods are in."""
+  category: SupplierCategory
   createdAt: String!
   defaultCurrency: ResonanceCurrency!
   defaultLocaleType: ResonanceLocaleType!
   description: String
+
+  """
+  The approximate number of in stock products this Supplier has on a typical basis.
+  """
+  inStockProducts: Int
 
   """
   List supplyEventSubscriptions by filtering for your identity for this supplier.
@@ -607,6 +671,14 @@ type Supplier {
   supplierProduct(supplierProductId: ID!): SupplierProduct
 
   """
+  Term aggregations for SupplierProducts, typically used to suggest terms to use in Search Filters.
+  """
+  supplierProductTermAggregations(
+    """The number of aggregations to return for each type."""
+    numberOfResults: Int!
+  ): SupplierProductTermAggregations
+
+  """
   List SupplierProducts for a Supplier.
   
   Requires supplierproduct/read permission on the requesting identity
@@ -620,28 +692,80 @@ type Supplier {
     """
     before: String
 
+    """Filter SupplierProducts using cost ranges."""
+    cost: [FloatRangeFilterInput]
+
     """Returns the first n elements from the list."""
     first: Int
 
+    """Filter SupplierProducts using InventoryPolicy (Variant)."""
+    inventoryPolicy: [SupplierProductInventoryPolicyFilterInput]
+    inventoryStatus: SupplierVariantInventoryStatus
+
     """Returns the last n elements from the list."""
     last: Int
-  ): SupplierProductConnection!
+
+    """Filter SupplierProducts using Manufacturer (VariantSupplement)."""
+    manufacturer: [StringFilterInput]
+
+    """Filter SupplierProducts using MSRP ranges."""
+    msrp: [FloatRangeFilterInput]
+
+    """
+    Query supplierProducts for certain terms. Searches several fields, including
+    supplierProduct.tags, supplierProduct.title, supplierProduct.vendor,
+    supplierProductLocales.description, supplierProductLocales.featureBullets,
+    supplierVariantSupplements.barcode, supplierVariantSupplement.mpn,
+    supplierVariantSupplement.sku
+    """
+    query: String
+
+    """Filter SupplierProducts using recommendedPrice ranges."""
+    recommendedPrice: [FloatRangeFilterInput]
+
+    """
+    Sort SupplierProducts by a series of fields and directions, defaults to CREATED_AT/ASC.
+    """
+    sortOrder: [SupplierProductSortInput]
+
+    """Filter SupplierProducts using StandardizedColor (Variant)."""
+    standardizedColor: [SupplierProductStandardizedColorFilterInput]
+
+    """Filter SupplierProducts using Status."""
+    status: SupplierProductStatusFilterInput
+
+    """Filter SupplierProducts using Tags."""
+    tags: [StringFilterInput]
+
+    """Filter SupplierProducts using Vendors."""
+    vendor: StringFilterInput
+  ): SupplierProductConnectionWithSearch!
+
+  """
+  The top Brands or Vendors this Supplier carries, limit 5 and 256 characters each.
+  """
+  topVendors: [String!]
   updatedAt: String!
   updatedBy: ID!
 }
 
-"""Paginate through Suppliers"""
-type SupplierConnection {
-  edges: [SupplierEdge]!
-  nodes: [Supplier]!
-  pageInfo: PageInfo!
+"""Indicates the vertical the majority of a Supplier's goods are in."""
+enum SupplierCategory {
+  SPORTING_GOODS
 }
 
 """The necessary fields in order to create a new supplier"""
 input SupplierCreateInput {
+  """Indicates the vertical the majority of a Supplier's goods are in."""
+  category: SupplierCategory
   defaultCurrency: ResonanceCurrency!
   defaultLocaleType: ResonanceLocaleType!
   description: String
+
+  """
+  The approximate number of in stock products this Supplier has on a typical basis.
+  """
+  inStockProducts: Int
   name: String!
 
   """
@@ -649,11 +773,11 @@ input SupplierCreateInput {
   If none are provided, ownerUserName will be notified.
   """
   notificationUserNames: SupplierNotificationUserNamesInput
-}
 
-"""One edge producing one Supplier Node"""
-type SupplierEdge {
-  node: Supplier
+  """
+  The top Brands or Vendors this Supplier carries, limit 5 and 256 characters each.
+  """
+  topVendors: [String!]
 }
 
 """Indicates a User or App has permissions on a Supplier"""
@@ -669,6 +793,9 @@ type SupplierIdentity {
 
   """Get the expanded publicIdentityParent for this SupplierIdentity"""
   publicIdentityParent: PublicIdentityParent
+
+  """Get the supplier associated with this SupplierIdentity."""
+  supplier: Supplier
   supplierId: ID!
   updatedBy: String!
 }
@@ -884,6 +1011,14 @@ type SupplierProduct {
   vendor: String!
 }
 
+"""Response for creating a SupplierProductComposite"""
+type SupplierProductComposite {
+  supplierProduct: SupplierProduct!
+  supplierProductContentItems: [SupplierProductContentItem]
+  supplierProductLocales: [SupplierProductLocale]
+  supplierVariantComposites: [SupplierVariantComposite]
+}
+
 """
 The necessary fields to create a SupplierProductComposite, or a SupplierProduct
 and its ContentItems, Locales, and Variants in one mutation
@@ -895,19 +1030,17 @@ input SupplierProductCompositeCreateInput {
   supplierVariantInputs: [SupplierVariantCompositeInCompositeCreateInput]
 }
 
-"""Response for creating a SupplierProductComposite"""
-type SupplierProductCompositeCreateResponse {
-  supplierProduct: SupplierProduct!
-  supplierProductContentItems: [SupplierProductContentItem]
-  supplierProductLocales: [SupplierProductLocale]
-  supplierVariantComposites: [SupplierVariantCompositeCreateResponse]
-}
-
 """Paginate through SupplierProducts"""
-type SupplierProductConnection {
+type SupplierProductConnectionWithSearch {
   edges: [SupplierProductEdge]!
   nodes: [SupplierProduct]!
   pageInfo: PageInfo!
+
+  """
+  This is an object with terms in the query as keys, and a suggestion for that
+  term as the value. This is often referred to as 'Did you mean?'
+  """
+  querySuggestions: JSON
 }
 
 """
@@ -1114,6 +1247,12 @@ input SupplierProductImageFromUrlInput {
   url: String!
 }
 
+"""Filter SupplierProducts using InventoryPolicy (Variant)."""
+input SupplierProductInventoryPolicyFilterInput {
+  operator: FilterOperator
+  values: [SupplierVariantInventoryPolicy!]!
+}
+
 """
 This has a many to one relationship with SupplierProduct, and provides localized language data for the appropriate fields.
 There will often only be one of these, and it should be the one set in defaultLocale for the supplier.
@@ -1166,12 +1305,52 @@ input SupplierProductLocaleUpdateInput {
   supplierProductId: ID!
 }
 
+"""Indicates which field to sort by, defaults to CREATED_AT"""
+enum SupplierProductSortField {
+  COST
+  CREATED_AT
+  INVENTORY_QUANTITY
+  MSRP
+  RECOMMENDED_PRICE
+  RELEVANCE
+  TITLE
+  UPDATED_AT
+  VENDOR
+}
+
+"""Sort SupplierProducts by a field and direction."""
+input SupplierProductSortInput {
+  direction: SortDirection!
+  field: SupplierProductSortField!
+}
+
+"""Filter SupplierProducts using StandardizedColor (Variant)."""
+input SupplierProductStandardizedColorFilterInput {
+  operator: FilterOperator
+  values: [SupplierVariantStandardizedColor!]!
+}
+
 """Indicates whether a product is live and able to be ordered"""
 enum SupplierProductStatus {
   ARCHIVED
   DRAFT
   NEEDSREVIEW
   PUBLISHED
+}
+
+"""Filter SupplierProducts using Status."""
+input SupplierProductStatusFilterInput {
+  operator: FilterOperator
+  values: [SupplierProductStatus!]!
+}
+
+"""
+A Map of several fields of SupplierProduct and term aggregations for each
+"""
+type SupplierProductTermAggregations {
+  manufacturers: [TermAggregation!]
+  tags: [TermAggregation!]
+  vendors: [TermAggregation!]
 }
 
 """
@@ -1338,7 +1517,14 @@ enum SupplierStatus {
 
 """The possible fields in order to update a supplier."""
 input SupplierUpdateInput {
+  """Indicates the vertical the majority of a Supplier's goods are in."""
+  category: SupplierCategory
   description: String
+
+  """
+  The approximate number of in stock products this Supplier has on a typical basis.
+  """
+  inStockProducts: Int
   name: String
 
   """
@@ -1349,6 +1535,11 @@ input SupplierUpdateInput {
   ownerUserName: String
   status: SupplierStatus
   supplierId: ID!
+
+  """
+  The top Brands or Vendors this Supplier carries, limit 5 and 256 characters each.
+  """
+  topVendors: [String!]
 }
 
 """
@@ -1398,19 +1589,19 @@ type SupplierVariant {
 }
 
 """
+A flattended supplierVariant with an optional supplement to match the inputs and avoid clashes with subresolvers.
+"""
+type SupplierVariantComposite {
+  supplierVariant: SupplierVariant!
+  supplierVariantSupplement: SupplierVariantSupplement
+}
+
+"""
 The necessary fields in order to create a new supplierVariant and supplierVariantSupplement.
 """
 input SupplierVariantCompositeCreateInput {
   supplierVariantInput: SupplierVariantCreateInput!
   supplierVariantSupplementInput: SupplierVariantSupplementInCompositeCreateInput
-}
-
-"""
-A flattended supplierVariant with an optional supplement to match the inputs and avoid clashes with subresolvers.
-"""
-type SupplierVariantCompositeCreateResponse {
-  supplierVariant: SupplierVariant!
-  supplierVariantSupplement: SupplierVariantSupplement
 }
 
 """
@@ -1636,6 +1827,7 @@ type SupplierVariantSupplement {
   sku: String
   standardizedColor: SupplierVariantStandardizedColor
   supplierId: ID!
+  supplierProductId: ID!
   supplierVariantId: ID!
 
   """ISO Date"""
@@ -1686,6 +1878,7 @@ input SupplierVariantSupplementCreateInput {
   sku: String
   standardizedColor: SupplierVariantStandardizedColor
   supplierId: ID!
+  supplierProductId: ID!
   supplierVariantId: ID!
   weight: SupplierVariantWeightInput
 }
@@ -1989,4 +2182,12 @@ type SupplyEventSubscriptionEdge {
 enum SupplyEventSubscriptionEntityType {
   DOMAINENTITY
   IDENTITY
+}
+
+"""
+Indicates the key of the term aggregation, and approximately how many documents it occurs in. 
+"""
+type TermAggregation {
+  docCount: Int!
+  key: String!
 }

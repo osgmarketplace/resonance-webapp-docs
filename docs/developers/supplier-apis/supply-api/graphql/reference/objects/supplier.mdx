@@ -9,10 +9,12 @@ The parent-most entity of the Supplier Domain
 
 ```graphql
 type Supplier {
+  category: SupplierCategory
   createdAt: String!
   defaultCurrency: ResonanceCurrency!
   defaultLocaleType: ResonanceLocaleType!
   description: String
+  inStockProducts: Int
   mySupplyEventSubscriptions(
   after: String
   before: String
@@ -52,12 +54,28 @@ type Supplier {
   supplierProduct(
   supplierProductId: ID!
 ): SupplierProduct
+  supplierProductTermAggregations(
+  numberOfResults: Int!
+): SupplierProductTermAggregations
   supplierProducts(
   after: String
   before: String
+  cost: [FloatRangeFilterInput]
   first: Int
+  inventoryPolicy: [SupplierProductInventoryPolicyFilterInput]
+  inventoryStatus: SupplierVariantInventoryStatus
   last: Int
-): SupplierProductConnection!
+  manufacturer: [StringFilterInput]
+  msrp: [FloatRangeFilterInput]
+  query: String
+  recommendedPrice: [FloatRangeFilterInput]
+  sortOrder: [SupplierProductSortInput]
+  standardizedColor: [SupplierProductStandardizedColorFilterInput]
+  status: SupplierProductStatusFilterInput
+  tags: [StringFilterInput]
+  vendor: StringFilterInput
+): SupplierProductConnectionWithSearch!
+  topVendors: [String!]
   updatedAt: String!
   updatedBy: ID!
 }
@@ -65,6 +83,11 @@ type Supplier {
 
 
 ### Fields
+
+#### `category` ([`SupplierCategory`](/developers/supplier-apis/supply-api/graphql/reference/enums/supplier-category))
+
+Indicates the vertical the majority of a Supplier's goods are in.
+
 
 #### `createdAt` ([`String`](/developers/supplier-apis/supply-api/graphql/reference/scalars/string))
 
@@ -84,6 +107,11 @@ type Supplier {
 #### `description` ([`String`](/developers/supplier-apis/supply-api/graphql/reference/scalars/string))
 
 
+
+
+#### `inStockProducts` ([`Int`](/developers/supplier-apis/supply-api/graphql/reference/scalars/int))
+
+The approximate number of in stock products this Supplier has on a typical basis.
 
 
 #### `mySupplyEventSubscriptions` ([`SupplyEventSubscriptionConnection`](/developers/supplier-apis/supply-api/graphql/reference/objects/supply-event-subscription-connection))
@@ -246,7 +274,15 @@ Requires supplierproduct/read permission on the requesting identity
 
 
 
-#### `supplierProducts` ([`SupplierProductConnection`](/developers/supplier-apis/supply-api/graphql/reference/objects/supplier-product-connection))
+#### `supplierProductTermAggregations` ([`SupplierProductTermAggregations`](/developers/supplier-apis/supply-api/graphql/reference/objects/supplier-product-term-aggregations))
+
+Term aggregations for SupplierProducts, typically used to suggest terms to use in Search Filters.
+- ##### `numberOfResults` ([`Int`](/developers/supplier-apis/supply-api/graphql/reference/scalars/int))
+
+The number of aggregations to return for each type.
+
+
+#### `supplierProducts` ([`SupplierProductConnectionWithSearch`](/developers/supplier-apis/supply-api/graphql/reference/objects/supplier-product-connection-with-search))
 
 List SupplierProducts for a Supplier.
 
@@ -261,14 +297,83 @@ Returns the elements in the list that come after the specified cursor.
 Returns the elements in the list that come before the specified cursor.
 
 
+- ##### `cost` ([`FloatRangeFilterInput`](/developers/supplier-apis/supply-api/graphql/reference/inputs/float-range-filter-input))
+
+Filter SupplierProducts using cost ranges.
+
+
 - ##### `first` ([`Int`](/developers/supplier-apis/supply-api/graphql/reference/scalars/int))
 
 Returns the first n elements from the list.
 
 
+- ##### `inventoryPolicy` ([`SupplierProductInventoryPolicyFilterInput`](/developers/supplier-apis/supply-api/graphql/reference/inputs/supplier-product-inventory-policy-filter-input))
+
+Filter SupplierProducts using InventoryPolicy (Variant).
+
+
+- ##### `inventoryStatus` ([`SupplierVariantInventoryStatus`](/developers/supplier-apis/supply-api/graphql/reference/enums/supplier-variant-inventory-status))
+
+
+
+
 - ##### `last` ([`Int`](/developers/supplier-apis/supply-api/graphql/reference/scalars/int))
 
 Returns the last n elements from the list.
+
+
+- ##### `manufacturer` ([`StringFilterInput`](/developers/supplier-apis/supply-api/graphql/reference/inputs/string-filter-input))
+
+Filter SupplierProducts using Manufacturer (VariantSupplement).
+
+
+- ##### `msrp` ([`FloatRangeFilterInput`](/developers/supplier-apis/supply-api/graphql/reference/inputs/float-range-filter-input))
+
+Filter SupplierProducts using MSRP ranges.
+
+
+- ##### `query` ([`String`](/developers/supplier-apis/supply-api/graphql/reference/scalars/string))
+
+Query supplierProducts for certain terms. Searches several fields, including
+supplierProduct.tags, supplierProduct.title, supplierProduct.vendor,
+supplierProductLocales.description, supplierProductLocales.featureBullets,
+supplierVariantSupplements.barcode, supplierVariantSupplement.mpn,
+supplierVariantSupplement.sku
+
+
+- ##### `recommendedPrice` ([`FloatRangeFilterInput`](/developers/supplier-apis/supply-api/graphql/reference/inputs/float-range-filter-input))
+
+Filter SupplierProducts using recommendedPrice ranges.
+
+
+- ##### `sortOrder` ([`SupplierProductSortInput`](/developers/supplier-apis/supply-api/graphql/reference/inputs/supplier-product-sort-input))
+
+Sort SupplierProducts by a series of fields and directions, defaults to CREATED_AT/ASC.
+
+
+- ##### `standardizedColor` ([`SupplierProductStandardizedColorFilterInput`](/developers/supplier-apis/supply-api/graphql/reference/inputs/supplier-product-standardized-color-filter-input))
+
+Filter SupplierProducts using StandardizedColor (Variant).
+
+
+- ##### `status` ([`SupplierProductStatusFilterInput`](/developers/supplier-apis/supply-api/graphql/reference/inputs/supplier-product-status-filter-input))
+
+Filter SupplierProducts using Status.
+
+
+- ##### `tags` ([`StringFilterInput`](/developers/supplier-apis/supply-api/graphql/reference/inputs/string-filter-input))
+
+Filter SupplierProducts using Tags.
+
+
+- ##### `vendor` ([`StringFilterInput`](/developers/supplier-apis/supply-api/graphql/reference/inputs/string-filter-input))
+
+Filter SupplierProducts using Vendors.
+
+
+#### `topVendors` ([`String`](/developers/supplier-apis/supply-api/graphql/reference/scalars/string))
+
+The top Brands or Vendors this Supplier carries, limit 5 and 256 characters each.
 
 
 #### `updatedAt` ([`String`](/developers/supplier-apis/supply-api/graphql/reference/scalars/string))
