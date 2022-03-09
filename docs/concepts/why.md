@@ -16,9 +16,9 @@ Resonance is a headless e-commerce platform focused on Marketplaces. Lets break 
 
 _Headless_ means "bring your own frontend". The platform is setup to be framework-agnostic (though we may be opinionated).
 
-A _Marketplace_ is an e-commerce site with multiple suppliers to sell goods from. This means an individual product SKU may come from more than one possible supplier. This enables an e-commerce site to expand selection, have greater in stock percentages, and satisfy more customers. Resonance simplifies the experience of **becoming** for e-commerce merchants. This should not be confused with **working with** marketplaces like Amazon and Ebay.
+A _Marketplace_ is an e-commerce site with multiple suppliers to sell goods from. This means an individual product SKU may come from more than one possible supplier. This enables an e-commerce site to expand selection, have greater in stock percentages, and satisfy more customers. Resonance simplifies the experience of **becoming** a marketplace for e-commerce merchants. This should not be confused with **working with** marketplaces like Amazon and Ebay.
 
-Resonance is composed of [Suppliers](suppliers/supplier-concepts) and [DemandHQs](demand-hq/demand-hq-concepts). These can be viewed similarly to the economics concepts of Supply and Demand. Suppliers and DemandHQs are handled separately from one another, and any DemandHQ can form a relationship with any Supplier, including serving many DemandHQs.
+Resonance is composed of [Suppliers](suppliers/supplier-concepts) and [DemandHQs](demand-hq/demand-hq-concepts). These can be viewed similarly to the economics concepts of Supply and Demand. [Suppliers](suppliers/supplier-concepts) and [DemandHQs](demand-hq/demand-hq-concepts) are handled separately from one another, and any [DemandHQ](demand-hq/demand-hq-concepts) can form a relationship with any Supplier, including serving many [DemandHQs](demand-hq/demand-hq-concepts).
 
 ## What are the benefits of being a Marketplace?
 
@@ -34,7 +34,7 @@ The main downside of marketplaces is that the data is more cumbersome to maintai
 
 ## How is this different from other e-commerce platforms?
 
-When compared to other headless e-commerce platforms, most others are just the DemandHQ side, and you are left to your own devices to solve any problems outside a single source of product.
+When compared to other headless e-commerce platforms, most others are just the [DemandHQ](demand-hq/demand-hq-concepts) side, and you are left to your own devices to solve any problems outside a single source of product.
 
 If this is Resonance:
 
