@@ -36,6 +36,12 @@ The main downside of marketplaces is that the data is more cumbersome to maintai
 
 When compared to other headless e-commerce platforms, most others are just the [DemandHQ](demand-hq/demand-hq-concepts) side, and you are left to your own devices to solve any problems outside a single source of product.
 
+The [Suppliers](suppliers/supplier-concepts) side of Resonance allows a warehouse to integrate its Products, and allow [DemandHQs](demand-hq/demand-hq-concepts) to sell them, paying the [Supplier](suppliers/supplier-concepts) when this occurs. By separating this concept from a [DemandHQ](demand-hq/demand-hq-concepts)'s own inventory, it allows for:
+
+-   Multiple [Suppliers](suppliers/supplier-concepts) to provide the same Product and Variant to one [DemandHQ](demand-hq/demand-hq-concepts).
+-   A [Supplier](suppliers/supplier-concepts) to provide its Products to more than one [DemandHQ](demand-hq/demand-hq-concepts).
+-   A [DemandHQ](demand-hq/demand-hq-concepts) to have full control over the presentation of its Products.
+
 If this is Resonance:
 
 ![Resonance Diagram](pathname:///img/resonance-simple-diagram.png)
