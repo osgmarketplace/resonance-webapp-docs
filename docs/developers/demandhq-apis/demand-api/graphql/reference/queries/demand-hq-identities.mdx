@@ -1,0 +1,88 @@
+---
+id: demand-hq-identities
+title: demandHqIdentities
+---
+
+
+Get a filtered list of DemandHqIdentities
+
+All of the filters are optional, but you must include at least one.
+You may receive less demandHqIdentities than you indicate if you do not have
+permission to read part of the result set.
+
+Not all filter combinations are valid, for example you cannot filter by
+- identityId + identityParentEntityId (requires demandHqId)
+- identityType only (requires demandHqId)
+
+Requires demandHqidentity/read permission on the requesting identity for each demandHq requested,
+or you can request your own identities.
+
+
+```graphql
+demandHqIdentities(
+  after: String
+  before: String
+  demandHqId: ID
+  first: Int
+  identityId: ID
+  identityParentEntityId: ID
+  identityType: DemandHqIdentityType
+  last: Int
+): DemandHqIdentityConnection!
+
+```
+
+
+### Arguments
+
+#### `after` ([`String`](/developers/demandhq-apis/demand-api/graphql/reference/scalars/string))
+
+Returns the elements in the list that come after the specified cursor.
+
+
+#### `before` ([`String`](/developers/demandhq-apis/demand-api/graphql/reference/scalars/string))
+
+Returns the elements in the list that come before the specified cursor.
+
+
+#### `demandHqId` ([`ID`](/developers/demandhq-apis/demand-api/graphql/reference/scalars/id))
+
+Filter the results to a specific demandHqId. (optional)
+
+
+#### `first` ([`Int`](/developers/demandhq-apis/demand-api/graphql/reference/scalars/int))
+
+Returns the first n elements from the list.
+
+
+#### `identityId` ([`ID`](/developers/demandhq-apis/demand-api/graphql/reference/scalars/id))
+
+Filter the results to a specific identityId.
+Use this with your own userName or appClientId in order to see "My DemandHqIdentities".
+You automatically have access to your own DemandHqIdentities.
+
+
+#### `identityParentEntityId` ([`ID`](/developers/demandhq-apis/demand-api/graphql/reference/scalars/id))
+
+Filter the results to a specific identityParentEntityId (optional)
+
+
+#### `identityType` ([`DemandHqIdentityType`](/developers/demandhq-apis/demand-api/graphql/reference/enums/demand-hq-identity-type))
+
+Filter the results to a specific identity type (optional)
+
+
+#### `last` ([`Int`](/developers/demandhq-apis/demand-api/graphql/reference/scalars/int))
+
+Returns the last n elements from the list.
+
+
+### Type
+
+#### [`DemandHqIdentityConnection`](/developers/demandhq-apis/demand-api/graphql/reference/objects/demand-hq-identity-connection) 
+
+Paginate through DemandHqIdentities
+
+
+
+

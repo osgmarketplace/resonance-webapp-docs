@@ -1,0 +1,90 @@
+---
+id: storefront
+title: Storefront
+---
+
+
+A Storefront represents a customer facing ecommerce website that consumes Resonance Demand Entities
+
+
+```graphql
+type Storefront {
+  apiKey(
+  slug: String!
+): StorefrontApiKey
+  apiKeys: [StorefrontApiKey]!
+  createdAt: Date!
+  demandHqId: ID!
+  description: String
+  name: String!
+  storefrontId: ID!
+  storefrontIdentities: [StorefrontIdentity!]
+  updatedAt: Date!
+  updatedBy: ID!
+  urlDomain: String!
+}
+```
+
+
+### Fields
+
+#### `apiKey` ([`StorefrontApiKey`](/developers/demandhq-apis/demand-api/graphql/reference/objects/storefront-api-key))
+
+Get an api key for this storefront by identitySlug.
+- ##### `slug` ([`String`](/developers/demandhq-apis/demand-api/graphql/reference/scalars/string))
+
+
+
+
+#### `apiKeys` ([`StorefrontApiKey`](/developers/demandhq-apis/demand-api/graphql/reference/objects/storefront-api-key))
+
+Get all api keys for this storefront.
+
+
+#### `createdAt` ([`Date`](/developers/demandhq-apis/demand-api/graphql/reference/scalars/date))
+
+
+
+
+#### `demandHqId` ([`ID`](/developers/demandhq-apis/demand-api/graphql/reference/scalars/id))
+
+
+
+
+#### `description` ([`String`](/developers/demandhq-apis/demand-api/graphql/reference/scalars/string))
+
+
+
+
+#### `name` ([`String`](/developers/demandhq-apis/demand-api/graphql/reference/scalars/string))
+
+
+
+
+#### `storefrontId` ([`ID`](/developers/demandhq-apis/demand-api/graphql/reference/scalars/id))
+
+
+
+
+#### `storefrontIdentities` ([`StorefrontIdentity`](/developers/demandhq-apis/demand-api/graphql/reference/objects/storefront-identity))
+
+
+
+
+#### `updatedAt` ([`Date`](/developers/demandhq-apis/demand-api/graphql/reference/scalars/date))
+
+
+
+
+#### `updatedBy` ([`ID`](/developers/demandhq-apis/demand-api/graphql/reference/scalars/id))
+
+
+
+
+#### `urlDomain` ([`String`](/developers/demandhq-apis/demand-api/graphql/reference/scalars/string))
+
+
+
+
+
+

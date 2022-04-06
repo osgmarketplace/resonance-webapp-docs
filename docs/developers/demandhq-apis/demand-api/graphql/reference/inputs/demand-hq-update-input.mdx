@@ -1,0 +1,56 @@
+---
+id: demand-hq-update-input
+title: DemandHqUpdateInput
+---
+
+
+The possible fields in order to update a demandHq.
+
+
+```graphql
+type DemandHqUpdateInput {
+  demandHqId: ID!
+  demandSubscriptionCodes: [DemandSubscriptionCode!]
+  description: String
+  name: String
+  notificationUserNames: DemandHqNotificationUserNamesInput
+  ownerUserName: String
+}
+```
+
+
+### Fields
+
+#### `demandHqId` ([`ID`](/developers/demandhq-apis/demand-api/graphql/reference/scalars/id))
+
+
+
+
+#### `demandSubscriptionCodes` ([`DemandSubscriptionCode`](/developers/demandhq-apis/demand-api/graphql/reference/enums/demand-subscription-code))
+
+
+
+
+#### `description` ([`String`](/developers/demandhq-apis/demand-api/graphql/reference/scalars/string))
+
+
+
+
+#### `name` ([`String`](/developers/demandhq-apis/demand-api/graphql/reference/scalars/string))
+
+
+
+
+#### `notificationUserNames` ([`DemandHqNotificationUserNamesInput`](/developers/demandhq-apis/demand-api/graphql/reference/inputs/demand-hq-notification-user-names-input))
+
+These users will get notified if something requires attention for this DemandHq.
+If none are provided, ownerUserName will be notified.
+
+
+#### `ownerUserName` ([`String`](/developers/demandhq-apis/demand-api/graphql/reference/scalars/string))
+
+
+
+
+
+

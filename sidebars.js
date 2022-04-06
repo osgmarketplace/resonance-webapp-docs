@@ -36,6 +36,14 @@ module.exports = {
                             label: "Concepts",
                             id: "developers/demandhq-apis/demand-api/concepts",
                         },
+                        {
+                            type: "category",
+                            label: "Reference",
+                            items: [
+                                ...require("./docs/developers/demandhq-apis/demand-api/graphql/reference/sidebar-schema.js")
+                                    .schemaSidebar,
+                            ],
+                        },
                     ],
                 },
                 {
@@ -46,6 +54,14 @@ module.exports = {
                             type: "doc",
                             label: "Concepts",
                             id: "developers/demandhq-apis/storefront-api/concepts",
+                        },
+                        {
+                            type: "category",
+                            label: "Reference",
+                            items: [
+                                ...require("./docs/developers/demandhq-apis/storefront-api/graphql/reference/sidebar-schema.js")
+                                    .schemaSidebar,
+                            ],
                         },
                     ],
                 },

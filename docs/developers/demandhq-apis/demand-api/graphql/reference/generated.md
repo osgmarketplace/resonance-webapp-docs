@@ -1,6 +1,6 @@
 ---
 id: schema
-slug: /developers/supplier-apis/supply-api/graphql/reference
+slug: /developers/demandhq-apis/demand-api/graphql/reference
 title: Schema Documentation
 sidebar_position: 1
 hide_table_of_contents: true
@@ -16,4 +16,4 @@ Use the docs in the sidebar to find out how to use the schema:
 - **Allowed operations**: queries and mutations.
 - **Schema-defined types**: scalars, objects, enums, interfaces, unions, and input objects.
 
-<small><i>Generated on 4/5/2022, 7:17:30 PM.</i></small>
+<small><i>Generated on 4/5/2022, 7:17:25 PM.</i></small>

@@ -1,0 +1,39 @@
+---
+id: page
+title: page
+---
+
+
+Get a page by pageId.
+            
+Required page/read permission on the given DemandHq.
+
+
+```graphql
+page(
+  pageId: ID!
+): Page
+
+```
+
+
+### Arguments
+
+#### `pageId` ([`ID`](/developers/demandhq-apis/demand-api/graphql/reference/scalars/id))
+
+
+
+
+### Type
+
+#### [`Page`](/developers/demandhq-apis/demand-api/graphql/reference/objects/page) 
+
+A Page is a part of the Demand Domain and represents a page with textual and
+image content on it, that has nothing to do with products.
+This can range from "About Us" pages to Blog articles. Use the "pageType" field to differentiate.
+Pages do not have locales specified, but since everything would be different
+anyway, "pageType" can be a composite key with locale in it.
+
+
+
+

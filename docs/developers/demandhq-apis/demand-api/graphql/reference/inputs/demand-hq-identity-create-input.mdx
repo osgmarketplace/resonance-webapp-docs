@@ -1,0 +1,49 @@
+---
+id: demand-hq-identity-create-input
+title: DemandHqIdentityCreateInput
+---
+
+
+Exactly like DemandHqIdentity, but no updatedBy or identityType (always User, Apps get installed)
+
+
+```graphql
+type DemandHqIdentityCreateInput {
+  demandHqId: ID!
+  identityId: ID!
+  identityParentEntityId: ID
+  identityType: DemandHqIdentityType!
+  permissions: DemandHqIdentityPermissionsInput!
+}
+```
+
+
+### Fields
+
+#### `demandHqId` ([`ID`](/developers/demandhq-apis/demand-api/graphql/reference/scalars/id))
+
+
+
+
+#### `identityId` ([`ID`](/developers/demandhq-apis/demand-api/graphql/reference/scalars/id))
+
+Always a user's userName (not appClientId)
+
+
+#### `identityParentEntityId` ([`ID`](/developers/demandhq-apis/demand-api/graphql/reference/scalars/id))
+
+
+
+
+#### `identityType` ([`DemandHqIdentityType`](/developers/demandhq-apis/demand-api/graphql/reference/enums/demand-hq-identity-type))
+
+Should always be USER
+
+
+#### `permissions` ([`DemandHqIdentityPermissionsInput`](/developers/demandhq-apis/demand-api/graphql/reference/inputs/demand-hq-identity-permissions-input))
+
+
+
+
+
+
