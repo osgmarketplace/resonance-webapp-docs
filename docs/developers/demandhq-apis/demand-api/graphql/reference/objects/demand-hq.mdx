@@ -1,0 +1,254 @@
+---
+id: demand-hq
+title: DemandHq
+---
+
+
+The parent-most entity of the DemandHq Domain
+
+
+```graphql
+type DemandHq {
+  createdAt: String!
+  defaultCurrency: ResonanceCurrency!
+  defaultLocaleType: ResonanceLocaleType!
+  demandHqId: ID!
+  demandHqIdentities(
+  after: String
+  before: String
+  first: Int
+  identityParentEntityId: ID
+  identityType: DemandHqIdentityType
+  last: Int
+): DemandHqIdentityConnection!
+  demandHqIdentity(
+  demandHqId: ID!
+  identityId: ID!
+): DemandHqIdentity
+  demandSubscriptionCodes: [DemandSubscriptionCode!]
+  description: String
+  name: String!
+  notificationUserNames: DemandHqNotificationUserNames
+  ownerUserName: String!
+  page(
+  pageId: ID
+  slug: String
+): Page!
+  pages(
+  after: String
+  before: String
+  first: Int
+  last: Int
+  pageType: String
+  status: PageStatus
+): PageConnection!
+  storefront(
+  storefrontId: ID!
+): Storefront
+  storefronts(
+  after: String
+  before: String
+  first: Int
+  last: Int
+): StorefrontConnection
+  updatedAt: String!
+  updatedBy: ID!
+}
+```
+
+
+### Fields
+
+#### `createdAt` ([`String`](/developers/demandhq-apis/demand-api/graphql/reference/scalars/string))
+
+
+
+
+#### `defaultCurrency` ([`ResonanceCurrency`](/developers/demandhq-apis/demand-api/graphql/reference/enums/resonance-currency))
+
+
+
+
+#### `defaultLocaleType` ([`ResonanceLocaleType`](/developers/demandhq-apis/demand-api/graphql/reference/enums/resonance-locale-type))
+
+
+
+
+#### `demandHqId` ([`ID`](/developers/demandhq-apis/demand-api/graphql/reference/scalars/id))
+
+
+
+
+#### `demandHqIdentities` ([`DemandHqIdentityConnection`](/developers/demandhq-apis/demand-api/graphql/reference/objects/demand-hq-identity-connection))
+
+Returns DemandHqIdentities for the given DemandHq
+
+Requires demandHqidentity/read permission on the requesting identity
+- ##### `after` ([`String`](/developers/demandhq-apis/demand-api/graphql/reference/scalars/string))
+
+Returns the elements in the list that come after the specified cursor.
+
+
+- ##### `before` ([`String`](/developers/demandhq-apis/demand-api/graphql/reference/scalars/string))
+
+Returns the elements in the list that come before the specified cursor.
+
+
+- ##### `first` ([`Int`](/developers/demandhq-apis/demand-api/graphql/reference/scalars/int))
+
+Returns the first n elements from the list.
+
+
+- ##### `identityParentEntityId` ([`ID`](/developers/demandhq-apis/demand-api/graphql/reference/scalars/id))
+
+Filter the results to a specific identityParentEntityId (optional)
+
+
+- ##### `identityType` ([`DemandHqIdentityType`](/developers/demandhq-apis/demand-api/graphql/reference/enums/demand-hq-identity-type))
+
+Filter the results to a specific identity type (optional)
+
+
+- ##### `last` ([`Int`](/developers/demandhq-apis/demand-api/graphql/reference/scalars/int))
+
+Returns the last n elements from the list.
+
+
+#### `demandHqIdentity` ([`DemandHqIdentity`](/developers/demandhq-apis/demand-api/graphql/reference/objects/demand-hq-identity))
+
+Returns a DemandHqIdentity for the given DemandHq
+
+Requires demandHqidentity/read permission on the requesting identity, or you can request your own identity.
+- ##### `demandHqId` ([`ID`](/developers/demandhq-apis/demand-api/graphql/reference/scalars/id))
+
+
+
+
+- ##### `identityId` ([`ID`](/developers/demandhq-apis/demand-api/graphql/reference/scalars/id))
+
+
+
+
+#### `demandSubscriptionCodes` ([`DemandSubscriptionCode`](/developers/demandhq-apis/demand-api/graphql/reference/enums/demand-subscription-code))
+
+
+
+
+#### `description` ([`String`](/developers/demandhq-apis/demand-api/graphql/reference/scalars/string))
+
+
+
+
+#### `name` ([`String`](/developers/demandhq-apis/demand-api/graphql/reference/scalars/string))
+
+
+
+
+#### `notificationUserNames` ([`DemandHqNotificationUserNames`](/developers/demandhq-apis/demand-api/graphql/reference/objects/demand-hq-notification-user-names))
+
+These users will get notified if something requires attention for this DemandHq.
+If none are provided, ownerUserName will be notified.
+
+
+#### `ownerUserName` ([`String`](/developers/demandhq-apis/demand-api/graphql/reference/scalars/string))
+
+
+
+
+#### `page` ([`Page`](/developers/demandhq-apis/demand-api/graphql/reference/objects/page))
+
+Get a page by pageId or slug (one must be provided).
+            
+Required page/read permission on the given DemandHq.
+- ##### `pageId` ([`ID`](/developers/demandhq-apis/demand-api/graphql/reference/scalars/id))
+
+
+
+
+- ##### `slug` ([`String`](/developers/demandhq-apis/demand-api/graphql/reference/scalars/string))
+
+
+
+
+#### `pages` ([`PageConnection`](/developers/demandhq-apis/demand-api/graphql/reference/objects/page-connection))
+
+List pages for a DemandHq with optional filters.
+            
+Required page/read permission on the given DemandHq.
+- ##### `after` ([`String`](/developers/demandhq-apis/demand-api/graphql/reference/scalars/string))
+
+Returns the elements in the list that come after the specified cursor.
+
+
+- ##### `before` ([`String`](/developers/demandhq-apis/demand-api/graphql/reference/scalars/string))
+
+Returns the elements in the list that come before the specified cursor.
+
+
+- ##### `first` ([`Int`](/developers/demandhq-apis/demand-api/graphql/reference/scalars/int))
+
+Returns the first n elements from the list.
+
+
+- ##### `last` ([`Int`](/developers/demandhq-apis/demand-api/graphql/reference/scalars/int))
+
+Returns the last n elements from the list.
+
+
+- ##### `pageType` ([`String`](/developers/demandhq-apis/demand-api/graphql/reference/scalars/string))
+
+
+
+
+- ##### `status` ([`PageStatus`](/developers/demandhq-apis/demand-api/graphql/reference/enums/page-status))
+
+
+
+
+#### `storefront` ([`Storefront`](/developers/demandhq-apis/demand-api/graphql/reference/objects/storefront))
+
+Get a storefront by its storefrontId.
+            
+Requires the storefront/read permission on the associated DemandHq.
+- ##### `storefrontId` ([`ID`](/developers/demandhq-apis/demand-api/graphql/reference/scalars/id))
+
+
+
+
+#### `storefronts` ([`StorefrontConnection`](/developers/demandhq-apis/demand-api/graphql/reference/objects/storefront-connection))
+
+List storefronts for a DemandHq.
+            
+Requires the storefront/read permission on the associated DemandHq.
+- ##### `after` ([`String`](/developers/demandhq-apis/demand-api/graphql/reference/scalars/string))
+
+Returns the elements in the list that come after the specified cursor.
+
+
+- ##### `before` ([`String`](/developers/demandhq-apis/demand-api/graphql/reference/scalars/string))
+
+Returns the elements in the list that come before the specified cursor.
+
+
+- ##### `first` ([`Int`](/developers/demandhq-apis/demand-api/graphql/reference/scalars/int))
+
+Returns the first n elements from the list.
+
+
+- ##### `last` ([`Int`](/developers/demandhq-apis/demand-api/graphql/reference/scalars/int))
+
+Returns the last n elements from the list.
+
+
+#### `updatedAt` ([`String`](/developers/demandhq-apis/demand-api/graphql/reference/scalars/string))
+
+
+
+
+#### `updatedBy` ([`ID`](/developers/demandhq-apis/demand-api/graphql/reference/scalars/id))
+
+
+
+
+
+

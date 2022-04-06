@@ -1,0 +1,91 @@
+---
+id: page-create-input
+title: PageCreateInput
+---
+
+
+Exactly like Page, but no publishedAt or Status (Status is set to DRAFT on create).
+
+
+```graphql
+type PageCreateInput {
+  author: String
+  contentItemIds: [ID!]
+  demandHqId: ID!
+  description: String
+  pageType: String!
+  primaryImageUrl: String
+  seoTitle: String
+  slug: String!
+  storefrontIds: [ID]
+  subtitle: String
+  tags: [String]
+  title: String!
+}
+```
+
+
+### Fields
+
+#### `author` ([`String`](/developers/demandhq-apis/demand-api/graphql/reference/scalars/string))
+
+The author of the page, limit 256 characters.
+
+
+#### `contentItemIds` ([`ID`](/developers/demandhq-apis/demand-api/graphql/reference/scalars/id))
+
+The ContentItemIds of the Content Items that are associated with this page.
+
+
+#### `demandHqId` ([`ID`](/developers/demandhq-apis/demand-api/graphql/reference/scalars/id))
+
+
+
+
+#### `description` ([`String`](/developers/demandhq-apis/demand-api/graphql/reference/scalars/string))
+
+A short description of the page, limit 1000 characters.
+
+
+#### `pageType` ([`String`](/developers/demandhq-apis/demand-api/graphql/reference/scalars/string))
+
+Any string to declare a category of this page, can be used to filter pages, limit 128 characters.
+
+
+#### `primaryImageUrl` ([`String`](/developers/demandhq-apis/demand-api/graphql/reference/scalars/string))
+
+A primary image url for this page, can be generated from a Page ContentItem.
+
+
+#### `seoTitle` ([`String`](/developers/demandhq-apis/demand-api/graphql/reference/scalars/string))
+
+Title specific for SEO purposes, limit 256 characters.
+
+
+#### `slug` ([`String`](/developers/demandhq-apis/demand-api/graphql/reference/scalars/string))
+
+Slug for the URL for this page. Limit 128 characters.
+
+
+#### `storefrontIds` ([`ID`](/developers/demandhq-apis/demand-api/graphql/reference/scalars/id))
+
+Which storefronts should have access to this page?
+
+
+#### `subtitle` ([`String`](/developers/demandhq-apis/demand-api/graphql/reference/scalars/string))
+
+The subtitle of the page, limit 256 characters.
+
+
+#### `tags` ([`String`](/developers/demandhq-apis/demand-api/graphql/reference/scalars/string))
+
+
+
+
+#### `title` ([`String`](/developers/demandhq-apis/demand-api/graphql/reference/scalars/string))
+
+The title of the page, limit 256 characters.
+
+
+
+

@@ -1,0 +1,101 @@
+"""A date in ISO 8601 format"""
+scalar Date
+
+"""This is the actual content of the page"""
+type PageContent {
+  """Get the markdown content of the page as parsed HTML."""
+  contentAsHtml: String
+  contentAsString: String!
+  pageId: ID!
+  updatedAt: String
+}
+
+"""These are the tags associated to the page"""
+type PageTags {
+  raw: [String]
+}
+
+"""
+A Page is a part of the Demand Domain and represents a page with textual and
+image content on it, that has nothing to do with products.
+This can range from "About Us" pages to Blog articles. Use the "pageType" field to differentiate.
+Pages do not have locales specified, but since everything would be different
+anyway, "pageType" can be a composite key with locale in it.
+"""
+type PublicPage {
+  """The author of the page, limit 256 characters."""
+  author: String
+
+  """Get the content of the page."""
+  content: PageContent
+  demandHqId: ID!
+
+  """A short description of the page, limit 1000 characters."""
+  description: String
+  pageId: ID!
+
+  """
+  Any string to declare a category of this page, can be used to filter pages, limit 128 characters.
+  """
+  pageType: String!
+
+  """
+  A primary image url for this page, can be generated from a Page ContentItem.
+  """
+  primaryImageUrl: String
+
+  """
+  ISO format date when the page was published. Note that ensuing updates with
+  status set to PUBLISHED will republish and re-set this date.
+  """
+  publishedAt: Date
+
+  """Title specific for SEO purposes, limit 256 characters."""
+  seoTitle: String
+
+  """Slug for the URL for this page. Limit 128 characters."""
+  slug: String!
+
+  """The subtitle of the page, limit 256 characters."""
+  subtitle: String
+
+  """Get the tags of the page."""
+  tags: PageTags
+
+  """The title of the page, limit 256 characters."""
+  title: String!
+}
+
+"""
+A Storefront is the parent-most entity in the Storefront API, and represents the entire site.
+"""
+type PublicStorefront {
+  demandHqId: ID!
+  description: String
+  name: String!
+  storefrontId: ID!
+  urlDomain: String!
+}
+
+"""The root query type for the Demand domain"""
+type Query {
+  """Nothing to see here, just a workaround for Apollo Server"""
+  _empty: String
+
+  """Returns the health of the service"""
+  health: String
+
+  """
+  Get a page by its slug.
+  
+  Requires the publicpage/read scope.
+  """
+  page(slug: String!): PublicPage
+
+  """
+  Get the storefront associated with the requesting storefront identity.
+              
+  Requires the "publicstorefront/read" permission.
+  """
+  storefront: PublicStorefront
+}

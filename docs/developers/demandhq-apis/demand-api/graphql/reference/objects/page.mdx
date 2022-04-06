@@ -1,0 +1,144 @@
+---
+id: page
+title: Page
+---
+
+
+A Page is a part of the Demand Domain and represents a page with textual and
+image content on it, that has nothing to do with products.
+This can range from "About Us" pages to Blog articles. Use the "pageType" field to differentiate.
+Pages do not have locales specified, but since everything would be different
+anyway, "pageType" can be a composite key with locale in it.
+
+
+```graphql
+type Page {
+  author: String
+  content: PageContent
+  contentItemIds: [ID!]
+  contentItems: [PageContentItem]
+  createdAt: Date!
+  demandHqId: ID!
+  description: String
+  pageId: ID!
+  pageType: String!
+  primaryImageUrl: String
+  publishedAt: Date
+  seoTitle: String
+  slug: String!
+  status: PageStatus!
+  storefrontIds: [ID]
+  subtitle: String
+  tags: PageTags
+  title: String!
+  updatedAt: Date!
+  updatedBy: ID!
+}
+```
+
+
+### Fields
+
+#### `author` ([`String`](/developers/demandhq-apis/demand-api/graphql/reference/scalars/string))
+
+The author of the page, limit 256 characters.
+
+
+#### `content` ([`PageContent`](/developers/demandhq-apis/demand-api/graphql/reference/objects/page-content))
+
+Get the content of the page.
+
+
+#### `contentItemIds` ([`ID`](/developers/demandhq-apis/demand-api/graphql/reference/scalars/id))
+
+The ContentItemIds of the Content Items that are associated with this page.
+
+
+#### `contentItems` ([`PageContentItem`](/developers/demandhq-apis/demand-api/graphql/reference/objects/page-content-item))
+
+Get the content items of the page.
+
+
+#### `createdAt` ([`Date`](/developers/demandhq-apis/demand-api/graphql/reference/scalars/date))
+
+
+
+
+#### `demandHqId` ([`ID`](/developers/demandhq-apis/demand-api/graphql/reference/scalars/id))
+
+
+
+
+#### `description` ([`String`](/developers/demandhq-apis/demand-api/graphql/reference/scalars/string))
+
+A short description of the page, limit 1000 characters.
+
+
+#### `pageId` ([`ID`](/developers/demandhq-apis/demand-api/graphql/reference/scalars/id))
+
+
+
+
+#### `pageType` ([`String`](/developers/demandhq-apis/demand-api/graphql/reference/scalars/string))
+
+Any string to declare a category of this page, can be used to filter pages, limit 128 characters.
+
+
+#### `primaryImageUrl` ([`String`](/developers/demandhq-apis/demand-api/graphql/reference/scalars/string))
+
+A primary image url for this page, can be generated from a Page ContentItem.
+
+
+#### `publishedAt` ([`Date`](/developers/demandhq-apis/demand-api/graphql/reference/scalars/date))
+
+ISO format date when the page was published. Note that ensuing updates with
+status set to PUBLISHED will republish and re-set this date.
+
+
+#### `seoTitle` ([`String`](/developers/demandhq-apis/demand-api/graphql/reference/scalars/string))
+
+Title specific for SEO purposes, limit 256 characters.
+
+
+#### `slug` ([`String`](/developers/demandhq-apis/demand-api/graphql/reference/scalars/string))
+
+Slug for the URL for this page. Limit 128 characters.
+
+
+#### `status` ([`PageStatus`](/developers/demandhq-apis/demand-api/graphql/reference/enums/page-status))
+
+The status of the page, can be DRAFT or PUBLISHED.
+
+
+#### `storefrontIds` ([`ID`](/developers/demandhq-apis/demand-api/graphql/reference/scalars/id))
+
+Which storefronts should have access to this page?
+
+
+#### `subtitle` ([`String`](/developers/demandhq-apis/demand-api/graphql/reference/scalars/string))
+
+The subtitle of the page, limit 256 characters.
+
+
+#### `tags` ([`PageTags`](/developers/demandhq-apis/demand-api/graphql/reference/objects/page-tags))
+
+Get the tags of the page.
+
+
+#### `title` ([`String`](/developers/demandhq-apis/demand-api/graphql/reference/scalars/string))
+
+The title of the page, limit 256 characters.
+
+
+#### `updatedAt` ([`Date`](/developers/demandhq-apis/demand-api/graphql/reference/scalars/date))
+
+
+
+
+#### `updatedBy` ([`ID`](/developers/demandhq-apis/demand-api/graphql/reference/scalars/id))
+
+
+
+
+
+

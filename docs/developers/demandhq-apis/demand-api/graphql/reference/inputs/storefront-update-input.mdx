@@ -1,0 +1,49 @@
+---
+id: storefront-update-input
+title: StorefrontUpdateInput
+---
+
+
+Necessary fields to update an existing storefront. Only the fields that are not null will be updated.
+
+
+```graphql
+type StorefrontUpdateInput {
+  description: String
+  name: String
+  storefrontId: ID!
+  storefrontIdentities: [StorefrontIdentityInput!]
+  urlDomain: String
+}
+```
+
+
+### Fields
+
+#### `description` ([`String`](/developers/demandhq-apis/demand-api/graphql/reference/scalars/string))
+
+
+
+
+#### `name` ([`String`](/developers/demandhq-apis/demand-api/graphql/reference/scalars/string))
+
+
+
+
+#### `storefrontId` ([`ID`](/developers/demandhq-apis/demand-api/graphql/reference/scalars/id))
+
+
+
+
+#### `storefrontIdentities` ([`StorefrontIdentityInput`](/developers/demandhq-apis/demand-api/graphql/reference/inputs/storefront-identity-input))
+
+
+
+
+#### `urlDomain` ([`String`](/developers/demandhq-apis/demand-api/graphql/reference/scalars/string))
+
+
+
+
+
+

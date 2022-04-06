@@ -1,0 +1,876 @@
+"""
+The response recieved when an app is installed or the permissions are updated
+"""
+type AppInstallationResponse {
+  demandHqIdentities: [DemandHqIdentity]!
+}
+
+"""A date in ISO 8601 format"""
+scalar Date
+
+"""Returned object from deletePageContentItem"""
+type DeletePageContentItemResponse {
+  """The contentItemId of the contentItem that was deleted."""
+  deletedId: ID!
+}
+
+"""The parent-most entity of the DemandHq Domain"""
+type DemandHq {
+  createdAt: String!
+  defaultCurrency: ResonanceCurrency!
+  defaultLocaleType: ResonanceLocaleType!
+  demandHqId: ID!
+
+  """
+  Returns DemandHqIdentities for the given DemandHq
+  
+  Requires demandHqidentity/read permission on the requesting identity
+  """
+  demandHqIdentities(
+    """Returns the elements in the list that come after the specified cursor."""
+    after: String
+
+    """
+    Returns the elements in the list that come before the specified cursor.
+    """
+    before: String
+
+    """Returns the first n elements from the list."""
+    first: Int
+
+    """Filter the results to a specific identityParentEntityId (optional)"""
+    identityParentEntityId: ID
+
+    """Filter the results to a specific identity type (optional)"""
+    identityType: DemandHqIdentityType
+
+    """Returns the last n elements from the list."""
+    last: Int
+  ): DemandHqIdentityConnection!
+
+  """
+  Returns a DemandHqIdentity for the given DemandHq
+  
+  Requires demandHqidentity/read permission on the requesting identity, or you can request your own identity.
+  """
+  demandHqIdentity(demandHqId: ID!, identityId: ID!): DemandHqIdentity
+  demandSubscriptionCodes: [DemandSubscriptionCode!]
+  description: String
+  name: String!
+
+  """
+  These users will get notified if something requires attention for this DemandHq.
+  If none are provided, ownerUserName will be notified.
+  """
+  notificationUserNames: DemandHqNotificationUserNames
+  ownerUserName: String!
+
+  """
+  Get a page by pageId or slug (one must be provided).
+              
+  Required page/read permission on the given DemandHq.
+  """
+  page(pageId: ID, slug: String): Page!
+
+  """
+  List pages for a DemandHq with optional filters.
+              
+  Required page/read permission on the given DemandHq.
+  """
+  pages(
+    """Returns the elements in the list that come after the specified cursor."""
+    after: String
+
+    """
+    Returns the elements in the list that come before the specified cursor.
+    """
+    before: String
+
+    """Returns the first n elements from the list."""
+    first: Int
+
+    """Returns the last n elements from the list."""
+    last: Int
+    pageType: String
+    status: PageStatus
+  ): PageConnection!
+
+  """
+  Get a storefront by its storefrontId.
+              
+  Requires the storefront/read permission on the associated DemandHq.
+  """
+  storefront(storefrontId: ID!): Storefront
+
+  """
+  List storefronts for a DemandHq.
+              
+  Requires the storefront/read permission on the associated DemandHq.
+  """
+  storefronts(
+    """Returns the elements in the list that come after the specified cursor."""
+    after: String
+
+    """
+    Returns the elements in the list that come before the specified cursor.
+    """
+    before: String
+
+    """Returns the first n elements from the list."""
+    first: Int
+
+    """Returns the last n elements from the list."""
+    last: Int
+  ): StorefrontConnection
+  updatedAt: String!
+  updatedBy: ID!
+}
+
+"""The necessary fields in order to create a new demandHq"""
+input DemandHqCreateInput {
+  defaultCurrency: ResonanceCurrency!
+  defaultLocaleType: ResonanceLocaleType!
+  demandSubscriptionCodes: [DemandSubscriptionCode!]
+  description: String
+  name: String!
+
+  """
+  These users will get notified if something requires attention for this DemandHq.
+  If none are provided, ownerUserName will be notified.
+  """
+  notificationUserNames: DemandHqNotificationUserNamesInput
+}
+
+"""Indicates a User or App has permissions on a DemandHq"""
+type DemandHqIdentity {
+  """Get the demandHq associated with this DemandHqIdentity."""
+  demandHq: DemandHq
+  demandHqId: ID!
+
+  """Could be a userName or an appClientId"""
+  identityId: ID!
+  identityParentEntityId: ID
+  identityType: DemandHqIdentityType!
+  permissions: DemandHqIdentityPermissions!
+
+  """Get a public identity for this DemandHqIdentity"""
+  publicIdentity: PublicIdentity
+  updatedBy: String!
+}
+
+"""Paginate through DemandHqIdentities"""
+type DemandHqIdentityConnection {
+  edges: [DemandHqIdentityEdge]!
+  nodes: [DemandHqIdentity]!
+  pageInfo: PageInfo!
+}
+
+"""
+Exactly like DemandHqIdentity, but no updatedBy or identityType (always User, Apps get installed)
+"""
+input DemandHqIdentityCreateInput {
+  demandHqId: ID!
+
+  """Always a user's userName (not appClientId)"""
+  identityId: ID!
+  identityParentEntityId: ID
+
+  """Should always be USER"""
+  identityType: DemandHqIdentityType!
+  permissions: DemandHqIdentityPermissionsInput!
+}
+
+"""Returned object from deleteDemandHqIdentity"""
+type DemandHqIdentityDeleteResponse {
+  deletedId: DemandHqIdentityDeletedId
+}
+
+"""The deleted IDs identifying the DemandHqIdentity"""
+type DemandHqIdentityDeletedId {
+  demandHqId: ID!
+  identityId: ID!
+}
+
+"""One edge producing one DemandHqIdentity Node"""
+type DemandHqIdentityEdge {
+  node: DemandHqIdentity
+}
+
+"""
+Indicates which permissions this Identity possesses on a given DemandHq
+"""
+type DemandHqIdentityPermissions {
+  roles: [String]!
+  scopes: [String]!
+}
+
+"""Exactly like DemandHqIdentityPermissions"""
+input DemandHqIdentityPermissionsInput {
+  roles: [String]!
+  scopes: [String]!
+}
+
+"""Indicates whether the user type is an app or human user"""
+enum DemandHqIdentityType {
+  APPCLIENT
+  USER
+}
+
+"""
+ID Fields are required, but all other fields are optional, only included fields will be updated.
+"""
+input DemandHqIdentityUpdateInput {
+  demandHqId: ID!
+
+  """Could be a userName or an appClientId"""
+  identityId: ID!
+  permissions: DemandHqIdentityPermissionsInput
+}
+
+"""
+These users will get notified if something requires attention for this DemandHq.
+If none are provided, ownerUserName will be notified.
+"""
+type DemandHqNotificationUserNames {
+  """All notifications for the catalog side (Products, Variants, etc.)."""
+  catalog: [String!]
+
+  """All notifications for the commerce side, besides orders."""
+  commerce: [String!]
+
+  """
+  These are part of commerce, but are a specific enough case to be handled separately.
+  """
+  orders: [String!]
+}
+
+"""Exactly like DemandHqNotificationUserNames"""
+input DemandHqNotificationUserNamesInput {
+  """All notifications for the catalog side (Products, Variants, etc.)."""
+  catalog: [String!]
+
+  """All notifications for the commerce side, besides orders."""
+  commerce: [String!]
+
+  """
+  These are part of commerce, but are a specific enough case to be handled separately.
+  """
+  orders: [String!]
+}
+
+"""The possible fields in order to update a demandHq."""
+input DemandHqUpdateInput {
+  demandHqId: ID!
+  demandSubscriptionCodes: [DemandSubscriptionCode!]
+  description: String
+  name: String
+
+  """
+  These users will get notified if something requires attention for this DemandHq.
+  If none are provided, ownerUserName will be notified.
+  """
+  notificationUserNames: DemandHqNotificationUserNamesInput
+  ownerUserName: String
+}
+
+"""Codes that signify a DemandSubscription"""
+enum DemandSubscriptionCode {
+  BETAMAX
+}
+
+"""
+The `JSON` scalar type represents JSON values as specified by [ECMA-404](http://www.ecma-international.org/publications/files/ECMA-ST/ECMA-404.pdf).
+"""
+scalar JSON
+
+"""The root mutation type for the Demand domain"""
+type Mutation {
+  """
+  Create a new demandHq
+              
+  Requires demandHq/write permission on the requesting identity
+  """
+  createDemandHq(input: DemandHqCreateInput!): DemandHq!
+
+  """
+  Add a new DemandHqIdentity to a DemandHq (give a user permissions)
+  
+  Requires the demandHqidentity/write permission on the given DemandHq
+  """
+  createDemandHqIdentity(input: DemandHqIdentityCreateInput!): DemandHqIdentity!
+
+  """
+  Add a new Page to a DemandHq.
+  
+  Requires the page/write permission on the given DemandHq
+  """
+  createPage(input: PageCreateInput!): Page!
+
+  """
+  Create a Image for a Page from a file.
+  
+  Requires the page/write permission on the given DemandHq
+  """
+  createPageImageFromFile(input: PageImageFromFileInput!): PageImageFromFileResponse!
+
+  """
+  Create a Image for a Page from a URL.
+  
+  Requires the page/write permission on the given DemandHq
+  """
+  createPageImageFromUrl(input: PageImageFromUrlInput!): Page!
+
+  """
+  Create a new Storefront.
+      
+  Requires the "storefront/write" scope on the associated DemandHq.
+  """
+  createStorefront(input: StorefrontCreateInput): Storefront
+
+  """
+  Delete a DemandHqIdentity from a DemandHq (remove a user's permissions)
+  
+  Requires the demandHqidentity/write permission on the given DemandHq
+  """
+  deleteDemandHqIdentity(demandHqId: ID!, identityId: ID!): DemandHqIdentityDeleteResponse
+
+  """
+  Delete a Page from a DemandHq.
+  
+  Requires the page/write permission on the given DemandHq
+  """
+  deletePage(pageId: ID!): PageDeleteResponse!
+
+  """
+  Delete a PageContentItem from a Page.
+  
+  Requires the page/write permission on the given DemandHq
+  """
+  deletePageContentItem(contentItemId: ID!, pageId: ID!): DeletePageContentItemResponse!
+
+  """
+  Install an app to a DemandHq (give an app permissions)
+  
+  Requires the demandHqidentity/write permission on the given DemandHq
+  """
+  installApp(appId: ID!, demandHqId: ID!): AppInstallationResponse!
+
+  """
+  Update an app's permissions on a DemandHq. This is a no-op if the app's
+  requested permissions are the same as the current permissions.
+  
+  Requires the demandHqidentity/write permission on the given DemandHq
+  """
+  updateAppPermissions(appId: ID!, demandHqId: ID!): AppInstallationResponse!
+
+  """
+  Update an existing demandHq
+  
+  Requires demandHq/write permission on the requesting identity
+  """
+  updateDemandHq(input: DemandHqUpdateInput!): DemandHq!
+
+  """
+  Update a DemandHqIdentity for a DemandHq (give a user permissions)
+  
+  Requires the demandHqidentity/write permission on the given DemandHq
+  """
+  updateDemandHqIdentity(input: DemandHqIdentityUpdateInput!): DemandHqIdentity!
+
+  """
+  Update an existing page.
+  
+  Requires the page/write permission on the given DemandHq
+  """
+  updatePage(input: PageUpdateInput!): Page!
+
+  """
+  Update an existing Storefront.
+      
+  Requires the "storefront/write" scope on the associated DemandHq.
+  """
+  updateStorefront(input: StorefrontUpdateInput): Storefront
+
+  """
+  Add or Update PageContent for an existing Page.
+  
+  Requires the page/write permission on the given DemandHq
+  """
+  upsertPageContent(input: PageContentUpsertInput!): PageContent!
+}
+
+"""
+A Page is a part of the Demand Domain and represents a page with textual and
+image content on it, that has nothing to do with products.
+This can range from "About Us" pages to Blog articles. Use the "pageType" field to differentiate.
+Pages do not have locales specified, but since everything would be different
+anyway, "pageType" can be a composite key with locale in it.
+"""
+type Page {
+  """The author of the page, limit 256 characters."""
+  author: String
+
+  """Get the content of the page."""
+  content: PageContent
+
+  """
+  The ContentItemIds of the Content Items that are associated with this page.
+  """
+  contentItemIds: [ID!]
+
+  """Get the content items of the page."""
+  contentItems: [PageContentItem]
+  createdAt: Date!
+  demandHqId: ID!
+
+  """A short description of the page, limit 1000 characters."""
+  description: String
+  pageId: ID!
+
+  """
+  Any string to declare a category of this page, can be used to filter pages, limit 128 characters.
+  """
+  pageType: String!
+
+  """
+  A primary image url for this page, can be generated from a Page ContentItem.
+  """
+  primaryImageUrl: String
+
+  """
+  ISO format date when the page was published. Note that ensuing updates with
+  status set to PUBLISHED will republish and re-set this date.
+  """
+  publishedAt: Date
+
+  """Title specific for SEO purposes, limit 256 characters."""
+  seoTitle: String
+
+  """Slug for the URL for this page. Limit 128 characters."""
+  slug: String!
+
+  """The status of the page, can be DRAFT or PUBLISHED."""
+  status: PageStatus!
+
+  """Which storefronts should have access to this page?"""
+  storefrontIds: [ID]
+
+  """The subtitle of the page, limit 256 characters."""
+  subtitle: String
+
+  """Get the tags of the page."""
+  tags: PageTags
+
+  """The title of the page, limit 256 characters."""
+  title: String!
+  updatedAt: Date!
+  updatedBy: ID!
+}
+
+"""Paginate through Pages"""
+type PageConnection {
+  edges: [PageEdge]!
+  nodes: [Page]!
+  pageInfo: PageInfo!
+}
+
+"""This is the actual content of the page"""
+type PageContent {
+  """Get the markdown content of the page as parsed HTML."""
+  contentAsHtml: String
+  contentAsString: String!
+  pageId: ID!
+  updatedAt: String
+}
+
+"""
+These are content items that are associated with a page, Images, Videos, etc
+"""
+type PageContentItem {
+  contentExtension: String!
+  contentItemId: ID!
+  contentKey: String!
+  contentType: String!
+  demandHqId: ID!
+}
+
+"""Upsert page content for an existing Page"""
+input PageContentUpsertInput {
+  contentAsString: String!
+  pageId: ID!
+}
+
+"""
+Exactly like Page, but no publishedAt or Status (Status is set to DRAFT on create).
+"""
+input PageCreateInput {
+  """The author of the page, limit 256 characters."""
+  author: String
+
+  """
+  The ContentItemIds of the Content Items that are associated with this page.
+  """
+  contentItemIds: [ID!]
+  demandHqId: ID!
+
+  """A short description of the page, limit 1000 characters."""
+  description: String
+
+  """
+  Any string to declare a category of this page, can be used to filter pages, limit 128 characters.
+  """
+  pageType: String!
+
+  """
+  A primary image url for this page, can be generated from a Page ContentItem.
+  """
+  primaryImageUrl: String
+
+  """Title specific for SEO purposes, limit 256 characters."""
+  seoTitle: String
+
+  """Slug for the URL for this page. Limit 128 characters."""
+  slug: String!
+
+  """Which storefronts should have access to this page?"""
+  storefrontIds: [ID]
+
+  """The subtitle of the page, limit 256 characters."""
+  subtitle: String
+  tags: [String]
+
+  """The title of the page, limit 256 characters."""
+  title: String!
+}
+
+"""Returned object from deletePage"""
+type PageDeleteResponse {
+  deletedId: ID!
+}
+
+"""One edge producing one Page Node"""
+type PageEdge {
+  node: Page
+}
+
+"""Input object for creating an Image for a Page from a File on a device"""
+input PageImageFromFileInput {
+  demandHqId: ID!
+  fileExtension: String!
+  fileName: String!
+  pageId: ID!
+}
+
+"""Returned object from createPageImageFromFile"""
+type PageImageFromFileResponse {
+  """The contentItemId of the image"""
+  contentItemId: ID!
+
+  """Used while uploading the image"""
+  fields: JSON!
+  page: Page!
+
+  """Used to upload the image"""
+  url: String!
+}
+
+"""Input object for creating an Image for a Page from a URL"""
+input PageImageFromUrlInput {
+  demandHqId: ID!
+  pageId: ID!
+  url: String!
+}
+
+"""Information on Pagination"""
+type PageInfo {
+  """
+  The cursor to use when paginating forwards (using first/after). Will always be
+  populated regardless of if a next page exists.
+  """
+  endCursor: String
+
+  """
+  Whether or not using the endCursor will result in more results. Always
+  populated, but will always be false when paginating using last/before.
+  """
+  hasNextPage: Boolean!
+
+  """
+  Whether or not using the startCursor will result in more results. Always
+  populated, but will always be false when paginating using first/after.
+  """
+  hasPreviousPage: Boolean!
+
+  """
+  The cursor to use when paginating backwards (using last/before). Will always
+  be populated regardless of if a previous page exists
+  """
+  startCursor: String
+}
+
+"""Indicates whether the user type is an app or human user"""
+enum PageStatus {
+  DRAFT
+  PUBLISHED
+}
+
+"""These are the tags associated to the page"""
+type PageTags {
+  pageId: ID!
+  raw: [String]
+  updatedAt: Date!
+  updatedBy: ID!
+}
+
+"""
+ID Fields are required, but all other fields are optional, only included fields will be updated.
+"""
+input PageUpdateInput {
+  """The author of the page, limit 256 characters."""
+  author: String
+
+  """
+  The ContentItemIds of the Content Items that are associated with this page.
+  """
+  contentItemIds: [ID!]
+
+  """A short description of the page, limit 1000 characters."""
+  description: String
+  pageId: ID!
+
+  """
+  Any string to declare a category of this page, can be used to filter pages, limit 128 characters.
+  """
+  pageType: String
+
+  """
+  A primary image url for this page, can be generated from a Page ContentItem.
+  """
+  primaryImageUrl: String
+
+  """Title specific for SEO purposes, limit 256 characters."""
+  seoTitle: String
+
+  """Slug for the URL for this page. Limit 128 characters."""
+  slug: String
+
+  """The status of the page, can be DRAFT or PUBLISHED."""
+  status: PageStatus
+
+  """Which storefronts should have access to this page?"""
+  storefrontIds: [ID]
+
+  """The subtitle of the page, limit 256 characters."""
+  subtitle: String
+  tags: [String]
+
+  """The title of the page, limit 256 characters."""
+  title: String
+}
+
+"""
+This type is returned on routes with no permissions attached to protect
+Personally Identifiable Information, but still provide minimal data.
+Can be a User or AppClient.
+"""
+type PublicIdentity {
+  displayName: String!
+
+  """A userName or appClientId"""
+  identityId: ID!
+  identityParentEntityId: ID
+}
+
+"""The root query type for the Demand domain"""
+type Query {
+  """Nothing to see here, just a workaround for Apollo Server"""
+  _empty: String
+
+  """
+  Get a single demandHq by DemandHqId
+  
+  Requires demandHq/read permission on the requesting identity
+  """
+  demandHq(demandHqId: ID!): DemandHq
+
+  """
+  Get a filtered list of DemandHqIdentities
+  
+  All of the filters are optional, but you must include at least one.
+  You may receive less demandHqIdentities than you indicate if you do not have
+  permission to read part of the result set.
+  
+  Not all filter combinations are valid, for example you cannot filter by
+  - identityId + identityParentEntityId (requires demandHqId)
+  - identityType only (requires demandHqId)
+  
+  Requires demandHqidentity/read permission on the requesting identity for each demandHq requested,
+  or you can request your own identities.
+  """
+  demandHqIdentities(
+    """Returns the elements in the list that come after the specified cursor."""
+    after: String
+
+    """
+    Returns the elements in the list that come before the specified cursor.
+    """
+    before: String
+
+    """Filter the results to a specific demandHqId. (optional)"""
+    demandHqId: ID
+
+    """Returns the first n elements from the list."""
+    first: Int
+
+    """
+    Filter the results to a specific identityId.
+    Use this with your own userName or appClientId in order to see "My DemandHqIdentities".
+    You automatically have access to your own DemandHqIdentities.
+    """
+    identityId: ID
+
+    """Filter the results to a specific identityParentEntityId (optional)"""
+    identityParentEntityId: ID
+
+    """Filter the results to a specific identity type (optional)"""
+    identityType: DemandHqIdentityType
+
+    """Returns the last n elements from the list."""
+    last: Int
+  ): DemandHqIdentityConnection!
+
+  """
+  Get a single DemandHqIdentity
+  
+  Requires demandHqidentity/read permission on the requesting identity for the demandHq requested
+  """
+  demandHqIdentity(demandHqId: ID!, identityId: ID!): DemandHqIdentity
+
+  """
+  Get a page by pageId.
+              
+  Required page/read permission on the given DemandHq.
+  """
+  page(pageId: ID!): Page
+
+  """
+  Get a storefront by its storefrontId.
+              
+  Requires the storefront/read permission on the associated DemandHq.
+  """
+  storefront(storefrontId: ID!): Storefront
+}
+
+"""Used throughout the app to give a currency to price information"""
+enum ResonanceCurrency {
+  USD
+}
+
+"""
+Used throughout the app to indicate what language and locality a given text is in
+"""
+enum ResonanceLocaleType {
+  EN_US
+}
+
+"""
+A Storefront represents a customer facing ecommerce website that consumes Resonance Demand Entities
+"""
+type Storefront {
+  """Get an api key for this storefront by identitySlug."""
+  apiKey(slug: String!): StorefrontApiKey
+
+  """Get all api keys for this storefront."""
+  apiKeys: [StorefrontApiKey]!
+  createdAt: Date!
+  demandHqId: ID!
+  description: String
+  name: String!
+  storefrontId: ID!
+  storefrontIdentities: [StorefrontIdentity!]
+  updatedAt: Date!
+  updatedBy: ID!
+  urlDomain: String!
+}
+
+"""
+The key of the storefront identity, gets base64 encoded and passed in headers with API requests
+"""
+type StorefrontApiKey {
+  key: String!
+  slug: String!
+}
+
+"""Paginate through Storefronts"""
+type StorefrontConnection {
+  edges: [StorefrontEdge]!
+  nodes: [Storefront]!
+  pageInfo: PageInfo!
+}
+
+"""Necessary fields to create a storefront."""
+input StorefrontCreateInput {
+  demandHqId: ID!
+  description: String
+  name: String!
+  storefrontIdentities: [StorefrontIdentityInput!]
+  urlDomain: String!
+}
+
+"""One edge producing one Storefront Node"""
+type StorefrontEdge {
+  node: Storefront
+}
+
+"""
+An identity that is associated with a storefront and is assigned scopes
+"""
+type StorefrontIdentity {
+  permissions: StorefrontPermissions!
+
+  """
+  Human-readable way to categorize the use of this identity, must be unique to
+  this storefront, all lowercase, and contain no spaces, limit 32 characters.
+  """
+  slug: String!
+}
+
+"""Necessary fields to create a Storefront Identity."""
+input StorefrontIdentityInput {
+  permissions: StorefrontPermissionsInput!
+
+  """
+  Human-readable way to categorize the use of this identity, must be unique to
+  this storefront, all lowercase, and contain no spaces, limit 32 characters.
+  """
+  slug: String!
+}
+
+"""The permissions of the storefront identity"""
+type StorefrontPermissions {
+  roles: [StorefrontRole!]!
+  scopes: [String!]!
+}
+
+"""Necessary fields to set permissions for a Storefront Identity."""
+input StorefrontPermissionsInput {
+  roles: [StorefrontRole!]!
+  scopes: [String!]!
+}
+
+"""The roles of a storefront identity"""
+enum StorefrontRole {
+  CLIENT
+  SERVER
+}
+
+"""
+Necessary fields to update an existing storefront. Only the fields that are not null will be updated.
+"""
+input StorefrontUpdateInput {
+  description: String
+  name: String
+  storefrontId: ID!
+  storefrontIdentities: [StorefrontIdentityInput!]
+  urlDomain: String
+}

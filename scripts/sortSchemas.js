@@ -6,7 +6,12 @@ const {
 const fs = require("fs");
 const path = require("path");
 
-const schemasToSort = ["adminidentityschema.graphql", "supplyschema.graphql"];
+const schemasToSort = [
+    "adminidentityschema.graphql",
+    "demandschema.graphql",
+    "storefrontschema.graphql",
+    "supplyschema.graphql",
+];
 
 for (const schemaToSort of schemasToSort) {
     try {
