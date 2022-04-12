@@ -8,7 +8,7 @@ The necessary fields in order to create a new supplier
 
 
 ```graphql
-type SupplierCreateInput {
+input SupplierCreateInput {
   category: SupplierCategory
   defaultCurrency: ResonanceCurrency!
   defaultLocaleType: ResonanceLocaleType!
@@ -16,6 +16,7 @@ type SupplierCreateInput {
   inStockProducts: Int
   name: String!
   notificationUserNames: SupplierNotificationUserNamesInput
+  shipFromAddress: AddressInput
   topVendors: [String!]
 }
 ```
@@ -57,6 +58,11 @@ The approximate number of in stock products this Supplier has on a typical basis
 
 These users will get notified if something requires attention for this Supplier.
 If none are provided, ownerUserName will be notified.
+
+
+#### `shipFromAddress` ([`AddressInput`](/developers/supplier-apis/supply-api/graphql/reference/inputs/address-input))
+
+The address where this Supplier's goods ship from.
 
 
 #### `topVendors` ([`String`](/developers/supplier-apis/supply-api/graphql/reference/scalars/string))

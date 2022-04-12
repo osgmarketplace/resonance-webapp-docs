@@ -10,6 +10,10 @@ These are the tags associated to the page
 ```graphql
 type PageTags {
   pageId: ID!
+  parsed(
+  category: String
+  key: String
+): ParsedTag
   raw: [String]
   updatedAt: Date!
   updatedBy: ID!
@@ -22,6 +26,19 @@ type PageTags {
 #### `pageId` ([`ID`](/developers/demandhq-apis/demand-api/graphql/reference/scalars/id))
 
 
+
+
+#### `parsed` ([`ParsedTag`](/developers/demandhq-apis/demand-api/graphql/reference/objects/parsed-tag))
+
+Get parsed, and optionally filtered, tags for a Page.
+- ##### `category` ([`String`](/developers/demandhq-apis/demand-api/graphql/reference/scalars/string))
+
+Optionally filter tags by category.
+
+
+- ##### `key` ([`String`](/developers/demandhq-apis/demand-api/graphql/reference/scalars/string))
+
+Optionally filter tags by key. If category is not provided, but key is, category must be null to be returned.
 
 
 #### `raw` ([`String`](/developers/demandhq-apis/demand-api/graphql/reference/scalars/string))

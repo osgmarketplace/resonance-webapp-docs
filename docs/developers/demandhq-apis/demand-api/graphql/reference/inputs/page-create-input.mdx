@@ -8,7 +8,7 @@ Exactly like Page, but no publishedAt or Status (Status is set to DRAFT on creat
 
 
 ```graphql
-type PageCreateInput {
+input PageCreateInput {
   author: String
   contentItemIds: [ID!]
   demandHqId: ID!

@@ -1,3 +1,51 @@
+"""The globally used Address of Resonance"""
+type Address {
+  """The city of the address"""
+  city: String!
+
+  """The country of the address"""
+  country: String!
+
+  """The phone number of the address. Format +11231231234"""
+  phoneNumber: String
+
+  """The zip or postal code of the address"""
+  postalCode: String!
+
+  """The state of the address"""
+  state: String!
+
+  """The first line of the street address"""
+  streetAddress1: String!
+
+  """The second line of the street address"""
+  streetAddress2: String
+}
+
+"""The input type for an Address"""
+input AddressInput {
+  """The city of the address"""
+  city: String!
+
+  """The country of the address"""
+  country: String!
+
+  """The phone number of the address. Format +11231231234"""
+  phoneNumber: String
+
+  """The zip or postal code of the address"""
+  postalCode: String!
+
+  """The state of the address"""
+  state: String!
+
+  """The first line of the street address"""
+  streetAddress1: String!
+
+  """The second line of the street address"""
+  streetAddress2: String
+}
+
 """
 The response recieved when an app is installed or the permissions are updated
 """
@@ -76,7 +124,7 @@ type Mutation {
   """
   Create a new SupplierProduct and its associated ContentItems, Locales, and Variants in one mutation
   """
-  createSupplierProductComposite(input: SupplierProductCompositeCreateInput!): SupplierProductComposite!
+  createSupplierProductComposite(input: SupplierProductCompositeCreateInput!): SupplierProduct!
 
   """Create an Image SupplierProductContentItem from a File"""
   createSupplierProductImageFromFile(input: SupplierProductImageFromFileInput!): SupplierProductImageFromFileResponse!
@@ -246,6 +294,18 @@ type PageInfo {
   be populated regardless of if a previous page exists
   """
   startCursor: String
+}
+
+"""An up to 3-part tag, comma-separated, that has been parsed"""
+type ParsedTag {
+  """The category of the tag"""
+  category: String
+
+  """The key of the tag"""
+  key: String
+
+  """The value of the tag"""
+  value: String!
 }
 
 """
@@ -626,6 +686,9 @@ type Supplier {
     last: Int
     quickLinkType: SupplierQuickLinkType!
   ): SupplierQuickLinkConnection!
+
+  """The address where this Supplier's goods ship from."""
+  shipFromAddress: Address
   status: SupplierStatus!
   supplierId: ID!
 
@@ -773,6 +836,9 @@ input SupplierCreateInput {
   If none are provided, ownerUserName will be notified.
   """
   notificationUserNames: SupplierNotificationUserNamesInput
+
+  """The address where this Supplier's goods ship from."""
+  shipFromAddress: AddressInput
 
   """
   The top Brands or Vendors this Supplier carries, limit 5 and 256 characters each.
@@ -999,8 +1065,8 @@ type SupplierProduct {
     last: Int
   ): SupplierVariantConnection!
 
-  """Categories and other groupings that apply to this product."""
-  tags: [String]
+  """Get tags for a SupplierProduct."""
+  tags: SupplierProductTags
 
   """The title of the product."""
   title: String!
@@ -1009,14 +1075,6 @@ type SupplierProduct {
 
   """The brand or manufacturer of the product."""
   vendor: String!
-}
-
-"""Response for creating a SupplierProductComposite"""
-type SupplierProductComposite {
-  supplierProduct: SupplierProduct!
-  supplierProductContentItems: [SupplierProductContentItem]
-  supplierProductLocales: [SupplierProductLocale]
-  supplierVariantComposites: [SupplierVariantComposite]
 }
 
 """
@@ -1164,9 +1222,7 @@ input SupplierProductCreateInput {
 
   """Reference to the Supplier that owns this product."""
   supplierId: ID!
-
-  """Categories and other groupings that apply to this product."""
-  tags: [String]
+  tags: [String!]
 
   """The title of the product."""
   title: String!
@@ -1344,6 +1400,24 @@ input SupplierProductStatusFilterInput {
   values: [SupplierProductStatus!]!
 }
 
+"""Categories and other groupings that apply to this product."""
+type SupplierProductTags {
+  """Get parsed, and optionally filtered, tags for a SupplierProduct."""
+  parsed(
+    """Optionally filter tags by category."""
+    category: String
+
+    """
+    Optionally filter tags by key. If category is not provided, but key is, category must be null to be returned.
+    """
+    key: String
+  ): ParsedTag
+  raw: [String!]
+  supplierProductId: ID!
+  updatedAt: Date!
+  updatedBy: ID!
+}
+
 """
 A Map of several fields of SupplierProduct and term aggregations for each
 """
@@ -1376,9 +1450,7 @@ input SupplierProductUpdateInput {
   """Indicates whether a product is live and able to be ordered."""
   status: SupplierProductStatus
   supplierProductId: ID!
-
-  """Categories and other groupings that apply to this product."""
-  tags: [String]
+  tags: [String!]
 
   """The title of the product."""
   title: String
@@ -1533,6 +1605,9 @@ input SupplierUpdateInput {
   """
   notificationUserNames: SupplierNotificationUserNamesInput
   ownerUserName: String
+
+  """The address where this Supplier's goods ship from."""
+  shipFromAddress: AddressInput
   status: SupplierStatus
   supplierId: ID!
 

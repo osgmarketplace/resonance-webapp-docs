@@ -617,6 +617,17 @@ enum PageStatus {
 """These are the tags associated to the page"""
 type PageTags {
   pageId: ID!
+
+  """Get parsed, and optionally filtered, tags for a Page."""
+  parsed(
+    """Optionally filter tags by category."""
+    category: String
+
+    """
+    Optionally filter tags by key. If category is not provided, but key is, category must be null to be returned.
+    """
+    key: String
+  ): ParsedTag
   raw: [String]
   updatedAt: Date!
   updatedBy: ID!
@@ -666,6 +677,18 @@ input PageUpdateInput {
 
   """The title of the page, limit 256 characters."""
   title: String
+}
+
+"""An up to 3-part tag, comma-separated, that has been parsed"""
+type ParsedTag {
+  """The category of the tag"""
+  category: String
+
+  """The key of the tag"""
+  key: String
+
+  """The value of the tag"""
+  value: String!
 }
 
 """

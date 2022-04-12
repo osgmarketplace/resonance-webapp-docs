@@ -10,7 +10,7 @@ Create a new SupplierProduct and its associated ContentItems, Locales, and Varia
 ```graphql
 createSupplierProductComposite(
   input: SupplierProductCompositeCreateInput!
-): SupplierProductComposite!
+): SupplierProduct!
 
 ```
 
@@ -24,9 +24,11 @@ createSupplierProductComposite(
 
 ### Type
 
-#### [`SupplierProductComposite`](/developers/supplier-apis/supply-api/graphql/reference/objects/supplier-product-composite) 
+#### [`SupplierProduct`](/developers/supplier-apis/supply-api/graphql/reference/objects/supplier-product) 
 
-Response for creating a SupplierProductComposite
+This is the main entity of the Supplier domain, and is used to represent a product, which is a group of SKUs.
+SKUs are represented by SupplierVariants, a child of this entity.
+This entity is less frequently updated, it is more likely that SupplyVariant will be updated frequently.
 
 
 

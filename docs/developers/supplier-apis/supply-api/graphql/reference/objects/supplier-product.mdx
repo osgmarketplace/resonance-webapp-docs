@@ -40,7 +40,7 @@ type SupplierProduct {
   first: Int
   last: Int
 ): SupplierVariantConnection!
-  tags: [String]
+  tags: SupplierProductTags
   title: String!
   updatedAt: Date!
   updatedBy: ID!
@@ -181,9 +181,9 @@ Returns the first n elements from the list.
 Returns the last n elements from the list.
 
 
-#### `tags` ([`String`](/developers/supplier-apis/supply-api/graphql/reference/scalars/string))
+#### `tags` ([`SupplierProductTags`](/developers/supplier-apis/supply-api/graphql/reference/objects/supplier-product-tags))
 
-Categories and other groupings that apply to this product.
+Get tags for a SupplierProduct.
 
 
 #### `title` ([`String`](/developers/supplier-apis/supply-api/graphql/reference/scalars/string))

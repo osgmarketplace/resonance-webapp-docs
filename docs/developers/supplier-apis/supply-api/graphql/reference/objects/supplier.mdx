@@ -37,6 +37,7 @@ type Supplier {
   last: Int
   quickLinkType: SupplierQuickLinkType!
 ): SupplierQuickLinkConnection!
+  shipFromAddress: Address
   status: SupplierStatus!
   supplierId: ID!
   supplierIdentities(
@@ -202,6 +203,11 @@ Returns the last n elements from the list.
 - ##### `quickLinkType` ([`SupplierQuickLinkType`](/developers/supplier-apis/supply-api/graphql/reference/enums/supplier-quick-link-type))
 
 
+
+
+#### `shipFromAddress` ([`Address`](/developers/supplier-apis/supply-api/graphql/reference/objects/address))
+
+The address where this Supplier's goods ship from.
 
 
 #### `status` ([`SupplierStatus`](/developers/supplier-apis/supply-api/graphql/reference/enums/supplier-status))
