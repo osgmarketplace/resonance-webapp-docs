@@ -9,12 +9,29 @@ These are the tags associated to the page
 
 ```graphql
 type PageTags {
+  parsed(
+  category: String
+  key: String
+): ParsedTag
   raw: [String]
 }
 ```
 
 
 ### Fields
+
+#### `parsed` ([`ParsedTag`](/developers/demandhq-apis/storefront-api/graphql/reference/objects/parsed-tag))
+
+Get parsed, and optionally filtered, tags for a Page.
+- ##### `category` ([`String`](/developers/demandhq-apis/storefront-api/graphql/reference/scalars/string))
+
+Optionally filter tags by category.
+
+
+- ##### `key` ([`String`](/developers/demandhq-apis/storefront-api/graphql/reference/scalars/string))
+
+Optionally filter tags by key. If category is not provided, but key is, category must be null to be returned.
+
 
 #### `raw` ([`String`](/developers/demandhq-apis/storefront-api/graphql/reference/scalars/string))
 

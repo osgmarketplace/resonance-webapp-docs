@@ -9,12 +9,12 @@ If status is set to Publish, additional validation will be performed.
 
 
 ```graphql
-type SupplierProductUpdateInput {
+input SupplierProductUpdateInput {
   externalProductId: String
   optionLabels: [String!]
   status: SupplierProductStatus
   supplierProductId: ID!
-  tags: [String]
+  tags: [String!]
   title: String
   vendor: String
 }
@@ -50,7 +50,7 @@ Indicates whether a product is live and able to be ordered.
 
 #### `tags` ([`String`](/developers/supplier-apis/supply-api/graphql/reference/scalars/string))
 
-Categories and other groupings that apply to this product.
+
 
 
 #### `title` ([`String`](/developers/supplier-apis/supply-api/graphql/reference/scalars/string))

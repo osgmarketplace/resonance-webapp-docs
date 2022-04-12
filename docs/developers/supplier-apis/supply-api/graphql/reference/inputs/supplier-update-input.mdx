@@ -8,13 +8,14 @@ The possible fields in order to update a supplier.
 
 
 ```graphql
-type SupplierUpdateInput {
+input SupplierUpdateInput {
   category: SupplierCategory
   description: String
   inStockProducts: Int
   name: String
   notificationUserNames: SupplierNotificationUserNamesInput
   ownerUserName: String
+  shipFromAddress: AddressInput
   status: SupplierStatus
   supplierId: ID!
   topVendors: [String!]
@@ -53,6 +54,11 @@ If none are provided, ownerUserName will be notified.
 #### `ownerUserName` ([`String`](/developers/supplier-apis/supply-api/graphql/reference/scalars/string))
 
 
+
+
+#### `shipFromAddress` ([`AddressInput`](/developers/supplier-apis/supply-api/graphql/reference/inputs/address-input))
+
+The address where this Supplier's goods ship from.
 
 
 #### `status` ([`SupplierStatus`](/developers/supplier-apis/supply-api/graphql/reference/enums/supplier-status))

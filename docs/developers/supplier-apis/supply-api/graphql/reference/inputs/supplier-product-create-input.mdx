@@ -9,11 +9,11 @@ status will be initially set to DRAFT
 
 
 ```graphql
-type SupplierProductCreateInput {
+input SupplierProductCreateInput {
   externalProductId: String!
   optionLabels: [String!]!
   supplierId: ID!
-  tags: [String]
+  tags: [String!]
   title: String!
   vendor: String!
 }
@@ -44,7 +44,7 @@ Reference to the Supplier that owns this product.
 
 #### `tags` ([`String`](/developers/supplier-apis/supply-api/graphql/reference/scalars/string))
 
-Categories and other groupings that apply to this product.
+
 
 
 #### `title` ([`String`](/developers/supplier-apis/supply-api/graphql/reference/scalars/string))
