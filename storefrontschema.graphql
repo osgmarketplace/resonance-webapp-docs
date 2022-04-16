@@ -1,6 +1,18 @@
 """A date in ISO 8601 format"""
 scalar Date
 
+"""Indicates how a filter should behave, defaults to OR"""
+enum FilterOperator {
+  AND
+  NOT
+  OR
+}
+
+"""
+The `JSON` scalar type represents JSON values as specified by [ECMA-404](http://www.ecma-international.org/publications/files/ECMA-ST/ECMA-404.pdf).
+"""
+scalar JSON
+
 """This is the actual content of the page"""
 type PageContent {
   """Get the markdown content of the page as parsed HTML."""
@@ -8,6 +20,46 @@ type PageContent {
   contentAsString: String!
   pageId: ID!
   updatedAt: String
+}
+
+"""Information on Pagination"""
+type PageInfo {
+  """
+  The cursor to use when paginating forwards (using first/after). Will always be
+  populated regardless of if a next page exists.
+  """
+  endCursor: String
+
+  """
+  Whether or not using the endCursor will result in more results. Always
+  populated, but will always be false when paginating using last/before.
+  """
+  hasNextPage: Boolean!
+
+  """
+  Whether or not using the startCursor will result in more results. Always
+  populated, but will always be false when paginating using first/after.
+  """
+  hasPreviousPage: Boolean!
+
+  """
+  The cursor to use when paginating backwards (using last/before). Will always
+  be populated regardless of if a previous page exists
+  """
+  startCursor: String
+}
+
+"""Indicates which field to sort by"""
+enum PageSortField {
+  PUBLISHED_AT
+  RELEVANCE
+  TITLE
+}
+
+"""Sort Pages by a field and direction."""
+input PageSortInput {
+  direction: SortDirection!
+  field: PageSortField!
 }
 
 """These are the tags associated to the page"""
@@ -23,6 +75,13 @@ type PageTags {
     key: String
   ): ParsedTag
   raw: [String]
+}
+
+"""A Map of several fields of Page and term aggregations for each"""
+type PageTermAggregations {
+  authors: [TermAggregation!]
+  pageTypes: [TermAggregation!]
+  tags: [TermAggregation!]
 }
 
 """An up to 3-part tag, comma-separated, that has been parsed"""
@@ -88,6 +147,24 @@ type PublicPage {
   title: String!
 }
 
+"""Paginate through PublicPages"""
+type PublicPageConnectionWithSearch {
+  edges: [PublicPageEdge]!
+  nodes: [PublicPage]!
+  pageInfo: PageInfo!
+
+  """
+  This is an object with terms in the query as keys, and a suggestion for that
+  term as the value. This is often referred to as 'Did you mean?'
+  """
+  querySuggestions: JSON
+}
+
+"""One edge producing one PublicPage Node"""
+type PublicPageEdge {
+  node: PublicPage
+}
+
 """
 A Storefront is the parent-most entity in the Storefront API, and represents the entire site.
 """
@@ -115,9 +192,80 @@ type Query {
   page(slug: String!): PublicPage
 
   """
+  Term aggregations for Pages, typically used to suggest terms to use in Search Filters.
+  """
+  pageTermAggregations(
+    """The number of aggregations to return for each type."""
+    numberOfResults: Int!
+  ): PageTermAggregations
+
+  """
+  List pages for a Storefront with optional filters.
+              
+  Requires the publicpage/read scope.
+  """
+  pages(
+    """Returns the elements in the list that come after the specified cursor."""
+    after: String
+
+    """Filter Pages using author"""
+    author: StringFilterInput
+
+    """
+    Returns the elements in the list that come before the specified cursor.
+    """
+    before: String
+
+    """Returns the first n elements from the list."""
+    first: Int
+
+    """Returns the last n elements from the list."""
+    last: Int
+
+    """Filter Pages using pageType"""
+    pageType: StringFilterInput
+
+    """
+    Query pages for certain terms. Searches several fields, including
+    page.author, page.description, page.subtitle, page.title, pageTags, and the
+    actual content of the page.
+    """
+    query: String
+
+    """Filter Pages using slugs"""
+    slugs: [String]
+
+    """Sort Pages by a series of fields and directions."""
+    sortOrder: [PageSortInput]
+
+    """Filter Pages using Tags."""
+    tags: [StringFilterInput]
+  ): PublicPageConnectionWithSearch!
+
+  """
   Get the storefront associated with the requesting storefront identity.
               
   Requires the "publicstorefront/read" permission.
   """
   storefront: PublicStorefront
+}
+
+"""Indicates which direction to sort, defaults to ASC"""
+enum SortDirection {
+  ASC
+  DESC
+}
+
+"""Filter using a combination of operator and an array of string values"""
+input StringFilterInput {
+  operator: FilterOperator
+  values: [String!]!
+}
+
+"""
+Indicates the key of the term aggregation, and approximately how many documents it occurs in. 
+"""
+type TermAggregation {
+  docCount: Int!
+  key: String!
 }

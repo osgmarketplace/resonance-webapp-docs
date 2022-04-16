@@ -1413,6 +1413,7 @@ type SupplierProductTags {
     key: String
   ): ParsedTag
   raw: [String!]
+  supplierId: ID!
   supplierProductId: ID!
   updatedAt: Date!
   updatedBy: ID!

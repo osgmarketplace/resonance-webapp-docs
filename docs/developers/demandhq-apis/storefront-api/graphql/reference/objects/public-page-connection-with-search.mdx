@@ -1,0 +1,44 @@
+---
+id: public-page-connection-with-search
+title: PublicPageConnectionWithSearch
+---
+
+
+Paginate through PublicPages
+
+
+```graphql
+type PublicPageConnectionWithSearch {
+  edges: [PublicPageEdge]!
+  nodes: [PublicPage]!
+  pageInfo: PageInfo!
+  querySuggestions: JSON
+}
+```
+
+
+### Fields
+
+#### `edges` ([`PublicPageEdge`](/developers/demandhq-apis/storefront-api/graphql/reference/objects/public-page-edge))
+
+
+
+
+#### `nodes` ([`PublicPage`](/developers/demandhq-apis/storefront-api/graphql/reference/objects/public-page))
+
+
+
+
+#### `pageInfo` ([`PageInfo`](/developers/demandhq-apis/storefront-api/graphql/reference/objects/page-info))
+
+
+
+
+#### `querySuggestions` ([`JSON`](/developers/demandhq-apis/storefront-api/graphql/reference/scalars/json))
+
+This is an object with terms in the query as keys, and a suggestion for that
+term as the value. This is often referred to as 'Did you mean?'
+
+
+
+
