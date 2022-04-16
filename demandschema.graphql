@@ -73,6 +73,14 @@ type DemandHq {
   page(pageId: ID, slug: String): Page!
 
   """
+  Term aggregations for Pages, typically used to suggest terms to use in Search Filters.
+  """
+  pageTermAggregations(
+    """The number of aggregations to return for each type."""
+    numberOfResults: Int!
+  ): PageTermAggregations
+
+  """
   List pages for a DemandHq with optional filters.
               
   Required page/read permission on the given DemandHq.
@@ -80,6 +88,9 @@ type DemandHq {
   pages(
     """Returns the elements in the list that come after the specified cursor."""
     after: String
+
+    """Filter Pages using author"""
+    author: StringFilterInput
 
     """
     Returns the elements in the list that come before the specified cursor.
@@ -91,9 +102,31 @@ type DemandHq {
 
     """Returns the last n elements from the list."""
     last: Int
-    pageType: String
-    status: PageStatus
-  ): PageConnection!
+
+    """Filter Pages to a set of pageIds"""
+    pageIds: [ID]
+
+    """Filter Pages using pageType"""
+    pageType: StringFilterInput
+
+    """
+    Query pages for certain terms. Searches several fields, including
+    page.author, page.description, page.subtitle, page.title, pageTags, and the
+    actual content of the page.
+    """
+    query: String
+
+    """
+    Sort Pages by a series of fields and directions, defaults to CREATED_AT/ASC.
+    """
+    sortOrder: [PageSortInput]
+
+    """Filter Pages using status"""
+    status: PageStatusFilterInput
+
+    """Filter Pages using Tags."""
+    tags: [StringFilterInput]
+  ): PageConnectionWithSearch!
 
   """
   Get a storefront by its storefrontId.
@@ -276,6 +309,13 @@ input DemandHqUpdateInput {
 """Codes that signify a DemandSubscription"""
 enum DemandSubscriptionCode {
   BETAMAX
+}
+
+"""Indicates how a filter should behave, defaults to OR"""
+enum FilterOperator {
+  AND
+  NOT
+  OR
 }
 
 """
@@ -468,10 +508,16 @@ type Page {
 }
 
 """Paginate through Pages"""
-type PageConnection {
+type PageConnectionWithSearch {
   edges: [PageEdge]!
   nodes: [Page]!
   pageInfo: PageInfo!
+
+  """
+  This is an object with terms in the query as keys, and a suggestion for that
+  term as the value. This is often referred to as 'Did you mean?'
+  """
+  querySuggestions: JSON
 }
 
 """This is the actual content of the page"""
@@ -479,8 +525,10 @@ type PageContent {
   """Get the markdown content of the page as parsed HTML."""
   contentAsHtml: String
   contentAsString: String!
+  demandHqId: ID!
   pageId: ID!
   updatedAt: String
+  updatedBy: ID!
 }
 
 """
@@ -608,14 +656,36 @@ type PageInfo {
   startCursor: String
 }
 
+"""Indicates which field to sort by, defaults to CREATED_AT"""
+enum PageSortField {
+  CREATED_AT
+  PUBLISHED_AT
+  RELEVANCE
+  TITLE
+  UPDATED_AT
+}
+
+"""Sort Pages by a field and direction."""
+input PageSortInput {
+  direction: SortDirection!
+  field: PageSortField!
+}
+
 """Indicates whether the user type is an app or human user"""
 enum PageStatus {
   DRAFT
   PUBLISHED
 }
 
+"""Filter Pages using Status."""
+input PageStatusFilterInput {
+  operator: FilterOperator
+  values: [PageStatus!]!
+}
+
 """These are the tags associated to the page"""
 type PageTags {
+  demandHqId: ID!
   pageId: ID!
 
   """Get parsed, and optionally filtered, tags for a Page."""
@@ -631,6 +701,13 @@ type PageTags {
   raw: [String]
   updatedAt: Date!
   updatedBy: ID!
+}
+
+"""A Map of several fields of Page and term aggregations for each"""
+type PageTermAggregations {
+  authors: [TermAggregation!]
+  pageTypes: [TermAggregation!]
+  tags: [TermAggregation!]
 }
 
 """
@@ -796,6 +873,12 @@ enum ResonanceLocaleType {
   EN_US
 }
 
+"""Indicates which direction to sort, defaults to ASC"""
+enum SortDirection {
+  ASC
+  DESC
+}
+
 """
 A Storefront represents a customer facing ecommerce website that consumes Resonance Demand Entities
 """
@@ -896,4 +979,18 @@ input StorefrontUpdateInput {
   storefrontId: ID!
   storefrontIdentities: [StorefrontIdentityInput!]
   urlDomain: String
+}
+
+"""Filter using a combination of operator and an array of string values"""
+input StringFilterInput {
+  operator: FilterOperator
+  values: [String!]!
+}
+
+"""
+Indicates the key of the term aggregation, and approximately how many documents it occurs in. 
+"""
+type TermAggregation {
+  docCount: Int!
+  key: String!
 }

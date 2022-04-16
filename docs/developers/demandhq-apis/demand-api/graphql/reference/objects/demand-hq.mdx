@@ -34,14 +34,22 @@ type DemandHq {
   pageId: ID
   slug: String
 ): Page!
+  pageTermAggregations(
+  numberOfResults: Int!
+): PageTermAggregations
   pages(
   after: String
+  author: StringFilterInput
   before: String
   first: Int
   last: Int
-  pageType: String
-  status: PageStatus
-): PageConnection!
+  pageIds: [ID]
+  pageType: StringFilterInput
+  query: String
+  sortOrder: [PageSortInput]
+  status: PageStatusFilterInput
+  tags: [StringFilterInput]
+): PageConnectionWithSearch!
   storefront(
   storefrontId: ID!
 ): Storefront
@@ -170,7 +178,15 @@ Required page/read permission on the given DemandHq.
 
 
 
-#### `pages` ([`PageConnection`](/developers/demandhq-apis/demand-api/graphql/reference/objects/page-connection))
+#### `pageTermAggregations` ([`PageTermAggregations`](/developers/demandhq-apis/demand-api/graphql/reference/objects/page-term-aggregations))
+
+Term aggregations for Pages, typically used to suggest terms to use in Search Filters.
+- ##### `numberOfResults` ([`Int`](/developers/demandhq-apis/demand-api/graphql/reference/scalars/int))
+
+The number of aggregations to return for each type.
+
+
+#### `pages` ([`PageConnectionWithSearch`](/developers/demandhq-apis/demand-api/graphql/reference/objects/page-connection-with-search))
 
 List pages for a DemandHq with optional filters.
             
@@ -178,6 +194,11 @@ Required page/read permission on the given DemandHq.
 - ##### `after` ([`String`](/developers/demandhq-apis/demand-api/graphql/reference/scalars/string))
 
 Returns the elements in the list that come after the specified cursor.
+
+
+- ##### `author` ([`StringFilterInput`](/developers/demandhq-apis/demand-api/graphql/reference/inputs/string-filter-input))
+
+Filter Pages using author
 
 
 - ##### `before` ([`String`](/developers/demandhq-apis/demand-api/graphql/reference/scalars/string))
@@ -195,14 +216,36 @@ Returns the first n elements from the list.
 Returns the last n elements from the list.
 
 
-- ##### `pageType` ([`String`](/developers/demandhq-apis/demand-api/graphql/reference/scalars/string))
+- ##### `pageIds` ([`ID`](/developers/demandhq-apis/demand-api/graphql/reference/scalars/id))
+
+Filter Pages to a set of pageIds
 
 
+- ##### `pageType` ([`StringFilterInput`](/developers/demandhq-apis/demand-api/graphql/reference/inputs/string-filter-input))
+
+Filter Pages using pageType
 
 
-- ##### `status` ([`PageStatus`](/developers/demandhq-apis/demand-api/graphql/reference/enums/page-status))
+- ##### `query` ([`String`](/developers/demandhq-apis/demand-api/graphql/reference/scalars/string))
+
+Query pages for certain terms. Searches several fields, including
+page.author, page.description, page.subtitle, page.title, pageTags, and the
+actual content of the page.
 
 
+- ##### `sortOrder` ([`PageSortInput`](/developers/demandhq-apis/demand-api/graphql/reference/inputs/page-sort-input))
+
+Sort Pages by a series of fields and directions, defaults to CREATED_AT/ASC.
+
+
+- ##### `status` ([`PageStatusFilterInput`](/developers/demandhq-apis/demand-api/graphql/reference/inputs/page-status-filter-input))
+
+Filter Pages using status
+
+
+- ##### `tags` ([`StringFilterInput`](/developers/demandhq-apis/demand-api/graphql/reference/inputs/string-filter-input))
+
+Filter Pages using Tags.
 
 
 #### `storefront` ([`Storefront`](/developers/demandhq-apis/demand-api/graphql/reference/objects/storefront))

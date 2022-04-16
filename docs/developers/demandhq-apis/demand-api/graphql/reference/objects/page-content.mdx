@@ -11,8 +11,10 @@ This is the actual content of the page
 type PageContent {
   contentAsHtml: String
   contentAsString: String!
+  demandHqId: ID!
   pageId: ID!
   updatedAt: String
+  updatedBy: ID!
 }
 ```
 
@@ -29,12 +31,22 @@ Get the markdown content of the page as parsed HTML.
 
 
 
+#### `demandHqId` ([`ID`](/developers/demandhq-apis/demand-api/graphql/reference/scalars/id))
+
+
+
+
 #### `pageId` ([`ID`](/developers/demandhq-apis/demand-api/graphql/reference/scalars/id))
 
 
 
 
 #### `updatedAt` ([`String`](/developers/demandhq-apis/demand-api/graphql/reference/scalars/string))
+
+
+
+
+#### `updatedBy` ([`ID`](/developers/demandhq-apis/demand-api/graphql/reference/scalars/id))
 
 
 

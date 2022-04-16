@@ -14,6 +14,7 @@ type SupplierProductTags {
   key: String
 ): ParsedTag
   raw: [String!]
+  supplierId: ID!
   supplierProductId: ID!
   updatedAt: Date!
   updatedBy: ID!
@@ -37,6 +38,11 @@ Optionally filter tags by key. If category is not provided, but key is, category
 
 
 #### `raw` ([`String`](/developers/supplier-apis/supply-api/graphql/reference/scalars/string))
+
+
+
+
+#### `supplierId` ([`ID`](/developers/supplier-apis/supply-api/graphql/reference/scalars/id))
 
 
 
