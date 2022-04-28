@@ -11,6 +11,7 @@ The data object is required, but is a partial update, and keys not mentioned wil
 ```graphql
 input SupplierProductCustomDataUpsertInput {
   data: JSON!
+  supplierId: ID!
   supplierProductId: ID!
 }
 ```
@@ -19,6 +20,11 @@ input SupplierProductCustomDataUpsertInput {
 ### Fields
 
 #### `data` ([`JSON`](/developers/supplier-apis/supply-api/graphql/reference/scalars/json))
+
+
+
+
+#### `supplierId` ([`ID`](/developers/supplier-apis/supply-api/graphql/reference/scalars/id))
 
 
 

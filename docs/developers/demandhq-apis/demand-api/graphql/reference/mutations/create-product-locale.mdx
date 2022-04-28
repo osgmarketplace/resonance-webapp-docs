@@ -1,0 +1,34 @@
+---
+id: create-product-locale
+title: createProductLocale
+---
+
+
+Create a new productLocale.
+
+
+```graphql
+createProductLocale(
+  input: ProductLocaleCreateInput!
+): ProductLocale!
+
+```
+
+
+### Arguments
+
+#### `input` ([`ProductLocaleCreateInput`](/developers/demandhq-apis/demand-api/graphql/reference/inputs/product-locale-create-input))
+
+
+
+
+### Type
+
+#### [`ProductLocale`](/developers/demandhq-apis/demand-api/graphql/reference/objects/product-locale) 
+
+This has a many to one relationship with Product, and provides localized language data for the appropriate fields.
+There will often only be one of these, and it should be the one set in defaultLocale for the supplier.
+
+
+
+

@@ -15,6 +15,7 @@ input PageUpdateInput {
   pageId: ID!
   pageType: String
   primaryImageUrl: String
+  publishedAt: Date
   seoTitle: String
   slug: String
   status: PageStatus
@@ -56,6 +57,12 @@ Any string to declare a category of this page, can be used to filter pages, limi
 #### `primaryImageUrl` ([`String`](/developers/demandhq-apis/demand-api/graphql/reference/scalars/string))
 
 A primary image url for this page, can be generated from a Page ContentItem.
+
+
+#### `publishedAt` ([`Date`](/developers/demandhq-apis/demand-api/graphql/reference/scalars/date))
+
+ISO format date when the page was published. Note that ensuing updates with
+status set to PUBLISHED will republish and re-set this date.
 
 
 #### `seoTitle` ([`String`](/developers/demandhq-apis/demand-api/graphql/reference/scalars/string))

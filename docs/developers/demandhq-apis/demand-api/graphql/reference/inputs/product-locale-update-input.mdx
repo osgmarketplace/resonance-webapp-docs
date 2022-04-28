@@ -1,0 +1,44 @@
+---
+id: product-locale-update-input
+title: ProductLocaleUpdateInput
+---
+
+
+The necessary fields in order to update a productLocale.
+ID fields are required, others are optional, only included fields will be updated.
+
+
+```graphql
+input ProductLocaleUpdateInput {
+  description: String
+  featureBullets: [String]
+  localeType: ResonanceLocaleType!
+  productId: ID!
+}
+```
+
+
+### Fields
+
+#### `description` ([`String`](/developers/demandhq-apis/demand-api/graphql/reference/scalars/string))
+
+
+
+
+#### `featureBullets` ([`String`](/developers/demandhq-apis/demand-api/graphql/reference/scalars/string))
+
+Limited to 5 bullets
+
+
+#### `localeType` ([`ResonanceLocaleType`](/developers/demandhq-apis/demand-api/graphql/reference/enums/resonance-locale-type))
+
+
+
+
+#### `productId` ([`ID`](/developers/demandhq-apis/demand-api/graphql/reference/scalars/id))
+
+
+
+
+
+

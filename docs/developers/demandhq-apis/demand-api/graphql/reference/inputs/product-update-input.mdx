@@ -1,0 +1,81 @@
+---
+id: product-update-input
+title: ProductUpdateInput
+---
+
+
+ID Fields are required, but all other fields are optional, only included fields will be updated.
+
+
+```graphql
+input ProductUpdateInput {
+  optionLabels: [String!]
+  productId: ID!
+  publishedAt: Date
+  seoTitle: String
+  slug: String
+  status: ProductStatus
+  storefrontIds: [ID]
+  tags: [String]
+  title: String
+  vendor: String
+}
+```
+
+
+### Fields
+
+#### `optionLabels` ([`String`](/developers/demandhq-apis/demand-api/graphql/reference/scalars/string))
+
+The labels for the possible option groups for this product, i.e. "Color", "Size", "Material", etc.
+These will match with labelOptions in Variants.
+
+
+#### `productId` ([`ID`](/developers/demandhq-apis/demand-api/graphql/reference/scalars/id))
+
+
+
+
+#### `publishedAt` ([`Date`](/developers/demandhq-apis/demand-api/graphql/reference/scalars/date))
+
+ISO format date when the product was published. Note that ensuing updates with
+status set to PUBLISHED will republish and re-set this date.
+
+
+#### `seoTitle` ([`String`](/developers/demandhq-apis/demand-api/graphql/reference/scalars/string))
+
+Title specific for SEO purposes, limit 256 characters.
+
+
+#### `slug` ([`String`](/developers/demandhq-apis/demand-api/graphql/reference/scalars/string))
+
+Slug for the URL for this product. Limit 128 characters.
+
+
+#### `status` ([`ProductStatus`](/developers/demandhq-apis/demand-api/graphql/reference/enums/product-status))
+
+The status of the product, can be DRAFT or PUBLISHED.
+
+
+#### `storefrontIds` ([`ID`](/developers/demandhq-apis/demand-api/graphql/reference/scalars/id))
+
+Which storefronts should have access to this product?
+
+
+#### `tags` ([`String`](/developers/demandhq-apis/demand-api/graphql/reference/scalars/string))
+
+
+
+
+#### `title` ([`String`](/developers/demandhq-apis/demand-api/graphql/reference/scalars/string))
+
+The title of the product, limit 256 characters.
+
+
+#### `vendor` ([`String`](/developers/demandhq-apis/demand-api/graphql/reference/scalars/string))
+
+AKA Brand. Limit 256 characters.
+
+
+
+

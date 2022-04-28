@@ -9,6 +9,14 @@ enum FilterOperator {
 }
 
 """
+Filter using a min/max number range, in combination these function like an 'Any' filter.
+"""
+input FloatRangeFilterInput {
+  max: Float!
+  min: Float!
+}
+
+"""
 The `JSON` scalar type represents JSON values as specified by [ECMA-404](http://www.ecma-international.org/publications/files/ECMA-ST/ECMA-404.pdf).
 """
 scalar JSON
@@ -96,6 +104,52 @@ type ParsedTag {
   value: String!
 }
 
+"""Indicates which field to sort by, defaults to CREATED_AT"""
+enum ProductSortField {
+  CREATED_AT
+  MSRP
+  PRICE
+  PUBLISHED_AT
+  RELEVANCE
+  TITLE
+  UPDATED_AT
+  VENDOR
+}
+
+"""Sort Products by a field and direction."""
+input ProductSortInput {
+  direction: SortDirection!
+  field: ProductSortField!
+}
+
+"""Filter Products using StandardizedColor (Variant)."""
+input ProductStandardizedColorFilterInput {
+  operator: FilterOperator
+  values: [VariantStandardizedColor!]!
+}
+
+"""These are the tags associated to the product"""
+type ProductTags {
+  """Get parsed, and optionally filtered, tags for a Product."""
+  parsed(
+    """Optionally filter tags by category."""
+    category: String
+
+    """
+    Optionally filter tags by key. If category is not provided, but key is, category must be null to be returned.
+    """
+    key: String
+  ): ParsedTag
+  raw: [String]
+}
+
+"""A Map of several fields of Product and term aggregations for each"""
+type ProductTermAggregations {
+  manufacturers: [TermAggregation!]
+  tags: [TermAggregation!]
+  vendors: [TermAggregation!]
+}
+
 """
 A Page is a part of the Demand Domain and represents a page with textual and
 image content on it, that has nothing to do with products.
@@ -166,6 +220,108 @@ type PublicPageEdge {
 }
 
 """
+A Product is a part of the Demand Domain and represents a the basic information of a product.
+Products have many support entities, including variants, which represent SKUs of the product.
+"""
+type PublicProduct {
+  demandHqId: ID!
+
+  """
+  Get a single productLocale by ResonanceLocaleType.
+              
+  Requires the "publicproductlocale/read" permission.
+  """
+  locale: PublicProductLocale
+
+  """
+  The labels for the possible option groups for this product, i.e. "Color", "Size", "Material", etc.
+  These will match with labelOptions in Variants.
+  """
+  optionLabels: [String!]!
+
+  """A short description of the product, limit 1000 characters."""
+  productId: ID!
+
+  """ISO format date when the product was published."""
+  publishedAt: Date
+
+  """Title specific for SEO purposes, limit 256 characters."""
+  seoTitle: String
+
+  """Slug for the URL for this product. Limit 128 characters."""
+  slug: String!
+
+  """Get the tags of the product."""
+  tags: ProductTags
+
+  """The title of the product, limit 256 characters."""
+  title: String!
+
+  """
+  Get a single variant by VariantId
+  
+      Requires demandHqvariant/read permission on the requesting identity
+  """
+  variant(variantId: ID): PublicVariant
+
+  """
+  Get a list of variants
+  
+      Requires demandHqvariant/read permission on the demandHq for the requesting identity
+  """
+  variants(
+    """Returns the elements in the list that come after the specified cursor."""
+    after: String
+
+    """
+    Returns the elements in the list that come before the specified cursor.
+    """
+    before: String
+
+    """Returns the first n elements from the list."""
+    first: Int
+
+    """Returns the last n elements from the list."""
+    last: Int
+  ): PublicVariantConnection!
+
+  """The brand of the product, limit 256 characters."""
+  vendor: String!
+}
+
+"""Paginate through PublicProducts"""
+type PublicProductConnectionWithSearch {
+  edges: [PublicProductEdge]!
+  nodes: [PublicProduct]!
+  pageInfo: PageInfo!
+
+  """
+  This is an object with terms in the query as keys, and a suggestion for that
+  term as the value. This is often referred to as 'Did you mean?'
+  """
+  querySuggestions: JSON
+}
+
+"""One edge producing one PublicProduct Node"""
+type PublicProductEdge {
+  node: PublicProduct
+}
+
+"""
+This has a many to one relationship with Product, and provides localized language data for the appropriate fields.
+There will often only be one of these, and it should be the one set in defaultLocale for the supplier.
+"""
+type PublicProductLocale {
+  demandHqId: ID!
+  description: String
+
+  """Limited to 5 bullets"""
+  featureBullets: [String]
+  localeType: ResonanceLocaleType!
+  productId: ID!
+}
+
+"""
 A Storefront is the parent-most entity in the Storefront API, and represents the entire site.
 """
 type PublicStorefront {
@@ -174,6 +330,78 @@ type PublicStorefront {
   name: String!
   storefrontId: ID!
   urlDomain: String!
+}
+
+"""
+This is the child entity to a Product, and is a variation, such as a color, size, etc.
+"""
+type PublicVariant {
+  """UPC, ISBN, GTIN, etc."""
+  barcode: String!
+
+  """Quantity in one variant (i.e. 12-pack). Must be a positive integer."""
+  casePack: Int
+
+  """Associates contentItems with this variant"""
+  contentItemIds: [ID]
+  demandHqId: ID!
+  isTaxable: Boolean
+
+  """Often same as vendor, but not always."""
+  manufacturer: String
+
+  """Minimum Advertised Price. Must be a positive number."""
+  mapPrice: Float
+
+  """Manufacturer Part Number"""
+  mpn: String
+
+  """Manufacturer's Suggested Retail Price. Must be a positive number."""
+  msrp: Float
+
+  """
+  An array of the option values that make up this variant.
+  For example, a product with a color and size option would have two option values,
+  one for each of the color and size options, i.e. ["Red", "Small"]
+  
+  Must have 1-3, and it should match the number of options in the product, but there is no validation to do so.
+  
+  Set this to "No Option" if you don't want to use options for this product and this is the only variant.
+  See https://docs.buildresonance.com/concepts/products/#no-option-products for more info.
+  """
+  optionValues: [String!]!
+
+  """
+  Used to determine what order the content comes out in.
+  Positive Integers are allowed, up to 9,999,999,999, and it does not have to be unique or sequential.
+  """
+  position: Int
+
+  """Price for the defaultCurrency, can be any positive float number value."""
+  price: Float!
+  productId: ID!
+  shippingDimensions: VariantShippingDimensions
+
+  """Stock Keeping Unit"""
+  sku: String
+  standardizedColor: VariantStandardizedColor
+
+  """Get the title of this variant (combo of optionValues)"""
+  title: String!
+  variantId: ID!
+  weight: VariantWeight
+}
+
+"""Paginate through Variants"""
+type PublicVariantConnection {
+  edges: [PublicVariantEdge]!
+  nodes: [PublicVariant]!
+  pageInfo: PageInfo!
+}
+
+"""One edge producing one Variant Node"""
+type PublicVariantEdge {
+  node: PublicVariant
 }
 
 """The root query type for the Demand domain"""
@@ -243,11 +471,87 @@ type Query {
   ): PublicPageConnectionWithSearch!
 
   """
+  Get a product by its slug.
+  
+  Requires the publicproduct/read scope.
+  """
+  product(slug: String!): PublicProduct
+
+  """
+  Term aggregations for Products, typically used to suggest terms to use in Search Filters.
+  """
+  productTermAggregations(
+    """The number of aggregations to return for each type."""
+    numberOfResults: Int!
+  ): ProductTermAggregations
+
+  """
+  Paginate through products.
+  
+  Requires the publicproduct/read scope.
+  """
+  products(
+    """Returns the elements in the list that come after the specified cursor."""
+    after: String
+
+    """
+    Returns the elements in the list that come before the specified cursor.
+    """
+    before: String
+
+    """Returns the first n elements from the list."""
+    first: Int
+
+    """Returns the last n elements from the list."""
+    last: Int
+
+    """Optionally filter by manufacturer."""
+    manufacturer: [StringFilterInput]
+
+    """Optionally filter by msrp."""
+    msrp: FloatRangeFilterInput
+
+    """Optionally filter by price."""
+    price: FloatRangeFilterInput
+
+    """
+    Query products for certain terms. Searches several fields, including
+    product.tags, product.title, product.vendor, productLocales.description,
+    productLocales.featureBullets, variant.barcode, variant.mpn, variant.sku
+    """
+    query: String
+
+    """Filter Products using slugs"""
+    slugs: [String]
+
+    """
+    Sort Products by a series of fields and directions, defaults to CREATED_AT/ASC.
+    """
+    sortOrder: [ProductSortInput]
+
+    """Optionally filter by standardized color."""
+    standardizedColor: [ProductStandardizedColorFilterInput]
+
+    """Optionally filter by tags."""
+    tags: [StringFilterInput]
+
+    """Optionally filter by vendor."""
+    vendor: StringFilterInput
+  ): PublicProductConnectionWithSearch!
+
+  """
   Get the storefront associated with the requesting storefront identity.
               
   Requires the "publicstorefront/read" permission.
   """
   storefront: PublicStorefront
+}
+
+"""
+Used throughout the app to indicate what language and locality a given text is in
+"""
+enum ResonanceLocaleType {
+  EN_US
 }
 
 """Indicates which direction to sort, defaults to ASC"""
@@ -268,4 +572,52 @@ Indicates the key of the term aggregation, and approximately how many documents 
 type TermAggregation {
   docCount: Int!
   key: String!
+}
+
+"""Metric or Standard Dimension?"""
+enum VariantShippingDimensionUnit {
+  CM
+  IN
+}
+
+"""Object to indicate all three shipping box dimensions and a unit"""
+type VariantShippingDimensions {
+  height: Float!
+  length: Float!
+  unit: VariantShippingDimensionUnit!
+  width: Float!
+}
+
+"""Indicates a standardized color for a variant, i.e. Blue for 'Topaz'"""
+enum VariantStandardizedColor {
+  BEIGE
+  BLACK
+  BLUE
+  BRONZE
+  BROWN
+  CLEAR
+  GOLD
+  GRAY
+  GREEN
+  MULTICOLOR
+  OFFWHITE
+  ORANGE
+  PINK
+  PURPLE
+  RED
+  SILVER
+  WHITE
+  YELLOW
+}
+
+"""Object to indicate both amount and unit of weight."""
+type VariantWeight {
+  amount: Float!
+  unit: VariantWeightUnit!
+}
+
+"""Metric or Standard Weight?"""
+enum VariantWeightUnit {
+  GRAMS
+  LBS
 }

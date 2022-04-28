@@ -1,0 +1,33 @@
+---
+id: product-term-aggregations
+title: productTermAggregations
+---
+
+
+Term aggregations for Products, typically used to suggest terms to use in Search Filters.
+
+
+```graphql
+productTermAggregations(
+  numberOfResults: Int!
+): ProductTermAggregations
+
+```
+
+
+### Arguments
+
+#### `numberOfResults` ([`Int`](/developers/demandhq-apis/storefront-api/graphql/reference/scalars/int))
+
+The number of aggregations to return for each type.
+
+
+### Type
+
+#### [`ProductTermAggregations`](/developers/demandhq-apis/storefront-api/graphql/reference/objects/product-term-aggregations) 
+
+A Map of several fields of Product and term aggregations for each
+
+
+
+

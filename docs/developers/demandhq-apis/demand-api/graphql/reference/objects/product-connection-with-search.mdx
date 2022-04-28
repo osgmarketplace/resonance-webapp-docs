@@ -1,0 +1,44 @@
+---
+id: product-connection-with-search
+title: ProductConnectionWithSearch
+---
+
+
+Paginate through Products
+
+
+```graphql
+type ProductConnectionWithSearch {
+  edges: [ProductEdge]!
+  nodes: [Product]!
+  pageInfo: PageInfo!
+  querySuggestions: JSON
+}
+```
+
+
+### Fields
+
+#### `edges` ([`ProductEdge`](/developers/demandhq-apis/demand-api/graphql/reference/objects/product-edge))
+
+
+
+
+#### `nodes` ([`Product`](/developers/demandhq-apis/demand-api/graphql/reference/objects/product))
+
+
+
+
+#### `pageInfo` ([`PageInfo`](/developers/demandhq-apis/demand-api/graphql/reference/objects/page-info))
+
+
+
+
+#### `querySuggestions` ([`JSON`](/developers/demandhq-apis/demand-api/graphql/reference/scalars/json))
+
+This is an object with terms in the query as keys, and a suggestion for that
+term as the value. This is often referred to as 'Did you mean?'
+
+
+
+

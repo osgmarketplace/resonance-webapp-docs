@@ -116,6 +116,9 @@ type DemandHq {
     """
     query: String
 
+    """Filter Pages to a set of slugs"""
+    slugs: [String]
+
     """
     Sort Pages by a series of fields and directions, defaults to CREATED_AT/ASC.
     """
@@ -127,6 +130,82 @@ type DemandHq {
     """Filter Pages using Tags."""
     tags: [StringFilterInput]
   ): PageConnectionWithSearch!
+
+  """
+  Get a single product by ID or slug.
+  
+  Requires the product/read scope on the associated DemandHq.
+  """
+  product(productId: ID, slug: String): Product
+
+  """
+  Term aggregations for Products, typically used to suggest terms to use in Search Filters.
+  """
+  productTermAggregations(
+    """The number of aggregations to return for each type."""
+    numberOfResults: Int!
+  ): ProductTermAggregations
+
+  """
+  Get a list of products.
+  
+  Requires the product/read scope on the associated DemandHq.
+  """
+  products(
+    """Returns the elements in the list that come after the specified cursor."""
+    after: String
+
+    """
+    Returns the elements in the list that come before the specified cursor.
+    """
+    before: String
+
+    """Returns the first n elements from the list."""
+    first: Int
+
+    """Returns the last n elements from the list."""
+    last: Int
+
+    """Optionally filter by manufacturer."""
+    manufacturer: [StringFilterInput]
+
+    """Optionally filter by msrp."""
+    msrp: [FloatRangeFilterInput]
+
+    """Optionally filter by price."""
+    price: [FloatRangeFilterInput]
+
+    """Filter Products to a set of productIds"""
+    productIds: [ID]
+
+    """
+    Query products for certain terms. Searches several fields, including
+    product.tags, product.title, product.vendor, productLocales.description,
+    productLocales.featureBullets, variant.barcode, variant.mpn, variant.sku
+    """
+    query: String
+
+    """Filter Products to a set of slugs"""
+    slugs: [String]
+
+    """
+    Sort Products by a series of fields and directions, defaults to CREATED_AT/ASC.
+    """
+    sortOrder: [ProductSortInput]
+
+    """Optionally filter by standardized color."""
+    standardizedColor: [ProductStandardizedColorFilterInput]
+
+    """Filter Products using Status."""
+    status: ProductStatusFilterInput
+
+    """Optionally filter by tags."""
+    tags: [StringFilterInput]
+
+    """Optionally filter by vendor."""
+    vendor: StringFilterInput
+  ): ProductConnectionWithSearch!
+  status: DemandHqStatus!
 
   """
   Get a storefront by its storefrontId.
@@ -291,6 +370,12 @@ input DemandHqNotificationUserNamesInput {
   orders: [String!]
 }
 
+"""Indicates the status of a DemandHq"""
+enum DemandHqStatus {
+  ARCHIVED
+  PUBLISHED
+}
+
 """The possible fields in order to update a demandHq."""
 input DemandHqUpdateInput {
   demandHqId: ID!
@@ -316,6 +401,14 @@ enum FilterOperator {
   AND
   NOT
   OR
+}
+
+"""
+Filter using a min/max number range, in combination these function like an 'Any' filter.
+"""
+input FloatRangeFilterInput {
+  max: Float!
+  min: Float!
 }
 
 """
@@ -361,11 +454,28 @@ type Mutation {
   createPageImageFromUrl(input: PageImageFromUrlInput!): Page!
 
   """
+  Add a new Product to a DemandHq.
+  
+  Requires the product/write permission on the given DemandHq
+  """
+  createProduct(input: ProductCreateInput!): Product!
+
+  """Create a new productLocale."""
+  createProductLocale(input: ProductLocaleCreateInput!): ProductLocale!
+
+  """
   Create a new Storefront.
       
   Requires the "storefront/write" scope on the associated DemandHq.
   """
   createStorefront(input: StorefrontCreateInput): Storefront
+
+  """
+  Create a new variant
+              
+  Requires variant/write permission on the associated demandHq for the requesting identity
+  """
+  createVariant(input: VariantCreateInput!): Variant!
 
   """
   Delete a DemandHqIdentity from a DemandHq (remove a user's permissions)
@@ -387,6 +497,20 @@ type Mutation {
   Requires the page/write permission on the given DemandHq
   """
   deletePageContentItem(contentItemId: ID!, pageId: ID!): DeletePageContentItemResponse!
+
+  """
+  Delete a Product from a DemandHq.
+  
+  Requires the product/write permission on the given DemandHq
+  """
+  deleteProduct(productId: ID!): ProductDeleteResponse!
+
+  """
+  Delete a variant
+              
+  Requires variant/write permission on the associated demandHq for the requesting identity
+  """
+  deleteVariant(variantId: ID): VariantDeleteResponse!
 
   """
   Install an app to a DemandHq (give an app permissions)
@@ -425,11 +549,36 @@ type Mutation {
   updatePage(input: PageUpdateInput!): Page!
 
   """
+  Update an existing product.
+  
+  Requires the product/write permission on the given DemandHq
+  """
+  updateProduct(input: ProductUpdateInput!): Product!
+
+  """Update an existing productLocale"""
+  updateProductLocale(input: ProductLocaleUpdateInput!): ProductLocale!
+
+  """
   Update an existing Storefront.
       
   Requires the "storefront/write" scope on the associated DemandHq.
   """
   updateStorefront(input: StorefrontUpdateInput): Storefront
+
+  """
+  Update an existing variant
+              
+  Requires variant/write permission on the associated demandHq for the requesting identity
+  """
+  updateVariant(input: VariantUpdateInput!): Variant!
+
+  """
+  Bulk update variants
+  
+  Requires variant/write permission on the associated demandHq for the requesting identity
+  Note that if there are Permission or UserInput Errors, the entire group will fail, not partially succeed.
+  """
+  updateVariants(inputs: [VariantUpdateInput!]): [Variant!]
 
   """
   Add or Update PageContent for an existing Page.
@@ -736,6 +885,12 @@ input PageUpdateInput {
   """
   primaryImageUrl: String
 
+  """
+  ISO format date when the page was published. Note that ensuing updates with
+  status set to PUBLISHED will republish and re-set this date.
+  """
+  publishedAt: Date
+
   """Title specific for SEO purposes, limit 256 characters."""
   seoTitle: String
 
@@ -766,6 +921,270 @@ type ParsedTag {
 
   """The value of the tag"""
   value: String!
+}
+
+"""
+A Product is a part of the Demand Domain and represents a the basic information of a product.
+Products have many support entities, including variants, which represent SKUs of the product.
+"""
+type Product {
+  createdAt: Date!
+  demandHqId: ID!
+
+  """
+  Get a single productLocale by ResonanceLocaleType
+  
+      Requires productlocale/read permission on the requesting identity
+  """
+  locale(localeType: ResonanceLocaleType!): ProductLocale
+
+  """
+  The labels for the possible option groups for this product, i.e. "Color", "Size", "Material", etc.
+  These will match with labelOptions in Variants.
+  """
+  optionLabels: [String!]!
+  productId: ID!
+
+  """
+  ISO format date when the product was published. Note that ensuing updates with
+  status set to PUBLISHED will republish and re-set this date.
+  """
+  publishedAt: Date
+
+  """Title specific for SEO purposes, limit 256 characters."""
+  seoTitle: String
+
+  """Slug for the URL for this product. Limit 128 characters."""
+  slug: String!
+
+  """The status of the product, can be DRAFT or PUBLISHED."""
+  status: ProductStatus!
+
+  """Which storefronts should have access to this product?"""
+  storefrontIds: [ID]
+
+  """Get the tags for this product"""
+  tags: ProductTags
+
+  """The title of the product, limit 256 characters."""
+  title: String!
+  updatedAt: Date!
+  updatedBy: ID!
+
+  """
+  Get a single variant by VariantId
+  
+      Requires demandHqvariant/read permission on the requesting identity
+  """
+  variant(variantId: ID): Variant
+
+  """
+  Get a list of variants
+  
+      Requires demandHqvariant/read permission on the demandHq for the requesting identity
+  """
+  variants(
+    """Returns the elements in the list that come after the specified cursor."""
+    after: String
+
+    """
+    Returns the elements in the list that come before the specified cursor.
+    """
+    before: String
+
+    """Returns the first n elements from the list."""
+    first: Int
+
+    """Returns the last n elements from the list."""
+    last: Int
+  ): VariantConnection!
+
+  """AKA Brand. Limit 256 characters."""
+  vendor: String!
+}
+
+"""Paginate through Products"""
+type ProductConnectionWithSearch {
+  edges: [ProductEdge]!
+  nodes: [Product]!
+  pageInfo: PageInfo!
+
+  """
+  This is an object with terms in the query as keys, and a suggestion for that
+  term as the value. This is often referred to as 'Did you mean?'
+  """
+  querySuggestions: JSON
+}
+
+"""
+Exactly like Product, but no Status (Status is set to DRAFT on create).
+"""
+input ProductCreateInput {
+  demandHqId: ID!
+
+  """
+  The labels for the possible option groups for this product, i.e. "Color", "Size", "Material", etc.
+  These will match with labelOptions in Variants.
+  """
+  optionLabels: [String!]!
+
+  """Title specific for SEO purposes, limit 256 characters."""
+  seoTitle: String
+
+  """Slug for the URL for this product. Limit 128 characters."""
+  slug: String!
+
+  """Which storefronts should have access to this product?"""
+  storefrontIds: [ID]
+  tags: [String]
+
+  """The title of the product, limit 256 characters."""
+  title: String!
+
+  """AKA Brand. Limit 256 characters."""
+  vendor: String!
+}
+
+"""Returned object from deleteProduct"""
+type ProductDeleteResponse {
+  deletedId: ID!
+}
+
+"""One edge producing one Product Node"""
+type ProductEdge {
+  node: Product
+}
+
+"""
+This has a many to one relationship with Product, and provides localized language data for the appropriate fields.
+There will often only be one of these, and it should be the one set in defaultLocale for the supplier.
+"""
+type ProductLocale {
+  createdAt: String!
+  demandHqId: ID!
+  description: String
+
+  """Limited to 5 bullets"""
+  featureBullets: [String]
+  localeType: ResonanceLocaleType!
+  productId: ID!
+  updatedAt: String!
+  updatedBy: String!
+}
+
+"""The necessary fields in order to create a new productLocale"""
+input ProductLocaleCreateInput {
+  demandHqId: ID!
+  description: String
+
+  """Limited to 5 bullets"""
+  featureBullets: [String]
+  localeType: ResonanceLocaleType!
+  productId: ID!
+}
+
+"""
+The necessary fields in order to update a productLocale.
+ID fields are required, others are optional, only included fields will be updated.
+"""
+input ProductLocaleUpdateInput {
+  description: String
+
+  """Limited to 5 bullets"""
+  featureBullets: [String]
+  localeType: ResonanceLocaleType!
+  productId: ID!
+}
+
+"""Indicates which field to sort by, defaults to CREATED_AT"""
+enum ProductSortField {
+  CREATED_AT
+  MSRP
+  PRICE
+  PUBLISHED_AT
+  RELEVANCE
+  TITLE
+  UPDATED_AT
+  VENDOR
+}
+
+"""Sort Products by a field and direction."""
+input ProductSortInput {
+  direction: SortDirection!
+  field: ProductSortField!
+}
+
+"""Filter Products using StandardizedColor (Variant)."""
+input ProductStandardizedColorFilterInput {
+  operator: FilterOperator
+  values: [VariantStandardizedColor!]!
+}
+
+"""Indicates whether the user type is an app or human user"""
+enum ProductStatus {
+  ARCHIVED
+  DRAFT
+  NEEDSREVIEW
+  PUBLISHED
+}
+
+"""Filter Products using Status."""
+input ProductStatusFilterInput {
+  operator: FilterOperator
+  values: [ProductStatus!]!
+}
+
+"""These are the tags associated to the product"""
+type ProductTags {
+  demandHqId: ID!
+  productId: ID!
+  raw: [String]
+  updatedAt: Date!
+  updatedBy: ID!
+}
+
+"""A Map of several fields of Product and term aggregations for each"""
+type ProductTermAggregations {
+  manufacturers: [TermAggregation!]
+  tags: [TermAggregation!]
+  vendors: [TermAggregation!]
+}
+
+"""
+ID Fields are required, but all other fields are optional, only included fields will be updated.
+"""
+input ProductUpdateInput {
+  """
+  The labels for the possible option groups for this product, i.e. "Color", "Size", "Material", etc.
+  These will match with labelOptions in Variants.
+  """
+  optionLabels: [String!]
+  productId: ID!
+
+  """
+  ISO format date when the product was published. Note that ensuing updates with
+  status set to PUBLISHED will republish and re-set this date.
+  """
+  publishedAt: Date
+
+  """Title specific for SEO purposes, limit 256 characters."""
+  seoTitle: String
+
+  """Slug for the URL for this product. Limit 128 characters."""
+  slug: String
+
+  """The status of the product, can be DRAFT or PUBLISHED."""
+  status: ProductStatus
+
+  """Which storefronts should have access to this product?"""
+  storefrontIds: [ID]
+  tags: [String]
+
+  """The title of the product, limit 256 characters."""
+  title: String
+
+  """AKA Brand. Limit 256 characters."""
+  vendor: String
 }
 
 """
@@ -854,11 +1273,32 @@ type Query {
   page(pageId: ID!): Page
 
   """
+  Get a single product by ID.
+              
+  Requires the product/read scope on the associated DemandHq.
+  """
+  product(productId: ID!): Product
+
+  """
   Get a storefront by its storefrontId.
               
   Requires the storefront/read permission on the associated DemandHq.
   """
   storefront(storefrontId: ID!): Storefront
+
+  """
+  Get a single variant by VariantId
+  
+      Requires demandHqvariant/read permission on the requesting identity
+  """
+  variant(variantId: ID): Variant
+
+  """
+  Get several variants by VariantIds (currently)
+  
+      Requires demandHqvariant/read permission on the requesting identity for all associated demandHqs
+  """
+  variants(variantIds: [ID!]!): VariantConnection!
 }
 
 """Used throughout the app to give a currency to price information"""
@@ -993,4 +1433,254 @@ Indicates the key of the term aggregation, and approximately how many documents 
 type TermAggregation {
   docCount: Int!
   key: String!
+}
+
+"""
+The main item of the Supplier Domain, represents a single SKU of a product
+Only the variant level exists, there is no parent product.
+"""
+type Variant {
+  """UPC, ISBN, GTIN, etc."""
+  barcode: String!
+
+  """Quantity in one variant (i.e. 12-pack). Must be a positive integer."""
+  casePack: Int
+
+  """Associates contentItems with this variant"""
+  contentItemIds: [ID]
+  createdAt: String!
+  demandHqId: ID!
+  isTaxable: Boolean
+
+  """Often same as vendor, but not always."""
+  manufacturer: String
+
+  """Minimum Advertised Price. Must be a positive number."""
+  mapPrice: Float
+
+  """Manufacturer Part Number"""
+  mpn: String
+
+  """Manufacturer's Suggested Retail Price. Must be a positive number."""
+  msrp: Float
+
+  """
+  An array of the option values that make up this variant.
+  For example, a product with a color and size option would have two option values,
+  one for each of the color and size options, i.e. ["Red", "Small"]
+  
+  Must have 1-3, and it should match the number of options in the product, but there is no validation to do so.
+  
+  Set this to "No Option" if you don't want to use options for this product and this is the only variant.
+  See https://docs.buildresonance.com/concepts/products/#no-option-products for more info.
+  """
+  optionValues: [String!]!
+
+  """
+  Used to determine what order the content comes out in.
+  Positive Integers are allowed, up to 9,999,999,999, and it does not have to be unique or sequential.
+  """
+  position: Int
+
+  """Price for the defaultCurrency, can be any positive float number value."""
+  price: Float!
+  productId: ID!
+  shippingDimensions: VariantShippingDimensions
+
+  """Stock Keeping Unit"""
+  sku: String
+  standardizedColor: VariantStandardizedColor
+
+  """Get the title of this variant (combo of optionValues)"""
+  title: String!
+  updatedAt: String!
+  updatedBy: String!
+  variantId: ID!
+  weight: VariantWeight
+}
+
+"""Paginate through Variants"""
+type VariantConnection {
+  edges: [VariantEdge]!
+  nodes: [Variant]!
+  pageInfo: PageInfo!
+}
+
+"""The necessary fields in order to create a new variant"""
+input VariantCreateInput {
+  """UPC, ISBN, GTIN, etc."""
+  barcode: String!
+
+  """Quantity in one variant (i.e. 12-pack). Must be a positive integer."""
+  casePack: Int
+
+  """Associates contentItems with this variant"""
+  contentItemIds: [ID]
+  demandHqId: ID!
+  isTaxable: Boolean
+
+  """Often same as vendor, but not always."""
+  manufacturer: String
+
+  """Minimum Advertised Price. Must be a positive number."""
+  mapPrice: Float
+
+  """Manufacturer Part Number"""
+  mpn: String
+
+  """Manufacturer's Suggested Retail Price. Must be a positive number."""
+  msrp: Float
+
+  """
+  An array of the option values that make up this variant.
+  For example, a product with a color and size option would have two option values,
+  one for each of the color and size options, i.e. ["Red", "Small"]
+  
+  Must have 1-3, and it should match the number of options in the product, but there is no validation to do so.
+  
+  Set this to "No Option" if you don't want to use options for this product and this is the only variant.
+  See https://docs.buildresonance.com/concepts/products/#no-option-products for more info.
+  """
+  optionValues: [String!]!
+
+  """
+  Used to determine what order the content comes out in.
+  Positive Integers are allowed, up to 9,999,999,999, and it does not have to be unique or sequential.
+  """
+  position: Int
+
+  """Price for the defaultCurrency, can be any positive float number value."""
+  price: Float!
+  productId: ID!
+  shippingDimensions: VariantShippingDimensionsInput
+
+  """Stock Keeping Unit"""
+  sku: String
+  standardizedColor: VariantStandardizedColor
+  weight: VariantWeightInput
+}
+
+"""Response for when deleting a variant"""
+type VariantDeleteResponse {
+  deletedId: ID!
+}
+
+"""One edge producing one Variant Node"""
+type VariantEdge {
+  node: Variant
+}
+
+"""Metric or Standard Dimension?"""
+enum VariantShippingDimensionUnit {
+  CM
+  IN
+}
+
+"""Object to indicate all three shipping box dimensions and a unit"""
+type VariantShippingDimensions {
+  height: Float!
+  length: Float!
+  unit: VariantShippingDimensionUnit!
+  width: Float!
+}
+
+"""The necessary fields in order to set Shipping Dimensions for a variant"""
+input VariantShippingDimensionsInput {
+  height: Float!
+  length: Float!
+  unit: VariantShippingDimensionUnit!
+  width: Float!
+}
+
+"""Indicates a standardized color for a variant, i.e. Blue for 'Topaz'"""
+enum VariantStandardizedColor {
+  BEIGE
+  BLACK
+  BLUE
+  BRONZE
+  BROWN
+  CLEAR
+  GOLD
+  GRAY
+  GREEN
+  MULTICOLOR
+  OFFWHITE
+  ORANGE
+  PINK
+  PURPLE
+  RED
+  SILVER
+  WHITE
+  YELLOW
+}
+
+"""The necessary fields in order to update an existing variant"""
+input VariantUpdateInput {
+  """UPC, ISBN, GTIN, etc."""
+  barcode: String
+
+  """Quantity in one variant (i.e. 12-pack). Must be a positive integer."""
+  casePack: Int
+
+  """Associates contentItems with this variant"""
+  contentItemIds: [ID]
+  isTaxable: Boolean
+
+  """Often same as vendor, but not always."""
+  manufacturer: String
+
+  """Minimum Advertised Price. Must be a positive number."""
+  mapPrice: Float
+
+  """Manufacturer Part Number"""
+  mpn: String
+
+  """Manufacturer's Suggested Retail Price. Must be a positive number."""
+  msrp: Float
+
+  """
+  An array of the option values that make up this variant.
+  For example, a product with a color and size option would have two option values,
+  one for each of the color and size options, i.e. ["Red", "Small"]
+  
+  Must have 1-3, and it should match the number of options in the product, but there is no validation to do so.
+  
+  Set this to "No Option" if you don't want to use options for this product and this is the only variant.
+  See https://docs.buildresonance.com/concepts/products/#no-option-products for more info.
+  """
+  optionValues: [String!]
+
+  """
+  Used to determine what order the content comes out in.
+  Positive Integers are allowed, up to 9,999,999,999, and it does not have to be unique or sequential.
+  """
+  position: Int
+
+  """Price for the defaultCurrency, can be any positive float number value."""
+  price: Float
+  shippingDimensions: VariantShippingDimensionsInput
+
+  """Stock Keeping Unit"""
+  sku: String
+  standardizedColor: VariantStandardizedColor
+  variantId: ID!
+  weight: VariantWeightInput
+}
+
+"""Object to indicate both amount and unit of weight."""
+type VariantWeight {
+  amount: Float!
+  unit: VariantWeightUnit!
+}
+
+"""The necessary fields in order to set Weight for a variant"""
+input VariantWeightInput {
+  amount: Float!
+  unit: VariantWeightUnit!
+}
+
+"""Metric or Standard Weight?"""
+enum VariantWeightUnit {
+  GRAMS
+  LBS
 }

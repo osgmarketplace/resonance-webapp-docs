@@ -1,0 +1,36 @@
+---
+id: create-product
+title: createProduct
+---
+
+
+Add a new Product to a DemandHq.
+
+Requires the product/write permission on the given DemandHq
+
+
+```graphql
+createProduct(
+  input: ProductCreateInput!
+): Product!
+
+```
+
+
+### Arguments
+
+#### `input` ([`ProductCreateInput`](/developers/demandhq-apis/demand-api/graphql/reference/inputs/product-create-input))
+
+
+
+
+### Type
+
+#### [`Product`](/developers/demandhq-apis/demand-api/graphql/reference/objects/product) 
+
+A Product is a part of the Demand Domain and represents a the basic information of a product.
+Products have many support entities, including variants, which represent SKUs of the product.
+
+
+
+
