@@ -1,0 +1,36 @@
+---
+id: product
+title: product
+---
+
+
+Get a single product by ID.
+            
+Requires the product/read scope on the associated DemandHq.
+
+
+```graphql
+product(
+  productId: ID!
+): Product
+
+```
+
+
+### Arguments
+
+#### `productId` ([`ID`](/developers/demandhq-apis/demand-api/graphql/reference/scalars/id))
+
+
+
+
+### Type
+
+#### [`Product`](/developers/demandhq-apis/demand-api/graphql/reference/objects/product) 
+
+A Product is a part of the Demand Domain and represents a the basic information of a product.
+Products have many support entities, including variants, which represent SKUs of the product.
+
+
+
+

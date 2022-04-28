@@ -1,0 +1,37 @@
+---
+id: update-variants
+title: updateVariants
+---
+
+
+Bulk update variants
+
+Requires variant/write permission on the associated demandHq for the requesting identity
+Note that if there are Permission or UserInput Errors, the entire group will fail, not partially succeed.
+
+
+```graphql
+updateVariants(
+  inputs: [VariantUpdateInput!]
+): [Variant!]
+
+```
+
+
+### Arguments
+
+#### `inputs` ([`VariantUpdateInput`](/developers/demandhq-apis/demand-api/graphql/reference/inputs/variant-update-input))
+
+
+
+
+### Type
+
+#### [`Variant`](/developers/demandhq-apis/demand-api/graphql/reference/objects/variant) 
+
+The main item of the Supplier Domain, represents a single SKU of a product
+Only the variant level exists, there is no parent product.
+
+
+
+

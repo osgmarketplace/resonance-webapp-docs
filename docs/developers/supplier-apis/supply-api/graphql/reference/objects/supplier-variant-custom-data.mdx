@@ -11,6 +11,7 @@ Data that doesn't fit in the provided SupplierVariant fields needs to live here.
 type SupplierVariantCustomData {
   createdAt: String!
   data: JSON!
+  supplierId: ID!
   supplierVariantId: ID!
   updatedAt: String!
   updatedBy: String!
@@ -26,6 +27,11 @@ type SupplierVariantCustomData {
 
 
 #### `data` ([`JSON`](/developers/supplier-apis/supply-api/graphql/reference/scalars/json))
+
+
+
+
+#### `supplierId` ([`ID`](/developers/supplier-apis/supply-api/graphql/reference/scalars/id))
 
 
 

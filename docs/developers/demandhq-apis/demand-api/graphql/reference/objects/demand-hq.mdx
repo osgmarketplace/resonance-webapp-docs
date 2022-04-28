@@ -46,10 +46,36 @@ type DemandHq {
   pageIds: [ID]
   pageType: StringFilterInput
   query: String
+  slugs: [String]
   sortOrder: [PageSortInput]
   status: PageStatusFilterInput
   tags: [StringFilterInput]
 ): PageConnectionWithSearch!
+  product(
+  productId: ID
+  slug: String
+): Product
+  productTermAggregations(
+  numberOfResults: Int!
+): ProductTermAggregations
+  products(
+  after: String
+  before: String
+  first: Int
+  last: Int
+  manufacturer: [StringFilterInput]
+  msrp: [FloatRangeFilterInput]
+  price: [FloatRangeFilterInput]
+  productIds: [ID]
+  query: String
+  slugs: [String]
+  sortOrder: [ProductSortInput]
+  standardizedColor: [ProductStandardizedColorFilterInput]
+  status: ProductStatusFilterInput
+  tags: [StringFilterInput]
+  vendor: StringFilterInput
+): ProductConnectionWithSearch!
+  status: DemandHqStatus!
   storefront(
   storefrontId: ID!
 ): Storefront
@@ -233,6 +259,11 @@ page.author, page.description, page.subtitle, page.title, pageTags, and the
 actual content of the page.
 
 
+- ##### `slugs` ([`String`](/developers/demandhq-apis/demand-api/graphql/reference/scalars/string))
+
+Filter Pages to a set of slugs
+
+
 - ##### `sortOrder` ([`PageSortInput`](/developers/demandhq-apis/demand-api/graphql/reference/inputs/page-sort-input))
 
 Sort Pages by a series of fields and directions, defaults to CREATED_AT/ASC.
@@ -246,6 +277,116 @@ Filter Pages using status
 - ##### `tags` ([`StringFilterInput`](/developers/demandhq-apis/demand-api/graphql/reference/inputs/string-filter-input))
 
 Filter Pages using Tags.
+
+
+#### `product` ([`Product`](/developers/demandhq-apis/demand-api/graphql/reference/objects/product))
+
+Get a single product by ID or slug.
+
+Requires the product/read scope on the associated DemandHq.
+- ##### `productId` ([`ID`](/developers/demandhq-apis/demand-api/graphql/reference/scalars/id))
+
+
+
+
+- ##### `slug` ([`String`](/developers/demandhq-apis/demand-api/graphql/reference/scalars/string))
+
+
+
+
+#### `productTermAggregations` ([`ProductTermAggregations`](/developers/demandhq-apis/demand-api/graphql/reference/objects/product-term-aggregations))
+
+Term aggregations for Products, typically used to suggest terms to use in Search Filters.
+- ##### `numberOfResults` ([`Int`](/developers/demandhq-apis/demand-api/graphql/reference/scalars/int))
+
+The number of aggregations to return for each type.
+
+
+#### `products` ([`ProductConnectionWithSearch`](/developers/demandhq-apis/demand-api/graphql/reference/objects/product-connection-with-search))
+
+Get a list of products.
+
+Requires the product/read scope on the associated DemandHq.
+- ##### `after` ([`String`](/developers/demandhq-apis/demand-api/graphql/reference/scalars/string))
+
+Returns the elements in the list that come after the specified cursor.
+
+
+- ##### `before` ([`String`](/developers/demandhq-apis/demand-api/graphql/reference/scalars/string))
+
+Returns the elements in the list that come before the specified cursor.
+
+
+- ##### `first` ([`Int`](/developers/demandhq-apis/demand-api/graphql/reference/scalars/int))
+
+Returns the first n elements from the list.
+
+
+- ##### `last` ([`Int`](/developers/demandhq-apis/demand-api/graphql/reference/scalars/int))
+
+Returns the last n elements from the list.
+
+
+- ##### `manufacturer` ([`StringFilterInput`](/developers/demandhq-apis/demand-api/graphql/reference/inputs/string-filter-input))
+
+Optionally filter by manufacturer.
+
+
+- ##### `msrp` ([`FloatRangeFilterInput`](/developers/demandhq-apis/demand-api/graphql/reference/inputs/float-range-filter-input))
+
+Optionally filter by msrp.
+
+
+- ##### `price` ([`FloatRangeFilterInput`](/developers/demandhq-apis/demand-api/graphql/reference/inputs/float-range-filter-input))
+
+Optionally filter by price.
+
+
+- ##### `productIds` ([`ID`](/developers/demandhq-apis/demand-api/graphql/reference/scalars/id))
+
+Filter Products to a set of productIds
+
+
+- ##### `query` ([`String`](/developers/demandhq-apis/demand-api/graphql/reference/scalars/string))
+
+Query products for certain terms. Searches several fields, including
+product.tags, product.title, product.vendor, productLocales.description,
+productLocales.featureBullets, variant.barcode, variant.mpn, variant.sku
+
+
+- ##### `slugs` ([`String`](/developers/demandhq-apis/demand-api/graphql/reference/scalars/string))
+
+Filter Products to a set of slugs
+
+
+- ##### `sortOrder` ([`ProductSortInput`](/developers/demandhq-apis/demand-api/graphql/reference/inputs/product-sort-input))
+
+Sort Products by a series of fields and directions, defaults to CREATED_AT/ASC.
+
+
+- ##### `standardizedColor` ([`ProductStandardizedColorFilterInput`](/developers/demandhq-apis/demand-api/graphql/reference/inputs/product-standardized-color-filter-input))
+
+Optionally filter by standardized color.
+
+
+- ##### `status` ([`ProductStatusFilterInput`](/developers/demandhq-apis/demand-api/graphql/reference/inputs/product-status-filter-input))
+
+Filter Products using Status.
+
+
+- ##### `tags` ([`StringFilterInput`](/developers/demandhq-apis/demand-api/graphql/reference/inputs/string-filter-input))
+
+Optionally filter by tags.
+
+
+- ##### `vendor` ([`StringFilterInput`](/developers/demandhq-apis/demand-api/graphql/reference/inputs/string-filter-input))
+
+Optionally filter by vendor.
+
+
+#### `status` ([`DemandHqStatus`](/developers/demandhq-apis/demand-api/graphql/reference/enums/demand-hq-status))
+
+
 
 
 #### `storefront` ([`Storefront`](/developers/demandhq-apis/demand-api/graphql/reference/objects/storefront))

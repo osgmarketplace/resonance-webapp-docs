@@ -16,7 +16,7 @@ type SupplierVariant {
   externalVariantId: String!
   inventoryPolicy: SupplierVariantInventoryPolicy!
   inventoryQuantity: Int!
-  inventoryStatus: SupplierVariantInventoryStatus
+  inventoryStatus: VariantInventoryStatus
   optionValues: [String!]!
   supplement: SupplierVariantSupplement
   supplierId: ID!
@@ -61,7 +61,7 @@ Get the associated SupplierVariantCustomData
 
 
 
-#### `inventoryStatus` ([`SupplierVariantInventoryStatus`](/developers/supplier-apis/supply-api/graphql/reference/enums/supplier-variant-inventory-status))
+#### `inventoryStatus` ([`VariantInventoryStatus`](/developers/supplier-apis/supply-api/graphql/reference/enums/variant-inventory-status))
 
 Get the inventory status of this variant
 

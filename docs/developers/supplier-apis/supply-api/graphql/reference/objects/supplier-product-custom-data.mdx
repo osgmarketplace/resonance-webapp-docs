@@ -11,6 +11,7 @@ Data that doesn't fit in the provided SupplierProduct fields needs to live here.
 type SupplierProductCustomData {
   createdAt: String!
   data: JSON!
+  supplierId: ID!
   supplierProductId: ID!
   updatedAt: String!
   updatedBy: String!
@@ -26,6 +27,11 @@ type SupplierProductCustomData {
 
 
 #### `data` ([`JSON`](/developers/supplier-apis/supply-api/graphql/reference/scalars/json))
+
+
+
+
+#### `supplierId` ([`ID`](/developers/supplier-apis/supply-api/graphql/reference/scalars/id))
 
 
 

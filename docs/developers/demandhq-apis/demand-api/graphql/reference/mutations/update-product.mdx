@@ -1,0 +1,36 @@
+---
+id: update-product
+title: updateProduct
+---
+
+
+Update an existing product.
+
+Requires the product/write permission on the given DemandHq
+
+
+```graphql
+updateProduct(
+  input: ProductUpdateInput!
+): Product!
+
+```
+
+
+### Arguments
+
+#### `input` ([`ProductUpdateInput`](/developers/demandhq-apis/demand-api/graphql/reference/inputs/product-update-input))
+
+
+
+
+### Type
+
+#### [`Product`](/developers/demandhq-apis/demand-api/graphql/reference/objects/product) 
+
+A Product is a part of the Demand Domain and represents a the basic information of a product.
+Products have many support entities, including variants, which represent SKUs of the product.
+
+
+
+

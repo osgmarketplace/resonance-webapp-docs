@@ -1,0 +1,129 @@
+---
+id: variant-create-input
+title: VariantCreateInput
+---
+
+
+The necessary fields in order to create a new variant
+
+
+```graphql
+input VariantCreateInput {
+  barcode: String!
+  casePack: Int
+  contentItemIds: [ID]
+  demandHqId: ID!
+  isTaxable: Boolean
+  manufacturer: String
+  mapPrice: Float
+  mpn: String
+  msrp: Float
+  optionValues: [String!]!
+  position: Int
+  price: Float!
+  productId: ID!
+  shippingDimensions: VariantShippingDimensionsInput
+  sku: String
+  standardizedColor: VariantStandardizedColor
+  weight: VariantWeightInput
+}
+```
+
+
+### Fields
+
+#### `barcode` ([`String`](/developers/demandhq-apis/demand-api/graphql/reference/scalars/string))
+
+UPC, ISBN, GTIN, etc.
+
+
+#### `casePack` ([`Int`](/developers/demandhq-apis/demand-api/graphql/reference/scalars/int))
+
+Quantity in one variant (i.e. 12-pack). Must be a positive integer.
+
+
+#### `contentItemIds` ([`ID`](/developers/demandhq-apis/demand-api/graphql/reference/scalars/id))
+
+Associates contentItems with this variant
+
+
+#### `demandHqId` ([`ID`](/developers/demandhq-apis/demand-api/graphql/reference/scalars/id))
+
+
+
+
+#### `isTaxable` ([`Boolean`](/developers/demandhq-apis/demand-api/graphql/reference/scalars/boolean))
+
+
+
+
+#### `manufacturer` ([`String`](/developers/demandhq-apis/demand-api/graphql/reference/scalars/string))
+
+Often same as vendor, but not always.
+
+
+#### `mapPrice` ([`Float`](/developers/demandhq-apis/demand-api/graphql/reference/scalars/float))
+
+Minimum Advertised Price. Must be a positive number.
+
+
+#### `mpn` ([`String`](/developers/demandhq-apis/demand-api/graphql/reference/scalars/string))
+
+Manufacturer Part Number
+
+
+#### `msrp` ([`Float`](/developers/demandhq-apis/demand-api/graphql/reference/scalars/float))
+
+Manufacturer's Suggested Retail Price. Must be a positive number.
+
+
+#### `optionValues` ([`String`](/developers/demandhq-apis/demand-api/graphql/reference/scalars/string))
+
+An array of the option values that make up this variant.
+For example, a product with a color and size option would have two option values,
+one for each of the color and size options, i.e. ["Red", "Small"]
+
+Must have 1-3, and it should match the number of options in the product, but there is no validation to do so.
+
+Set this to "No Option" if you don't want to use options for this product and this is the only variant.
+See https://docs.buildresonance.com/concepts/products/#no-option-products for more info.
+
+
+#### `position` ([`Int`](/developers/demandhq-apis/demand-api/graphql/reference/scalars/int))
+
+Used to determine what order the content comes out in.
+Positive Integers are allowed, up to 9,999,999,999, and it does not have to be unique or sequential.
+
+
+#### `price` ([`Float`](/developers/demandhq-apis/demand-api/graphql/reference/scalars/float))
+
+Price for the defaultCurrency, can be any positive float number value.
+
+
+#### `productId` ([`ID`](/developers/demandhq-apis/demand-api/graphql/reference/scalars/id))
+
+
+
+
+#### `shippingDimensions` ([`VariantShippingDimensionsInput`](/developers/demandhq-apis/demand-api/graphql/reference/inputs/variant-shipping-dimensions-input))
+
+
+
+
+#### `sku` ([`String`](/developers/demandhq-apis/demand-api/graphql/reference/scalars/string))
+
+Stock Keeping Unit
+
+
+#### `standardizedColor` ([`VariantStandardizedColor`](/developers/demandhq-apis/demand-api/graphql/reference/enums/variant-standardized-color))
+
+
+
+
+#### `weight` ([`VariantWeightInput`](/developers/demandhq-apis/demand-api/graphql/reference/inputs/variant-weight-input))
+
+
+
+
+
+

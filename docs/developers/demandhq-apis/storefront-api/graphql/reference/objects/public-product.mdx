@@ -1,0 +1,127 @@
+---
+id: public-product
+title: PublicProduct
+---
+
+
+A Product is a part of the Demand Domain and represents a the basic information of a product.
+Products have many support entities, including variants, which represent SKUs of the product.
+
+
+```graphql
+type PublicProduct {
+  demandHqId: ID!
+  locale: PublicProductLocale
+  optionLabels: [String!]!
+  productId: ID!
+  publishedAt: Date
+  seoTitle: String
+  slug: String!
+  tags: ProductTags
+  title: String!
+  variant(
+  variantId: ID
+): PublicVariant
+  variants(
+  after: String
+  before: String
+  first: Int
+  last: Int
+): PublicVariantConnection!
+  vendor: String!
+}
+```
+
+
+### Fields
+
+#### `demandHqId` ([`ID`](/developers/demandhq-apis/storefront-api/graphql/reference/scalars/id))
+
+
+
+
+#### `locale` ([`PublicProductLocale`](/developers/demandhq-apis/storefront-api/graphql/reference/objects/public-product-locale))
+
+Get a single productLocale by ResonanceLocaleType.
+            
+Requires the "publicproductlocale/read" permission.
+
+
+#### `optionLabels` ([`String`](/developers/demandhq-apis/storefront-api/graphql/reference/scalars/string))
+
+The labels for the possible option groups for this product, i.e. "Color", "Size", "Material", etc.
+These will match with labelOptions in Variants.
+
+
+#### `productId` ([`ID`](/developers/demandhq-apis/storefront-api/graphql/reference/scalars/id))
+
+A short description of the product, limit 1000 characters.
+
+
+#### `publishedAt` ([`Date`](/developers/demandhq-apis/storefront-api/graphql/reference/scalars/date))
+
+ISO format date when the product was published.
+
+
+#### `seoTitle` ([`String`](/developers/demandhq-apis/storefront-api/graphql/reference/scalars/string))
+
+Title specific for SEO purposes, limit 256 characters.
+
+
+#### `slug` ([`String`](/developers/demandhq-apis/storefront-api/graphql/reference/scalars/string))
+
+Slug for the URL for this product. Limit 128 characters.
+
+
+#### `tags` ([`ProductTags`](/developers/demandhq-apis/storefront-api/graphql/reference/objects/product-tags))
+
+Get the tags of the product.
+
+
+#### `title` ([`String`](/developers/demandhq-apis/storefront-api/graphql/reference/scalars/string))
+
+The title of the product, limit 256 characters.
+
+
+#### `variant` ([`PublicVariant`](/developers/demandhq-apis/storefront-api/graphql/reference/objects/public-variant))
+
+Get a single variant by VariantId
+
+    Requires demandHqvariant/read permission on the requesting identity
+- ##### `variantId` ([`ID`](/developers/demandhq-apis/storefront-api/graphql/reference/scalars/id))
+
+
+
+
+#### `variants` ([`PublicVariantConnection`](/developers/demandhq-apis/storefront-api/graphql/reference/objects/public-variant-connection))
+
+Get a list of variants
+
+    Requires demandHqvariant/read permission on the demandHq for the requesting identity
+- ##### `after` ([`String`](/developers/demandhq-apis/storefront-api/graphql/reference/scalars/string))
+
+Returns the elements in the list that come after the specified cursor.
+
+
+- ##### `before` ([`String`](/developers/demandhq-apis/storefront-api/graphql/reference/scalars/string))
+
+Returns the elements in the list that come before the specified cursor.
+
+
+- ##### `first` ([`Int`](/developers/demandhq-apis/storefront-api/graphql/reference/scalars/int))
+
+Returns the first n elements from the list.
+
+
+- ##### `last` ([`Int`](/developers/demandhq-apis/storefront-api/graphql/reference/scalars/int))
+
+Returns the last n elements from the list.
+
+
+#### `vendor` ([`String`](/developers/demandhq-apis/storefront-api/graphql/reference/scalars/string))
+
+The brand of the product, limit 256 characters.
+
+
+
+

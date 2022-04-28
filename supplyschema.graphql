@@ -763,7 +763,7 @@ type Supplier {
 
     """Filter SupplierProducts using InventoryPolicy (Variant)."""
     inventoryPolicy: [SupplierProductInventoryPolicyFilterInput]
-    inventoryStatus: SupplierVariantInventoryStatus
+    inventoryStatus: VariantInventoryStatus
 
     """Returns the last n elements from the list."""
     last: Int
@@ -1237,6 +1237,7 @@ Data that doesn't fit in the provided SupplierProduct fields needs to live here.
 type SupplierProductCustomData {
   createdAt: String!
   data: JSON!
+  supplierId: ID!
   supplierProductId: ID!
   updatedAt: String!
   updatedBy: String!
@@ -1248,6 +1249,7 @@ The data object is required, but is a partial update, and keys not mentioned wil
 """
 input SupplierProductCustomDataUpsertInput {
   data: JSON!
+  supplierId: ID!
   supplierProductId: ID!
 }
 
@@ -1383,7 +1385,7 @@ input SupplierProductSortInput {
 """Filter SupplierProducts using StandardizedColor (Variant)."""
 input SupplierProductStandardizedColorFilterInput {
   operator: FilterOperator
-  values: [SupplierVariantStandardizedColor!]!
+  values: [VariantStandardizedColor!]!
 }
 
 """Indicates whether a product is live and able to be ordered"""
@@ -1634,7 +1636,7 @@ type SupplierVariant {
   inventoryQuantity: Int!
 
   """Get the inventory status of this variant"""
-  inventoryStatus: SupplierVariantInventoryStatus
+  inventoryStatus: VariantInventoryStatus
 
   """
   An array of the option values that make up this variant.
@@ -1724,6 +1726,7 @@ Data that doesn't fit in the provided SupplierVariant fields needs to live here.
 type SupplierVariantCustomData {
   createdAt: String!
   data: JSON!
+  supplierId: ID!
   supplierVariantId: ID!
   updatedAt: String!
   updatedBy: String!
@@ -1735,6 +1738,7 @@ The data object is required, but is a partial update, and keys not mentioned wil
 """
 input SupplierVariantCustomDataUpsertInput {
   data: JSON!
+  supplierId: ID!
   supplierVariantId: ID!
 }
 
@@ -1801,12 +1805,6 @@ enum SupplierVariantInventoryPolicy {
   HOLD
 }
 
-"""Indicates whether a variant is in or out of stock"""
-enum SupplierVariantInventoryStatus {
-  INSTOCK
-  OUTOFSTOCK
-}
-
 """Metric or Standard Dimension?"""
 enum SupplierVariantShippingDimensionUnit {
   CM
@@ -1827,28 +1825,6 @@ input SupplierVariantShippingDimensionsInput {
   length: Float!
   unit: SupplierVariantShippingDimensionUnit!
   width: Float!
-}
-
-"""Indicates a standardized color for a variant, i.e. Blue for 'Topaz'"""
-enum SupplierVariantStandardizedColor {
-  BEIGE
-  BLACK
-  BLUE
-  BRONZE
-  BROWN
-  CLEAR
-  GOLD
-  GRAY
-  GREEN
-  MULTICOLOR
-  OFFWHITE
-  ORANGE
-  PINK
-  PURPLE
-  RED
-  SILVER
-  WHITE
-  YELLOW
 }
 
 """
@@ -1901,7 +1877,7 @@ type SupplierVariantSupplement {
 
   """Stock Keeping Unit"""
   sku: String
-  standardizedColor: SupplierVariantStandardizedColor
+  standardizedColor: VariantStandardizedColor
   supplierId: ID!
   supplierProductId: ID!
   supplierVariantId: ID!
@@ -1952,7 +1928,7 @@ input SupplierVariantSupplementCreateInput {
 
   """Stock Keeping Unit"""
   sku: String
-  standardizedColor: SupplierVariantStandardizedColor
+  standardizedColor: VariantStandardizedColor
   supplierId: ID!
   supplierProductId: ID!
   supplierVariantId: ID!
@@ -2000,7 +1976,7 @@ input SupplierVariantSupplementInCompositeCreateInput {
 
   """Stock Keeping Unit"""
   sku: String
-  standardizedColor: SupplierVariantStandardizedColor
+  standardizedColor: VariantStandardizedColor
   weight: SupplierVariantWeightInput
 }
 
@@ -2045,7 +2021,7 @@ input SupplierVariantSupplementUpdateInput {
 
   """Stock Keeping Unit"""
   sku: String
-  standardizedColor: SupplierVariantStandardizedColor
+  standardizedColor: VariantStandardizedColor
   supplierVariantId: ID!
   weight: SupplierVariantWeightInput
 }
@@ -2266,4 +2242,32 @@ Indicates the key of the term aggregation, and approximately how many documents 
 type TermAggregation {
   docCount: Int!
   key: String!
+}
+
+"""Indicates whether a variant is in or out of stock"""
+enum VariantInventoryStatus {
+  INSTOCK
+  OUTOFSTOCK
+}
+
+"""Indicates a standardized color for a variant, i.e. Blue for 'Topaz'"""
+enum VariantStandardizedColor {
+  BEIGE
+  BLACK
+  BLUE
+  BRONZE
+  BROWN
+  CLEAR
+  GOLD
+  GRAY
+  GREEN
+  MULTICOLOR
+  OFFWHITE
+  ORANGE
+  PINK
+  PURPLE
+  RED
+  SILVER
+  WHITE
+  YELLOW
 }

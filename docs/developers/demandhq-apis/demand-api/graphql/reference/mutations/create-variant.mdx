@@ -1,0 +1,36 @@
+---
+id: create-variant
+title: createVariant
+---
+
+
+Create a new variant
+            
+Requires variant/write permission on the associated demandHq for the requesting identity
+
+
+```graphql
+createVariant(
+  input: VariantCreateInput!
+): Variant!
+
+```
+
+
+### Arguments
+
+#### `input` ([`VariantCreateInput`](/developers/demandhq-apis/demand-api/graphql/reference/inputs/variant-create-input))
+
+
+
+
+### Type
+
+#### [`Variant`](/developers/demandhq-apis/demand-api/graphql/reference/objects/variant) 
+
+The main item of the Supplier Domain, represents a single SKU of a product
+Only the variant level exists, there is no parent product.
+
+
+
+

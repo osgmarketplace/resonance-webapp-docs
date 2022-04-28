@@ -1,0 +1,36 @@
+---
+id: update-variant
+title: updateVariant
+---
+
+
+Update an existing variant
+            
+Requires variant/write permission on the associated demandHq for the requesting identity
+
+
+```graphql
+updateVariant(
+  input: VariantUpdateInput!
+): Variant!
+
+```
+
+
+### Arguments
+
+#### `input` ([`VariantUpdateInput`](/developers/demandhq-apis/demand-api/graphql/reference/inputs/variant-update-input))
+
+
+
+
+### Type
+
+#### [`Variant`](/developers/demandhq-apis/demand-api/graphql/reference/objects/variant) 
+
+The main item of the Supplier Domain, represents a single SKU of a product
+Only the variant level exists, there is no parent product.
+
+
+
+
