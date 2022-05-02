@@ -1,0 +1,37 @@
+---
+id: update-collection
+title: updateCollection
+---
+
+
+Update an existing collection.
+
+Requires the collection/write permission on the given DemandHq
+
+
+```graphql
+updateCollection(
+  input: CollectionUpdateInput!
+): Collection!
+
+```
+
+
+### Arguments
+
+#### `input` ([`CollectionUpdateInput`](/developers/demandhq-apis/demand-api/graphql/reference/inputs/collection-update-input))
+
+
+
+
+### Type
+
+#### [`Collection`](/developers/demandhq-apis/demand-api/graphql/reference/objects/collection) 
+
+A Collection is a group of products, what may often be referred to as a "Category Page" of some variety.
+In reality, a collection is far more flexible and can be used to represent any
+product grouping, and the collectionType can help differentiate between them.
+
+
+
+

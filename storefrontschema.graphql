@@ -1,3 +1,32 @@
+"""This is the actual content of the collection"""
+type CollectionContent {
+  collectionId: ID!
+
+  """Get the markdown content of the collection as parsed HTML."""
+  contentAsHtml: String
+  contentAsString: String!
+
+  """Get the secondary markdown content of the collection as parsed HTML."""
+  secondaryContentAsHtml: String
+  secondaryContentAsString: String
+  updatedAt: String
+}
+
+"""These are the tags associated to the collection"""
+type CollectionTags {
+  """Get parsed, and optionally filtered, tags for a Collection."""
+  parsed(
+    """Optionally filter tags by category."""
+    category: String
+
+    """
+    Optionally filter tags by key. If category is not provided, but key is, category must be null to be returned.
+    """
+    key: String
+  ): ParsedTag
+  raw: [String]
+}
+
 """A date in ISO 8601 format"""
 scalar Date
 
@@ -148,6 +177,80 @@ type ProductTermAggregations {
   manufacturers: [TermAggregation!]
   tags: [TermAggregation!]
   vendors: [TermAggregation!]
+}
+
+"""
+A Collection is a group of products, what may often be referred to as a "Category Page" of some variety.
+In reality, a collection is far more flexible and can be used to represent any
+product grouping, and the collectionType can help differentiate between them.
+"""
+type PublicCollection {
+  collectionId: ID!
+
+  """
+  Any string to declare a category of this collection, can be used to filter collections, limit 128 characters.
+  """
+  collectionType: String!
+
+  """Get the content of the collection."""
+  content: CollectionContent
+  demandHqId: ID!
+
+  """A short description of the collection, limit 1000 characters."""
+  description: String
+
+  """
+  This can be used to pin certain products to the top of a collection when using certain sorts.
+  Max number of products is 20.
+  """
+  featuredProductIds: [ID]
+
+  """
+  A primary image url for this collection, can be generated from a Collection ContentItem.
+  """
+  primaryImageUrl: String
+
+  """
+  ISO format date when the collection was published. Note that ensuing updates
+  with status set to PUBLISHED will republish and re-set this date.
+  """
+  publishedAt: Date
+
+  """Description specific for SEO purposes, limit 170 characters."""
+  seoDescription: String
+
+  """Title specific for SEO purposes, limit 256 characters."""
+  seoTitle: String
+
+  """Slug for the URL for this collection. Limit 128 characters."""
+  slug: String!
+
+  """The subtitle of the collection, limit 256 characters."""
+  subtitle: String
+
+  """Get the tags of the collection."""
+  tags: CollectionTags
+
+  """The title of the collection, limit 256 characters."""
+  title: String!
+}
+
+"""Paginate through PublicCollections"""
+type PublicCollectionConnectionWithSearch {
+  edges: [PublicCollectionEdge]!
+  nodes: [PublicCollection]!
+  pageInfo: PageInfo!
+
+  """
+  This is an object with terms in the query as keys, and a suggestion for that
+  term as the value. This is often referred to as 'Did you mean?'
+  """
+  querySuggestions: JSON
+}
+
+"""One edge producing one PublicCollection Node"""
+type PublicCollectionEdge {
+  node: PublicCollection
 }
 
 """
@@ -408,6 +511,23 @@ type PublicVariantEdge {
 type Query {
   """Nothing to see here, just a workaround for Apollo Server"""
   _empty: String
+
+  """
+  Get a collection by its slug.
+  
+  Requires the publiccollection/read scope.
+  """
+  collection(slug: String!): PublicCollection
+
+  """
+  List collections for a Storefront with optional filters.
+              
+  Requires the publiccollection/read scope.
+  """
+  collections(
+    """Filter Collections using slugs"""
+    slugs: [String]
+  ): PublicCollectionConnectionWithSearch!
 
   """Returns the health of the service"""
   health: String
