@@ -1,0 +1,35 @@
+---
+id: collections
+title: collections
+---
+
+
+List collections for a Storefront with optional filters.
+            
+Requires the publiccollection/read scope.
+
+
+```graphql
+collections(
+  slugs: [String]
+): PublicCollectionConnectionWithSearch!
+
+```
+
+
+### Arguments
+
+#### `slugs` ([`String`](/developers/demandhq-apis/storefront-api/graphql/reference/scalars/string))
+
+Filter Collections using slugs
+
+
+### Type
+
+#### [`PublicCollectionConnectionWithSearch`](/developers/demandhq-apis/storefront-api/graphql/reference/objects/public-collection-connection-with-search) 
+
+Paginate through PublicCollections
+
+
+
+

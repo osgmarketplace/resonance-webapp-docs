@@ -1,0 +1,37 @@
+---
+id: collection
+title: collection
+---
+
+
+Get a collection by its slug.
+
+Requires the publiccollection/read scope.
+
+
+```graphql
+collection(
+  slug: String!
+): PublicCollection
+
+```
+
+
+### Arguments
+
+#### `slug` ([`String`](/developers/demandhq-apis/storefront-api/graphql/reference/scalars/string))
+
+
+
+
+### Type
+
+#### [`PublicCollection`](/developers/demandhq-apis/storefront-api/graphql/reference/objects/public-collection) 
+
+A Collection is a group of products, what may often be referred to as a "Category Page" of some variety.
+In reality, a collection is far more flexible and can be used to represent any
+product grouping, and the collectionType can help differentiate between them.
+
+
+
+

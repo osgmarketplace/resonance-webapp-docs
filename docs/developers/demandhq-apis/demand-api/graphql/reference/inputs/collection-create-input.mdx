@@ -1,20 +1,20 @@
 ---
-id: page-create-input
-title: PageCreateInput
+id: collection-create-input
+title: CollectionCreateInput
 ---
 
 
-Exactly like Page, but no publishedAt or Status (Status is set to DRAFT on create).
+Exactly like Collection, but no publishedAt or Status (Status is set to DRAFT on create).
 
 
 ```graphql
-input PageCreateInput {
-  author: String
+input CollectionCreateInput {
+  collectionType: String!
   contentItemIds: [ID!]
   demandHqId: ID!
   description: String
-  pageType: String!
   primaryImageUrl: String
+  rules: CollectionRulesInput
   seoDescription: String
   seoTitle: String
   slug: String!
@@ -28,14 +28,14 @@ input PageCreateInput {
 
 ### Fields
 
-#### `author` ([`String`](/developers/demandhq-apis/demand-api/graphql/reference/scalars/string))
+#### `collectionType` ([`String`](/developers/demandhq-apis/demand-api/graphql/reference/scalars/string))
 
-The author of the page, limit 256 characters.
+Any string to declare a category of this collection, can be used to filter collections, limit 128 characters.
 
 
 #### `contentItemIds` ([`ID`](/developers/demandhq-apis/demand-api/graphql/reference/scalars/id))
 
-The ContentItemIds of the Content Items that are associated with this page.
+The ContentItemIds of the Content Items that are associated with this collection.
 
 
 #### `demandHqId` ([`ID`](/developers/demandhq-apis/demand-api/graphql/reference/scalars/id))
@@ -45,17 +45,17 @@ The ContentItemIds of the Content Items that are associated with this page.
 
 #### `description` ([`String`](/developers/demandhq-apis/demand-api/graphql/reference/scalars/string))
 
-A short description of the page, limit 1000 characters.
-
-
-#### `pageType` ([`String`](/developers/demandhq-apis/demand-api/graphql/reference/scalars/string))
-
-Any string to declare a category of this page, can be used to filter pages, limit 128 characters.
+A short description of the collection, limit 1000 characters.
 
 
 #### `primaryImageUrl` ([`String`](/developers/demandhq-apis/demand-api/graphql/reference/scalars/string))
 
-A primary image url for this page, can be generated from a Page ContentItem.
+A primary image url for this collection, can be generated from a Collection ContentItem.
+
+
+#### `rules` ([`CollectionRulesInput`](/developers/demandhq-apis/demand-api/graphql/reference/inputs/collection-rules-input))
+
+A map of rules to determine whether a Product should be part of this Collection.
 
 
 #### `seoDescription` ([`String`](/developers/demandhq-apis/demand-api/graphql/reference/scalars/string))
@@ -70,17 +70,17 @@ Title specific for SEO purposes, limit 256 characters.
 
 #### `slug` ([`String`](/developers/demandhq-apis/demand-api/graphql/reference/scalars/string))
 
-Slug for the URL for this page. Limit 128 characters.
+Slug for the URL for this collection. Limit 128 characters.
 
 
 #### `storefrontIds` ([`ID`](/developers/demandhq-apis/demand-api/graphql/reference/scalars/id))
 
-Which storefronts should have access to this page?
+Which storefronts should have access to this collection?
 
 
 #### `subtitle` ([`String`](/developers/demandhq-apis/demand-api/graphql/reference/scalars/string))
 
-The subtitle of the page, limit 256 characters.
+The subtitle of the collection, limit 256 characters.
 
 
 #### `tags` ([`String`](/developers/demandhq-apis/demand-api/graphql/reference/scalars/string))
@@ -90,7 +90,7 @@ The subtitle of the page, limit 256 characters.
 
 #### `title` ([`String`](/developers/demandhq-apis/demand-api/graphql/reference/scalars/string))
 
-The title of the page, limit 256 characters.
+The title of the collection, limit 256 characters.
 
 
 

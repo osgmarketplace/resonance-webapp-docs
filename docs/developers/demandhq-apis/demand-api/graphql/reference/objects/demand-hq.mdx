@@ -9,6 +9,18 @@ The parent-most entity of the DemandHq Domain
 
 ```graphql
 type DemandHq {
+  collection(
+  collectionId: ID
+  slug: String
+): Collection!
+  collections(
+  after: String
+  before: String
+  collectionIds: [ID]
+  first: Int
+  last: Int
+  slugs: [String]
+): CollectionConnectionWithSearch!
   createdAt: String!
   defaultCurrency: ResonanceCurrency!
   defaultLocaleType: ResonanceLocaleType!
@@ -92,6 +104,56 @@ type DemandHq {
 
 
 ### Fields
+
+#### `collection` ([`Collection`](/developers/demandhq-apis/demand-api/graphql/reference/objects/collection))
+
+Get a collection by collectionId or slug (one must be provided).
+            
+Required collection/read permission on the given DemandHq.
+- ##### `collectionId` ([`ID`](/developers/demandhq-apis/demand-api/graphql/reference/scalars/id))
+
+
+
+
+- ##### `slug` ([`String`](/developers/demandhq-apis/demand-api/graphql/reference/scalars/string))
+
+
+
+
+#### `collections` ([`CollectionConnectionWithSearch`](/developers/demandhq-apis/demand-api/graphql/reference/objects/collection-connection-with-search))
+
+List collections for a DemandHq with optional filters.
+            
+Required collection/read permission on the given DemandHq.
+- ##### `after` ([`String`](/developers/demandhq-apis/demand-api/graphql/reference/scalars/string))
+
+Returns the elements in the list that come after the specified cursor.
+
+
+- ##### `before` ([`String`](/developers/demandhq-apis/demand-api/graphql/reference/scalars/string))
+
+Returns the elements in the list that come before the specified cursor.
+
+
+- ##### `collectionIds` ([`ID`](/developers/demandhq-apis/demand-api/graphql/reference/scalars/id))
+
+Filter Collections to a set of collectionIds
+
+
+- ##### `first` ([`Int`](/developers/demandhq-apis/demand-api/graphql/reference/scalars/int))
+
+Returns the first n elements from the list.
+
+
+- ##### `last` ([`Int`](/developers/demandhq-apis/demand-api/graphql/reference/scalars/int))
+
+Returns the last n elements from the list.
+
+
+- ##### `slugs` ([`String`](/developers/demandhq-apis/demand-api/graphql/reference/scalars/string))
+
+Filter Collections to a set of slugs
+
 
 #### `createdAt` ([`String`](/developers/demandhq-apis/demand-api/graphql/reference/scalars/string))
 

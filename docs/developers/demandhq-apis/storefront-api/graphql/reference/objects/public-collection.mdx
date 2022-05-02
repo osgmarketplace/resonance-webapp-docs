@@ -1,0 +1,107 @@
+---
+id: public-collection
+title: PublicCollection
+---
+
+
+A Collection is a group of products, what may often be referred to as a "Category Page" of some variety.
+In reality, a collection is far more flexible and can be used to represent any
+product grouping, and the collectionType can help differentiate between them.
+
+
+```graphql
+type PublicCollection {
+  collectionId: ID!
+  collectionType: String!
+  content: CollectionContent
+  demandHqId: ID!
+  description: String
+  featuredProductIds: [ID]
+  primaryImageUrl: String
+  publishedAt: Date
+  seoDescription: String
+  seoTitle: String
+  slug: String!
+  subtitle: String
+  tags: CollectionTags
+  title: String!
+}
+```
+
+
+### Fields
+
+#### `collectionId` ([`ID`](/developers/demandhq-apis/storefront-api/graphql/reference/scalars/id))
+
+
+
+
+#### `collectionType` ([`String`](/developers/demandhq-apis/storefront-api/graphql/reference/scalars/string))
+
+Any string to declare a category of this collection, can be used to filter collections, limit 128 characters.
+
+
+#### `content` ([`CollectionContent`](/developers/demandhq-apis/storefront-api/graphql/reference/objects/collection-content))
+
+Get the content of the collection.
+
+
+#### `demandHqId` ([`ID`](/developers/demandhq-apis/storefront-api/graphql/reference/scalars/id))
+
+
+
+
+#### `description` ([`String`](/developers/demandhq-apis/storefront-api/graphql/reference/scalars/string))
+
+A short description of the collection, limit 1000 characters.
+
+
+#### `featuredProductIds` ([`ID`](/developers/demandhq-apis/storefront-api/graphql/reference/scalars/id))
+
+This can be used to pin certain products to the top of a collection when using certain sorts.
+Max number of products is 20.
+
+
+#### `primaryImageUrl` ([`String`](/developers/demandhq-apis/storefront-api/graphql/reference/scalars/string))
+
+A primary image url for this collection, can be generated from a Collection ContentItem.
+
+
+#### `publishedAt` ([`Date`](/developers/demandhq-apis/storefront-api/graphql/reference/scalars/date))
+
+ISO format date when the collection was published. Note that ensuing updates
+with status set to PUBLISHED will republish and re-set this date.
+
+
+#### `seoDescription` ([`String`](/developers/demandhq-apis/storefront-api/graphql/reference/scalars/string))
+
+Description specific for SEO purposes, limit 170 characters.
+
+
+#### `seoTitle` ([`String`](/developers/demandhq-apis/storefront-api/graphql/reference/scalars/string))
+
+Title specific for SEO purposes, limit 256 characters.
+
+
+#### `slug` ([`String`](/developers/demandhq-apis/storefront-api/graphql/reference/scalars/string))
+
+Slug for the URL for this collection. Limit 128 characters.
+
+
+#### `subtitle` ([`String`](/developers/demandhq-apis/storefront-api/graphql/reference/scalars/string))
+
+The subtitle of the collection, limit 256 characters.
+
+
+#### `tags` ([`CollectionTags`](/developers/demandhq-apis/storefront-api/graphql/reference/objects/collection-tags))
+
+Get the tags of the collection.
+
+
+#### `title` ([`String`](/developers/demandhq-apis/storefront-api/graphql/reference/scalars/string))
+
+The title of the collection, limit 256 characters.
+
+
+
+

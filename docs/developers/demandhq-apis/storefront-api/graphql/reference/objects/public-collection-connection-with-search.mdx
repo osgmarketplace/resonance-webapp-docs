@@ -1,0 +1,44 @@
+---
+id: public-collection-connection-with-search
+title: PublicCollectionConnectionWithSearch
+---
+
+
+Paginate through PublicCollections
+
+
+```graphql
+type PublicCollectionConnectionWithSearch {
+  edges: [PublicCollectionEdge]!
+  nodes: [PublicCollection]!
+  pageInfo: PageInfo!
+  querySuggestions: JSON
+}
+```
+
+
+### Fields
+
+#### `edges` ([`PublicCollectionEdge`](/developers/demandhq-apis/storefront-api/graphql/reference/objects/public-collection-edge))
+
+
+
+
+#### `nodes` ([`PublicCollection`](/developers/demandhq-apis/storefront-api/graphql/reference/objects/public-collection))
+
+
+
+
+#### `pageInfo` ([`PageInfo`](/developers/demandhq-apis/storefront-api/graphql/reference/objects/page-info))
+
+
+
+
+#### `querySuggestions` ([`JSON`](/developers/demandhq-apis/storefront-api/graphql/reference/scalars/json))
+
+This is an object with terms in the query as keys, and a suggestion for that
+term as the value. This is often referred to as 'Did you mean?'
+
+
+
+

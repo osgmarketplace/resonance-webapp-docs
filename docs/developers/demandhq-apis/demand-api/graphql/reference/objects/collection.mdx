@@ -1,0 +1,155 @@
+---
+id: collection
+title: Collection
+---
+
+
+A Collection is a group of products, what may often be referred to as a "Category Page" of some variety.
+In reality, a collection is far more flexible and can be used to represent any
+product grouping, and the collectionType can help differentiate between them.
+
+
+```graphql
+type Collection {
+  collectionId: ID!
+  collectionType: String!
+  content: CollectionContent
+  contentItemIds: [ID!]
+  contentItems: [CollectionContentItem]
+  createdAt: Date!
+  demandHqId: ID!
+  description: String
+  featuredProductIds: [ID]
+  primaryImageUrl: String
+  publishedAt: Date
+  rules: CollectionRules
+  seoDescription: String
+  seoTitle: String
+  slug: String!
+  status: CollectionStatus!
+  storefrontIds: [ID]
+  subtitle: String
+  tags: CollectionTags
+  title: String!
+  updatedAt: Date!
+  updatedBy: ID!
+}
+```
+
+
+### Fields
+
+#### `collectionId` ([`ID`](/developers/demandhq-apis/demand-api/graphql/reference/scalars/id))
+
+
+
+
+#### `collectionType` ([`String`](/developers/demandhq-apis/demand-api/graphql/reference/scalars/string))
+
+Any string to declare a category of this collection, can be used to filter collections, limit 128 characters.
+
+
+#### `content` ([`CollectionContent`](/developers/demandhq-apis/demand-api/graphql/reference/objects/collection-content))
+
+Get the content of the collection.
+
+
+#### `contentItemIds` ([`ID`](/developers/demandhq-apis/demand-api/graphql/reference/scalars/id))
+
+The ContentItemIds of the Content Items that are associated with this collection.
+
+
+#### `contentItems` ([`CollectionContentItem`](/developers/demandhq-apis/demand-api/graphql/reference/objects/collection-content-item))
+
+Get the content items of the collection.
+
+
+#### `createdAt` ([`Date`](/developers/demandhq-apis/demand-api/graphql/reference/scalars/date))
+
+
+
+
+#### `demandHqId` ([`ID`](/developers/demandhq-apis/demand-api/graphql/reference/scalars/id))
+
+
+
+
+#### `description` ([`String`](/developers/demandhq-apis/demand-api/graphql/reference/scalars/string))
+
+A short description of the collection, limit 1000 characters.
+
+
+#### `featuredProductIds` ([`ID`](/developers/demandhq-apis/demand-api/graphql/reference/scalars/id))
+
+This can be used to pin certain products to the top of a collection when using certain sorts.
+Max number of products is 20.
+
+
+#### `primaryImageUrl` ([`String`](/developers/demandhq-apis/demand-api/graphql/reference/scalars/string))
+
+A primary image url for this collection, can be generated from a Collection ContentItem.
+
+
+#### `publishedAt` ([`Date`](/developers/demandhq-apis/demand-api/graphql/reference/scalars/date))
+
+ISO format date when the collection was published. Note that ensuing updates
+with status set to PUBLISHED will republish and re-set this date.
+
+
+#### `rules` ([`CollectionRules`](/developers/demandhq-apis/demand-api/graphql/reference/objects/collection-rules))
+
+A map of rules to determine whether a Product should be part of this Collection.
+
+
+#### `seoDescription` ([`String`](/developers/demandhq-apis/demand-api/graphql/reference/scalars/string))
+
+Description specific for SEO purposes, limit 170 characters.
+
+
+#### `seoTitle` ([`String`](/developers/demandhq-apis/demand-api/graphql/reference/scalars/string))
+
+Title specific for SEO purposes, limit 256 characters.
+
+
+#### `slug` ([`String`](/developers/demandhq-apis/demand-api/graphql/reference/scalars/string))
+
+Slug for the URL for this collection. Limit 128 characters.
+
+
+#### `status` ([`CollectionStatus`](/developers/demandhq-apis/demand-api/graphql/reference/enums/collection-status))
+
+The status of the collection, can be DRAFT or PUBLISHED.
+
+
+#### `storefrontIds` ([`ID`](/developers/demandhq-apis/demand-api/graphql/reference/scalars/id))
+
+Which storefronts should have access to this collection?
+
+
+#### `subtitle` ([`String`](/developers/demandhq-apis/demand-api/graphql/reference/scalars/string))
+
+The subtitle of the collection, limit 256 characters.
+
+
+#### `tags` ([`CollectionTags`](/developers/demandhq-apis/demand-api/graphql/reference/objects/collection-tags))
+
+Get the tags of the collection.
+
+
+#### `title` ([`String`](/developers/demandhq-apis/demand-api/graphql/reference/scalars/string))
+
+The title of the collection, limit 256 characters.
+
+
+#### `updatedAt` ([`Date`](/developers/demandhq-apis/demand-api/graphql/reference/scalars/date))
+
+
+
+
+#### `updatedBy` ([`ID`](/developers/demandhq-apis/demand-api/graphql/reference/scalars/id))
+
+
+
+
+
+

@@ -24,6 +24,7 @@ type Page {
   pageType: String!
   primaryImageUrl: String
   publishedAt: Date
+  seoDescription: String
   seoTitle: String
   slug: String!
   status: PageStatus!
@@ -93,6 +94,11 @@ A primary image url for this page, can be generated from a Page ContentItem.
 
 ISO format date when the page was published. Note that ensuing updates with
 status set to PUBLISHED will republish and re-set this date.
+
+
+#### `seoDescription` ([`String`](/developers/demandhq-apis/demand-api/graphql/reference/scalars/string))
+
+Description specific for SEO purposes, limit 170 characters.
 
 
 #### `seoTitle` ([`String`](/developers/demandhq-apis/demand-api/graphql/reference/scalars/string))
