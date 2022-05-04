@@ -1,6 +1,6 @@
 {
   "name": "resonance-webapp-docs",
-  "version": "0.20.3",
+  "version": "0.21.0",
   "private": true,
   "scripts": {
     "docusaurus": "docusaurus",
