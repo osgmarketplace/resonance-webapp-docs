@@ -23,7 +23,7 @@ type CollectionTags {
     Optionally filter tags by key. If category is not provided, but key is, category must be null to be returned.
     """
     key: String
-  ): ParsedTag
+  ): [ParsedTag]
   raw: [String]
 }
 
@@ -110,7 +110,7 @@ type PageTags {
     Optionally filter tags by key. If category is not provided, but key is, category must be null to be returned.
     """
     key: String
-  ): ParsedTag
+  ): [ParsedTag]
   raw: [String]
 }
 
@@ -168,7 +168,7 @@ type ProductTags {
     Optionally filter tags by key. If category is not provided, but key is, category must be null to be returned.
     """
     key: String
-  ): ParsedTag
+  ): [ParsedTag]
   raw: [String]
 }
 
@@ -209,6 +209,60 @@ type PublicCollection {
   A primary image url for this collection, can be generated from a Collection ContentItem.
   """
   primaryImageUrl: String
+
+  """
+  Paginate through products in a collection.
+  
+  Requires the publicproduct/read scope.
+  """
+  products(
+    """Returns the elements in the list that come after the specified cursor."""
+    after: String
+
+    """
+    Returns the elements in the list that come before the specified cursor.
+    """
+    before: String
+
+    """Returns the first n elements from the list."""
+    first: Int
+
+    """Returns the last n elements from the list."""
+    last: Int
+
+    """Optionally filter by manufacturer."""
+    manufacturer: [StringFilterInput]
+
+    """Optionally filter by msrp."""
+    msrp: FloatRangeFilterInput
+
+    """Optionally filter by price."""
+    price: FloatRangeFilterInput
+
+    """
+    Query products for certain terms. Searches several fields, including
+    product.tags, product.title, product.vendor, productLocales.description,
+    productLocales.featureBullets, variant.barcode, variant.mpn, variant.sku
+    """
+    query: String
+
+    """Filter Products using slugs"""
+    slugs: [String]
+
+    """
+    Sort Products by a series of fields and directions, defaults to CREATED_AT/ASC.
+    """
+    sortOrder: [ProductSortInput]
+
+    """Optionally filter by standardized color."""
+    standardizedColor: [ProductStandardizedColorFilterInput]
+
+    """Optionally filter by tags."""
+    tags: [StringFilterInput]
+
+    """Optionally filter by vendor."""
+    vendor: StringFilterInput
+  ): PublicProductConnectionWithSearch!
 
   """
   ISO format date when the collection was published. Note that ensuing updates

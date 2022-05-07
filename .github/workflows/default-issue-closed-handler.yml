@@ -13,4 +13,5 @@ jobs:
       - name: Remove all specified labels if present
         uses: peter-murray/remove-labels-action@v1
         with:
-          labels: in progress
+          labels: in progress,blocked
+          

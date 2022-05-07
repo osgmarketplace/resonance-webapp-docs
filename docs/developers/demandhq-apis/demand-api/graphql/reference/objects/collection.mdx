@@ -21,6 +21,24 @@ type Collection {
   description: String
   featuredProductIds: [ID]
   primaryImageUrl: String
+  products(
+  after: String
+  before: String
+  first: Int
+  last: Int
+  manufacturer: [StringFilterInput]
+  msrp: [FloatRangeFilterInput]
+  price: [FloatRangeFilterInput]
+  productIds: [ID]
+  query: String
+  slugs: [String]
+  sortOrder: [ProductSortInput]
+  standardizedColor: [ProductStandardizedColorFilterInput]
+  status: ProductStatusFilterInput
+  storefrontIds: IDFilterInput
+  tags: [StringFilterInput]
+  vendor: StringFilterInput
+): ProductConnectionWithSearch!
   publishedAt: Date
   rules: CollectionRules
   seoDescription: String
@@ -88,6 +106,93 @@ Max number of products is 20.
 #### `primaryImageUrl` ([`String`](/developers/demandhq-apis/demand-api/graphql/reference/scalars/string))
 
 A primary image url for this collection, can be generated from a Collection ContentItem.
+
+
+#### `products` ([`ProductConnectionWithSearch`](/developers/demandhq-apis/demand-api/graphql/reference/objects/product-connection-with-search))
+
+Paginate through products in a collection.
+
+Requires the product/read scope.
+- ##### `after` ([`String`](/developers/demandhq-apis/demand-api/graphql/reference/scalars/string))
+
+Returns the elements in the list that come after the specified cursor.
+
+
+- ##### `before` ([`String`](/developers/demandhq-apis/demand-api/graphql/reference/scalars/string))
+
+Returns the elements in the list that come before the specified cursor.
+
+
+- ##### `first` ([`Int`](/developers/demandhq-apis/demand-api/graphql/reference/scalars/int))
+
+Returns the first n elements from the list.
+
+
+- ##### `last` ([`Int`](/developers/demandhq-apis/demand-api/graphql/reference/scalars/int))
+
+Returns the last n elements from the list.
+
+
+- ##### `manufacturer` ([`StringFilterInput`](/developers/demandhq-apis/demand-api/graphql/reference/inputs/string-filter-input))
+
+Optionally filter by manufacturer.
+
+
+- ##### `msrp` ([`FloatRangeFilterInput`](/developers/demandhq-apis/demand-api/graphql/reference/inputs/float-range-filter-input))
+
+Optionally filter by msrp.
+
+
+- ##### `price` ([`FloatRangeFilterInput`](/developers/demandhq-apis/demand-api/graphql/reference/inputs/float-range-filter-input))
+
+Optionally filter by price.
+
+
+- ##### `productIds` ([`ID`](/developers/demandhq-apis/demand-api/graphql/reference/scalars/id))
+
+Filter Products to a set of productIds
+
+
+- ##### `query` ([`String`](/developers/demandhq-apis/demand-api/graphql/reference/scalars/string))
+
+Query products for certain terms. Searches several fields, including
+product.tags, product.title, product.vendor, productLocales.description,
+productLocales.featureBullets, variant.barcode, variant.mpn, variant.sku
+
+
+- ##### `slugs` ([`String`](/developers/demandhq-apis/demand-api/graphql/reference/scalars/string))
+
+Filter Products to a set of slugs
+
+
+- ##### `sortOrder` ([`ProductSortInput`](/developers/demandhq-apis/demand-api/graphql/reference/inputs/product-sort-input))
+
+Sort Products by a series of fields and directions, defaults to CREATED_AT/ASC.
+
+
+- ##### `standardizedColor` ([`ProductStandardizedColorFilterInput`](/developers/demandhq-apis/demand-api/graphql/reference/inputs/product-standardized-color-filter-input))
+
+Optionally filter by standardized color.
+
+
+- ##### `status` ([`ProductStatusFilterInput`](/developers/demandhq-apis/demand-api/graphql/reference/inputs/product-status-filter-input))
+
+Filter Products using Status.
+
+
+- ##### `storefrontIds` ([`IDFilterInput`](/developers/demandhq-apis/demand-api/graphql/reference/inputs/idfilter-input))
+
+Optionally filter by storefrontIds.
+
+
+- ##### `tags` ([`StringFilterInput`](/developers/demandhq-apis/demand-api/graphql/reference/inputs/string-filter-input))
+
+Optionally filter by tags.
+
+
+- ##### `vendor` ([`StringFilterInput`](/developers/demandhq-apis/demand-api/graphql/reference/inputs/string-filter-input))
+
+Optionally filter by vendor.
 
 
 #### `publishedAt` ([`Date`](/developers/demandhq-apis/demand-api/graphql/reference/scalars/date))

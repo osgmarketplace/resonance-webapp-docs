@@ -1413,7 +1413,7 @@ type SupplierProductTags {
     Optionally filter tags by key. If category is not provided, but key is, category must be null to be returned.
     """
     key: String
-  ): ParsedTag
+  ): [ParsedTag]
   raw: [String!]
   supplierId: ID!
   supplierProductId: ID!

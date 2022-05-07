@@ -61,6 +61,7 @@ type DemandHq {
   slugs: [String]
   sortOrder: [PageSortInput]
   status: PageStatusFilterInput
+  storefrontIds: IDFilterInput
   tags: [StringFilterInput]
 ): PageConnectionWithSearch!
   product(
@@ -84,6 +85,7 @@ type DemandHq {
   sortOrder: [ProductSortInput]
   standardizedColor: [ProductStandardizedColorFilterInput]
   status: ProductStatusFilterInput
+  storefrontIds: IDFilterInput
   tags: [StringFilterInput]
   vendor: StringFilterInput
 ): ProductConnectionWithSearch!
@@ -336,6 +338,11 @@ Sort Pages by a series of fields and directions, defaults to CREATED_AT/ASC.
 Filter Pages using status
 
 
+- ##### `storefrontIds` ([`IDFilterInput`](/developers/demandhq-apis/demand-api/graphql/reference/inputs/idfilter-input))
+
+Optionally filter by storefrontIds.
+
+
 - ##### `tags` ([`StringFilterInput`](/developers/demandhq-apis/demand-api/graphql/reference/inputs/string-filter-input))
 
 Filter Pages using Tags.
@@ -434,6 +441,11 @@ Optionally filter by standardized color.
 - ##### `status` ([`ProductStatusFilterInput`](/developers/demandhq-apis/demand-api/graphql/reference/inputs/product-status-filter-input))
 
 Filter Products using Status.
+
+
+- ##### `storefrontIds` ([`IDFilterInput`](/developers/demandhq-apis/demand-api/graphql/reference/inputs/idfilter-input))
+
+Optionally filter by storefrontIds.
 
 
 - ##### `tags` ([`StringFilterInput`](/developers/demandhq-apis/demand-api/graphql/reference/inputs/string-filter-input))
