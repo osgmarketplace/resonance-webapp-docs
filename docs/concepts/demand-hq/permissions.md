@@ -22,7 +22,7 @@ Scopes are individual permissions given to an entity. Scopes can be either read 
 -   Read: allows an identity to see all other identities for a demandHq, and what permissions each has.
 -   Write: allows an identity to give and change access for other identities on the demandHq. This includes installing, updating, or removing apps, as well as user management.
 
-### Collection, Customer, CustomerAddress, Nav, Page, PageContent, Product, ProductContentItem, ProductCustomData, ProductLocale, Redirect, Storefront, StorefrontNavSettings, Variant, VariantCustomData, VariantSupplement
+### Collection, Customer, CustomerAddress, Nav, Page, PageContent, Product, ProductContentItem, ProductCustomData, ProductLocale, Redirect, Storefront, StorefrontNavSettings, Variant, VariantCustomData
 
 These entities are a bit more straightforward, so we will define them as a group, but first lets talk a little about what each is:
 
@@ -32,7 +32,7 @@ These entities are a bit more straightforward, so we will define them as a group
 
 -   CustomerAddress: An address for a Customer.
 
--   Nav: Nav is an item within a navigational heirarchy of some kind, most often viewed as a menu.
+-   Nav: Nav is an item within a navigational hierarchy of some kind, most often viewed as a menu.
 
 -   Page: A Page is a part of the Demand Domain and represents a page with textual and image content on it, that has nothing to do with products. This can range from "About Us" pages to Blog articles. Use the "pageType" field to differentiate. Pages do not have locales specified, but since everything would be different anyway, "pageType" can be a composite key with locale in it.
 

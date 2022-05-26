@@ -8,9 +8,9 @@ The GraphQL Documentation is automatically generated, and controlled through a s
 
 The key is to get a token for the APIs (any will do that is valid). Once you have one, you can run a script like so:
 
-`AUTHHEADER="Bearer ..." npm run getgql:supply`
+`AUTHHEADER="Bearer ..." npm run getgql:all`
 
-This will get the schema for the Supply API.
+This will get the schema for the all APIs.
 
 Once you have done so, you can run:
 
