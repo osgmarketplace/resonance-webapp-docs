@@ -10,7 +10,9 @@ The globally used Address of Resonance
 ```graphql
 type Address {
   city: String!
+  company: String
   country: String!
+  name: String!
   phoneNumber: String
   postalCode: String!
   state: String!
@@ -27,9 +29,19 @@ type Address {
 The city of the address
 
 
+#### `company` ([`String`](/developers/supplier-apis/supply-api/graphql/reference/scalars/string))
+
+The company associated with the address
+
+
 #### `country` ([`String`](/developers/supplier-apis/supply-api/graphql/reference/scalars/string))
 
 The country of the address
+
+
+#### `name` ([`String`](/developers/supplier-apis/supply-api/graphql/reference/scalars/string))
+
+The name associated with the address, i.e. the Person in the household
 
 
 #### `phoneNumber` ([`String`](/developers/supplier-apis/supply-api/graphql/reference/scalars/string))

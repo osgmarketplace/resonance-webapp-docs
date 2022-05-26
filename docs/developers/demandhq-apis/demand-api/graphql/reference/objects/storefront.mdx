@@ -14,9 +14,32 @@ type Storefront {
 ): StorefrontApiKey
   apiKeys: [StorefrontApiKey]!
   createdAt: Date!
+  customer(
+  customerId: ID!
+): Customer
+  customers(
+  after: String
+  before: String
+  customerIds: [ID]
+  first: Int
+  last: Int
+): CustomerConnectionWithSearch!
   demandHqId: ID!
   description: String
   name: String!
+  navs(
+  after: String
+  before: String
+  first: Int
+  href: String
+  hrefPrefix: String
+  last: Int
+  linkSlug: String
+  linkType: String
+  navIds: [ID]
+  navLevel: Int
+  navType: String
+): NavConnection!
   storefrontId: ID!
   storefrontIdentities: [StorefrontIdentity!]
   updatedAt: Date!
@@ -46,6 +69,46 @@ Get all api keys for this storefront.
 
 
 
+#### `customer` ([`Customer`](/developers/demandhq-apis/demand-api/graphql/reference/objects/customer))
+
+Get a Customer by their customerId.
+            
+Requires the customer/read permission for the associated DemandHq.
+- ##### `customerId` ([`ID`](/developers/demandhq-apis/demand-api/graphql/reference/scalars/id))
+
+
+
+
+#### `customers` ([`CustomerConnectionWithSearch`](/developers/demandhq-apis/demand-api/graphql/reference/objects/customer-connection-with-search))
+
+Get a list of Customers.
+
+Requires the customer/read permission for the associated DemandHq.
+- ##### `after` ([`String`](/developers/demandhq-apis/demand-api/graphql/reference/scalars/string))
+
+Returns the elements in the list that come after the specified cursor.
+
+
+- ##### `before` ([`String`](/developers/demandhq-apis/demand-api/graphql/reference/scalars/string))
+
+Returns the elements in the list that come before the specified cursor.
+
+
+- ##### `customerIds` ([`ID`](/developers/demandhq-apis/demand-api/graphql/reference/scalars/id))
+
+
+
+
+- ##### `first` ([`Int`](/developers/demandhq-apis/demand-api/graphql/reference/scalars/int))
+
+Returns the first n elements from the list.
+
+
+- ##### `last` ([`Int`](/developers/demandhq-apis/demand-api/graphql/reference/scalars/int))
+
+Returns the last n elements from the list.
+
+
 #### `demandHqId` ([`ID`](/developers/demandhq-apis/demand-api/graphql/reference/scalars/id))
 
 
@@ -57,6 +120,66 @@ Get all api keys for this storefront.
 
 
 #### `name` ([`String`](/developers/demandhq-apis/demand-api/graphql/reference/scalars/string))
+
+
+
+
+#### `navs` ([`NavConnection`](/developers/demandhq-apis/demand-api/graphql/reference/objects/nav-connection))
+
+List Navs for a storefront.
+
+Requires the user to have the nav/read permission on the associated DemandHq.
+- ##### `after` ([`String`](/developers/demandhq-apis/demand-api/graphql/reference/scalars/string))
+
+Returns the elements in the list that come after the specified cursor.
+
+
+- ##### `before` ([`String`](/developers/demandhq-apis/demand-api/graphql/reference/scalars/string))
+
+Returns the elements in the list that come before the specified cursor.
+
+
+- ##### `first` ([`Int`](/developers/demandhq-apis/demand-api/graphql/reference/scalars/int))
+
+Returns the first n elements from the list.
+
+
+- ##### `href` ([`String`](/developers/demandhq-apis/demand-api/graphql/reference/scalars/string))
+
+
+
+
+- ##### `hrefPrefix` ([`String`](/developers/demandhq-apis/demand-api/graphql/reference/scalars/string))
+
+
+
+
+- ##### `last` ([`Int`](/developers/demandhq-apis/demand-api/graphql/reference/scalars/int))
+
+Returns the last n elements from the list.
+
+
+- ##### `linkSlug` ([`String`](/developers/demandhq-apis/demand-api/graphql/reference/scalars/string))
+
+
+
+
+- ##### `linkType` ([`String`](/developers/demandhq-apis/demand-api/graphql/reference/scalars/string))
+
+
+
+
+- ##### `navIds` ([`ID`](/developers/demandhq-apis/demand-api/graphql/reference/scalars/id))
+
+
+
+
+- ##### `navLevel` ([`Int`](/developers/demandhq-apis/demand-api/graphql/reference/scalars/int))
+
+
+
+
+- ##### `navType` ([`String`](/developers/demandhq-apis/demand-api/graphql/reference/scalars/string))
 
 
 

@@ -434,12 +434,414 @@ input CollectionUpdateInput {
   title: String
 }
 
+"""
+A customer of a given Storefront is a user who places orders on the Storefront
+"""
+type Customer {
+  createdAt: Date!
+
+  """
+  Get a CustomerAddress by their customerAddressId.
+              
+  Requires the customeraddress/read permission for the associated DemandHq.
+  """
+  customerAddress(customerAddressId: ID!): CustomerAddress
+
+  """
+  Get a list of CustomerAddresss.
+  
+  Requires the customeraddress/read permission for the associated DemandHq.
+  """
+  customerAddresses(
+    """Returns the elements in the list that come after the specified cursor."""
+    after: String
+
+    """
+    Returns the elements in the list that come before the specified cursor.
+    """
+    before: String
+    customerAddressIds: [ID]
+
+    """Returns the first n elements from the list."""
+    first: Int
+
+    """Returns the last n elements from the list."""
+    last: Int
+  ): CustomerAddressConnectionWithSearch!
+  customerId: ID!
+
+  """
+  Get the default billing address for a customer.
+  
+  Requires the customeraddress/read permission for the associated DemandHq.
+  """
+  defaultBillingAddress: CustomerAddress
+
+  """
+  The CustomerAddressId for the default billing address for this Customer
+  """
+  defaultBillingAddressId: ID
+
+  """
+  Get the default shipping address for a customer.
+  
+  Requires the customeraddress/read permission for the associated DemandHq.
+  """
+  defaultShippingAddress: CustomerAddress
+
+  """
+  The CustomerAddressId for the default shipping address for this Customer
+  """
+  defaultShippingAddressId: ID
+  demandHqId: ID!
+
+  """
+  The email address associated with the Customer, must be unique to the storefront, limit 256 characters
+  """
+  emailAddress: String!
+  emailMarketingConsent: CustomerMarketingConsent
+
+  """
+  Reference to the storefront's customer authentication system. Limit 256 characters.
+  This field is required if this customer is going to access any authenticated data (like their orders).
+  """
+  externalCustomerId: ID
+
+  """The first name of the Customer, limit 256 characters"""
+  firstName: String
+
+  """The last name of the Customer, limit 256 characters"""
+  lastName: String
+
+  """
+  Must be unique to the Storefront. Limit 64 characters. Format +11231231234
+  """
+  phoneNumber: String
+  smsMarketingConsent: CustomerMarketingConsent
+  status: CustomerStatus!
+  storefrontId: ID!
+
+  """Get the tags of the customer."""
+  tags: CustomerTags
+  updatedAt: Date!
+  updatedBy: ID!
+}
+
+"""
+A customerAddress is an Address entity that is associated with a customer
+"""
+type CustomerAddress {
+  """The city of the address"""
+  city: String!
+
+  """The company associated with the address"""
+  company: String
+
+  """The country of the address"""
+  country: String!
+  createdAt: Date!
+  customerAddressId: ID!
+  customerId: ID!
+  demandHqId: ID!
+
+  """The name associated with the address, i.e. the Person in the household"""
+  name: String!
+
+  """The phone number of the address. Format +11231231234"""
+  phoneNumber: String
+
+  """The zip or postal code of the address"""
+  postalCode: String!
+
+  """The state of the address"""
+  state: String!
+  storefrontId: ID!
+
+  """The first line of the street address"""
+  streetAddress1: String!
+
+  """The second line of the street address"""
+  streetAddress2: String
+  updatedAt: Date!
+  updatedBy: ID!
+}
+
+"""Paginate through CustomerAddresss"""
+type CustomerAddressConnectionWithSearch {
+  edges: [CustomerAddressEdge]!
+  nodes: [CustomerAddress]!
+  pageInfo: PageInfo!
+
+  """
+  This is an object with terms in the query as keys, and a suggestion for that
+  term as the value. This is often referred to as 'Did you mean?'
+  """
+  querySuggestions: JSON
+}
+
+"""Input for creating a CustomerAddress"""
+input CustomerAddressCreateInput {
+  """The city of the address"""
+  city: String!
+
+  """The company associated with the address"""
+  company: String
+
+  """The country of the address"""
+  country: String!
+  customerId: ID!
+  demandHqId: ID!
+
+  """The name associated with the address, i.e. the Person in the household"""
+  name: String!
+
+  """The phone number of the address. Format +11231231234"""
+  phoneNumber: String
+
+  """The zip or postal code of the address"""
+  postalCode: String!
+
+  """The state of the address"""
+  state: String!
+  storefrontId: ID!
+
+  """The first line of the street address"""
+  streetAddress1: String!
+
+  """The second line of the street address"""
+  streetAddress2: String
+}
+
+"""One edge producing one CustomerAddress Node"""
+type CustomerAddressEdge {
+  node: CustomerAddress
+}
+
+"""Input for updating a CustomerAddress"""
+input CustomerAddressUpdateInput {
+  """The city of the address"""
+  city: String
+
+  """The company associated with the address"""
+  company: String
+
+  """The country of the address"""
+  country: String
+  customerAddressId: ID!
+
+  """The name associated with the address, i.e. the Person in the household"""
+  name: String
+
+  """The phone number of the address. Format +11231231234"""
+  phoneNumber: String
+
+  """The zip or postal code of the address"""
+  postalCode: String
+
+  """The state of the address"""
+  state: String
+
+  """The first line of the street address"""
+  streetAddress1: String
+
+  """The second line of the street address"""
+  streetAddress2: String
+}
+
+"""Paginate through Customers"""
+type CustomerConnectionWithSearch {
+  edges: [CustomerEdge]!
+  nodes: [Customer]!
+  pageInfo: PageInfo!
+
+  """
+  This is an object with terms in the query as keys, and a suggestion for that
+  term as the value. This is often referred to as 'Did you mean?'
+  """
+  querySuggestions: JSON
+}
+
+"""Input for creating a Customer"""
+input CustomerCreateInput {
+  """
+  The CustomerAddressId for the default billing address for this Customer
+  """
+  defaultBillingAddressId: ID
+
+  """
+  The CustomerAddressId for the default shipping address for this Customer
+  """
+  defaultShippingAddressId: ID
+  demandHqId: ID!
+
+  """
+  The email address associated with the Customer, must be unique to the storefront, limit 256 characters
+  """
+  emailAddress: String!
+  emailMarketingConsent: CustomerMarketingConsentInput
+
+  """
+  Reference to the storefront's customer authentication system. Limit 256 characters.
+  This field is required if this customer is going to access any authenticated data (like their orders).
+  """
+  externalCustomerId: ID
+
+  """The first name of the Customer, limit 256 characters"""
+  firstName: String
+
+  """The last name of the Customer, limit 256 characters"""
+  lastName: String
+
+  """
+  Must be unique to the Storefront. Limit 64 characters. Format +11231231234
+  """
+  phoneNumber: String
+  smsMarketingConsent: CustomerMarketingConsentInput
+  status: CustomerStatus!
+  storefrontId: ID!
+  tags: [String]
+}
+
+"""One edge producing one Customer Node"""
+type CustomerEdge {
+  node: Customer
+}
+
+"""Details about the Customer's marketing consent"""
+type CustomerMarketingConsent {
+  """The level at which the Customer has consented to marketing"""
+  consentLevel: CustomerMarketingConsentLevel!
+
+  """The date the associated Customer agreed to the marketing consent"""
+  consentedAt: Date!
+  hasConsented: Boolean!
+
+  """Optional field to store where consent was sourced from"""
+  source: String
+}
+
+"""Input for updating a Customer's marketing consent"""
+input CustomerMarketingConsentInput {
+  """The level at which the Customer has consented to marketing"""
+  consentLevel: CustomerMarketingConsentLevel!
+
+  """The date the associated Customer agreed to the marketing consent"""
+  consentedAt: Date!
+  hasConsented: Boolean!
+
+  """Optional field to store where consent was sourced from"""
+  source: String
+}
+
+"""The level at which the Customer has opted-in to Marketing."""
+enum CustomerMarketingConsentLevel {
+  """Level 3"""
+  CONFIRMED_OPT_IN
+
+  """Level 1"""
+  SINGLE_OPT_IN
+
+  """Level 2"""
+  SINGLE_OPT_IN_WITH_NOTIFICATION
+  UNKNOWN
+}
+
+"""The status of the associated Customer"""
+enum CustomerStatus {
+  """The associated Customer is active and able to login"""
+  ACTIVE
+
+  """The associated Customer is not active and unable to login"""
+  DISABLED
+
+  """The associated Customer is active, but has not yet setup a login"""
+  GUEST
+}
+
+"""These are the tags associated to the Customer"""
+type CustomerTags {
+  customerId: ID!
+  demandHqId: ID!
+
+  """Get parsed, and optionally filtered, tags for a Customer."""
+  parsed(
+    """Optionally filter tags by category."""
+    category: String
+
+    """
+    Optionally filter tags by key. If category is not provided, but key is, category must be null to be returned.
+    """
+    key: String
+  ): [ParsedTag]
+  raw: [String]
+  updatedAt: Date!
+  updatedBy: ID!
+}
+
+"""Input for updating a Customer"""
+input CustomerUpdateInput {
+  customerId: ID!
+
+  """
+  The CustomerAddressId for the default billing address for this Customer
+  """
+  defaultBillingAddressId: ID
+
+  """
+  The CustomerAddressId for the default shipping address for this Customer
+  """
+  defaultShippingAddressId: ID
+
+  """
+  The email address associated with the Customer, must be unique to the storefront, limit 256 characters
+  """
+  emailAddress: String
+  emailMarketingConsent: CustomerMarketingConsentInput
+
+  """
+  Reference to the storefront's customer authentication system. Limit 256 characters.
+  This field is required if this customer is going to access any authenticated data (like their orders).
+  """
+  externalCustomerId: ID
+
+  """The first name of the Customer, limit 256 characters"""
+  firstName: String
+
+  """The last name of the Customer, limit 256 characters"""
+  lastName: String
+
+  """
+  Must be unique to the Storefront. Limit 64 characters. Format +11231231234
+  """
+  phoneNumber: String
+  smsMarketingConsent: CustomerMarketingConsentInput
+  status: CustomerStatus
+  tags: [String]
+}
+
 """A date in ISO 8601 format"""
 scalar Date
 
 """Returned object from deleteCollectionContentItem"""
 type DeleteCollectionContentItemResponse {
   """The contentItemId of the contentItem that was deleted."""
+  deletedId: ID!
+}
+
+"""Returned object from deleteCustomerAddress"""
+type DeleteCustomerAddressResponse {
+  """The customerAddressId of the customerAddress that was deleted."""
+  deletedId: ID!
+}
+
+"""Returned object from deleteCustomer"""
+type DeleteCustomerResponse {
+  """The customerId of the customer that was deleted."""
+  deletedId: ID!
+}
+
+"""The response from a delete request."""
+type DeleteNavResponse {
   deletedId: ID!
 }
 
@@ -920,6 +1322,20 @@ type Mutation {
   createCollectionImageFromUrl(input: CollectionImageFromUrlInput!): Collection!
 
   """
+  Creates a new Customer
+                  
+  Requires the customer/write scope on the associated DemandHq.
+  """
+  createCustomer(input: CustomerCreateInput!): Customer
+
+  """
+  Creates a new CustomerAddress
+                  
+  Requires the customeraddress/write scope on the associated DemandHq.
+  """
+  createCustomerAddress(input: CustomerAddressCreateInput!): CustomerAddress
+
+  """
   Create a new demandHq
               
   Requires demandHq/write permission on the requesting identity
@@ -932,6 +1348,13 @@ type Mutation {
   Requires the demandHqidentity/write permission on the given DemandHq
   """
   createDemandHqIdentity(input: DemandHqIdentityCreateInput!): DemandHqIdentity!
+
+  """
+  Create a new Nav.
+                  
+  Requires the "nav/write" permission on the associated DemandHq.
+  """
+  createNav(input: NavCreateInput!): Nav
 
   """
   Add a new Page to a DemandHq.
@@ -993,11 +1416,32 @@ type Mutation {
   deleteCollectionContentItem(collectionId: ID!, contentItemId: ID!): DeleteCollectionContentItemResponse!
 
   """
+  Deletes a Customer
+              
+  Requires the customer/write scope on the associated DemandHq.
+  """
+  deleteCustomer(customerId: ID!): DeleteCustomerResponse!
+
+  """
+  Deletes a CustomerAddress
+              
+  Requires the customeraddress/write scope on the associated DemandHq.
+  """
+  deleteCustomerAddress(customerAddressId: ID!): DeleteCustomerAddressResponse!
+
+  """
   Delete a DemandHqIdentity from a DemandHq (remove a user's permissions)
   
   Requires the demandHqidentity/write permission on the given DemandHq
   """
   deleteDemandHqIdentity(demandHqId: ID!, identityId: ID!): DemandHqIdentityDeleteResponse
+
+  """
+  Delete a Nav.
+  
+  Requires the "nav/write" permission on the associated DemandHq.
+  """
+  deleteNav(navId: ID!): DeleteNavResponse!
 
   """
   Delete a Page from a DemandHq.
@@ -1050,6 +1494,20 @@ type Mutation {
   updateCollection(input: CollectionUpdateInput!): Collection!
 
   """
+  Updates an existing Customer
+  
+  Requires the customer/write scope on the associated DemandHq.
+  """
+  updateCustomer(input: CustomerUpdateInput!): Customer
+
+  """
+  Updates an existing CustomerAddress
+  
+  Requires the customeraddress/write scope on the associated DemandHq.
+  """
+  updateCustomerAddress(input: CustomerAddressUpdateInput!): CustomerAddress
+
+  """
   Update an existing demandHq
   
   Requires demandHq/write permission on the requesting identity
@@ -1062,6 +1520,13 @@ type Mutation {
   Requires the demandHqidentity/write permission on the given DemandHq
   """
   updateDemandHqIdentity(input: DemandHqIdentityUpdateInput!): DemandHqIdentity!
+
+  """
+  Update an existing Nav.
+  
+  Requires the "nav/write" permission on the associated DemandHq.
+  """
+  updateNav(input: NavUpdateInput!): Nav
 
   """
   Update an existing page.
@@ -1115,6 +1580,180 @@ type Mutation {
   Requires the page/write permission on the given DemandHq
   """
   upsertPageContent(input: PageContentUpsertInput!): PageContent!
+
+  """
+  Upsert storefront nav settings.
+                  
+  Requires the storefrontnavsettings/write permission on the associated DemandHq.
+  """
+  upsertStorefrontNavSettings(input: StorefrontNavSettingsUpsertInput!): StorefrontNavSettings!
+}
+
+"""
+Nav is an item within a navigational heirarchy of some kind, most often viewed as a menu.
+"""
+type Nav {
+  createdAt: Date!
+  demandHqId: ID!
+
+  """
+  Where this Nav link should lead to. Can be an absolute or relative url. 768 character limit.
+  """
+  href: String!
+
+  """The label for this Nav, limit 64 characters."""
+  label: String!
+
+  """
+  This has two primary purposes:
+  To make this Nav "lookupable" in combination with linkType.
+  To make entities aware they are being referenced. This is done with the
+  reserved system linkTypes in combination with entitySlugs (i.e. Collection and
+  a collection slug).
+  """
+  linkSlug: String!
+
+  """
+  This can be any string, but certain values have special meaning (like "collection").
+  These are restricted to the specified values in NavSettings.
+  """
+  linkType: String!
+  navId: ID!
+
+  """
+  A number, representing where this Nav resides in the heirarchy. Immutable, and
+  limited to 0 through 6. 0 is the top level, 1 is the second level, etc.
+  """
+  navLevel: Int!
+
+  """
+  A string indicating the purpose of this Nav hierarchy, must match parentNav if applicable. Limit 128 characters.
+  """
+  navType: String!
+
+  """
+  List Child Navs for a nav.
+  
+  Requires the user to have the nav/read permission on the associated DemandHq.
+  """
+  navs(
+    """Returns the elements in the list that come after the specified cursor."""
+    after: String
+
+    """
+    Returns the elements in the list that come before the specified cursor.
+    """
+    before: String
+
+    """Returns the first n elements from the list."""
+    first: Int
+
+    """Returns the last n elements from the list."""
+    last: Int
+  ): NavConnection!
+
+  """All Navs besides the root (Level 0) have a parentNavId. Immutable."""
+  parentNavId: ID
+
+  """
+  Where this Nav should be located with respect to other Navs. Need not be sequential or unique.
+  """
+  position: Int
+  storefrontId: ID!
+  updatedAt: Date!
+  updatedBy: ID!
+}
+
+"""Paginate through Navs"""
+type NavConnection {
+  edges: [NavEdge]!
+  nodes: [Nav]!
+  pageInfo: PageInfo!
+}
+
+"""The input for creating a Nav."""
+input NavCreateInput {
+  demandHqId: ID!
+
+  """
+  Where this Nav link should lead to. Can be an absolute or relative url. 768 character limit.
+  """
+  href: String!
+
+  """The label for this Nav, limit 64 characters."""
+  label: String!
+
+  """
+  This has two primary purposes:
+  To make this Nav "lookupable" in combination with linkType.
+  To make entities aware they are being referenced. This is done with the
+  reserved system linkTypes in combination with entitySlugs (i.e. Collection and
+  a collection slug).
+  """
+  linkSlug: String!
+
+  """
+  This can be any string, but certain values have special meaning (like "collection").
+  These are restricted to the specified values in NavSettings.
+  """
+  linkType: String!
+
+  """
+  A number, representing where this Nav resides in the heirarchy. Immutable, and
+  limited to 0 through 6. 0 is the top level, 1 is the second level, etc.
+  """
+  navLevel: Int!
+
+  """
+  A string indicating the purpose of this Nav hierarchy, must match parentNav if applicable. Limit 128 characters.
+  """
+  navType: String!
+
+  """All Navs besides the root (Level 0) have a parentNavId. Immutable."""
+  parentNavId: ID
+
+  """
+  Where this Nav should be located with respect to other Navs. Need not be sequential or unique.
+  """
+  position: Int
+  storefrontId: ID!
+}
+
+"""One edge producing one Nav Node"""
+type NavEdge {
+  node: Nav
+}
+
+"""The input for updating a Nav."""
+input NavUpdateInput {
+  """
+  Where this Nav link should lead to. Can be an absolute or relative url. 768 character limit.
+  """
+  href: String
+
+  """The label for this Nav, limit 64 characters."""
+  label: String
+
+  """
+  This has two primary purposes:
+  To make this Nav "lookupable" in combination with linkType.
+  To make entities aware they are being referenced. This is done with the
+  reserved system linkTypes in combination with entitySlugs (i.e. Collection and
+  a collection slug).
+  """
+  linkSlug: String
+
+  """
+  This can be any string, but certain values have special meaning (like "collection").
+  These are restricted to the specified values in NavSettings.
+  """
+  linkType: String
+  navId: ID!
+
+  """
+  Where this Nav should be located with respect to other Navs. Need not be sequential or unique.
+  """
+  position: Int
 }
 
 """
@@ -1143,6 +1782,14 @@ type Page {
 
   """A short description of the page, limit 1000 characters."""
   description: String
+
+  """
+  Get the description if it exists, or fallback to the excerpt of content for the page.
+  """
+  descriptionOrExcerpt(
+    """The number of characters to return, defaults to 200."""
+    numberOfCharacters: Int
+  ): String
   pageId: ID!
 
   """
@@ -1207,6 +1854,12 @@ type PageContent {
   contentAsHtml: String
   contentAsString: String!
   demandHqId: ID!
+
+  """Get an excerpt of the page content."""
+  excerpt(
+    """The number of characters to return, defaults to 200."""
+    numberOfCharacters: Int
+  ): String
   pageId: ID!
   updatedAt: String
   updatedBy: ID!
@@ -1751,6 +2404,13 @@ type Query {
   collection(collectionId: ID!): Collection
 
   """
+  Get a Customer by their customerId.
+              
+  Requires the customer/read permission for the associated DemandHq.
+  """
+  customer(customerId: ID!): Customer
+
+  """
   Get a single demandHq by DemandHqId
   
   Requires demandHq/read permission on the requesting identity
@@ -1811,6 +2471,13 @@ type Query {
   demandHqIdentity(demandHqId: ID!, identityId: ID!): DemandHqIdentity
 
   """
+  Get a Nav by its id.
+              
+  Requires the user to have the nav/read permission on the associated DemandHq.
+  """
+  nav(navId: ID!): Nav
+
+  """
   Get a page by pageId.
               
   Required page/read permission on the given DemandHq.
@@ -1830,6 +2497,13 @@ type Query {
   Requires the storefront/read permission on the associated DemandHq.
   """
   storefront(storefrontId: ID!): Storefront
+
+  """
+  Retrieve the settings for a storefront's Navs
+              
+  Requires the storefrontnavsettings/read permission on the associated DemandHq.
+  """
+  storefrontNavSettings(storefrontId: ID!): StorefrontNavSettings
 
   """
   Get a single variant by VariantId
@@ -1874,9 +2548,66 @@ type Storefront {
   """Get all api keys for this storefront."""
   apiKeys: [StorefrontApiKey]!
   createdAt: Date!
+
+  """
+  Get a Customer by their customerId.
+              
+  Requires the customer/read permission for the associated DemandHq.
+  """
+  customer(customerId: ID!): Customer
+
+  """
+  Get a list of Customers.
+  
+  Requires the customer/read permission for the associated DemandHq.
+  """
+  customers(
+    """Returns the elements in the list that come after the specified cursor."""
+    after: String
+
+    """
+    Returns the elements in the list that come before the specified cursor.
+    """
+    before: String
+    customerIds: [ID]
+
+    """Returns the first n elements from the list."""
+    first: Int
+
+    """Returns the last n elements from the list."""
+    last: Int
+  ): CustomerConnectionWithSearch!
   demandHqId: ID!
   description: String
   name: String!
+
+  """
+  List Navs for a storefront.
+  
+  Requires the user to have the nav/read permission on the associated DemandHq.
+  """
+  navs(
+    """Returns the elements in the list that come after the specified cursor."""
+    after: String
+
+    """
+    Returns the elements in the list that come before the specified cursor.
+    """
+    before: String
+
+    """Returns the first n elements from the list."""
+    first: Int
+    href: String
+    hrefPrefix: String
+
+    """Returns the last n elements from the list."""
+    last: Int
+    linkSlug: String
+    linkType: String
+    navIds: [ID]
+    navLevel: Int
+    navType: String
+  ): NavConnection!
   storefrontId: ID!
   storefrontIdentities: [StorefrontIdentity!]
   updatedAt: Date!
@@ -1935,6 +2666,33 @@ input StorefrontIdentityInput {
   this storefront, all lowercase, and contain no spaces, limit 32 characters.
   """
   slug: String!
+}
+
+"""The settings for a storefront's Navs"""
+type StorefrontNavSettings {
+  createdAt: Date!
+  demandHqId: ID!
+
+  """
+  This sets what linkTypes are allowed for Navs in this storefront. Helps correct human error.
+  Maximum of 50 types.
+  """
+  linkTypes: [String]
+  storefrontId: ID!
+  updatedAt: Date!
+  updatedBy: ID!
+}
+
+"""The input for upserting a StorefrontNavSettings"""
+input StorefrontNavSettingsUpsertInput {
+  demandHqId: ID!
+
+  """
+  This sets what linkTypes are allowed for Navs in this storefront. Helps correct human error.
+  Maximum of 50 types.
+  """
+  linkTypes: [String]
+  storefrontId: ID!
 }
 
 """The permissions of the storefront identity"""

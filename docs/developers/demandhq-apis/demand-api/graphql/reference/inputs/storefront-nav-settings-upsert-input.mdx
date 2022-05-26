@@ -1,0 +1,38 @@
+---
+id: storefront-nav-settings-upsert-input
+title: StorefrontNavSettingsUpsertInput
+---
+
+
+The input for upserting a StorefrontNavSettings
+
+
+```graphql
+input StorefrontNavSettingsUpsertInput {
+  demandHqId: ID!
+  linkTypes: [String]
+  storefrontId: ID!
+}
+```
+
+
+### Fields
+
+#### `demandHqId` ([`ID`](/developers/demandhq-apis/demand-api/graphql/reference/scalars/id))
+
+
+
+
+#### `linkTypes` ([`String`](/developers/demandhq-apis/demand-api/graphql/reference/scalars/string))
+
+This sets what linkTypes are allowed for Navs in this storefront. Helps correct human error.
+Maximum of 50 types.
+
+
+#### `storefrontId` ([`ID`](/developers/demandhq-apis/demand-api/graphql/reference/scalars/id))
+
+
+
+
+
+

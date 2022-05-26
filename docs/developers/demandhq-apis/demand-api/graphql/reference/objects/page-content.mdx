@@ -12,6 +12,9 @@ type PageContent {
   contentAsHtml: String
   contentAsString: String!
   demandHqId: ID!
+  excerpt(
+  numberOfCharacters: Int
+): String
   pageId: ID!
   updatedAt: String
   updatedBy: ID!
@@ -34,6 +37,14 @@ Get the markdown content of the page as parsed HTML.
 #### `demandHqId` ([`ID`](/developers/demandhq-apis/demand-api/graphql/reference/scalars/id))
 
 
+
+
+#### `excerpt` ([`String`](/developers/demandhq-apis/demand-api/graphql/reference/scalars/string))
+
+Get an excerpt of the page content.
+- ##### `numberOfCharacters` ([`Int`](/developers/demandhq-apis/demand-api/graphql/reference/scalars/int))
+
+The number of characters to return, defaults to 200.
 
 
 #### `pageId` ([`ID`](/developers/demandhq-apis/demand-api/graphql/reference/scalars/id))

@@ -1,0 +1,44 @@
+---
+id: customer-address-connection-with-search
+title: CustomerAddressConnectionWithSearch
+---
+
+
+Paginate through CustomerAddresss
+
+
+```graphql
+type CustomerAddressConnectionWithSearch {
+  edges: [CustomerAddressEdge]!
+  nodes: [CustomerAddress]!
+  pageInfo: PageInfo!
+  querySuggestions: JSON
+}
+```
+
+
+### Fields
+
+#### `edges` ([`CustomerAddressEdge`](/developers/demandhq-apis/demand-api/graphql/reference/objects/customer-address-edge))
+
+
+
+
+#### `nodes` ([`CustomerAddress`](/developers/demandhq-apis/demand-api/graphql/reference/objects/customer-address))
+
+
+
+
+#### `pageInfo` ([`PageInfo`](/developers/demandhq-apis/demand-api/graphql/reference/objects/page-info))
+
+
+
+
+#### `querySuggestions` ([`JSON`](/developers/demandhq-apis/demand-api/graphql/reference/scalars/json))
+
+This is an object with terms in the query as keys, and a suggestion for that
+term as the value. This is often referred to as 'Did you mean?'
+
+
+
+

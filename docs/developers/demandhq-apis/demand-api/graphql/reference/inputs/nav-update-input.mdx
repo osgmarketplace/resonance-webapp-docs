@@ -1,0 +1,60 @@
+---
+id: nav-update-input
+title: NavUpdateInput
+---
+
+
+The input for updating a Nav.
+
+
+```graphql
+input NavUpdateInput {
+  href: String
+  label: String
+  linkSlug: String
+  linkType: String
+  navId: ID!
+  position: Int
+}
+```
+
+
+### Fields
+
+#### `href` ([`String`](/developers/demandhq-apis/demand-api/graphql/reference/scalars/string))
+
+Where this Nav link should lead to. Can be an absolute or relative url. 768 character limit.
+
+
+#### `label` ([`String`](/developers/demandhq-apis/demand-api/graphql/reference/scalars/string))
+
+The label for this Nav, limit 64 characters.
+
+
+#### `linkSlug` ([`String`](/developers/demandhq-apis/demand-api/graphql/reference/scalars/string))
+
+This has two primary purposes:
+To make this Nav "lookupable" in combination with linkType.
+To make entities aware they are being referenced. This is done with the
+reserved system linkTypes in combination with entitySlugs (i.e. Collection and
+a collection slug).
+
+
+#### `linkType` ([`String`](/developers/demandhq-apis/demand-api/graphql/reference/scalars/string))
+
+This can be any string, but certain values have special meaning (like "collection").
+These are restricted to the specified values in NavSettings.
+
+
+#### `navId` ([`ID`](/developers/demandhq-apis/demand-api/graphql/reference/scalars/id))
+
+
+
+
+#### `position` ([`Int`](/developers/demandhq-apis/demand-api/graphql/reference/scalars/int))
+
+Where this Nav should be located with respect to other Navs. Need not be sequential or unique.
+
+
+
+

@@ -1,0 +1,56 @@
+---
+id: storefront-nav-settings
+title: StorefrontNavSettings
+---
+
+
+The settings for a storefront's Navs
+
+
+```graphql
+type StorefrontNavSettings {
+  createdAt: Date!
+  demandHqId: ID!
+  linkTypes: [String]
+  storefrontId: ID!
+  updatedAt: Date!
+  updatedBy: ID!
+}
+```
+
+
+### Fields
+
+#### `createdAt` ([`Date`](/developers/demandhq-apis/demand-api/graphql/reference/scalars/date))
+
+
+
+
+#### `demandHqId` ([`ID`](/developers/demandhq-apis/demand-api/graphql/reference/scalars/id))
+
+
+
+
+#### `linkTypes` ([`String`](/developers/demandhq-apis/demand-api/graphql/reference/scalars/string))
+
+This sets what linkTypes are allowed for Navs in this storefront. Helps correct human error.
+Maximum of 50 types.
+
+
+#### `storefrontId` ([`ID`](/developers/demandhq-apis/demand-api/graphql/reference/scalars/id))
+
+
+
+
+#### `updatedAt` ([`Date`](/developers/demandhq-apis/demand-api/graphql/reference/scalars/date))
+
+
+
+
+#### `updatedBy` ([`ID`](/developers/demandhq-apis/demand-api/graphql/reference/scalars/id))
+
+
+
+
+
+
