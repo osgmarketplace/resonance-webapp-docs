@@ -10,7 +10,7 @@ Identity can either be a User or an AppClient (these are what Apps use to make c
 
 ## Scopes
 
-Scopes are individual permissions given to an entity. Scopes can be either read or write. Read access gives only the ability to VIEW an entity, while write access gives everything read access gives, plus the ability to alter an entity (create, update, delete). Each will be summarized below for both types of access. Scopes are all lowercase and include a slash, after which there is the type of access (`demandHq/read`).
+Scopes are individual permissions given to an entity. Scopes can be either read or write. Read access gives only the ability to VIEW an entity, while write access gives everything read access gives, plus the ability to alter an entity (create, update, delete). Each will be summarized below for both types of access. Scopes are all lowercase and include a slash, after which there is the type of access (`demandhq/read`).
 
 ### DemandHq
 
@@ -40,21 +40,18 @@ These entities are a bit more straightforward, so we will define them as a group
 
 -   Product: This is the main entity of the Demand domain, and is used to represent a product, which is a group of SKUs. SKUs are represented by Variants, a child of this entity. This entity is less frequently updated, it is more likely that Variant will be updated frequently.
 
--   ProductContentItem: Information about the product item such as category, type, title etc.
-
+-   ProductContentItem: Information about the product item such as images, video, files, etc
 -   ProductCustomData: Data that doesn't fit in the provided fields needs to live here. At current moment, both arrays and nested objects are fine as values.
 
 -   ProductLocale: This has a many to one relationship with Product, and provides localized language data for the appropriate fields. There will often only be one of these, and it should be the one set in defaultLocale for the demandHq.
 
 -   Redirect: (TODO: need input here)
 
--   Storefront: (TODO: need input here)
+-   Storefront: A Storefront is an application of some variety that presents an e-commerce experience directly to customers and facilitates the browsing, shopping, and ordering of Product Variants.
 
--   StorefrontNavSettings: The settings for a storefront's nav. This could likely live on the Storefront directly, but we may do a lot more with this later, and we may as well split it out now.
+-   StorefrontNavSettings: The settings for a storefront's nav.
 
 -   Variant: This is the child entity to a Product, and is a variation, such as a color, size, etc.
-
--   VariantSupplement: (TODO: need input here)
 
 -   Read: allows an identity to see the data for these entities.
 -   Write: allows an identity to create and alter the data for these entities. Deleting is possible in certain circumstances, but otherwise archiving is in play.
