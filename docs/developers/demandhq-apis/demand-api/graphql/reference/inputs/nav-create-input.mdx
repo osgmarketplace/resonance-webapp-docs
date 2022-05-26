@@ -1,0 +1,85 @@
+---
+id: nav-create-input
+title: NavCreateInput
+---
+
+
+The input for creating a Nav.
+
+
+```graphql
+input NavCreateInput {
+  demandHqId: ID!
+  href: String!
+  label: String!
+  linkSlug: String!
+  linkType: String!
+  navLevel: Int!
+  navType: String!
+  parentNavId: ID
+  position: Int
+  storefrontId: ID!
+}
+```
+
+
+### Fields
+
+#### `demandHqId` ([`ID`](/developers/demandhq-apis/demand-api/graphql/reference/scalars/id))
+
+
+
+
+#### `href` ([`String`](/developers/demandhq-apis/demand-api/graphql/reference/scalars/string))
+
+Where this Nav link should lead to. Can be an absolute or relative url. 768 character limit.
+
+
+#### `label` ([`String`](/developers/demandhq-apis/demand-api/graphql/reference/scalars/string))
+
+The label for this Nav, limit 64 characters.
+
+
+#### `linkSlug` ([`String`](/developers/demandhq-apis/demand-api/graphql/reference/scalars/string))
+
+This has two primary purposes:
+To make this Nav "lookupable" in combination with linkType.
+To make entities aware they are being referenced. This is done with the
+reserved system linkTypes in combination with entitySlugs (i.e. Collection and
+a collection slug).
+
+
+#### `linkType` ([`String`](/developers/demandhq-apis/demand-api/graphql/reference/scalars/string))
+
+This can be any string, but certain values have special meaning (like "collection").
+These are restricted to the specified values in NavSettings.
+
+
+#### `navLevel` ([`Int`](/developers/demandhq-apis/demand-api/graphql/reference/scalars/int))
+
+A number, representing where this Nav resides in the heirarchy. Immutable, and
+limited to 0 through 6. 0 is the top level, 1 is the second level, etc.
+
+
+#### `navType` ([`String`](/developers/demandhq-apis/demand-api/graphql/reference/scalars/string))
+
+A string indicating the purpose of this Nav hierarchy, must match parentNav if applicable. Limit 128 characters.
+
+
+#### `parentNavId` ([`ID`](/developers/demandhq-apis/demand-api/graphql/reference/scalars/id))
+
+All Navs besides the root (Level 0) have a parentNavId. Immutable.
+
+
+#### `position` ([`Int`](/developers/demandhq-apis/demand-api/graphql/reference/scalars/int))
+
+Where this Nav should be located with respect to other Navs. Need not be sequential or unique.
+
+
+#### `storefrontId` ([`ID`](/developers/demandhq-apis/demand-api/graphql/reference/scalars/id))
+
+
+
+
+
+

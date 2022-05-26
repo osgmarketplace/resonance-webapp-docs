@@ -1,0 +1,37 @@
+---
+id: customer-status
+title: CustomerStatus
+---
+
+
+The status of the associated Customer
+
+
+```graphql
+enum CustomerStatus {
+  ACTIVE
+  DISABLED
+  GUEST
+}
+```
+
+
+### Values
+
+#### `ACTIVE` 
+
+The associated Customer is active and able to login
+
+
+#### `DISABLED` 
+
+The associated Customer is not active and unable to login
+
+
+#### `GUEST` 
+
+The associated Customer is active, but has not yet setup a login
+
+
+
+

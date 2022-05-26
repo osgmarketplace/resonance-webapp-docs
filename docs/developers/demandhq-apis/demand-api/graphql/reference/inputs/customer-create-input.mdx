@@ -1,0 +1,98 @@
+---
+id: customer-create-input
+title: CustomerCreateInput
+---
+
+
+Input for creating a Customer
+
+
+```graphql
+input CustomerCreateInput {
+  defaultBillingAddressId: ID
+  defaultShippingAddressId: ID
+  demandHqId: ID!
+  emailAddress: String!
+  emailMarketingConsent: CustomerMarketingConsentInput
+  externalCustomerId: ID
+  firstName: String
+  lastName: String
+  phoneNumber: String
+  smsMarketingConsent: CustomerMarketingConsentInput
+  status: CustomerStatus!
+  storefrontId: ID!
+  tags: [String]
+}
+```
+
+
+### Fields
+
+#### `defaultBillingAddressId` ([`ID`](/developers/demandhq-apis/demand-api/graphql/reference/scalars/id))
+
+The CustomerAddressId for the default billing address for this Customer
+
+
+#### `defaultShippingAddressId` ([`ID`](/developers/demandhq-apis/demand-api/graphql/reference/scalars/id))
+
+The CustomerAddressId for the default shipping address for this Customer
+
+
+#### `demandHqId` ([`ID`](/developers/demandhq-apis/demand-api/graphql/reference/scalars/id))
+
+
+
+
+#### `emailAddress` ([`String`](/developers/demandhq-apis/demand-api/graphql/reference/scalars/string))
+
+The email address associated with the Customer, must be unique to the storefront, limit 256 characters
+
+
+#### `emailMarketingConsent` ([`CustomerMarketingConsentInput`](/developers/demandhq-apis/demand-api/graphql/reference/inputs/customer-marketing-consent-input))
+
+
+
+
+#### `externalCustomerId` ([`ID`](/developers/demandhq-apis/demand-api/graphql/reference/scalars/id))
+
+Reference to the storefront's customer authentication system. Limit 256 characters.
+This field is required if this customer is going to access any authenticated data (like their orders).
+
+
+#### `firstName` ([`String`](/developers/demandhq-apis/demand-api/graphql/reference/scalars/string))
+
+The first name of the Customer, limit 256 characters
+
+
+#### `lastName` ([`String`](/developers/demandhq-apis/demand-api/graphql/reference/scalars/string))
+
+The last name of the Customer, limit 256 characters
+
+
+#### `phoneNumber` ([`String`](/developers/demandhq-apis/demand-api/graphql/reference/scalars/string))
+
+Must be unique to the Storefront. Limit 64 characters. Format +11231231234
+
+
+#### `smsMarketingConsent` ([`CustomerMarketingConsentInput`](/developers/demandhq-apis/demand-api/graphql/reference/inputs/customer-marketing-consent-input))
+
+
+
+
+#### `status` ([`CustomerStatus`](/developers/demandhq-apis/demand-api/graphql/reference/enums/customer-status))
+
+
+
+
+#### `storefrontId` ([`ID`](/developers/demandhq-apis/demand-api/graphql/reference/scalars/id))
+
+
+
+
+#### `tags` ([`String`](/developers/demandhq-apis/demand-api/graphql/reference/scalars/string))
+
+
+
+
+
+

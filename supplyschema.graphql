@@ -3,8 +3,14 @@ type Address {
   """The city of the address"""
   city: String!
 
+  """The company associated with the address"""
+  company: String
+
   """The country of the address"""
   country: String!
+
+  """The name associated with the address, i.e. the Person in the household"""
+  name: String!
 
   """The phone number of the address. Format +11231231234"""
   phoneNumber: String
@@ -27,8 +33,14 @@ input AddressInput {
   """The city of the address"""
   city: String!
 
+  """The company associated with the address"""
+  company: String
+
   """The country of the address"""
   country: String!
+
+  """The name associated with the address, i.e. the Person in the household"""
+  name: String!
 
   """The phone number of the address. Format +11231231234"""
   phoneNumber: String
