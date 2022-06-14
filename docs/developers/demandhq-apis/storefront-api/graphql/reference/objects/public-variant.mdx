@@ -21,6 +21,7 @@ type PublicVariant {
   optionValues: [String!]!
   position: Int
   price: Float!
+  product: PublicProduct
   productId: ID!
   shippingDimensions: VariantShippingDimensions
   sku: String
@@ -100,6 +101,13 @@ Positive Integers are allowed, up to 9,999,999,999, and it does not have to be u
 #### `price` ([`Float`](/developers/demandhq-apis/storefront-api/graphql/reference/scalars/float))
 
 Price for the defaultCurrency, can be any positive float number value.
+
+
+#### `product` ([`PublicProduct`](/developers/demandhq-apis/storefront-api/graphql/reference/objects/public-product))
+
+Get the product associated with the variant.
+            
+Requires the publicproduct/read scope.
 
 
 #### `productId` ([`ID`](/developers/demandhq-apis/storefront-api/graphql/reference/scalars/id))

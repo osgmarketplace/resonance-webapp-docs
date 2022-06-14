@@ -1,0 +1,35 @@
+---
+id: customer
+title: customer
+---
+
+
+Get a Customer for a customer authentication token.
+            
+Requires the publiccustomer/read scope and a valid customer authentication token.
+
+
+```graphql
+customer(
+  customerToken: String!
+): Customer
+
+```
+
+
+### Arguments
+
+#### `customerToken` ([`String`](/developers/demandhq-apis/storefront-api/graphql/reference/scalars/string))
+
+
+
+
+### Type
+
+#### [`Customer`](/developers/demandhq-apis/storefront-api/graphql/reference/objects/customer) 
+
+A customer of a given Storefront is a user who places orders on the Storefront
+
+
+
+

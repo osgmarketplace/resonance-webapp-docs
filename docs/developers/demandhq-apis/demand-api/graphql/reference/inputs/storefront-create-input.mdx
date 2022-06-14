@@ -9,6 +9,8 @@ Necessary fields to create a storefront.
 
 ```graphql
 input StorefrontCreateInput {
+  authenticationSettings: StorefrontAuthenticationSettingsInput
+  authenticationType: StorefrontAuthenticationType
   demandHqId: ID!
   description: String
   name: String!
@@ -19,6 +21,16 @@ input StorefrontCreateInput {
 
 
 ### Fields
+
+#### `authenticationSettings` ([`StorefrontAuthenticationSettingsInput`](/developers/demandhq-apis/demand-api/graphql/reference/inputs/storefront-authentication-settings-input))
+
+
+
+
+#### `authenticationType` ([`StorefrontAuthenticationType`](/developers/demandhq-apis/demand-api/graphql/reference/enums/storefront-authentication-type))
+
+
+
 
 #### `demandHqId` ([`ID`](/developers/demandhq-apis/demand-api/graphql/reference/scalars/id))
 

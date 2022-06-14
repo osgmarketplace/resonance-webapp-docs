@@ -9,6 +9,8 @@ Necessary fields to update an existing storefront. Only the fields that are not 
 
 ```graphql
 input StorefrontUpdateInput {
+  authenticationSettings: StorefrontAuthenticationSettingsInput
+  authenticationType: StorefrontAuthenticationType
   description: String
   name: String
   storefrontId: ID!
@@ -19,6 +21,16 @@ input StorefrontUpdateInput {
 
 
 ### Fields
+
+#### `authenticationSettings` ([`StorefrontAuthenticationSettingsInput`](/developers/demandhq-apis/demand-api/graphql/reference/inputs/storefront-authentication-settings-input))
+
+
+
+
+#### `authenticationType` ([`StorefrontAuthenticationType`](/developers/demandhq-apis/demand-api/graphql/reference/enums/storefront-authentication-type))
+
+
+
 
 #### `description` ([`String`](/developers/demandhq-apis/demand-api/graphql/reference/scalars/string))
 

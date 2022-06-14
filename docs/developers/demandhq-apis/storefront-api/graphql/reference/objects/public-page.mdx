@@ -17,6 +17,9 @@ type PublicPage {
   content: PageContent
   demandHqId: ID!
   description: String
+  descriptionOrExcerpt(
+  numberOfCharacters: Int
+): String
   pageId: ID!
   pageType: String!
   primaryImageUrl: String
@@ -50,6 +53,14 @@ Get the content of the page.
 #### `description` ([`String`](/developers/demandhq-apis/storefront-api/graphql/reference/scalars/string))
 
 A short description of the page, limit 1000 characters.
+
+
+#### `descriptionOrExcerpt` ([`String`](/developers/demandhq-apis/storefront-api/graphql/reference/scalars/string))
+
+Get the description if it exists, or fallback to the content excerpt for the page.
+- ##### `numberOfCharacters` ([`Int`](/developers/demandhq-apis/storefront-api/graphql/reference/scalars/int))
+
+The number of characters to return, defaults to 200.
 
 
 #### `pageId` ([`ID`](/developers/demandhq-apis/storefront-api/graphql/reference/scalars/id))

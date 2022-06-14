@@ -1,0 +1,45 @@
+---
+id: cart-item
+title: CartItem
+---
+
+
+This is an item in the actual cart, ready for purchase.
+
+
+```graphql
+type CartItem {
+  customProperties: JSON
+  quantity: Int!
+  variant: PublicVariant
+  variantId: ID!
+}
+```
+
+
+### Fields
+
+#### `customProperties` ([`JSON`](/developers/demandhq-apis/storefront-api/graphql/reference/scalars/json))
+
+
+
+
+#### `quantity` ([`Int`](/developers/demandhq-apis/storefront-api/graphql/reference/scalars/int))
+
+
+
+
+#### `variant` ([`PublicVariant`](/developers/demandhq-apis/storefront-api/graphql/reference/objects/public-variant))
+
+The variant that this cart item is associated with.
+            
+Requires publicvariant/read permission on the requesting identity.
+
+
+#### `variantId` ([`ID`](/developers/demandhq-apis/storefront-api/graphql/reference/scalars/id))
+
+
+
+
+
+

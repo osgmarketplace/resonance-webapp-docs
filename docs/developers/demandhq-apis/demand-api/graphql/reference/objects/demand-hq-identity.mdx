@@ -16,6 +16,7 @@ type DemandHqIdentity {
   identityType: DemandHqIdentityType!
   permissions: DemandHqIdentityPermissions!
   publicIdentity: PublicIdentity
+  publicIdentityParent: PublicIdentityParent
   updatedBy: String!
 }
 ```
@@ -56,6 +57,11 @@ Could be a userName or an appClientId
 #### `publicIdentity` ([`PublicIdentity`](/developers/demandhq-apis/demand-api/graphql/reference/objects/public-identity))
 
 Get a public identity for this DemandHqIdentity
+
+
+#### `publicIdentityParent` ([`PublicIdentityParent`](/developers/demandhq-apis/demand-api/graphql/reference/unions/public-identity-parent))
+
+Get the expanded PublicIdentityParent for this DemandHqIdentity
 
 
 #### `updatedBy` ([`String`](/developers/demandhq-apis/demand-api/graphql/reference/scalars/string))

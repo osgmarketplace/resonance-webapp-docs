@@ -1,0 +1,43 @@
+---
+id: merge-device-cart-into-customer-cart
+title: mergeDeviceCartIntoCustomerCart
+---
+
+
+Merge a device cart into a customer cart. This is primarily done when an anonymous user logs in.
+The device cart will have its items added to the customer cart and then have
+its cartItems cleared. The new customer cart will be returned.
+
+Requires the publiccart/write scope and a valid customer authentication token.
+
+
+```graphql
+mergeDeviceCartIntoCustomerCart(
+  customerToken: String!
+  deviceId: String!
+): Cart!
+
+```
+
+
+### Arguments
+
+#### `customerToken` ([`String`](/developers/demandhq-apis/storefront-api/graphql/reference/scalars/string))
+
+
+
+
+#### `deviceId` ([`String`](/developers/demandhq-apis/storefront-api/graphql/reference/scalars/string))
+
+
+
+
+### Type
+
+#### [`Cart`](/developers/demandhq-apis/storefront-api/graphql/reference/objects/cart) 
+
+A cart is a temporary container for products that a customer or anonymous user wants to buy
+
+
+
+

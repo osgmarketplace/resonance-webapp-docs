@@ -1,0 +1,95 @@
+---
+id: navs
+title: navs
+---
+
+
+List Navs.
+            
+Requires the publicnav/read permission.
+
+
+```graphql
+navs(
+  after: String
+  before: String
+  first: Int
+  href: String
+  hrefPrefix: String
+  last: Int
+  linkSlug: String
+  linkType: String
+  navIds: [ID]
+  navLevel: Int
+  navType: String
+): PublicNavConnection!
+
+```
+
+
+### Arguments
+
+#### `after` ([`String`](/developers/demandhq-apis/storefront-api/graphql/reference/scalars/string))
+
+Returns the elements in the list that come after the specified cursor.
+
+
+#### `before` ([`String`](/developers/demandhq-apis/storefront-api/graphql/reference/scalars/string))
+
+Returns the elements in the list that come before the specified cursor.
+
+
+#### `first` ([`Int`](/developers/demandhq-apis/storefront-api/graphql/reference/scalars/int))
+
+Returns the first n elements from the list.
+
+
+#### `href` ([`String`](/developers/demandhq-apis/storefront-api/graphql/reference/scalars/string))
+
+
+
+
+#### `hrefPrefix` ([`String`](/developers/demandhq-apis/storefront-api/graphql/reference/scalars/string))
+
+
+
+
+#### `last` ([`Int`](/developers/demandhq-apis/storefront-api/graphql/reference/scalars/int))
+
+Returns the last n elements from the list.
+
+
+#### `linkSlug` ([`String`](/developers/demandhq-apis/storefront-api/graphql/reference/scalars/string))
+
+
+
+
+#### `linkType` ([`String`](/developers/demandhq-apis/storefront-api/graphql/reference/scalars/string))
+
+
+
+
+#### `navIds` ([`ID`](/developers/demandhq-apis/storefront-api/graphql/reference/scalars/id))
+
+
+
+
+#### `navLevel` ([`Int`](/developers/demandhq-apis/storefront-api/graphql/reference/scalars/int))
+
+
+
+
+#### `navType` ([`String`](/developers/demandhq-apis/storefront-api/graphql/reference/scalars/string))
+
+
+
+
+### Type
+
+#### [`PublicNavConnection`](/developers/demandhq-apis/storefront-api/graphql/reference/objects/public-nav-connection) 
+
+Paginate through PublicNavs
+
+
+
+

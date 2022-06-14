@@ -1,0 +1,41 @@
+---
+id: create-customer-address
+title: createCustomerAddress
+---
+
+
+Creates a new CustomerAddress
+
+Requires the customeraddress/write scope on the associated DemandHq.
+
+
+```graphql
+createCustomerAddress(
+  customerToken: String!
+  input: CustomerAddressCreateInput!
+): CustomerAddress
+
+```
+
+
+### Arguments
+
+#### `customerToken` ([`String`](/developers/demandhq-apis/storefront-api/graphql/reference/scalars/string))
+
+
+
+
+#### `input` ([`CustomerAddressCreateInput`](/developers/demandhq-apis/storefront-api/graphql/reference/inputs/customer-address-create-input))
+
+
+
+
+### Type
+
+#### [`CustomerAddress`](/developers/demandhq-apis/storefront-api/graphql/reference/objects/customer-address) 
+
+A customerAddress is an Address entity that is associated with a customer
+
+
+
+

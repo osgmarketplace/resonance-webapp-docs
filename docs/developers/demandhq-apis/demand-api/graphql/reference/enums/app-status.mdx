@@ -1,0 +1,37 @@
+---
+id: app-status
+title: AppStatus
+---
+
+
+What stage and availability the app is in
+
+
+```graphql
+enum AppStatus {
+  DRAFT
+  PRIVATE
+  PUBLIC
+}
+```
+
+
+### Values
+
+#### `DRAFT` 
+
+The app is in the process of being created
+
+
+#### `PRIVATE` 
+
+The app is available to install, but only through shared links
+
+
+#### `PUBLIC` 
+
+The app is available to install, and is searchable/discoverable
+
+
+
+
