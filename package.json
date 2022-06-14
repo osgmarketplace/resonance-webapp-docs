@@ -1,6 +1,6 @@
 {
   "name": "resonance-webapp-docs",
-  "version": "0.22.0",
+  "version": "0.22.1",
   "private": true,
   "scripts": {
     "docusaurus": "docusaurus",
@@ -9,7 +9,7 @@
     "getgql:all": "npm run getgql:adminidentity && npm run getgql:demand && npm run getgql:storefront && npm run getgql:supply",
     "getgql:adminidentity": "get-graphql-schema https://api.adminidentity.buildresonance.com/graphql > adminidentityschema.graphql -h \"authorization=$AUTHHEADER\"",
     "getgql:demand": "get-graphql-schema https://api.demand.buildresonance.com/graphql > demandschema.graphql -h \"authorization=$AUTHHEADER\"",
-    "getgql:storefront": "get-graphql-schema https://storefrontapi.buildresonance.com/graphql > storefrontschema.graphql",
+    "getgql:storefront": "get-graphql-schema https://storefrontapi.buildresonance.com/graphql > storefrontschema.graphql  -h \"x-resonance-storefront-token=$TOKEN\"",
     "getgql:supply": "get-graphql-schema https://api.supply.buildresonance.com/graphql > supplyschema.graphql -h \"authorization=$AUTHHEADER\"",
     "build:gql": "node scripts/sortSchemas.js && npm run build:gql:adminidentity && npm run build:gql:demand && npm run build:gql:storefront && npm run build:gql:supply",
     "build:gql:adminidentity": "docusaurus graphql-to-doc --base developers/shared-apis/adminidentity-api/graphql/reference --schema ./adminidentityschema.graphql",

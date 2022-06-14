@@ -1,3 +1,58 @@
+"""
+A cart is a temporary container for products that a customer or anonymous user wants to buy
+"""
+type Cart {
+  cartItems: [CartItem]
+  cartType: CartType!
+  demandHqId: ID!
+  externalCustomerOrDeviceId: String!
+  savedForLaterItems: [SavedForLaterItem]
+  storefrontId: ID!
+  updatedAt: Date!
+}
+
+"""Input for adding or updating items in a cart or savedForLater"""
+input CartAddOrUpdateItemsInput {
+  cartItems: [CartItemInput]
+  savedForLaterItems: [SavedForLaterItemInput]
+}
+
+"""This is an item in the actual cart, ready for purchase."""
+type CartItem {
+  customProperties: JSON
+  quantity: Int!
+
+  """
+  The variant that this cart item is associated with.
+              
+  Requires publicvariant/read permission on the requesting identity.
+  """
+  variant: PublicVariant
+  variantId: ID!
+}
+
+"""This input type is used to add or update items in the cart."""
+input CartItemInput {
+  customProperties: JSON
+  quantity: Int!
+  variantId: ID!
+}
+
+"""Input for removing items from a cart or savedForLater"""
+input CartRemoveItemsInput {
+  cartItems: [ID!]
+  savedForLaterItems: [ID!]
+}
+
+"""Indicates the type of cart"""
+enum CartType {
+  """Indicates that the cart is for a logged in customer"""
+  CUSTOMER
+
+  """Indicates this cart is anonymous and tied to a device"""
+  DEVICE
+}
+
 """This is the actual content of the collection"""
 type CollectionContent {
   collectionId: ID!
@@ -27,8 +82,301 @@ type CollectionTags {
   raw: [String]
 }
 
+"""
+A customer of a given Storefront is a user who places orders on the Storefront
+"""
+type Customer {
+  """
+  Get a CustomerAddress by their customerAddressId.
+  
+  Requires the publiccustomeraddress/read permission.
+  """
+  customerAddress(customerAddressId: ID!): CustomerAddress
+
+  """
+  Get a list of CustomerAddresses.
+  
+  Requires the publiccustomeraddress/read permission.
+  """
+  customerAddresses(
+    """Returns the elements in the list that come after the specified cursor."""
+    after: String
+
+    """
+    Returns the elements in the list that come before the specified cursor.
+    """
+    before: String
+    customerAddressIds: [ID!]
+
+    """Returns the first n elements from the list."""
+    first: Int
+
+    """Returns the last n elements from the list."""
+    last: Int
+  ): CustomerAddressConnection!
+  customerId: ID!
+
+  """
+  Get the default billing address for a customer.
+  
+  Requires the publiccustomeraddress/read permission.
+  """
+  defaultBillingAddress: CustomerAddress
+
+  """
+  The CustomerAddressId for the default billing address for this Customer
+  """
+  defaultBillingAddressId: ID
+
+  """
+  Get the default shipping address for a customer.
+  
+  Requires the publiccustomeraddress/read permission.
+  """
+  defaultShippingAddress: CustomerAddress
+
+  """
+  The CustomerAddressId for the default shipping address for this Customer
+  """
+  defaultShippingAddressId: ID
+  demandHqId: ID!
+
+  """
+  The email address associated with the Customer, must be unique to the storefront, limit 256 characters
+  """
+  emailAddress: String!
+  emailMarketingConsent: CustomerMarketingConsent
+
+  """
+  Reference to the storefront's customer authentication system. Limit 256 characters.
+  This field is required if this customer is going to access any authenticated data (like their orders).
+  """
+  externalCustomerId: ID
+
+  """The first name of the Customer, limit 256 characters"""
+  firstName: String
+
+  """The last name of the Customer, limit 256 characters"""
+  lastName: String
+
+  """
+  Must be unique to the Storefront. Limit 64 characters. Format +11231231234
+  """
+  phoneNumber: String
+  smsMarketingConsent: CustomerMarketingConsent
+  storefrontId: ID!
+
+  """Get the tags of the customer."""
+  tags: CustomerTags
+}
+
+"""
+A customerAddress is an Address entity that is associated with a customer
+"""
+type CustomerAddress {
+  """The city of the address"""
+  city: String!
+
+  """The company associated with the address"""
+  company: String
+
+  """The country of the address"""
+  country: String!
+  customerAddressId: ID!
+  customerId: ID!
+  demandHqId: ID!
+
+  """The name associated with the address, i.e. the Person in the household"""
+  name: String!
+
+  """The phone number of the address. Format +11231231234"""
+  phoneNumber: String
+
+  """The zip or postal code of the address"""
+  postalCode: String!
+
+  """The state of the address"""
+  state: String!
+  storefrontId: ID!
+
+  """The first line of the street address"""
+  streetAddress1: String!
+
+  """The second line of the street address"""
+  streetAddress2: String
+}
+
+"""Paginate through CustomerAddresses"""
+type CustomerAddressConnection {
+  edges: [CustomerAddressEdge]!
+  nodes: [CustomerAddress]!
+  pageInfo: PageInfo!
+}
+
+"""Input for creating a CustomerAddress"""
+input CustomerAddressCreateInput {
+  """The city of the address"""
+  city: String!
+
+  """The company associated with the address"""
+  company: String
+
+  """The country of the address"""
+  country: String!
+  customerId: ID!
+  demandHqId: ID!
+
+  """The name associated with the address, i.e. the Person in the household"""
+  name: String!
+
+  """The phone number of the address. Format +11231231234"""
+  phoneNumber: String
+
+  """The zip or postal code of the address"""
+  postalCode: String!
+
+  """The state of the address"""
+  state: String!
+  storefrontId: ID!
+
+  """The first line of the street address"""
+  streetAddress1: String!
+
+  """The second line of the street address"""
+  streetAddress2: String
+}
+
+"""One edge producing one CustomerAddress Node"""
+type CustomerAddressEdge {
+  node: CustomerAddress
+}
+
+"""Input for updating a CustomerAddress"""
+input CustomerAddressUpdateInput {
+  """The city of the address"""
+  city: String
+
+  """The company associated with the address"""
+  company: String
+
+  """The country of the address"""
+  country: String
+  customerAddressId: ID!
+
+  """The name associated with the address, i.e. the Person in the household"""
+  name: String
+
+  """The phone number of the address. Format +11231231234"""
+  phoneNumber: String
+
+  """The zip or postal code of the address"""
+  postalCode: String
+
+  """The state of the address"""
+  state: String
+
+  """The first line of the street address"""
+  streetAddress1: String
+
+  """The second line of the street address"""
+  streetAddress2: String
+}
+
+"""Details about the Customer's marketing consent"""
+type CustomerMarketingConsent {
+  """The level at which the Customer has consented to marketing"""
+  consentLevel: CustomerMarketingConsentLevel!
+
+  """The date the associated Customer agreed to the marketing consent"""
+  consentedAt: Date!
+  hasConsented: Boolean!
+
+  """Optional field to store where consent was sourced from"""
+  source: String
+}
+
+"""Input for updating a Customer's marketing consent"""
+input CustomerMarketingConsentInput {
+  """The level at which the Customer has consented to marketing"""
+  consentLevel: CustomerMarketingConsentLevel!
+
+  """The date the associated Customer agreed to the marketing consent"""
+  consentedAt: Date!
+  hasConsented: Boolean!
+
+  """Optional field to store where consent was sourced from"""
+  source: String
+}
+
+"""The level at which the Customer has opted-in to Marketing."""
+enum CustomerMarketingConsentLevel {
+  """Level 3"""
+  CONFIRMED_OPT_IN
+
+  """Level 1"""
+  SINGLE_OPT_IN
+
+  """Level 2"""
+  SINGLE_OPT_IN_WITH_NOTIFICATION
+  UNKNOWN
+}
+
+"""These are the tags associated to the Customer"""
+type CustomerTags {
+  """Get parsed, and optionally filtered, tags for a Customer."""
+  parsed(
+    """Optionally filter tags by category."""
+    category: String
+
+    """
+    Optionally filter tags by key. If category is not provided, but key is, category must be null to be returned.
+    """
+    key: String
+  ): [ParsedTag]
+  raw: [String]
+}
+
+"""Input for updating a Customer"""
+input CustomerUpdateInput {
+  customerId: ID!
+
+  """
+  The CustomerAddressId for the default billing address for this Customer
+  """
+  defaultBillingAddressId: ID
+
+  """
+  The CustomerAddressId for the default shipping address for this Customer
+  """
+  defaultShippingAddressId: ID
+
+  """
+  The email address associated with the Customer, must be unique to the storefront, limit 256 characters
+  """
+  emailAddress: String
+  emailMarketingConsent: CustomerMarketingConsentInput
+
+  """The first name of the Customer, limit 256 characters"""
+  firstName: String
+
+  """The last name of the Customer, limit 256 characters"""
+  lastName: String
+
+  """
+  Must be unique to the Storefront. Limit 64 characters. Format +11231231234
+  """
+  phoneNumber: String
+  smsMarketingConsent: CustomerMarketingConsentInput
+}
+
 """A date in ISO 8601 format"""
 scalar Date
+
+"""Returned object from deleteCustomerAddress"""
+type DeleteCustomerAddressResponse {
+  """The customerAddressId of the customerAddress that was deleted."""
+  deletedId: ID!
+}
 
 """Indicates how a filter should behave, defaults to OR"""
 enum FilterOperator {
@@ -50,11 +398,97 @@ The `JSON` scalar type represents JSON values as specified by [ECMA-404](http://
 """
 scalar JSON
 
+"""The root mutation type for the Demand domain"""
+type Mutation {
+  """
+  Add, Update, or Remove Items from a Customer Cart or SavedForLater.
+  
+  Requires the publiccart/write scope and a valid customer authentication token.
+  """
+  changeCustomerCart(
+    """
+    The items to add or update for the cart or savedForLater. Either
+    addOrUpdateItems or removeItems must be provided, and both can be provided.
+    """
+    addOrUpdateItems: CartAddOrUpdateItemsInput
+    customerToken: String!
+
+    """
+    The items to add or update to savedForLater. Either addOrUpdateItems or
+    removeItems must be provided, and both can be provided.
+    """
+    removeItems: CartRemoveItemsInput
+  ): Cart!
+
+  """
+  Add, Update, or Remove Items from a Device Cart or SavedForLater.
+  
+  Requires the publiccart/write scope.
+  """
+  changeDeviceCart(
+    """
+    The items to add or update for the cart or savedForLater. Either
+    addOrUpdateItems or removeItems must be provided, and both can be provided.
+    """
+    addOrUpdateItems: CartAddOrUpdateItemsInput
+    deviceId: String!
+
+    """
+    The items to add or update to savedForLater. Either addOrUpdateItems or
+    removeItems must be provided, and both can be provided.
+    """
+    removeItems: CartRemoveItemsInput
+  ): Cart!
+
+  """
+  Creates a new CustomerAddress
+  
+  Requires the customeraddress/write scope on the associated DemandHq.
+  """
+  createCustomerAddress(customerToken: String!, input: CustomerAddressCreateInput!): CustomerAddress
+
+  """
+  Deletes a CustomerAddress
+  
+  Requires the customeraddress/write scope on the associated DemandHq.
+  """
+  deleteCustomerAddress(customerAddressId: ID!, customerToken: String!): DeleteCustomerAddressResponse!
+
+  """
+  Merge a device cart into a customer cart. This is primarily done when an anonymous user logs in.
+  The device cart will have its items added to the customer cart and then have
+  its cartItems cleared. The new customer cart will be returned.
+  
+  Requires the publiccart/write scope and a valid customer authentication token.
+  """
+  mergeDeviceCartIntoCustomerCart(customerToken: String!, deviceId: String!): Cart!
+
+  """
+  Update a Customer.
+  
+  Requires the publiccustomer/write scope and a valid customer authentication token.
+  """
+  updateCustomer(customerToken: String!, input: CustomerUpdateInput): Customer!
+
+  """
+  Updates an existing CustomerAddress
+  
+  Requires the customeraddress/write scope on the associated DemandHq.
+  """
+  updateCustomerAddress(customerToken: String!, input: CustomerAddressUpdateInput!): CustomerAddress
+}
+
 """This is the actual content of the page"""
 type PageContent {
   """Get the markdown content of the page as parsed HTML."""
   contentAsHtml: String
   contentAsString: String!
+
+  """Get an excerpt of the page content."""
+  excerpt(
+    """The number of characters to return, defaults to 200."""
+    numberOfCharacters: Int
+  ): String
   pageId: ID!
   updatedAt: String
 }
@@ -308,6 +742,90 @@ type PublicCollectionEdge {
 }
 
 """
+Nav is an item within a navigational heirarchy of some kind, most often viewed as a menu.
+"""
+type PublicNav {
+  demandHqId: ID!
+
+  """
+  Where this Nav link should lead to. Can be an absolute or relative url. 768 character limit.
+  """
+  href: String!
+
+  """The label for this Nav, limit 64 characters."""
+  label: String!
+
+  """
+  This has two primary purposes:
+  To make this Nav "lookupable" in combination with linkType.
+  To make entities aware they are being referenced. This is done with the
+  reserved system linkTypes in combination with entitySlugs (i.e. Collection and
+  a collection slug).
+  """
+  linkSlug: String!
+
+  """
+  This can be any string, but certain values have special meaning (like "collection").
+  These are restricted to the specified values in NavSettings.
+  """
+  linkType: String!
+  navId: ID!
+
+  """
+  A number, representing where this Nav resides in the heirarchy. Immutable, and
+  limited to 0 through 6. 0 is the top level, 1 is the second level, etc.
+  """
+  navLevel: Int!
+
+  """
+  A string indicating the purpose of this Nav hierarchy, must match parentNav if applicable. Limit 128 characters.
+  """
+  navType: String!
+
+  """
+  List Child Navs for a Nav.
+              
+  Requires the publicnav/read permission.
+  """
+  navs(
+    """Returns the elements in the list that come after the specified cursor."""
+    after: String
+
+    """
+    Returns the elements in the list that come before the specified cursor.
+    """
+    before: String
+
+    """Returns the first n elements from the list."""
+    first: Int
+
+    """Returns the last n elements from the list."""
+    last: Int
+  ): PublicNavConnection!
+
+  """All Navs besides the root (Level 0) have a parentNavId. Immutable."""
+  parentNavId: ID
+
+  """
+  Where this Nav should be located with respect to other Navs. Need not be sequential or unique.
+  """
+  position: Int
+  storefrontId: ID!
+}
+
+"""Paginate through PublicNavs"""
+type PublicNavConnection {
+  edges: [PublicNavEdge]!
+  nodes: [PublicNav]!
+  pageInfo: PageInfo!
+}
+
+"""One edge producing one Nav Node"""
+type PublicNavEdge {
+  node: PublicNav
+}
+
+"""
 A Page is a part of the Demand Domain and represents a page with textual and
 image content on it, that has nothing to do with products.
 This can range from "About Us" pages to Blog articles. Use the "pageType" field to differentiate.
@@ -324,6 +842,14 @@ type PublicPage {
 
   """A short description of the page, limit 1000 characters."""
   description: String
+
+  """
+  Get the description if it exists, or fallback to the content excerpt for the page.
+  """
+  descriptionOrExcerpt(
+    """The number of characters to return, defaults to 200."""
+    numberOfCharacters: Int
+  ): String
   pageId: ID!
 
   """
@@ -417,14 +943,14 @@ type PublicProduct {
   """
   Get a single variant by VariantId
   
-      Requires demandHqvariant/read permission on the requesting identity
+  Requires publicvariant/read permission on the requesting identity.
   """
   variant(variantId: ID): PublicVariant
 
   """
   Get a list of variants
   
-      Requires demandHqvariant/read permission on the demandHq for the requesting identity
+  Requires publicvariant/read permission on the demandHq for the requesting identity.
   """
   variants(
     """Returns the elements in the list that come after the specified cursor."""
@@ -536,6 +1062,13 @@ type PublicVariant {
 
   """Price for the defaultCurrency, can be any positive float number value."""
   price: Float!
+
+  """
+  Get the product associated with the variant.
+              
+  Requires the publicproduct/read scope.
+  """
+  product: PublicProduct
   productId: ID!
   shippingDimensions: VariantShippingDimensions
 
@@ -583,8 +1116,57 @@ type Query {
     slugs: [String]
   ): PublicCollectionConnectionWithSearch!
 
+  """
+  Get a Customer for a customer authentication token.
+              
+  Requires the publiccustomer/read scope and a valid customer authentication token.
+  """
+  customer(customerToken: String!): Customer
+
+  """
+  The cart for the currently logged in customer. Will create a blank cart if one does not exist, never returns null.
+              
+  Requires the publiccart/read scope and a valid customer authentication token.
+  """
+  customerCart(customerToken: String!): Cart!
+
+  """
+  The cart for an anonymous user. Will create a blank cart if one does not exist, never returns null.
+              
+  Requires the publiccart/read scope.
+  """
+  deviceCart(deviceId: String!): Cart!
+
   """Returns the health of the service"""
   health: String
+
+  """
+  List Navs.
+              
+  Requires the publicnav/read permission.
+  """
+  navs(
+    """Returns the elements in the list that come after the specified cursor."""
+    after: String
+
+    """
+    Returns the elements in the list that come before the specified cursor.
+    """
+    before: String
+
+    """Returns the first n elements from the list."""
+    first: Int
+    href: String
+    hrefPrefix: String
+
+    """Returns the last n elements from the list."""
+    last: Int
+    linkSlug: String
+    linkType: String
+    navIds: [ID]
+    navLevel: Int
+    navType: String
+  ): PublicNavConnection!
 
   """
   Get a page by its slug.
@@ -726,6 +1308,27 @@ Used throughout the app to indicate what language and locality a given text is i
 """
 enum ResonanceLocaleType {
   EN_US
+}
+
+"""
+This is an item being saved for later, waiting for a future purchase day.
+"""
+type SavedForLaterItem {
+  position: Int
+
+  """
+  The variant that this saved for later item is associated with.
+              
+  Requires publicvariant/read permission on the requesting identity.
+  """
+  variant: PublicVariant
+  variantId: ID!
+}
+
+"""This input type is used to add or update items in savedForLater."""
+input SavedForLaterItemInput {
+  position: Int
+  variantId: ID!
 }
 
 """Indicates which direction to sort, defaults to ASC"""

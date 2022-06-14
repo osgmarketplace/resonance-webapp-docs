@@ -146,15 +146,12 @@ jobs:
           ref: ${{ fromJSON(steps.get-pr.outputs.pr).head.ref }}
           token: ${{ steps.get-token.outputs.token }}
 
-      - name: Use Node.js 14
+      - name: Use Node.js 16
         uses: actions/setup-node@v1
         with:
-          node-version: 14.18.3
+          node-version: 16.15.0
           registry-url: https://npm.pkg.github.com
           scope: "@obfns"
-      # Take this step away when we go to Node 16
-      - name: Update NPM to 8.3.0
-        run: npm i -g npm@8.3.0
 
       - run: "echo arg1 - semver - ${{ needs.detect-slash-commands.outputs.arg1 }}"
       - name: Determine SemVer Bump

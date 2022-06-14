@@ -1,0 +1,41 @@
+---
+id: update-customer
+title: updateCustomer
+---
+
+
+Update a Customer.
+
+Requires the publiccustomer/write scope and a valid customer authentication token.
+
+
+```graphql
+updateCustomer(
+  customerToken: String!
+  input: CustomerUpdateInput
+): Customer!
+
+```
+
+
+### Arguments
+
+#### `customerToken` ([`String`](/developers/demandhq-apis/storefront-api/graphql/reference/scalars/string))
+
+
+
+
+#### `input` ([`CustomerUpdateInput`](/developers/demandhq-apis/storefront-api/graphql/reference/inputs/customer-update-input))
+
+
+
+
+### Type
+
+#### [`Customer`](/developers/demandhq-apis/storefront-api/graphql/reference/objects/customer) 
+
+A customer of a given Storefront is a user who places orders on the Storefront
+
+
+
+

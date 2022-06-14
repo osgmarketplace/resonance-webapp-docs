@@ -13,6 +13,8 @@ type Storefront {
   slug: String!
 ): StorefrontApiKey
   apiKeys: [StorefrontApiKey]!
+  authenticationSettings: StorefrontAuthenticationSettings
+  authenticationType: StorefrontAuthenticationType
   createdAt: Date!
   customer(
   customerId: ID!
@@ -62,6 +64,16 @@ Get an api key for this storefront by identitySlug.
 #### `apiKeys` ([`StorefrontApiKey`](/developers/demandhq-apis/demand-api/graphql/reference/objects/storefront-api-key))
 
 Get all api keys for this storefront.
+
+
+#### `authenticationSettings` ([`StorefrontAuthenticationSettings`](/developers/demandhq-apis/demand-api/graphql/reference/objects/storefront-authentication-settings))
+
+
+
+
+#### `authenticationType` ([`StorefrontAuthenticationType`](/developers/demandhq-apis/demand-api/graphql/reference/enums/storefront-authentication-type))
+
+
 
 
 #### `createdAt` ([`Date`](/developers/demandhq-apis/demand-api/graphql/reference/scalars/date))

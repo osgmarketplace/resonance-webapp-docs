@@ -19,7 +19,7 @@ type Customer {
   customerAddressIds: [ID]
   first: Int
   last: Int
-): CustomerAddressConnectionWithSearch!
+): CustomerAddressConnection!
   customerId: ID!
   defaultBillingAddress: CustomerAddress
   defaultBillingAddressId: ID
@@ -59,9 +59,9 @@ Requires the customeraddress/read permission for the associated DemandHq.
 
 
 
-#### `customerAddresses` ([`CustomerAddressConnectionWithSearch`](/developers/demandhq-apis/demand-api/graphql/reference/objects/customer-address-connection-with-search))
+#### `customerAddresses` ([`CustomerAddressConnection`](/developers/demandhq-apis/demand-api/graphql/reference/objects/customer-address-connection))
 
-Get a list of CustomerAddresss.
+Get a list of CustomerAddresses.
 
 Requires the customeraddress/read permission for the associated DemandHq.
 - ##### `after` ([`String`](/developers/demandhq-apis/demand-api/graphql/reference/scalars/string))

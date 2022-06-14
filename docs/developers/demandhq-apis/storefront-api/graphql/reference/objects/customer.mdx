@@ -1,0 +1,164 @@
+---
+id: customer
+title: Customer
+---
+
+
+A customer of a given Storefront is a user who places orders on the Storefront
+
+
+```graphql
+type Customer {
+  customerAddress(
+  customerAddressId: ID!
+): CustomerAddress
+  customerAddresses(
+  after: String
+  before: String
+  customerAddressIds: [ID!]
+  first: Int
+  last: Int
+): CustomerAddressConnection!
+  customerId: ID!
+  defaultBillingAddress: CustomerAddress
+  defaultBillingAddressId: ID
+  defaultShippingAddress: CustomerAddress
+  defaultShippingAddressId: ID
+  demandHqId: ID!
+  emailAddress: String!
+  emailMarketingConsent: CustomerMarketingConsent
+  externalCustomerId: ID
+  firstName: String
+  lastName: String
+  phoneNumber: String
+  smsMarketingConsent: CustomerMarketingConsent
+  storefrontId: ID!
+  tags: CustomerTags
+}
+```
+
+
+### Fields
+
+#### `customerAddress` ([`CustomerAddress`](/developers/demandhq-apis/storefront-api/graphql/reference/objects/customer-address))
+
+Get a CustomerAddress by their customerAddressId.
+
+Requires the publiccustomeraddress/read permission.
+- ##### `customerAddressId` ([`ID`](/developers/demandhq-apis/storefront-api/graphql/reference/scalars/id))
+
+
+
+
+#### `customerAddresses` ([`CustomerAddressConnection`](/developers/demandhq-apis/storefront-api/graphql/reference/objects/customer-address-connection))
+
+Get a list of CustomerAddresses.
+
+Requires the publiccustomeraddress/read permission.
+- ##### `after` ([`String`](/developers/demandhq-apis/storefront-api/graphql/reference/scalars/string))
+
+Returns the elements in the list that come after the specified cursor.
+
+
+- ##### `before` ([`String`](/developers/demandhq-apis/storefront-api/graphql/reference/scalars/string))
+
+Returns the elements in the list that come before the specified cursor.
+
+
+- ##### `customerAddressIds` ([`ID`](/developers/demandhq-apis/storefront-api/graphql/reference/scalars/id))
+
+
+
+
+- ##### `first` ([`Int`](/developers/demandhq-apis/storefront-api/graphql/reference/scalars/int))
+
+Returns the first n elements from the list.
+
+
+- ##### `last` ([`Int`](/developers/demandhq-apis/storefront-api/graphql/reference/scalars/int))
+
+Returns the last n elements from the list.
+
+
+#### `customerId` ([`ID`](/developers/demandhq-apis/storefront-api/graphql/reference/scalars/id))
+
+
+
+
+#### `defaultBillingAddress` ([`CustomerAddress`](/developers/demandhq-apis/storefront-api/graphql/reference/objects/customer-address))
+
+Get the default billing address for a customer.
+
+Requires the publiccustomeraddress/read permission.
+
+
+#### `defaultBillingAddressId` ([`ID`](/developers/demandhq-apis/storefront-api/graphql/reference/scalars/id))
+
+The CustomerAddressId for the default billing address for this Customer
+
+
+#### `defaultShippingAddress` ([`CustomerAddress`](/developers/demandhq-apis/storefront-api/graphql/reference/objects/customer-address))
+
+Get the default shipping address for a customer.
+
+Requires the publiccustomeraddress/read permission.
+
+
+#### `defaultShippingAddressId` ([`ID`](/developers/demandhq-apis/storefront-api/graphql/reference/scalars/id))
+
+The CustomerAddressId for the default shipping address for this Customer
+
+
+#### `demandHqId` ([`ID`](/developers/demandhq-apis/storefront-api/graphql/reference/scalars/id))
+
+
+
+
+#### `emailAddress` ([`String`](/developers/demandhq-apis/storefront-api/graphql/reference/scalars/string))
+
+The email address associated with the Customer, must be unique to the storefront, limit 256 characters
+
+
+#### `emailMarketingConsent` ([`CustomerMarketingConsent`](/developers/demandhq-apis/storefront-api/graphql/reference/objects/customer-marketing-consent))
+
+
+
+
+#### `externalCustomerId` ([`ID`](/developers/demandhq-apis/storefront-api/graphql/reference/scalars/id))
+
+Reference to the storefront's customer authentication system. Limit 256 characters.
+This field is required if this customer is going to access any authenticated data (like their orders).
+
+
+#### `firstName` ([`String`](/developers/demandhq-apis/storefront-api/graphql/reference/scalars/string))
+
+The first name of the Customer, limit 256 characters
+
+
+#### `lastName` ([`String`](/developers/demandhq-apis/storefront-api/graphql/reference/scalars/string))
+
+The last name of the Customer, limit 256 characters
+
+
+#### `phoneNumber` ([`String`](/developers/demandhq-apis/storefront-api/graphql/reference/scalars/string))
+
+Must be unique to the Storefront. Limit 64 characters. Format +11231231234
+
+
+#### `smsMarketingConsent` ([`CustomerMarketingConsent`](/developers/demandhq-apis/storefront-api/graphql/reference/objects/customer-marketing-consent))
+
+
+
+
+#### `storefrontId` ([`ID`](/developers/demandhq-apis/storefront-api/graphql/reference/scalars/id))
+
+
+
+
+#### `tags` ([`CustomerTags`](/developers/demandhq-apis/storefront-api/graphql/reference/objects/customer-tags))
+
+Get the tags of the customer.
+
+
+
+
