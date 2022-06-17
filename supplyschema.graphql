@@ -144,6 +144,9 @@ type Mutation {
   """Create a SupplierProductContentItem from a URL"""
   createSupplierProductImageFromUrl(input: SupplierProductImageFromUrlInput!): SupplierProductContentItem!
 
+  """Create Images for a SupplierProductContentItem from Files"""
+  createSupplierProductImagesFromFiles(input: [SupplierProductImageFromFileInput!]!): SupplierProductImageFromFileResponses!
+
   """Create a new supplierProductLocale."""
   createSupplierProductLocale(input: SupplierProductLocaleCreateInput!): SupplierProductLocale!
 
@@ -1035,7 +1038,6 @@ type SupplierProduct {
   """
   The labels for the options of this product, i.e. ["Color", "Size"]
   These will match with the order of the optionValues on the SupplierVariants.
-  
   Must have 1-3, and it should match the number of options in the variants, but there is no validation to do so.
   Set the first optionLabel to "No Option" if you don't want to use options for this product.
   See https://docs.buildresonance.com/concepts/products/#no-option-products for more info.
@@ -1225,7 +1227,6 @@ input SupplierProductCreateInput {
   """
   The labels for the options of this product, i.e. ["Color", "Size"]
   These will match with the order of the optionValues on the SupplierVariants.
-  
   Must have 1-3, and it should match the number of options in the variants, but there is no validation to do so.
   Set the first optionLabel to "No Option" if you don't want to use options for this product.
   See https://docs.buildresonance.com/concepts/products/#no-option-products for more info.
@@ -1298,6 +1299,11 @@ type SupplierProductImageFromFileResponse {
   contentItem: SupplierProductContentItem!
   fields: JSON!
   url: String!
+}
+
+"""The response object from createSupplierProductImagesFromFiles"""
+type SupplierProductImageFromFileResponses {
+  supplierProductImageFromFileResponses: [SupplierProductImageFromFileResponse]
 }
 
 """
@@ -1455,7 +1461,6 @@ input SupplierProductUpdateInput {
   """
   The labels for the options of this product, i.e. ["Color", "Size"]
   These will match with the order of the optionValues on the SupplierVariants.
-  
   Must have 1-3, and it should match the number of options in the variants, but there is no validation to do so.
   Set the first optionLabel to "No Option" if you don't want to use options for this product.
   See https://docs.buildresonance.com/concepts/products/#no-option-products for more info.
@@ -1654,9 +1659,7 @@ type SupplierVariant {
   An array of the option values that make up this variant.
   For example, a product with a color and size option would have two option values,
   one for each of the color and size options, i.e. ["Red", "Small"]
-  
   Must have 1-3, and it should match the number of options in the product, but there is no validation to do so.
-  
   Set this to "No Option" if you don't want to use options for this product and this is the only variant.
   See https://docs.buildresonance.com/concepts/products/#no-option-products for more info.
   """
@@ -1721,9 +1724,7 @@ input SupplierVariantCreateInput {
   An array of the option values that make up this variant.
   For example, a product with a color and size option would have two option values,
   one for each of the color and size options, i.e. ["Red", "Small"]
-  
   Must have 1-3, and it should match the number of options in the product, but there is no validation to do so.
-  
   Set this to "No Option" if you don't want to use options for this product and this is the only variant.
   See https://docs.buildresonance.com/concepts/products/#no-option-products for more info.
   """
@@ -1799,9 +1800,7 @@ input SupplierVariantInCompositeCreateInput {
   An array of the option values that make up this variant.
   For example, a product with a color and size option would have two option values,
   one for each of the color and size options, i.e. ["Red", "Small"]
-  
   Must have 1-3, and it should match the number of options in the product, but there is no validation to do so.
-  
   Set this to "No Option" if you don't want to use options for this product and this is the only variant.
   See https://docs.buildresonance.com/concepts/products/#no-option-products for more info.
   """
@@ -2050,9 +2049,7 @@ input SupplierVariantUpdateInput {
   An array of the option values that make up this variant.
   For example, a product with a color and size option would have two option values,
   one for each of the color and size options, i.e. ["Red", "Small"]
-  
   Must have 1-3, and it should match the number of options in the product, but there is no validation to do so.
-  
   Set this to "No Option" if you don't want to use options for this product and this is the only variant.
   See https://docs.buildresonance.com/concepts/products/#no-option-products for more info.
   """
@@ -2169,13 +2166,10 @@ type SupplyEventSubscription {
 
   """
   This is the "main" entity that is being subscribed to.
-  
   This can either be a ResonanceDomainEntityId (SupplierId, DemandHqId) to subscribe to an entity to which they have access.
   This is useful to monitor things like changes to Products and such.
-  
   Or an Identity (AppClientId, UserName) to subscribe to THEMSELF.
   This is useful to monitor things like app installations, uninstallations, and such.
-  
   subscriptionEntityType indicates what type of entity this is.
   """
   subscriptionEntityId: ID!
@@ -2212,13 +2206,10 @@ input SupplyEventSubscriptionCreateInput {
 
   """
   This is the "main" entity that is being subscribed to.
-  
   This can either be a ResonanceDomainEntityId (SupplierId, DemandHqId) to subscribe to an entity to which they have access.
   This is useful to monitor things like changes to Products and such.
-  
   Or an Identity (AppClientId, UserName) to subscribe to THEMSELF.
   This is useful to monitor things like app installations, uninstallations, and such.
-  
   subscriptionEntityType indicates what type of entity this is.
   """
   subscriptionEntityId: ID!

@@ -1,0 +1,35 @@
+---
+id: page-type-content
+title: pageTypeContent
+---
+
+
+Get a pageTypeContent by pageType.
+                
+Requires the pagetypecontent/read scope on the associated DemandHq
+
+
+```graphql
+pageTypeContent(
+  pageType: String!
+): PublicPageTypeContent
+
+```
+
+
+### Arguments
+
+#### `pageType` ([`String`](/developers/demandhq-apis/storefront-api/graphql/reference/scalars/string))
+
+
+
+
+### Type
+
+#### [`PublicPageTypeContent`](/developers/demandhq-apis/storefront-api/graphql/reference/objects/public-page-type-content) 
+
+This holds content specific to a pageType. This is generally used on a page that lists all pages for a pageType.
+
+
+
+
