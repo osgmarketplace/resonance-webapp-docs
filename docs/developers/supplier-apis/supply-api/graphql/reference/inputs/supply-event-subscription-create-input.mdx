@@ -45,13 +45,10 @@ The protocol to use to supply the event.
 #### `subscriptionEntityId` ([`ID`](/developers/supplier-apis/supply-api/graphql/reference/scalars/id))
 
 This is the "main" entity that is being subscribed to.
-
 This can either be a ResonanceDomainEntityId (SupplierId, DemandHqId) to subscribe to an entity to which they have access.
 This is useful to monitor things like changes to Products and such.
-
 Or an Identity (AppClientId, UserName) to subscribe to THEMSELF.
 This is useful to monitor things like app installations, uninstallations, and such.
-
 subscriptionEntityType indicates what type of entity this is.
 
 
