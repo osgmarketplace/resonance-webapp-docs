@@ -1,6 +1,6 @@
 {
   "name": "resonance-webapp-docs",
-  "version": "0.22.2",
+  "version": "0.23.0",
   "private": true,
   "scripts": {
     "docusaurus": "docusaurus",
@@ -26,10 +26,11 @@
     "type-check": "tsc --noEmit"
   },
   "dependencies": {
-    "@cmfcmf/docusaurus-search-local": "^0.10.0",
-    "@docusaurus/core": "^2.0.0-beta.18",
-    "@docusaurus/preset-classic": "^2.0.0-beta.18",
-    "@edno/docusaurus2-graphql-doc-generator": "1.9.2",
+    "@cmfcmf/docusaurus-search-local": "^0.11.0",
+    "@docusaurus/core": "^2.0.0-beta.21",
+    "@docusaurus/plugin-client-redirects": "^2.0.0-beta.21",
+    "@docusaurus/preset-classic": "^2.0.0-beta.21",
+    "@edno/docusaurus2-graphql-doc-generator": "1.10.2",
     "@mdx-js/react": "^1.6.22",
     "@svgr/webpack": "^5.5.0",
     "clsx": "^1.1.1",
@@ -39,10 +40,10 @@
     "url-loader": "^4.1.1"
   },
   "devDependencies": {
-    "@docusaurus/module-type-aliases": "^2.0.0-beta.18",
-    "@tsconfig/docusaurus": "^1.0.5",
-    "@types/node": "^14.18.12",
-    "@types/react": "^17.0.44",
+    "@docusaurus/module-type-aliases": "^2.0.0-beta.21",
+    "@tsconfig/docusaurus": "^1.0.6",
+    "@types/node": "^16.11.41",
+    "@types/react": "^17.0.47",
     "@types/react-helmet": "^6.1.5",
     "@types/react-router-dom": "^5.3.3",
     "@typescript-eslint/eslint-plugin": "^4.33.0",
@@ -51,16 +52,16 @@
     "eslint-config-prettier": "^8.5.0",
     "eslint-plugin-import": "^2.26.0",
     "eslint-plugin-jsx-a11y": "^6.5.1",
-    "eslint-plugin-prettier": "^3.4.1",
-    "eslint-plugin-react": "^7.29.4",
-    "eslint-plugin-react-hooks": "^4.4.0",
+    "eslint-plugin-prettier": "^4.0.0",
+    "eslint-plugin-react": "^7.30.0",
+    "eslint-plugin-react-hooks": "^4.6.0",
     "eslint-plugin-sonarjs": "^0.13.0",
     "get-graphql-schema": "^2.1.2",
     "graphql": "^15.8.0",
-    "prettier": "^2.6.2",
+    "prettier": "^2.7.1",
     "source-map-support": "^0.5.21",
-    "ts-node": "^10.7.0",
-    "typescript": "^4.6.3"
+    "ts-node": "^10.8.1",
+    "typescript": "^4.7.4"
   },
   "browserslist": {
     "production": [

@@ -78,6 +78,11 @@ module.exports = {
                 theme: {
                     customCss: require.resolve("./src/css/custom.css"),
                 },
+                sitemap: {
+                    changefreq: "weekly",
+                    priority: 0.5,
+                    filename: "sitemap.xml",
+                },
             },
         ],
     ],
@@ -93,6 +98,19 @@ module.exports = {
             "@edno/docusaurus2-graphql-doc-generator",
             {
                 rootPath: "./docs",
+            },
+        ],
+        [
+            "@docusaurus/plugin-client-redirects",
+            {
+                createRedirects(existingPath) {
+                    if (existingPath.includes("/demand-hqs/")) {
+                        return [
+                            existingPath.replace("/demand-hqs/", "/demand-hq/"),
+                        ];
+                    }
+                    return undefined; // Return a falsy value: no redirect created
+                },
             },
         ],
     ],

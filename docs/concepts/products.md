@@ -4,7 +4,7 @@ sidebar_position: 3
 
 # Products
 
-Products exist for both DemandHQs and for Suppliers, where they are known as SupplierProducts.
+Products exist for both DemandHQs ([Products](demand-hqs/entities/Product)) and for Suppliers, where they are known as [SupplierProducts](suppliers/entities/SupplierProduct).
 
 ## No Option Products
 
