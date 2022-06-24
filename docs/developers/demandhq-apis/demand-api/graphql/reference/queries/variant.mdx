@@ -1,6 +1,7 @@
 ---
 id: variant
 title: variant
+hide_table_of_contents: false
 ---
 
 
@@ -8,25 +9,23 @@ Get a single variant by VariantId
 
     Requires demandHqvariant/read permission on the requesting identity
 
-
 ```graphql
 variant(
   variantId: ID
 ): Variant
-
 ```
 
 
 ### Arguments
 
-#### `variantId` ([`ID`](/developers/demandhq-apis/demand-api/graphql/reference/scalars/id))
+#### [`variantId`](#) ([`ID`](/developers/demandhq-apis/demand-api/graphql/reference/scalars/id))
 
 
 
 
 ### Type
 
-#### [`Variant`](/developers/demandhq-apis/demand-api/graphql/reference/objects/variant) 
+#### [`Variant`](/developers/demandhq-apis/demand-api/graphql/reference/objects/variant)
 
 The main item of the Supplier Domain, represents a single SKU of a product
 Only the variant level exists, there is no parent product.

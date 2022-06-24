@@ -1,36 +1,35 @@
 ---
 id: delete-supplier-variant-custom-data
 title: deleteSupplierVariantCustomData
+hide_table_of_contents: false
 ---
 
 
 Delete specified keys from the SupplierVariantCustomData
-
 
 ```graphql
 deleteSupplierVariantCustomData(
   keysToDelete: [String!]!
   supplierVariantId: ID!
 ): SupplierVariantCustomData!
-
 ```
 
 
 ### Arguments
 
-#### `keysToDelete` ([`String`](/developers/supplier-apis/supply-api/graphql/reference/scalars/string))
+#### [`keysToDelete`](#) ([`[String!]!`](/developers/supplier-apis/supply-api/graphql/reference/scalars/string))
 
 
 
 
-#### `supplierVariantId` ([`ID`](/developers/supplier-apis/supply-api/graphql/reference/scalars/id))
+#### [`supplierVariantId`](#) ([`ID!`](/developers/supplier-apis/supply-api/graphql/reference/scalars/id))
 
 
 
 
 ### Type
 
-#### [`SupplierVariantCustomData`](/developers/supplier-apis/supply-api/graphql/reference/objects/supplier-variant-custom-data) 
+#### [`SupplierVariantCustomData`](/developers/supplier-apis/supply-api/graphql/reference/objects/supplier-variant-custom-data)
 
 Data that doesn't fit in the provided SupplierVariant fields needs to live here.
 

@@ -1,6 +1,7 @@
 ---
 id: change-device-cart
 title: changeDeviceCart
+hide_table_of_contents: false
 ---
 
 
@@ -8,31 +9,29 @@ Add, Update, or Remove Items from a Device Cart or SavedForLater.
 
 Requires the publiccart/write scope.
 
-
 ```graphql
 changeDeviceCart(
   addOrUpdateItems: CartAddOrUpdateItemsInput
   deviceId: String!
   removeItems: CartRemoveItemsInput
 ): Cart!
-
 ```
 
 
 ### Arguments
 
-#### `addOrUpdateItems` ([`CartAddOrUpdateItemsInput`](/developers/demandhq-apis/storefront-api/graphql/reference/inputs/cart-add-or-update-items-input))
+#### [`addOrUpdateItems`](#) ([`CartAddOrUpdateItemsInput`](/developers/demandhq-apis/storefront-api/graphql/reference/inputs/cart-add-or-update-items-input))
 
 The items to add or update for the cart or savedForLater. Either
 addOrUpdateItems or removeItems must be provided, and both can be provided.
 
 
-#### `deviceId` ([`String`](/developers/demandhq-apis/storefront-api/graphql/reference/scalars/string))
+#### [`deviceId`](#) ([`String!`](/developers/demandhq-apis/storefront-api/graphql/reference/scalars/string))
 
 
 
 
-#### `removeItems` ([`CartRemoveItemsInput`](/developers/demandhq-apis/storefront-api/graphql/reference/inputs/cart-remove-items-input))
+#### [`removeItems`](#) ([`CartRemoveItemsInput`](/developers/demandhq-apis/storefront-api/graphql/reference/inputs/cart-remove-items-input))
 
 The items to add or update to savedForLater. Either addOrUpdateItems or
 removeItems must be provided, and both can be provided.
@@ -40,7 +39,7 @@ removeItems must be provided, and both can be provided.
 
 ### Type
 
-#### [`Cart`](/developers/demandhq-apis/storefront-api/graphql/reference/objects/cart) 
+#### [`Cart`](/developers/demandhq-apis/storefront-api/graphql/reference/objects/cart)
 
 A cart is a temporary container for products that a customer or anonymous user wants to buy
 

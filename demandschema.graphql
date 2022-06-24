@@ -58,6 +58,14 @@ type Collection {
   description: String
 
   """
+  Get the description if it exists, or fallback to the excerpt of content for the collection.
+  """
+  descriptionOrExcerpt(
+    """The number of characters to return, defaults to 200."""
+    numberOfCharacters: Int
+  ): String
+
+  """
   This can be used to pin certain products to the top of a collection when using certain sorts.
   Max number of products is 20.
   """
@@ -186,12 +194,24 @@ type CollectionConnectionWithSearch {
 type CollectionContent {
   collectionId: ID!
 
-  """Get the markdown content of the collection as parsed HTML."""
+  """
+  Get the markdown content of the collection as parsed HTML. Do not use this
+  field without purifying or sanitizing the HTML in your webapp.
+  """
   contentAsHtml: String
   contentAsString: String!
   demandHqId: ID!
 
-  """Get the secondary markdown content of the collection as parsed HTML."""
+  """Get an excerpt of the collection content."""
+  excerpt(
+    """The number of characters to return, defaults to 200."""
+    numberOfCharacters: Int
+  ): String
+
+  """
+  Get the secondary markdown content of the collection as parsed HTML. Do not
+  use this field without purifying or sanitizing the HTML in your webapp.
+  """
   secondaryContentAsHtml: String
   secondaryContentAsString: String
   updatedAt: String
@@ -378,10 +398,31 @@ input CollectionRulesInput {
   not: [CollectionRuleInput]
 }
 
+"""Indicates which field to sort by, defaults to CREATED_AT"""
+enum CollectionSortField {
+  CREATED_AT
+  PUBLISHED_AT
+  RELEVANCE
+  TITLE
+  UPDATED_AT
+}
+
+"""Sort Collections by a field and direction."""
+input CollectionSortInput {
+  direction: SortDirection!
+  field: CollectionSortField!
+}
+
 """Indicates whether the user type is an app or human user"""
 enum CollectionStatus {
   DRAFT
   PUBLISHED
+}
+
+"""Filter Collections using Status."""
+input CollectionStatusFilterInput {
+  operator: FilterOperator
+  values: [CollectionStatus!]!
 }
 
 """These are the tags associated to the collection"""
@@ -404,6 +445,12 @@ type CollectionTags {
   updatedBy: ID!
 }
 
+"""A Map of several fields of Collection and term aggregations for each"""
+type CollectionTermAggregations {
+  collectionTypes: [TermAggregation!]
+  tags: [TermAggregation!]
+}
+
 """
 This holds content specific to a collectionType. This is generally used on a
 page that lists all collections for a collectionType.
@@ -411,12 +458,54 @@ page that lists all collections for a collectionType.
 type CollectionTypeContent {
   collectionType: String!
   collectionTypeContentId: ID!
+
+  """
+  Get the markdown content of the collectionTypeContent as parsed HTML. Do not
+  use this field without purifying or sanitizing the HTML in your webapp.
+  """
+  contentAsHtml: String
   contentAsString: String
   createdAt: Date!
   demandHqId: ID!
+
+  """
+  A short description of the collectionTypeContent, limit 1000 characters. This
+  is typically used off of the collectionTypeContent page itself.
+  """
+  description: String
+
+  """
+  Get the description if it exists, or fallback to the excerpt of content for the CollectionTypeContent.
+  """
+  descriptionOrExcerpt(
+    """The number of characters to return, defaults to 200."""
+    numberOfCharacters: Int
+  ): String
+
+  """Get an excerpt of the CollectionTypeContent."""
+  excerpt(
+    """The number of characters to return, defaults to 200."""
+    numberOfCharacters: Int
+  ): String
+
+  """
+  Get the secondary markdown content of the collectionTypeContent as parsed
+  HTML. Do not use this field without purifying or sanitizing the HTML in your webapp.
+  """
+  secondaryContentAsHtml: String
   secondaryContentAsString: String
+
+  """Description specific for SEO purposes, limit 170 characters."""
+  seoDescription: String
+
+  """Title specific for SEO purposes, limit 256 characters."""
+  seoTitle: String
   storefrontId: ID!
+
+  """The subtitle of the collectionTypeContent, limit 256 characters."""
   subtitle: String
+
+  """The title of the collectionTypeContent, limit 256 characters."""
   title: String
   updatedAt: Date!
   updatedBy: ID!
@@ -434,9 +523,25 @@ input CollectionTypeContentCreateInput {
   collectionType: String!
   contentAsString: String
   demandHqId: ID!
+
+  """
+  A short description of the collectionTypeContent, limit 1000 characters. This
+  is typically used off of the collectionTypeContent page itself.
+  """
+  description: String
   secondaryContentAsString: String
+
+  """Description specific for SEO purposes, limit 170 characters."""
+  seoDescription: String
+
+  """Title specific for SEO purposes, limit 256 characters."""
+  seoTitle: String
   storefrontId: ID!
+
+  """The subtitle of the collectionTypeContent, limit 256 characters."""
   subtitle: String
+
+  """The title of the collectionTypeContent, limit 256 characters."""
   title: String
 }
 
@@ -454,8 +559,24 @@ type CollectionTypeContentEdge {
 input CollectionTypeContentUpdateInput {
   collectionTypeContentId: ID!
   contentAsString: String
+
+  """
+  A short description of the collectionTypeContent, limit 1000 characters. This
+  is typically used off of the collectionTypeContent page itself.
+  """
+  description: String
   secondaryContentAsString: String
+
+  """Description specific for SEO purposes, limit 170 characters."""
+  seoDescription: String
+
+  """Title specific for SEO purposes, limit 256 characters."""
+  seoTitle: String
+
+  """The subtitle of the collectionTypeContent, limit 256 characters."""
   subtitle: String
+
+  """The title of the collectionTypeContent, limit 256 characters."""
   title: String
 }
 
@@ -938,6 +1059,14 @@ type DemandHq {
   collection(collectionId: ID, slug: String): Collection!
 
   """
+  Term aggregations for Collections, typically used to suggest terms to use in Search Filters.
+  """
+  collectionTermAggregations(
+    """The number of aggregations to return for each type."""
+    numberOfResults: Int!
+  ): CollectionTermAggregations
+
+  """
   List collections for a DemandHq with optional filters.
               
   Required collection/read permission on the given DemandHq.
@@ -954,14 +1083,38 @@ type DemandHq {
     """Filter Collections to a set of collectionIds"""
     collectionIds: [ID]
 
+    """Filter Collections using collectionType"""
+    collectionType: StringFilterInput
+
     """Returns the first n elements from the list."""
     first: Int
 
     """Returns the last n elements from the list."""
     last: Int
 
+    """
+    Query collections for certain terms. Searches several fields, including
+    collection.description, collection.subtitle, collection.title,
+    collectionTags, and the actual primary and secondary content of the collection.
+    """
+    query: String
+
     """Filter Collections to a set of slugs"""
     slugs: [String]
+
+    """
+    Sort Collections by a series of fields and directions, defaults to CREATED_AT/ASC.
+    """
+    sortOrder: [CollectionSortInput]
+
+    """Filter Collections using status"""
+    status: CollectionStatusFilterInput
+
+    """Optionally filter by storefrontIds."""
+    storefrontIds: IDFilterInput
+
+    """Filter Collections using Tags."""
+    tags: [StringFilterInput]
   ): CollectionConnectionWithSearch!
   createdAt: String!
   defaultCurrency: ResonanceCurrency!
@@ -1986,7 +2139,10 @@ type PageConnectionWithSearch {
 
 """This is the actual content of the page"""
 type PageContent {
-  """Get the markdown content of the page as parsed HTML."""
+  """
+  Get the markdown content of the page as parsed HTML. Do not use this field
+  without purifying or sanitizing the HTML in your webapp.
+  """
   contentAsHtml: String
   contentAsString: String!
   demandHqId: ID!
@@ -2192,14 +2348,55 @@ type PageTermAggregations {
 This holds content specific to a pageType. This is generally used on a page that lists all pages for a pageType.
 """
 type PageTypeContent {
+  """
+  Get the markdown content of the pageTypeContent as parsed HTML. Do not use
+  this field without purifying or sanitizing the HTML in your webapp.
+  """
+  contentAsHtml: String
   contentAsString: String
   createdAt: Date!
   demandHqId: ID!
+
+  """
+  A short description of the pageTypeContent, limit 1000 characters. This is
+  typically used off of the pageTypeContent page itself.
+  """
+  description: String
+
+  """
+  Get the description if it exists, or fallback to the excerpt of content for the PageTypeContent.
+  """
+  descriptionOrExcerpt(
+    """The number of characters to return, defaults to 200."""
+    numberOfCharacters: Int
+  ): String
+
+  """Get an excerpt of the PageTypeContent."""
+  excerpt(
+    """The number of characters to return, defaults to 200."""
+    numberOfCharacters: Int
+  ): String
   pageType: String!
   pageTypeContentId: ID!
+
+  """
+  Get the secondary markdown content of the pageTypeContent as parsed HTML. Do
+  not use this field without purifying or sanitizing the HTML in your webapp.
+  """
+  secondaryContentAsHtml: String
   secondaryContentAsString: String
+
+  """Description specific for SEO purposes, limit 170 characters."""
+  seoDescription: String
+
+  """Title specific for SEO purposes, limit 256 characters."""
+  seoTitle: String
   storefrontId: ID!
+
+  """The subtitle of the pageTypeContent, limit 256 characters."""
   subtitle: String
+
+  """The title of the pageTypeContent, limit 256 characters."""
   title: String
   updatedAt: Date!
   updatedBy: ID!
@@ -2216,10 +2413,26 @@ type PageTypeContentConnection {
 input PageTypeContentCreateInput {
   contentAsString: String
   demandHqId: ID!
+
+  """
+  A short description of the pageTypeContent, limit 1000 characters. This is
+  typically used off of the pageTypeContent page itself.
+  """
+  description: String
   pageType: String!
   secondaryContentAsString: String
+
+  """Description specific for SEO purposes, limit 170 characters."""
+  seoDescription: String
+
+  """Title specific for SEO purposes, limit 256 characters."""
+  seoTitle: String
   storefrontId: ID!
+
+  """The subtitle of the pageTypeContent, limit 256 characters."""
   subtitle: String
+
+  """The title of the pageTypeContent, limit 256 characters."""
   title: String
 }
 
@@ -2236,9 +2449,25 @@ type PageTypeContentEdge {
 """Input object to update a PageTypeContent."""
 input PageTypeContentUpdateInput {
   contentAsString: String
+
+  """
+  A short description of the pageTypeContent, limit 1000 characters. This is
+  typically used off of the pageTypeContent page itself.
+  """
+  description: String
   pageTypeContentId: ID!
   secondaryContentAsString: String
+
+  """Description specific for SEO purposes, limit 170 characters."""
+  seoDescription: String
+
+  """Title specific for SEO purposes, limit 256 characters."""
+  seoTitle: String
+
+  """The subtitle of the pageTypeContent, limit 256 characters."""
   subtitle: String
+
+  """The title of the pageTypeContent, limit 256 characters."""
   title: String
 }
 

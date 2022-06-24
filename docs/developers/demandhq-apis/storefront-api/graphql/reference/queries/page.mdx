@@ -1,6 +1,7 @@
 ---
 id: page
 title: page
+hide_table_of_contents: false
 ---
 
 
@@ -8,25 +9,23 @@ Get a page by its slug.
 
 Requires the publicpage/read scope.
 
-
 ```graphql
 page(
   slug: String!
 ): PublicPage
-
 ```
 
 
 ### Arguments
 
-#### `slug` ([`String`](/developers/demandhq-apis/storefront-api/graphql/reference/scalars/string))
+#### [`slug`](#) ([`String!`](/developers/demandhq-apis/storefront-api/graphql/reference/scalars/string))
 
 
 
 
 ### Type
 
-#### [`PublicPage`](/developers/demandhq-apis/storefront-api/graphql/reference/objects/public-page) 
+#### [`PublicPage`](/developers/demandhq-apis/storefront-api/graphql/reference/objects/public-page)
 
 A Page is a part of the Demand Domain and represents a page with textual and
 image content on it, that has nothing to do with products.

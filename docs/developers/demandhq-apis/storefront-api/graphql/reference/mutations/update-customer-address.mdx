@@ -1,6 +1,7 @@
 ---
 id: update-customer-address
 title: updateCustomerAddress
+hide_table_of_contents: false
 ---
 
 
@@ -8,31 +9,29 @@ Updates an existing CustomerAddress
 
 Requires the customeraddress/write scope on the associated DemandHq.
 
-
 ```graphql
 updateCustomerAddress(
   customerToken: String!
   input: CustomerAddressUpdateInput!
 ): CustomerAddress
-
 ```
 
 
 ### Arguments
 
-#### `customerToken` ([`String`](/developers/demandhq-apis/storefront-api/graphql/reference/scalars/string))
+#### [`customerToken`](#) ([`String!`](/developers/demandhq-apis/storefront-api/graphql/reference/scalars/string))
 
 
 
 
-#### `input` ([`CustomerAddressUpdateInput`](/developers/demandhq-apis/storefront-api/graphql/reference/inputs/customer-address-update-input))
+#### [`input`](#) ([`CustomerAddressUpdateInput!`](/developers/demandhq-apis/storefront-api/graphql/reference/inputs/customer-address-update-input))
 
 
 
 
 ### Type
 
-#### [`CustomerAddress`](/developers/demandhq-apis/storefront-api/graphql/reference/objects/customer-address) 
+#### [`CustomerAddress`](/developers/demandhq-apis/storefront-api/graphql/reference/objects/customer-address)
 
 A customerAddress is an Address entity that is associated with a customer
 

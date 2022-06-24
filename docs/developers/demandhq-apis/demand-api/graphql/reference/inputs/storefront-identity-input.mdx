@@ -1,11 +1,11 @@
 ---
 id: storefront-identity-input
 title: StorefrontIdentityInput
+hide_table_of_contents: false
 ---
 
 
 Necessary fields to create a Storefront Identity.
-
 
 ```graphql
 input StorefrontIdentityInput {
@@ -17,12 +17,12 @@ input StorefrontIdentityInput {
 
 ### Fields
 
-#### `permissions` ([`StorefrontPermissionsInput`](/developers/demandhq-apis/demand-api/graphql/reference/inputs/storefront-permissions-input))
+#### [`permissions`](#) ([`StorefrontPermissionsInput!`](/developers/demandhq-apis/demand-api/graphql/reference/inputs/storefront-permissions-input))
 
 
 
 
-#### `slug` ([`String`](/developers/demandhq-apis/demand-api/graphql/reference/scalars/string))
+#### [`slug`](#) ([`String!`](/developers/demandhq-apis/demand-api/graphql/reference/scalars/string))
 
 Human-readable way to categorize the use of this identity, must be unique to
 this storefront, all lowercase, and contain no spaces, limit 32 characters.

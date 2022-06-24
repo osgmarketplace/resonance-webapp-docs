@@ -1,11 +1,11 @@
 ---
 id: collection-rule
 title: CollectionRule
+hide_table_of_contents: false
 ---
 
 
 A rule to determine whether a Product should be part of a Collection.
-
 
 ```graphql
 type CollectionRule {
@@ -18,17 +18,17 @@ type CollectionRule {
 
 ### Fields
 
-#### `field` ([`CollectionRuleField`](/developers/demandhq-apis/demand-api/graphql/reference/enums/collection-rule-field))
+#### [`field`](#) ([`CollectionRuleField!`](/developers/demandhq-apis/demand-api/graphql/reference/enums/collection-rule-field))
 
 The field to match against
 
 
-#### `operator` ([`CollectionRuleOperator`](/developers/demandhq-apis/demand-api/graphql/reference/enums/collection-rule-operator))
+#### [`operator`](#) ([`CollectionRuleOperator!`](/developers/demandhq-apis/demand-api/graphql/reference/enums/collection-rule-operator))
 
 The operator to use when matching
 
 
-#### `value` ([`String`](/developers/demandhq-apis/demand-api/graphql/reference/scalars/string))
+#### [`value`](#) ([`String!`](/developers/demandhq-apis/demand-api/graphql/reference/scalars/string))
 
 The value to match against
 

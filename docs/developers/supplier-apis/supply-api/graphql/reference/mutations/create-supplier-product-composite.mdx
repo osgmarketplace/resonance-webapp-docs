@@ -1,30 +1,29 @@
 ---
 id: create-supplier-product-composite
 title: createSupplierProductComposite
+hide_table_of_contents: false
 ---
 
 
 Create a new SupplierProduct and its associated ContentItems, Locales, and Variants in one mutation
 
-
 ```graphql
 createSupplierProductComposite(
   input: SupplierProductCompositeCreateInput!
 ): SupplierProduct!
-
 ```
 
 
 ### Arguments
 
-#### `input` ([`SupplierProductCompositeCreateInput`](/developers/supplier-apis/supply-api/graphql/reference/inputs/supplier-product-composite-create-input))
+#### [`input`](#) ([`SupplierProductCompositeCreateInput!`](/developers/supplier-apis/supply-api/graphql/reference/inputs/supplier-product-composite-create-input))
 
 
 
 
 ### Type
 
-#### [`SupplierProduct`](/developers/supplier-apis/supply-api/graphql/reference/objects/supplier-product) 
+#### [`SupplierProduct`](/developers/supplier-apis/supply-api/graphql/reference/objects/supplier-product)
 
 This is the main entity of the Supplier domain, and is used to represent a product, which is a group of SKUs.
 SKUs are represented by SupplierVariants, a child of this entity.

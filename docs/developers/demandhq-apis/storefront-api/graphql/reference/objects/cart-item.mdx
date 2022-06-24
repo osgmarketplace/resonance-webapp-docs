@@ -1,11 +1,11 @@
 ---
 id: cart-item
 title: CartItem
+hide_table_of_contents: false
 ---
 
 
 This is an item in the actual cart, ready for purchase.
-
 
 ```graphql
 type CartItem {
@@ -19,24 +19,24 @@ type CartItem {
 
 ### Fields
 
-#### `customProperties` ([`JSON`](/developers/demandhq-apis/storefront-api/graphql/reference/scalars/json))
+#### [`customProperties`](#) ([`JSON`](/developers/demandhq-apis/storefront-api/graphql/reference/scalars/json))
 
 
 
 
-#### `quantity` ([`Int`](/developers/demandhq-apis/storefront-api/graphql/reference/scalars/int))
+#### [`quantity`](#) ([`Int!`](/developers/demandhq-apis/storefront-api/graphql/reference/scalars/int))
 
 
 
 
-#### `variant` ([`PublicVariant`](/developers/demandhq-apis/storefront-api/graphql/reference/objects/public-variant))
+#### [`variant`](#) ([`PublicVariant`](/developers/demandhq-apis/storefront-api/graphql/reference/objects/public-variant))
 
 The variant that this cart item is associated with.
             
 Requires publicvariant/read permission on the requesting identity.
 
 
-#### `variantId` ([`ID`](/developers/demandhq-apis/storefront-api/graphql/reference/scalars/id))
+#### [`variantId`](#) ([`ID!`](/developers/demandhq-apis/storefront-api/graphql/reference/scalars/id))
 
 
 

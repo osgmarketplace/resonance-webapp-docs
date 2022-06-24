@@ -1,11 +1,11 @@
 ---
 id: supplier-quick-link
 title: SupplierQuickLink
+hide_table_of_contents: false
 ---
 
 
 Represents a link to your app from inside the Resonance Supply Portal
-
 
 ```graphql
 type SupplierQuickLink {
@@ -23,42 +23,42 @@ type SupplierQuickLink {
 
 ### Fields
 
-#### `appId` ([`ID`](/developers/supplier-apis/supply-api/graphql/reference/scalars/id))
+#### [`appId`](#) ([`ID!`](/developers/supplier-apis/supply-api/graphql/reference/scalars/id))
 
 The Id of the App this quicklink pertains to.
 
 
-#### `createdAt` ([`String`](/developers/supplier-apis/supply-api/graphql/reference/scalars/string))
+#### [`createdAt`](#) ([`String!`](/developers/supplier-apis/supply-api/graphql/reference/scalars/string))
 
 
 
 
-#### `dynamicUrl` ([`String`](/developers/supplier-apis/supply-api/graphql/reference/scalars/string))
+#### [`dynamicUrl`](#) ([`String!`](/developers/supplier-apis/supply-api/graphql/reference/scalars/string))
 
 This can have dynamic parts, using [supplierProductId] format. It represents where the link goes.
 
 
-#### `label` ([`String`](/developers/supplier-apis/supply-api/graphql/reference/scalars/string))
+#### [`label`](#) ([`String!`](/developers/supplier-apis/supply-api/graphql/reference/scalars/string))
 
 What the text for the link should be to the user.
 
 
-#### `quickLinkType` ([`SupplierQuickLinkType`](/developers/supplier-apis/supply-api/graphql/reference/enums/supplier-quick-link-type))
+#### [`quickLinkType`](#) ([`SupplierQuickLinkType!`](/developers/supplier-apis/supply-api/graphql/reference/enums/supplier-quick-link-type))
 
 Indicates which page the SupplierQuickLink would live on
 
 
-#### `supplierId` ([`ID`](/developers/supplier-apis/supply-api/graphql/reference/scalars/id))
+#### [`supplierId`](#) ([`ID!`](/developers/supplier-apis/supply-api/graphql/reference/scalars/id))
 
 The Id of the Supplier this quicklink pertains to (the one that has installed your app).
 
 
-#### `updatedAt` ([`String`](/developers/supplier-apis/supply-api/graphql/reference/scalars/string))
+#### [`updatedAt`](#) ([`String!`](/developers/supplier-apis/supply-api/graphql/reference/scalars/string))
 
 
 
 
-#### `updatedBy` ([`String`](/developers/supplier-apis/supply-api/graphql/reference/scalars/string))
+#### [`updatedBy`](#) ([`String!`](/developers/supplier-apis/supply-api/graphql/reference/scalars/string))
 
 
 

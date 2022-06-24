@@ -1,30 +1,29 @@
 ---
 id: create-supplier-product-locale
 title: createSupplierProductLocale
+hide_table_of_contents: false
 ---
 
 
 Create a new supplierProductLocale.
 
-
 ```graphql
 createSupplierProductLocale(
   input: SupplierProductLocaleCreateInput!
 ): SupplierProductLocale!
-
 ```
 
 
 ### Arguments
 
-#### `input` ([`SupplierProductLocaleCreateInput`](/developers/supplier-apis/supply-api/graphql/reference/inputs/supplier-product-locale-create-input))
+#### [`input`](#) ([`SupplierProductLocaleCreateInput!`](/developers/supplier-apis/supply-api/graphql/reference/inputs/supplier-product-locale-create-input))
 
 
 
 
 ### Type
 
-#### [`SupplierProductLocale`](/developers/supplier-apis/supply-api/graphql/reference/objects/supplier-product-locale) 
+#### [`SupplierProductLocale`](/developers/supplier-apis/supply-api/graphql/reference/objects/supplier-product-locale)
 
 This has a many to one relationship with SupplierProduct, and provides localized language data for the appropriate fields.
 There will often only be one of these, and it should be the one set in defaultLocale for the supplier.

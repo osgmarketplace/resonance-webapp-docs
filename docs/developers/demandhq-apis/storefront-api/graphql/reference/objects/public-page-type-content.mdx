@@ -1,19 +1,30 @@
 ---
 id: public-page-type-content
 title: PublicPageTypeContent
+hide_table_of_contents: false
 ---
 
 
 This holds content specific to a pageType. This is generally used on a page that lists all pages for a pageType.
 
-
 ```graphql
 type PublicPageTypeContent {
+  contentAsHtml: String
   contentAsString: String
   demandHqId: ID!
+  description: String
+  descriptionOrExcerpt(
+  numberOfCharacters: Int
+): String
+  excerpt(
+  numberOfCharacters: Int
+): String
   pageType: String!
   pageTypeContentId: ID!
+  secondaryContentAsHtml: String
   secondaryContentAsString: String
+  seoDescription: String
+  seoTitle: String
   storefrontId: ID!
   subtitle: String
   title: String
@@ -23,44 +34,88 @@ type PublicPageTypeContent {
 
 ### Fields
 
-#### `contentAsString` ([`String`](/developers/demandhq-apis/storefront-api/graphql/reference/scalars/string))
+#### [`contentAsHtml`](#) ([`String`](/developers/demandhq-apis/storefront-api/graphql/reference/scalars/string))
+
+Get the markdown content of the pageTypeContent as parsed HTML. Do not use
+this field without purifying or sanitizing the HTML in your webapp.
+
+
+#### [`contentAsString`](#) ([`String`](/developers/demandhq-apis/storefront-api/graphql/reference/scalars/string))
 
 
 
 
-#### `demandHqId` ([`ID`](/developers/demandhq-apis/storefront-api/graphql/reference/scalars/id))
+#### [`demandHqId`](#) ([`ID!`](/developers/demandhq-apis/storefront-api/graphql/reference/scalars/id))
 
 
 
 
-#### `pageType` ([`String`](/developers/demandhq-apis/storefront-api/graphql/reference/scalars/string))
+#### [`description`](#) ([`String`](/developers/demandhq-apis/storefront-api/graphql/reference/scalars/string))
+
+A short description of the pageTypeContent, limit 1000 characters. This is
+typically used off of the pageTypeContent page itself.
+
+
+#### [`descriptionOrExcerpt`](#) ([`String`](/developers/demandhq-apis/storefront-api/graphql/reference/scalars/string))
+
+Get the description if it exists, or fallback to the excerpt of content for the CollectionTypeContent.
+- ##### [`numberOfCharacters`](#) ([`Int`](/developers/demandhq-apis/storefront-api/graphql/reference/scalars/int))
+
+The number of characters to return, defaults to 200.
+
+
+#### [`excerpt`](#) ([`String`](/developers/demandhq-apis/storefront-api/graphql/reference/scalars/string))
+
+Get an excerpt of the CollectionTypeContent.
+- ##### [`numberOfCharacters`](#) ([`Int`](/developers/demandhq-apis/storefront-api/graphql/reference/scalars/int))
+
+The number of characters to return, defaults to 200.
+
+
+#### [`pageType`](#) ([`String!`](/developers/demandhq-apis/storefront-api/graphql/reference/scalars/string))
 
 
 
 
-#### `pageTypeContentId` ([`ID`](/developers/demandhq-apis/storefront-api/graphql/reference/scalars/id))
+#### [`pageTypeContentId`](#) ([`ID!`](/developers/demandhq-apis/storefront-api/graphql/reference/scalars/id))
 
 
 
 
-#### `secondaryContentAsString` ([`String`](/developers/demandhq-apis/storefront-api/graphql/reference/scalars/string))
+#### [`secondaryContentAsHtml`](#) ([`String`](/developers/demandhq-apis/storefront-api/graphql/reference/scalars/string))
+
+Get the secondary markdown content of the pageTypeContent as parsed HTML. Do
+not use this field without purifying or sanitizing the HTML in your webapp.
+
+
+#### [`secondaryContentAsString`](#) ([`String`](/developers/demandhq-apis/storefront-api/graphql/reference/scalars/string))
 
 
 
 
-#### `storefrontId` ([`ID`](/developers/demandhq-apis/storefront-api/graphql/reference/scalars/id))
+#### [`seoDescription`](#) ([`String`](/developers/demandhq-apis/storefront-api/graphql/reference/scalars/string))
+
+Description specific for SEO purposes, limit 170 characters.
+
+
+#### [`seoTitle`](#) ([`String`](/developers/demandhq-apis/storefront-api/graphql/reference/scalars/string))
+
+Title specific for SEO purposes, limit 256 characters.
+
+
+#### [`storefrontId`](#) ([`ID!`](/developers/demandhq-apis/storefront-api/graphql/reference/scalars/id))
 
 
 
 
-#### `subtitle` ([`String`](/developers/demandhq-apis/storefront-api/graphql/reference/scalars/string))
+#### [`subtitle`](#) ([`String`](/developers/demandhq-apis/storefront-api/graphql/reference/scalars/string))
+
+The subtitle of the pageTypeContent, limit 256 characters.
 
 
+#### [`title`](#) ([`String`](/developers/demandhq-apis/storefront-api/graphql/reference/scalars/string))
 
-
-#### `title` ([`String`](/developers/demandhq-apis/storefront-api/graphql/reference/scalars/string))
-
-
+The title of the pageTypeContent, limit 256 characters.
 
 
 

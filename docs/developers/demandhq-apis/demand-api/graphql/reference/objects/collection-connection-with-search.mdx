@@ -1,11 +1,11 @@
 ---
 id: collection-connection-with-search
 title: CollectionConnectionWithSearch
+hide_table_of_contents: false
 ---
 
 
 Paginate through Collections
-
 
 ```graphql
 type CollectionConnectionWithSearch {
@@ -19,22 +19,22 @@ type CollectionConnectionWithSearch {
 
 ### Fields
 
-#### `edges` ([`CollectionEdge`](/developers/demandhq-apis/demand-api/graphql/reference/objects/collection-edge))
+#### [`edges`](#) ([`[CollectionEdge]!`](/developers/demandhq-apis/demand-api/graphql/reference/objects/collection-edge))
 
 
 
 
-#### `nodes` ([`Collection`](/developers/demandhq-apis/demand-api/graphql/reference/objects/collection))
+#### [`nodes`](#) ([`[Collection]!`](/developers/demandhq-apis/demand-api/graphql/reference/objects/collection))
 
 
 
 
-#### `pageInfo` ([`PageInfo`](/developers/demandhq-apis/demand-api/graphql/reference/objects/page-info))
+#### [`pageInfo`](#) ([`PageInfo!`](/developers/demandhq-apis/demand-api/graphql/reference/objects/page-info))
 
 
 
 
-#### `querySuggestions` ([`JSON`](/developers/demandhq-apis/demand-api/graphql/reference/scalars/json))
+#### [`querySuggestions`](#) ([`JSON`](/developers/demandhq-apis/demand-api/graphql/reference/scalars/json))
 
 This is an object with terms in the query as keys, and a suggestion for that
 term as the value. This is often referred to as 'Did you mean?'

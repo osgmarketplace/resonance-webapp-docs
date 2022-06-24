@@ -1,17 +1,20 @@
 ---
 id: page-type-content-update-input
 title: PageTypeContentUpdateInput
+hide_table_of_contents: false
 ---
 
 
 Input object to update a PageTypeContent.
 
-
 ```graphql
 input PageTypeContentUpdateInput {
   contentAsString: String
+  description: String
   pageTypeContentId: ID!
   secondaryContentAsString: String
+  seoDescription: String
+  seoTitle: String
   subtitle: String
   title: String
 }
@@ -20,29 +23,45 @@ input PageTypeContentUpdateInput {
 
 ### Fields
 
-#### `contentAsString` ([`String`](/developers/demandhq-apis/demand-api/graphql/reference/scalars/string))
+#### [`contentAsString`](#) ([`String`](/developers/demandhq-apis/demand-api/graphql/reference/scalars/string))
 
 
 
 
-#### `pageTypeContentId` ([`ID`](/developers/demandhq-apis/demand-api/graphql/reference/scalars/id))
+#### [`description`](#) ([`String`](/developers/demandhq-apis/demand-api/graphql/reference/scalars/string))
+
+A short description of the pageTypeContent, limit 1000 characters. This is
+typically used off of the pageTypeContent page itself.
+
+
+#### [`pageTypeContentId`](#) ([`ID!`](/developers/demandhq-apis/demand-api/graphql/reference/scalars/id))
 
 
 
 
-#### `secondaryContentAsString` ([`String`](/developers/demandhq-apis/demand-api/graphql/reference/scalars/string))
+#### [`secondaryContentAsString`](#) ([`String`](/developers/demandhq-apis/demand-api/graphql/reference/scalars/string))
 
 
 
 
-#### `subtitle` ([`String`](/developers/demandhq-apis/demand-api/graphql/reference/scalars/string))
+#### [`seoDescription`](#) ([`String`](/developers/demandhq-apis/demand-api/graphql/reference/scalars/string))
+
+Description specific for SEO purposes, limit 170 characters.
 
 
+#### [`seoTitle`](#) ([`String`](/developers/demandhq-apis/demand-api/graphql/reference/scalars/string))
+
+Title specific for SEO purposes, limit 256 characters.
 
 
-#### `title` ([`String`](/developers/demandhq-apis/demand-api/graphql/reference/scalars/string))
+#### [`subtitle`](#) ([`String`](/developers/demandhq-apis/demand-api/graphql/reference/scalars/string))
+
+The subtitle of the pageTypeContent, limit 256 characters.
 
 
+#### [`title`](#) ([`String`](/developers/demandhq-apis/demand-api/graphql/reference/scalars/string))
+
+The title of the pageTypeContent, limit 256 characters.
 
 
 

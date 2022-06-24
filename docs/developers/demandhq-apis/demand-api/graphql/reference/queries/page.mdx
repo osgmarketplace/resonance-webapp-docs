@@ -1,6 +1,7 @@
 ---
 id: page
 title: page
+hide_table_of_contents: false
 ---
 
 
@@ -8,25 +9,23 @@ Get a page by pageId.
             
 Required page/read permission on the given DemandHq.
 
-
 ```graphql
 page(
   pageId: ID!
 ): Page
-
 ```
 
 
 ### Arguments
 
-#### `pageId` ([`ID`](/developers/demandhq-apis/demand-api/graphql/reference/scalars/id))
+#### [`pageId`](#) ([`ID!`](/developers/demandhq-apis/demand-api/graphql/reference/scalars/id))
 
 
 
 
 ### Type
 
-#### [`Page`](/developers/demandhq-apis/demand-api/graphql/reference/objects/page) 
+#### [`Page`](/developers/demandhq-apis/demand-api/graphql/reference/objects/page)
 
 A Page is a part of the Demand Domain and represents a page with textual and
 image content on it, that has nothing to do with products.

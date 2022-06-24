@@ -1,11 +1,11 @@
 ---
 id: public-variant
 title: PublicVariant
+hide_table_of_contents: false
 ---
 
 
 This is the child entity to a Product, and is a variation, such as a color, size, etc.
-
 
 ```graphql
 type PublicVariant {
@@ -35,52 +35,52 @@ type PublicVariant {
 
 ### Fields
 
-#### `barcode` ([`String`](/developers/demandhq-apis/storefront-api/graphql/reference/scalars/string))
+#### [`barcode`](#) ([`String!`](/developers/demandhq-apis/storefront-api/graphql/reference/scalars/string))
 
 UPC, ISBN, GTIN, etc.
 
 
-#### `casePack` ([`Int`](/developers/demandhq-apis/storefront-api/graphql/reference/scalars/int))
+#### [`casePack`](#) ([`Int`](/developers/demandhq-apis/storefront-api/graphql/reference/scalars/int))
 
 Quantity in one variant (i.e. 12-pack). Must be a positive integer.
 
 
-#### `contentItemIds` ([`ID`](/developers/demandhq-apis/storefront-api/graphql/reference/scalars/id))
+#### [`contentItemIds`](#) ([`[ID]`](/developers/demandhq-apis/storefront-api/graphql/reference/scalars/id))
 
 Associates contentItems with this variant
 
 
-#### `demandHqId` ([`ID`](/developers/demandhq-apis/storefront-api/graphql/reference/scalars/id))
+#### [`demandHqId`](#) ([`ID!`](/developers/demandhq-apis/storefront-api/graphql/reference/scalars/id))
 
 
 
 
-#### `isTaxable` ([`Boolean`](/developers/demandhq-apis/storefront-api/graphql/reference/scalars/boolean))
+#### [`isTaxable`](#) ([`Boolean`](/developers/demandhq-apis/storefront-api/graphql/reference/scalars/boolean))
 
 
 
 
-#### `manufacturer` ([`String`](/developers/demandhq-apis/storefront-api/graphql/reference/scalars/string))
+#### [`manufacturer`](#) ([`String`](/developers/demandhq-apis/storefront-api/graphql/reference/scalars/string))
 
 Often same as vendor, but not always.
 
 
-#### `mapPrice` ([`Float`](/developers/demandhq-apis/storefront-api/graphql/reference/scalars/float))
+#### [`mapPrice`](#) ([`Float`](/developers/demandhq-apis/storefront-api/graphql/reference/scalars/float))
 
 Minimum Advertised Price. Must be a positive number.
 
 
-#### `mpn` ([`String`](/developers/demandhq-apis/storefront-api/graphql/reference/scalars/string))
+#### [`mpn`](#) ([`String`](/developers/demandhq-apis/storefront-api/graphql/reference/scalars/string))
 
 Manufacturer Part Number
 
 
-#### `msrp` ([`Float`](/developers/demandhq-apis/storefront-api/graphql/reference/scalars/float))
+#### [`msrp`](#) ([`Float`](/developers/demandhq-apis/storefront-api/graphql/reference/scalars/float))
 
 Manufacturer's Suggested Retail Price. Must be a positive number.
 
 
-#### `optionValues` ([`String`](/developers/demandhq-apis/storefront-api/graphql/reference/scalars/string))
+#### [`optionValues`](#) ([`[String!]!`](/developers/demandhq-apis/storefront-api/graphql/reference/scalars/string))
 
 An array of the option values that make up this variant.
 For example, a product with a color and size option would have two option values,
@@ -90,55 +90,55 @@ Set this to "No Option" if you don't want to use options for this product and th
 See https://docs.buildresonance.com/concepts/products/#no-option-products for more info.
 
 
-#### `position` ([`Int`](/developers/demandhq-apis/storefront-api/graphql/reference/scalars/int))
+#### [`position`](#) ([`Int`](/developers/demandhq-apis/storefront-api/graphql/reference/scalars/int))
 
 Used to determine what order the content comes out in.
 Positive Integers are allowed, up to 9,999,999,999, and it does not have to be unique or sequential.
 
 
-#### `price` ([`Float`](/developers/demandhq-apis/storefront-api/graphql/reference/scalars/float))
+#### [`price`](#) ([`Float!`](/developers/demandhq-apis/storefront-api/graphql/reference/scalars/float))
 
 Price for the defaultCurrency, can be any positive float number value.
 
 
-#### `product` ([`PublicProduct`](/developers/demandhq-apis/storefront-api/graphql/reference/objects/public-product))
+#### [`product`](#) ([`PublicProduct`](/developers/demandhq-apis/storefront-api/graphql/reference/objects/public-product))
 
 Get the product associated with the variant.
             
 Requires the publicproduct/read scope.
 
 
-#### `productId` ([`ID`](/developers/demandhq-apis/storefront-api/graphql/reference/scalars/id))
+#### [`productId`](#) ([`ID!`](/developers/demandhq-apis/storefront-api/graphql/reference/scalars/id))
 
 
 
 
-#### `shippingDimensions` ([`VariantShippingDimensions`](/developers/demandhq-apis/storefront-api/graphql/reference/objects/variant-shipping-dimensions))
+#### [`shippingDimensions`](#) ([`VariantShippingDimensions`](/developers/demandhq-apis/storefront-api/graphql/reference/objects/variant-shipping-dimensions))
 
 
 
 
-#### `sku` ([`String`](/developers/demandhq-apis/storefront-api/graphql/reference/scalars/string))
+#### [`sku`](#) ([`String`](/developers/demandhq-apis/storefront-api/graphql/reference/scalars/string))
 
 Stock Keeping Unit
 
 
-#### `standardizedColor` ([`VariantStandardizedColor`](/developers/demandhq-apis/storefront-api/graphql/reference/enums/variant-standardized-color))
+#### [`standardizedColor`](#) ([`VariantStandardizedColor`](/developers/demandhq-apis/storefront-api/graphql/reference/enums/variant-standardized-color))
 
 
 
 
-#### `title` ([`String`](/developers/demandhq-apis/storefront-api/graphql/reference/scalars/string))
+#### [`title`](#) ([`String!`](/developers/demandhq-apis/storefront-api/graphql/reference/scalars/string))
 
 Get the title of this variant (combo of optionValues)
 
 
-#### `variantId` ([`ID`](/developers/demandhq-apis/storefront-api/graphql/reference/scalars/id))
+#### [`variantId`](#) ([`ID!`](/developers/demandhq-apis/storefront-api/graphql/reference/scalars/id))
 
 
 
 
-#### `weight` ([`VariantWeight`](/developers/demandhq-apis/storefront-api/graphql/reference/objects/variant-weight))
+#### [`weight`](#) ([`VariantWeight`](/developers/demandhq-apis/storefront-api/graphql/reference/objects/variant-weight))
 
 
 

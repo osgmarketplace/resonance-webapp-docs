@@ -1,6 +1,7 @@
 ---
 id: supplier-variants
 title: supplierVariants
+hide_table_of_contents: false
 ---
 
 
@@ -8,25 +9,23 @@ Get several supplierVariants by SupplierVariantIds (currently)
 
 Requires suppliervariant/read permission on the requesting identity for all associated suppliers
 
-
 ```graphql
 supplierVariants(
   supplierVariantIds: [ID!]!
 ): SupplierVariantConnection!
-
 ```
 
 
 ### Arguments
 
-#### `supplierVariantIds` ([`ID`](/developers/supplier-apis/supply-api/graphql/reference/scalars/id))
+#### [`supplierVariantIds`](#) ([`[ID!]!`](/developers/supplier-apis/supply-api/graphql/reference/scalars/id))
 
 
 
 
 ### Type
 
-#### [`SupplierVariantConnection`](/developers/supplier-apis/supply-api/graphql/reference/objects/supplier-variant-connection) 
+#### [`SupplierVariantConnection`](/developers/supplier-apis/supply-api/graphql/reference/objects/supplier-variant-connection)
 
 Paginate through SupplierVariants
 

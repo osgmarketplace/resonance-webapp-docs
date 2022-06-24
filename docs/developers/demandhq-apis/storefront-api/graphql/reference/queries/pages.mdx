@@ -1,13 +1,13 @@
 ---
 id: pages
 title: pages
+hide_table_of_contents: false
 ---
 
 
 List pages for a Storefront with optional filters.
             
 Requires the publicpage/read scope.
-
 
 ```graphql
 pages(
@@ -22,67 +22,66 @@ pages(
   sortOrder: [PageSortInput]
   tags: [StringFilterInput]
 ): PublicPageConnectionWithSearch!
-
 ```
 
 
 ### Arguments
 
-#### `after` ([`String`](/developers/demandhq-apis/storefront-api/graphql/reference/scalars/string))
+#### [`after`](#) ([`String`](/developers/demandhq-apis/storefront-api/graphql/reference/scalars/string))
 
 Returns the elements in the list that come after the specified cursor.
 
 
-#### `author` ([`StringFilterInput`](/developers/demandhq-apis/storefront-api/graphql/reference/inputs/string-filter-input))
+#### [`author`](#) ([`StringFilterInput`](/developers/demandhq-apis/storefront-api/graphql/reference/inputs/string-filter-input))
 
 Filter Pages using author
 
 
-#### `before` ([`String`](/developers/demandhq-apis/storefront-api/graphql/reference/scalars/string))
+#### [`before`](#) ([`String`](/developers/demandhq-apis/storefront-api/graphql/reference/scalars/string))
 
 Returns the elements in the list that come before the specified cursor.
 
 
-#### `first` ([`Int`](/developers/demandhq-apis/storefront-api/graphql/reference/scalars/int))
+#### [`first`](#) ([`Int`](/developers/demandhq-apis/storefront-api/graphql/reference/scalars/int))
 
 Returns the first n elements from the list.
 
 
-#### `last` ([`Int`](/developers/demandhq-apis/storefront-api/graphql/reference/scalars/int))
+#### [`last`](#) ([`Int`](/developers/demandhq-apis/storefront-api/graphql/reference/scalars/int))
 
 Returns the last n elements from the list.
 
 
-#### `pageType` ([`StringFilterInput`](/developers/demandhq-apis/storefront-api/graphql/reference/inputs/string-filter-input))
+#### [`pageType`](#) ([`StringFilterInput`](/developers/demandhq-apis/storefront-api/graphql/reference/inputs/string-filter-input))
 
 Filter Pages using pageType
 
 
-#### `query` ([`String`](/developers/demandhq-apis/storefront-api/graphql/reference/scalars/string))
+#### [`query`](#) ([`String`](/developers/demandhq-apis/storefront-api/graphql/reference/scalars/string))
 
 Query pages for certain terms. Searches several fields, including
 page.author, page.description, page.subtitle, page.title, pageTags, and the
 actual content of the page.
 
 
-#### `slugs` ([`String`](/developers/demandhq-apis/storefront-api/graphql/reference/scalars/string))
+#### [`slugs`](#) ([`[String]`](/developers/demandhq-apis/storefront-api/graphql/reference/scalars/string))
 
 Filter Pages using slugs
 
 
-#### `sortOrder` ([`PageSortInput`](/developers/demandhq-apis/storefront-api/graphql/reference/inputs/page-sort-input))
+#### [`sortOrder`](#) ([`[PageSortInput]`](/developers/demandhq-apis/storefront-api/graphql/reference/inputs/page-sort-input))
 
 Sort Pages by a series of fields and directions.
 
 
-#### `tags` ([`StringFilterInput`](/developers/demandhq-apis/storefront-api/graphql/reference/inputs/string-filter-input))
+#### [`tags`](#) ([`[StringFilterInput]`](/developers/demandhq-apis/storefront-api/graphql/reference/inputs/string-filter-input))
 
 Filter Pages using Tags.
 
 
 ### Type
 
-#### [`PublicPageConnectionWithSearch`](/developers/demandhq-apis/storefront-api/graphql/reference/objects/public-page-connection-with-search) 
+#### [`PublicPageConnectionWithSearch`](/developers/demandhq-apis/storefront-api/graphql/reference/objects/public-page-connection-with-search)
 
 Paginate through PublicPages
 

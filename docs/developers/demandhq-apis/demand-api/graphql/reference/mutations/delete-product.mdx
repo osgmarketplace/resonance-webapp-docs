@@ -1,6 +1,7 @@
 ---
 id: delete-product
 title: deleteProduct
+hide_table_of_contents: false
 ---
 
 
@@ -8,25 +9,23 @@ Delete a Product from a DemandHq.
 
 Requires the product/write permission on the given DemandHq
 
-
 ```graphql
 deleteProduct(
   productId: ID!
 ): ProductDeleteResponse!
-
 ```
 
 
 ### Arguments
 
-#### `productId` ([`ID`](/developers/demandhq-apis/demand-api/graphql/reference/scalars/id))
+#### [`productId`](#) ([`ID!`](/developers/demandhq-apis/demand-api/graphql/reference/scalars/id))
 
 
 
 
 ### Type
 
-#### [`ProductDeleteResponse`](/developers/demandhq-apis/demand-api/graphql/reference/objects/product-delete-response) 
+#### [`ProductDeleteResponse`](/developers/demandhq-apis/demand-api/graphql/reference/objects/product-delete-response)
 
 Returned object from deleteProduct
 

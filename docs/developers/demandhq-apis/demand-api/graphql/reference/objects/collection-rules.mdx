@@ -1,11 +1,11 @@
 ---
 id: collection-rules
 title: CollectionRules
+hide_table_of_contents: false
 ---
 
 
 The rules to determine whether a Product should be part of a Collection.
-
 
 ```graphql
 type CollectionRules {
@@ -18,17 +18,17 @@ type CollectionRules {
 
 ### Fields
 
-#### `all` ([`CollectionRule`](/developers/demandhq-apis/demand-api/graphql/reference/objects/collection-rule))
+#### [`all`](#) ([`[CollectionRule]`](/developers/demandhq-apis/demand-api/graphql/reference/objects/collection-rule))
 
 ALL of the rules for this array must match a given prospective Product
 
 
-#### `any` ([`CollectionRule`](/developers/demandhq-apis/demand-api/graphql/reference/objects/collection-rule))
+#### [`any`](#) ([`[CollectionRule]`](/developers/demandhq-apis/demand-api/graphql/reference/objects/collection-rule))
 
 ANY of the rules for this array must match a given prospective Product
 
 
-#### `not` ([`CollectionRule`](/developers/demandhq-apis/demand-api/graphql/reference/objects/collection-rule))
+#### [`not`](#) ([`[CollectionRule]`](/developers/demandhq-apis/demand-api/graphql/reference/objects/collection-rule))
 
 If rules in this array match, a prospective Product should be excluded from the Collection
 

@@ -1,6 +1,7 @@
 ---
 id: product
 title: product
+hide_table_of_contents: false
 ---
 
 
@@ -8,25 +9,23 @@ Get a product by its slug.
 
 Requires the publicproduct/read scope.
 
-
 ```graphql
 product(
   slug: String!
 ): PublicProduct
-
 ```
 
 
 ### Arguments
 
-#### `slug` ([`String`](/developers/demandhq-apis/storefront-api/graphql/reference/scalars/string))
+#### [`slug`](#) ([`String!`](/developers/demandhq-apis/storefront-api/graphql/reference/scalars/string))
 
 
 
 
 ### Type
 
-#### [`PublicProduct`](/developers/demandhq-apis/storefront-api/graphql/reference/objects/public-product) 
+#### [`PublicProduct`](/developers/demandhq-apis/storefront-api/graphql/reference/objects/public-product)
 
 A Product is a part of the Demand Domain and represents a the basic information of a product.
 Products have many support entities, including variants, which represent SKUs of the product.

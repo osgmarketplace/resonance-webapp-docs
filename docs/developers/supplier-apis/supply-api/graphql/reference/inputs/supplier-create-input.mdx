@@ -1,11 +1,11 @@
 ---
 id: supplier-create-input
 title: SupplierCreateInput
+hide_table_of_contents: false
 ---
 
 
 The necessary fields in order to create a new supplier
-
 
 ```graphql
 input SupplierCreateInput {
@@ -24,48 +24,48 @@ input SupplierCreateInput {
 
 ### Fields
 
-#### `category` ([`SupplierCategory`](/developers/supplier-apis/supply-api/graphql/reference/enums/supplier-category))
+#### [`category`](#) ([`SupplierCategory`](/developers/supplier-apis/supply-api/graphql/reference/enums/supplier-category))
 
 Indicates the vertical the majority of a Supplier's goods are in.
 
 
-#### `defaultCurrency` ([`ResonanceCurrency`](/developers/supplier-apis/supply-api/graphql/reference/enums/resonance-currency))
+#### [`defaultCurrency`](#) ([`ResonanceCurrency!`](/developers/supplier-apis/supply-api/graphql/reference/enums/resonance-currency))
 
 
 
 
-#### `defaultLocaleType` ([`ResonanceLocaleType`](/developers/supplier-apis/supply-api/graphql/reference/enums/resonance-locale-type))
+#### [`defaultLocaleType`](#) ([`ResonanceLocaleType!`](/developers/supplier-apis/supply-api/graphql/reference/enums/resonance-locale-type))
 
 
 
 
-#### `description` ([`String`](/developers/supplier-apis/supply-api/graphql/reference/scalars/string))
+#### [`description`](#) ([`String`](/developers/supplier-apis/supply-api/graphql/reference/scalars/string))
 
 
 
 
-#### `inStockProducts` ([`Int`](/developers/supplier-apis/supply-api/graphql/reference/scalars/int))
+#### [`inStockProducts`](#) ([`Int`](/developers/supplier-apis/supply-api/graphql/reference/scalars/int))
 
 The approximate number of in stock products this Supplier has on a typical basis.
 
 
-#### `name` ([`String`](/developers/supplier-apis/supply-api/graphql/reference/scalars/string))
+#### [`name`](#) ([`String!`](/developers/supplier-apis/supply-api/graphql/reference/scalars/string))
 
 
 
 
-#### `notificationUserNames` ([`SupplierNotificationUserNamesInput`](/developers/supplier-apis/supply-api/graphql/reference/inputs/supplier-notification-user-names-input))
+#### [`notificationUserNames`](#) ([`SupplierNotificationUserNamesInput`](/developers/supplier-apis/supply-api/graphql/reference/inputs/supplier-notification-user-names-input))
 
 These users will get notified if something requires attention for this Supplier.
 If none are provided, ownerUserName will be notified.
 
 
-#### `shipFromAddress` ([`AddressInput`](/developers/supplier-apis/supply-api/graphql/reference/inputs/address-input))
+#### [`shipFromAddress`](#) ([`AddressInput`](/developers/supplier-apis/supply-api/graphql/reference/inputs/address-input))
 
 The address where this Supplier's goods ship from.
 
 
-#### `topVendors` ([`String`](/developers/supplier-apis/supply-api/graphql/reference/scalars/string))
+#### [`topVendors`](#) ([`[String!]`](/developers/supplier-apis/supply-api/graphql/reference/scalars/string))
 
 The top Brands or Vendors this Supplier carries, limit 5 and 256 characters each.
 

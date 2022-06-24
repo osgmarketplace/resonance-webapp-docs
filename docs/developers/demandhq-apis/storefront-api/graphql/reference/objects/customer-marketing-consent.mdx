@@ -1,11 +1,11 @@
 ---
 id: customer-marketing-consent
 title: CustomerMarketingConsent
+hide_table_of_contents: false
 ---
 
 
 Details about the Customer's marketing consent
-
 
 ```graphql
 type CustomerMarketingConsent {
@@ -19,22 +19,22 @@ type CustomerMarketingConsent {
 
 ### Fields
 
-#### `consentLevel` ([`CustomerMarketingConsentLevel`](/developers/demandhq-apis/storefront-api/graphql/reference/enums/customer-marketing-consent-level))
+#### [`consentLevel`](#) ([`CustomerMarketingConsentLevel!`](/developers/demandhq-apis/storefront-api/graphql/reference/enums/customer-marketing-consent-level))
 
 The level at which the Customer has consented to marketing
 
 
-#### `consentedAt` ([`Date`](/developers/demandhq-apis/storefront-api/graphql/reference/scalars/date))
+#### [`consentedAt`](#) ([`Date!`](/developers/demandhq-apis/storefront-api/graphql/reference/scalars/date))
 
 The date the associated Customer agreed to the marketing consent
 
 
-#### `hasConsented` ([`Boolean`](/developers/demandhq-apis/storefront-api/graphql/reference/scalars/boolean))
+#### [`hasConsented`](#) ([`Boolean!`](/developers/demandhq-apis/storefront-api/graphql/reference/scalars/boolean))
 
 
 
 
-#### `source` ([`String`](/developers/demandhq-apis/storefront-api/graphql/reference/scalars/string))
+#### [`source`](#) ([`String`](/developers/demandhq-apis/storefront-api/graphql/reference/scalars/string))
 
 Optional field to store where consent was sourced from
 

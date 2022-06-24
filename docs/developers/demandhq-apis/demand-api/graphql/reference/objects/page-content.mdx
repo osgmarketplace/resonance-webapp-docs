@@ -1,11 +1,11 @@
 ---
 id: page-content
 title: PageContent
+hide_table_of_contents: false
 ---
 
 
 This is the actual content of the page
-
 
 ```graphql
 type PageContent {
@@ -24,40 +24,41 @@ type PageContent {
 
 ### Fields
 
-#### `contentAsHtml` ([`String`](/developers/demandhq-apis/demand-api/graphql/reference/scalars/string))
+#### [`contentAsHtml`](#) ([`String`](/developers/demandhq-apis/demand-api/graphql/reference/scalars/string))
 
-Get the markdown content of the page as parsed HTML.
-
-
-#### `contentAsString` ([`String`](/developers/demandhq-apis/demand-api/graphql/reference/scalars/string))
+Get the markdown content of the page as parsed HTML. Do not use this field
+without purifying or sanitizing the HTML in your webapp.
 
 
-
-
-#### `demandHqId` ([`ID`](/developers/demandhq-apis/demand-api/graphql/reference/scalars/id))
+#### [`contentAsString`](#) ([`String!`](/developers/demandhq-apis/demand-api/graphql/reference/scalars/string))
 
 
 
 
-#### `excerpt` ([`String`](/developers/demandhq-apis/demand-api/graphql/reference/scalars/string))
+#### [`demandHqId`](#) ([`ID!`](/developers/demandhq-apis/demand-api/graphql/reference/scalars/id))
+
+
+
+
+#### [`excerpt`](#) ([`String`](/developers/demandhq-apis/demand-api/graphql/reference/scalars/string))
 
 Get an excerpt of the page content.
-- ##### `numberOfCharacters` ([`Int`](/developers/demandhq-apis/demand-api/graphql/reference/scalars/int))
+- ##### [`numberOfCharacters`](#) ([`Int`](/developers/demandhq-apis/demand-api/graphql/reference/scalars/int))
 
 The number of characters to return, defaults to 200.
 
 
-#### `pageId` ([`ID`](/developers/demandhq-apis/demand-api/graphql/reference/scalars/id))
+#### [`pageId`](#) ([`ID!`](/developers/demandhq-apis/demand-api/graphql/reference/scalars/id))
 
 
 
 
-#### `updatedAt` ([`String`](/developers/demandhq-apis/demand-api/graphql/reference/scalars/string))
+#### [`updatedAt`](#) ([`String`](/developers/demandhq-apis/demand-api/graphql/reference/scalars/string))
 
 
 
 
-#### `updatedBy` ([`ID`](/developers/demandhq-apis/demand-api/graphql/reference/scalars/id))
+#### [`updatedBy`](#) ([`ID!`](/developers/demandhq-apis/demand-api/graphql/reference/scalars/id))
 
 
 

@@ -1,6 +1,7 @@
 ---
 id: supplier-product
 title: supplierProduct
+hide_table_of_contents: false
 ---
 
 
@@ -8,25 +9,23 @@ Get a single SupplierProduct by its ID.
 
 Requires supplierproduct/read permission on the requesting identity
 
-
 ```graphql
 supplierProduct(
   supplierProductId: ID!
 ): SupplierProduct
-
 ```
 
 
 ### Arguments
 
-#### `supplierProductId` ([`ID`](/developers/supplier-apis/supply-api/graphql/reference/scalars/id))
+#### [`supplierProductId`](#) ([`ID!`](/developers/supplier-apis/supply-api/graphql/reference/scalars/id))
 
 
 
 
 ### Type
 
-#### [`SupplierProduct`](/developers/supplier-apis/supply-api/graphql/reference/objects/supplier-product) 
+#### [`SupplierProduct`](/developers/supplier-apis/supply-api/graphql/reference/objects/supplier-product)
 
 This is the main entity of the Supplier domain, and is used to represent a product, which is a group of SKUs.
 SKUs are represented by SupplierVariants, a child of this entity.

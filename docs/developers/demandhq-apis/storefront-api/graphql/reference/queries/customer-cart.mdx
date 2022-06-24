@@ -1,6 +1,7 @@
 ---
 id: customer-cart
 title: customerCart
+hide_table_of_contents: false
 ---
 
 
@@ -8,25 +9,23 @@ The cart for the currently logged in customer. Will create a blank cart if one d
             
 Requires the publiccart/read scope and a valid customer authentication token.
 
-
 ```graphql
 customerCart(
   customerToken: String!
 ): Cart!
-
 ```
 
 
 ### Arguments
 
-#### `customerToken` ([`String`](/developers/demandhq-apis/storefront-api/graphql/reference/scalars/string))
+#### [`customerToken`](#) ([`String!`](/developers/demandhq-apis/storefront-api/graphql/reference/scalars/string))
 
 
 
 
 ### Type
 
-#### [`Cart`](/developers/demandhq-apis/storefront-api/graphql/reference/objects/cart) 
+#### [`Cart`](/developers/demandhq-apis/storefront-api/graphql/reference/objects/cart)
 
 A cart is a temporary container for products that a customer or anonymous user wants to buy
 

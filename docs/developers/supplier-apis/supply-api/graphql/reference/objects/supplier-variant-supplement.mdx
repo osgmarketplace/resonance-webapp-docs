@@ -1,12 +1,12 @@
 ---
 id: supplier-variant-supplement
 title: SupplierVariantSupplement
+hide_table_of_contents: false
 ---
 
 
 This has a one to one relationship with SupplierVariant, and provides supplemental data for the SupplierVariant.
 These items get updated at a lower frequency, and are therefore separate.
-
 
 ```graphql
 type SupplierVariantSupplement {
@@ -39,117 +39,117 @@ type SupplierVariantSupplement {
 
 ### Fields
 
-#### `averageShippingCost` ([`Float`](/developers/supplier-apis/supply-api/graphql/reference/scalars/float))
+#### [`averageShippingCost`](#) ([`Float`](/developers/supplier-apis/supply-api/graphql/reference/scalars/float))
 
 A calculated metric for some kind of average for a common region. Uncommon.
 
 
-#### `barcode` ([`String`](/developers/supplier-apis/supply-api/graphql/reference/scalars/string))
+#### [`barcode`](#) ([`String!`](/developers/supplier-apis/supply-api/graphql/reference/scalars/string))
 
 UPC, ISBN, GTIN, etc
 
 
-#### `casePack` ([`Int`](/developers/supplier-apis/supply-api/graphql/reference/scalars/int))
+#### [`casePack`](#) ([`Int`](/developers/supplier-apis/supply-api/graphql/reference/scalars/int))
 
 Quantity in one variant (i.e. 12-pack)
 
 
-#### `cost` ([`Float`](/developers/supplier-apis/supply-api/graphql/reference/scalars/float))
+#### [`cost`](#) ([`Float!`](/developers/supplier-apis/supply-api/graphql/reference/scalars/float))
 
 COGS, or Cost of Goods Sold, in a currency
 
 
-#### `createdAt` ([`String`](/developers/supplier-apis/supply-api/graphql/reference/scalars/string))
+#### [`createdAt`](#) ([`String!`](/developers/supplier-apis/supply-api/graphql/reference/scalars/string))
 
 ISO Date
 
 
-#### `handlingCost` ([`SupplierVariantHandlingCost`](/developers/supplier-apis/supply-api/graphql/reference/objects/supplier-variant-handling-cost))
+#### [`handlingCost`](#) ([`SupplierVariantHandlingCost`](/developers/supplier-apis/supply-api/graphql/reference/objects/supplier-variant-handling-cost))
 
 Additional warehouse handling charge, typically for larger items.
 
 
-#### `handlingCostAsCurrency` ([`Float`](/developers/supplier-apis/supply-api/graphql/reference/scalars/float))
+#### [`handlingCostAsCurrency`](#) ([`Float`](/developers/supplier-apis/supply-api/graphql/reference/scalars/float))
 
 Calculated field, giving the handling cost as Currency no matter how it is stored
 
 
-#### `isTaxable` ([`Boolean`](/developers/supplier-apis/supply-api/graphql/reference/scalars/boolean))
+#### [`isTaxable`](#) ([`Boolean`](/developers/supplier-apis/supply-api/graphql/reference/scalars/boolean))
 
 
 
 
-#### `manufacturer` ([`String`](/developers/supplier-apis/supply-api/graphql/reference/scalars/string))
+#### [`manufacturer`](#) ([`String`](/developers/supplier-apis/supply-api/graphql/reference/scalars/string))
 
 Often same as vendor, but not always.
 
 
-#### `mapPrice` ([`Float`](/developers/supplier-apis/supply-api/graphql/reference/scalars/float))
+#### [`mapPrice`](#) ([`Float`](/developers/supplier-apis/supply-api/graphql/reference/scalars/float))
 
 Minimum Advertised Price
 
 
-#### `mpn` ([`String`](/developers/supplier-apis/supply-api/graphql/reference/scalars/string))
+#### [`mpn`](#) ([`String`](/developers/supplier-apis/supply-api/graphql/reference/scalars/string))
 
 Manufacturer Part Number
 
 
-#### `msrp` ([`Float`](/developers/supplier-apis/supply-api/graphql/reference/scalars/float))
+#### [`msrp`](#) ([`Float`](/developers/supplier-apis/supply-api/graphql/reference/scalars/float))
 
 Manufacturer's Suggested Retail Price
 
 
-#### `productTags` ([`String`](/developers/supplier-apis/supply-api/graphql/reference/scalars/string))
+#### [`productTags`](#) ([`[String]`](/developers/supplier-apis/supply-api/graphql/reference/scalars/string))
 
 
 
 
-#### `recommendedPrice` ([`Float`](/developers/supplier-apis/supply-api/graphql/reference/scalars/float))
+#### [`recommendedPrice`](#) ([`Float`](/developers/supplier-apis/supply-api/graphql/reference/scalars/float))
 
 AKA Price
 
 
-#### `shippingDimensions` ([`SupplierVariantShippingDimensions`](/developers/supplier-apis/supply-api/graphql/reference/objects/supplier-variant-shipping-dimensions))
+#### [`shippingDimensions`](#) ([`SupplierVariantShippingDimensions`](/developers/supplier-apis/supply-api/graphql/reference/objects/supplier-variant-shipping-dimensions))
 
 
 
 
-#### `sku` ([`String`](/developers/supplier-apis/supply-api/graphql/reference/scalars/string))
+#### [`sku`](#) ([`String`](/developers/supplier-apis/supply-api/graphql/reference/scalars/string))
 
 Stock Keeping Unit
 
 
-#### `standardizedColor` ([`VariantStandardizedColor`](/developers/supplier-apis/supply-api/graphql/reference/enums/variant-standardized-color))
+#### [`standardizedColor`](#) ([`VariantStandardizedColor`](/developers/supplier-apis/supply-api/graphql/reference/enums/variant-standardized-color))
 
 
 
 
-#### `supplierId` ([`ID`](/developers/supplier-apis/supply-api/graphql/reference/scalars/id))
+#### [`supplierId`](#) ([`ID!`](/developers/supplier-apis/supply-api/graphql/reference/scalars/id))
 
 
 
 
-#### `supplierProductId` ([`ID`](/developers/supplier-apis/supply-api/graphql/reference/scalars/id))
+#### [`supplierProductId`](#) ([`ID!`](/developers/supplier-apis/supply-api/graphql/reference/scalars/id))
 
 
 
 
-#### `supplierVariantId` ([`ID`](/developers/supplier-apis/supply-api/graphql/reference/scalars/id))
+#### [`supplierVariantId`](#) ([`ID!`](/developers/supplier-apis/supply-api/graphql/reference/scalars/id))
 
 
 
 
-#### `updatedAt` ([`String`](/developers/supplier-apis/supply-api/graphql/reference/scalars/string))
+#### [`updatedAt`](#) ([`String!`](/developers/supplier-apis/supply-api/graphql/reference/scalars/string))
 
 ISO Date
 
 
-#### `updatedBy` ([`String`](/developers/supplier-apis/supply-api/graphql/reference/scalars/string))
+#### [`updatedBy`](#) ([`String!`](/developers/supplier-apis/supply-api/graphql/reference/scalars/string))
 
 
 
 
-#### `weight` ([`SupplierVariantWeight`](/developers/supplier-apis/supply-api/graphql/reference/objects/supplier-variant-weight))
+#### [`weight`](#) ([`SupplierVariantWeight`](/developers/supplier-apis/supply-api/graphql/reference/objects/supplier-variant-weight))
 
 
 

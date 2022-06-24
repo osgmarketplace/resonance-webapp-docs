@@ -1,6 +1,7 @@
 ---
 id: create-page
 title: createPage
+hide_table_of_contents: false
 ---
 
 
@@ -8,25 +9,23 @@ Add a new Page to a DemandHq.
 
 Requires the page/write permission on the given DemandHq
 
-
 ```graphql
 createPage(
   input: PageCreateInput!
 ): Page!
-
 ```
 
 
 ### Arguments
 
-#### `input` ([`PageCreateInput`](/developers/demandhq-apis/demand-api/graphql/reference/inputs/page-create-input))
+#### [`input`](#) ([`PageCreateInput!`](/developers/demandhq-apis/demand-api/graphql/reference/inputs/page-create-input))
 
 
 
 
 ### Type
 
-#### [`Page`](/developers/demandhq-apis/demand-api/graphql/reference/objects/page) 
+#### [`Page`](/developers/demandhq-apis/demand-api/graphql/reference/objects/page)
 
 A Page is a part of the Demand Domain and represents a page with textual and
 image content on it, that has nothing to do with products.

@@ -1,6 +1,7 @@
 ---
 id: update-supplier-variants
 title: updateSupplierVariants
+hide_table_of_contents: false
 ---
 
 
@@ -9,25 +10,23 @@ Bulk update supplierVariants
 Requires suppliervariant/write permission on the requesting identity
 Note that if there are Permission or UserInput Errors, the entire group will fail, not partially succeed.
 
-
 ```graphql
 updateSupplierVariants(
   inputs: [SupplierVariantUpdateInput!]
 ): [SupplierVariant!]
-
 ```
 
 
 ### Arguments
 
-#### `inputs` ([`SupplierVariantUpdateInput`](/developers/supplier-apis/supply-api/graphql/reference/inputs/supplier-variant-update-input))
+#### [`inputs`](#) ([`[SupplierVariantUpdateInput!]`](/developers/supplier-apis/supply-api/graphql/reference/inputs/supplier-variant-update-input))
 
 
 
 
 ### Type
 
-#### [`SupplierVariant`](/developers/supplier-apis/supply-api/graphql/reference/objects/supplier-variant) 
+#### [`SupplierVariant`](/developers/supplier-apis/supply-api/graphql/reference/objects/supplier-variant)
 
 The main item of the Supplier Domain, represents a single SKU of a product
 Only the variant level exists, there is no parent product.

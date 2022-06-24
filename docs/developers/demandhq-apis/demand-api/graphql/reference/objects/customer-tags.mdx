@@ -1,11 +1,11 @@
 ---
 id: customer-tags
 title: CustomerTags
+hide_table_of_contents: false
 ---
 
 
 These are the tags associated to the Customer
-
 
 ```graphql
 type CustomerTags {
@@ -24,40 +24,40 @@ type CustomerTags {
 
 ### Fields
 
-#### `customerId` ([`ID`](/developers/demandhq-apis/demand-api/graphql/reference/scalars/id))
+#### [`customerId`](#) ([`ID!`](/developers/demandhq-apis/demand-api/graphql/reference/scalars/id))
 
 
 
 
-#### `demandHqId` ([`ID`](/developers/demandhq-apis/demand-api/graphql/reference/scalars/id))
+#### [`demandHqId`](#) ([`ID!`](/developers/demandhq-apis/demand-api/graphql/reference/scalars/id))
 
 
 
 
-#### `parsed` ([`ParsedTag`](/developers/demandhq-apis/demand-api/graphql/reference/objects/parsed-tag))
+#### [`parsed`](#) ([`[ParsedTag]`](/developers/demandhq-apis/demand-api/graphql/reference/objects/parsed-tag))
 
 Get parsed, and optionally filtered, tags for a Customer.
-- ##### `category` ([`String`](/developers/demandhq-apis/demand-api/graphql/reference/scalars/string))
+- ##### [`category`](#) ([`String`](/developers/demandhq-apis/demand-api/graphql/reference/scalars/string))
 
 Optionally filter tags by category.
 
 
-- ##### `key` ([`String`](/developers/demandhq-apis/demand-api/graphql/reference/scalars/string))
+- ##### [`key`](#) ([`String`](/developers/demandhq-apis/demand-api/graphql/reference/scalars/string))
 
 Optionally filter tags by key. If category is not provided, but key is, category must be null to be returned.
 
 
-#### `raw` ([`String`](/developers/demandhq-apis/demand-api/graphql/reference/scalars/string))
+#### [`raw`](#) ([`[String]`](/developers/demandhq-apis/demand-api/graphql/reference/scalars/string))
 
 
 
 
-#### `updatedAt` ([`Date`](/developers/demandhq-apis/demand-api/graphql/reference/scalars/date))
+#### [`updatedAt`](#) ([`Date!`](/developers/demandhq-apis/demand-api/graphql/reference/scalars/date))
 
 
 
 
-#### `updatedBy` ([`ID`](/developers/demandhq-apis/demand-api/graphql/reference/scalars/id))
+#### [`updatedBy`](#) ([`ID!`](/developers/demandhq-apis/demand-api/graphql/reference/scalars/id))
 
 
 

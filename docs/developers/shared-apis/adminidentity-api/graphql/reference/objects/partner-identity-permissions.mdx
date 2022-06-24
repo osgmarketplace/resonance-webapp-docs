@@ -1,11 +1,11 @@
 ---
 id: partner-identity-permissions
 title: PartnerIdentityPermissions
+hide_table_of_contents: false
 ---
 
 
 Object representing exactly what permissions are given
-
 
 ```graphql
 type PartnerIdentityPermissions {
@@ -17,12 +17,12 @@ type PartnerIdentityPermissions {
 
 ### Fields
 
-#### `roles` ([`PartnerRole`](/developers/shared-apis/adminidentity-api/graphql/reference/enums/partner-role))
+#### [`roles`](#) ([`[PartnerRole]!`](/developers/shared-apis/adminidentity-api/graphql/reference/enums/partner-role))
 
 Roles are groups of permission scopes, for ease of assigning
 
 
-#### `scopes` ([`String`](/developers/shared-apis/adminidentity-api/graphql/reference/scalars/string))
+#### [`scopes`](#) ([`[String]!`](/developers/shared-apis/adminidentity-api/graphql/reference/scalars/string))
 
 Scopes are individual permissions representing a single item and action, in all lowercase, i.e. partneridentity/write
 

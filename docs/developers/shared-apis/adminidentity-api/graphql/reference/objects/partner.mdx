@@ -1,11 +1,11 @@
 ---
 id: partner
 title: Partner
+hide_table_of_contents: false
 ---
 
 
 Represents a Partner, the parent to an App, and the parent most component for Development
-
 
 ```graphql
 type Partner {
@@ -41,106 +41,106 @@ type Partner {
 
 ### Fields
 
-#### `app` ([`App`](/developers/shared-apis/adminidentity-api/graphql/reference/objects/app))
+#### [`app`](#) ([`App`](/developers/shared-apis/adminidentity-api/graphql/reference/objects/app))
 
 Get an App by ID
-- ##### `appId` ([`ID`](/developers/shared-apis/adminidentity-api/graphql/reference/scalars/id))
+- ##### [`appId`](#) ([`ID!`](/developers/shared-apis/adminidentity-api/graphql/reference/scalars/id))
 
 
 
 
-#### `apps` ([`AppConnection`](/developers/shared-apis/adminidentity-api/graphql/reference/objects/app-connection))
+#### [`apps`](#) ([`AppConnection!`](/developers/shared-apis/adminidentity-api/graphql/reference/objects/app-connection))
 
 Get a list of Apps for a Partner
-- ##### `after` ([`String`](/developers/shared-apis/adminidentity-api/graphql/reference/scalars/string))
+- ##### [`after`](#) ([`String`](/developers/shared-apis/adminidentity-api/graphql/reference/scalars/string))
 
 Returns the elements in the list that come after the specified cursor.
 
 
-- ##### `before` ([`String`](/developers/shared-apis/adminidentity-api/graphql/reference/scalars/string))
+- ##### [`before`](#) ([`String`](/developers/shared-apis/adminidentity-api/graphql/reference/scalars/string))
 
 Returns the elements in the list that come before the specified cursor.
 
 
-- ##### `first` ([`Int`](/developers/shared-apis/adminidentity-api/graphql/reference/scalars/int))
+- ##### [`first`](#) ([`Int`](/developers/shared-apis/adminidentity-api/graphql/reference/scalars/int))
 
 Returns the first n elements from the list.
 
 
-- ##### `last` ([`Int`](/developers/shared-apis/adminidentity-api/graphql/reference/scalars/int))
+- ##### [`last`](#) ([`Int`](/developers/shared-apis/adminidentity-api/graphql/reference/scalars/int))
 
 Returns the last n elements from the list.
 
 
-#### `createdAt` ([`Date`](/developers/shared-apis/adminidentity-api/graphql/reference/scalars/date))
+#### [`createdAt`](#) ([`Date!`](/developers/shared-apis/adminidentity-api/graphql/reference/scalars/date))
 
 
 
 
-#### `description` ([`String`](/developers/shared-apis/adminidentity-api/graphql/reference/scalars/string))
+#### [`description`](#) ([`String`](/developers/shared-apis/adminidentity-api/graphql/reference/scalars/string))
 
 Description of the partner
 Limited to 8000 characters
 
 
-#### `name` ([`String`](/developers/shared-apis/adminidentity-api/graphql/reference/scalars/string))
+#### [`name`](#) ([`String!`](/developers/shared-apis/adminidentity-api/graphql/reference/scalars/string))
 
 The name of the partner
 Limited to 128 characters
 
 
-#### `notificationUserNames` ([`PartnerNotificationUserNames`](/developers/shared-apis/adminidentity-api/graphql/reference/objects/partner-notification-user-names))
+#### [`notificationUserNames`](#) ([`PartnerNotificationUserNames`](/developers/shared-apis/adminidentity-api/graphql/reference/objects/partner-notification-user-names))
 
 Represents the users to be notified for certain events
 
 
-#### `ownerUserName` ([`String`](/developers/shared-apis/adminidentity-api/graphql/reference/scalars/string))
+#### [`ownerUserName`](#) ([`String!`](/developers/shared-apis/adminidentity-api/graphql/reference/scalars/string))
 
 
 
 
-#### `partnerId` ([`ID`](/developers/shared-apis/adminidentity-api/graphql/reference/scalars/id))
+#### [`partnerId`](#) ([`ID!`](/developers/shared-apis/adminidentity-api/graphql/reference/scalars/id))
 
 
 
 
-#### `partnerIdentities` ([`PartnerIdentityConnection`](/developers/shared-apis/adminidentity-api/graphql/reference/objects/partner-identity-connection))
+#### [`partnerIdentities`](#) ([`PartnerIdentityConnection!`](/developers/shared-apis/adminidentity-api/graphql/reference/objects/partner-identity-connection))
 
 Return the identities' permissions associated with this partner
-- ##### `after` ([`String`](/developers/shared-apis/adminidentity-api/graphql/reference/scalars/string))
+- ##### [`after`](#) ([`String`](/developers/shared-apis/adminidentity-api/graphql/reference/scalars/string))
 
 Returns the elements in the list that come after the specified cursor.
 
 
-- ##### `before` ([`String`](/developers/shared-apis/adminidentity-api/graphql/reference/scalars/string))
+- ##### [`before`](#) ([`String`](/developers/shared-apis/adminidentity-api/graphql/reference/scalars/string))
 
 Returns the elements in the list that come before the specified cursor.
 
 
-- ##### `first` ([`Int`](/developers/shared-apis/adminidentity-api/graphql/reference/scalars/int))
+- ##### [`first`](#) ([`Int`](/developers/shared-apis/adminidentity-api/graphql/reference/scalars/int))
 
 Returns the first n elements from the list.
 
 
-- ##### `last` ([`Int`](/developers/shared-apis/adminidentity-api/graphql/reference/scalars/int))
+- ##### [`last`](#) ([`Int`](/developers/shared-apis/adminidentity-api/graphql/reference/scalars/int))
 
 Returns the last n elements from the list.
 
 
-#### `partnerIdentity` ([`PartnerIdentity`](/developers/shared-apis/adminidentity-api/graphql/reference/objects/partner-identity))
+#### [`partnerIdentity`](#) ([`PartnerIdentity`](/developers/shared-apis/adminidentity-api/graphql/reference/objects/partner-identity))
 
 Return a single identity's permissions associated with this partner
-- ##### `identityId` ([`ID`](/developers/shared-apis/adminidentity-api/graphql/reference/scalars/id))
+- ##### [`identityId`](#) ([`ID!`](/developers/shared-apis/adminidentity-api/graphql/reference/scalars/id))
 
 
 
 
-#### `updatedAt` ([`Date`](/developers/shared-apis/adminidentity-api/graphql/reference/scalars/date))
+#### [`updatedAt`](#) ([`Date!`](/developers/shared-apis/adminidentity-api/graphql/reference/scalars/date))
 
 
 
 
-#### `updatedBy` ([`ID`](/developers/shared-apis/adminidentity-api/graphql/reference/scalars/id))
+#### [`updatedBy`](#) ([`ID!`](/developers/shared-apis/adminidentity-api/graphql/reference/scalars/id))
 
 
 

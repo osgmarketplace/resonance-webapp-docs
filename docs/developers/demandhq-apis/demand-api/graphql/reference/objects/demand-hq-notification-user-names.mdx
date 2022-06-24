@@ -1,12 +1,12 @@
 ---
 id: demand-hq-notification-user-names
 title: DemandHqNotificationUserNames
+hide_table_of_contents: false
 ---
 
 
 These users will get notified if something requires attention for this DemandHq.
 If none are provided, ownerUserName will be notified.
-
 
 ```graphql
 type DemandHqNotificationUserNames {
@@ -19,17 +19,17 @@ type DemandHqNotificationUserNames {
 
 ### Fields
 
-#### `catalog` ([`String`](/developers/demandhq-apis/demand-api/graphql/reference/scalars/string))
+#### [`catalog`](#) ([`[String!]`](/developers/demandhq-apis/demand-api/graphql/reference/scalars/string))
 
 All notifications for the catalog side (Products, Variants, etc.).
 
 
-#### `commerce` ([`String`](/developers/demandhq-apis/demand-api/graphql/reference/scalars/string))
+#### [`commerce`](#) ([`[String!]`](/developers/demandhq-apis/demand-api/graphql/reference/scalars/string))
 
 All notifications for the commerce side, besides orders.
 
 
-#### `orders` ([`String`](/developers/demandhq-apis/demand-api/graphql/reference/scalars/string))
+#### [`orders`](#) ([`[String!]`](/developers/demandhq-apis/demand-api/graphql/reference/scalars/string))
 
 These are part of commerce, but are a specific enough case to be handled separately.
 

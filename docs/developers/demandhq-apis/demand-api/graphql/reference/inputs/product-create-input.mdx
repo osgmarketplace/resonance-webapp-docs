@@ -1,11 +1,11 @@
 ---
 id: product-create-input
 title: ProductCreateInput
+hide_table_of_contents: false
 ---
 
 
 Exactly like Product, but no Status (Status is set to DRAFT on create).
-
 
 ```graphql
 input ProductCreateInput {
@@ -23,43 +23,43 @@ input ProductCreateInput {
 
 ### Fields
 
-#### `demandHqId` ([`ID`](/developers/demandhq-apis/demand-api/graphql/reference/scalars/id))
+#### [`demandHqId`](#) ([`ID!`](/developers/demandhq-apis/demand-api/graphql/reference/scalars/id))
 
 
 
 
-#### `optionLabels` ([`String`](/developers/demandhq-apis/demand-api/graphql/reference/scalars/string))
+#### [`optionLabels`](#) ([`[String!]!`](/developers/demandhq-apis/demand-api/graphql/reference/scalars/string))
 
 The labels for the possible option groups for this product, i.e. "Color", "Size", "Material", etc.
 These will match with labelOptions in Variants.
 
 
-#### `seoTitle` ([`String`](/developers/demandhq-apis/demand-api/graphql/reference/scalars/string))
+#### [`seoTitle`](#) ([`String`](/developers/demandhq-apis/demand-api/graphql/reference/scalars/string))
 
 Title specific for SEO purposes, limit 256 characters.
 
 
-#### `slug` ([`String`](/developers/demandhq-apis/demand-api/graphql/reference/scalars/string))
+#### [`slug`](#) ([`String!`](/developers/demandhq-apis/demand-api/graphql/reference/scalars/string))
 
 Slug for the URL for this product. Limit 128 characters.
 
 
-#### `storefrontIds` ([`ID`](/developers/demandhq-apis/demand-api/graphql/reference/scalars/id))
+#### [`storefrontIds`](#) ([`[ID]`](/developers/demandhq-apis/demand-api/graphql/reference/scalars/id))
 
 Which storefronts should have access to this product?
 
 
-#### `tags` ([`String`](/developers/demandhq-apis/demand-api/graphql/reference/scalars/string))
+#### [`tags`](#) ([`[String]`](/developers/demandhq-apis/demand-api/graphql/reference/scalars/string))
 
 
 
 
-#### `title` ([`String`](/developers/demandhq-apis/demand-api/graphql/reference/scalars/string))
+#### [`title`](#) ([`String!`](/developers/demandhq-apis/demand-api/graphql/reference/scalars/string))
 
 The title of the product, limit 256 characters.
 
 
-#### `vendor` ([`String`](/developers/demandhq-apis/demand-api/graphql/reference/scalars/string))
+#### [`vendor`](#) ([`String!`](/developers/demandhq-apis/demand-api/graphql/reference/scalars/string))
 
 AKA Brand. Limit 256 characters.
 

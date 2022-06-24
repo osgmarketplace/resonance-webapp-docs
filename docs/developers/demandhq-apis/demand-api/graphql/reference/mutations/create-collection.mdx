@@ -1,6 +1,7 @@
 ---
 id: create-collection
 title: createCollection
+hide_table_of_contents: false
 ---
 
 
@@ -8,25 +9,23 @@ Add a new Collection to a DemandHq.
 
 Requires the collection/write permission on the given DemandHq
 
-
 ```graphql
 createCollection(
   input: CollectionCreateInput!
 ): Collection!
-
 ```
 
 
 ### Arguments
 
-#### `input` ([`CollectionCreateInput`](/developers/demandhq-apis/demand-api/graphql/reference/inputs/collection-create-input))
+#### [`input`](#) ([`CollectionCreateInput!`](/developers/demandhq-apis/demand-api/graphql/reference/inputs/collection-create-input))
 
 
 
 
 ### Type
 
-#### [`Collection`](/developers/demandhq-apis/demand-api/graphql/reference/objects/collection) 
+#### [`Collection`](/developers/demandhq-apis/demand-api/graphql/reference/objects/collection)
 
 A Collection is a group of products, what may often be referred to as a "Category Page" of some variety.
 In reality, a collection is far more flexible and can be used to represent any

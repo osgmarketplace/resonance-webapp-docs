@@ -1,11 +1,11 @@
 ---
 id: storefront
 title: Storefront
+hide_table_of_contents: false
 ---
 
 
 A Storefront represents a customer facing ecommerce website that consumes Resonance Demand Entities
-
 
 ```graphql
 type Storefront {
@@ -65,220 +65,220 @@ type Storefront {
 
 ### Fields
 
-#### `apiKey` ([`StorefrontApiKey`](/developers/demandhq-apis/demand-api/graphql/reference/objects/storefront-api-key))
+#### [`apiKey`](#) ([`StorefrontApiKey`](/developers/demandhq-apis/demand-api/graphql/reference/objects/storefront-api-key))
 
 Get an api key for this storefront by identitySlug.
-- ##### `slug` ([`String`](/developers/demandhq-apis/demand-api/graphql/reference/scalars/string))
+- ##### [`slug`](#) ([`String!`](/developers/demandhq-apis/demand-api/graphql/reference/scalars/string))
 
 
 
 
-#### `apiKeys` ([`StorefrontApiKey`](/developers/demandhq-apis/demand-api/graphql/reference/objects/storefront-api-key))
+#### [`apiKeys`](#) ([`[StorefrontApiKey]!`](/developers/demandhq-apis/demand-api/graphql/reference/objects/storefront-api-key))
 
 Get all api keys for this storefront.
 
 
-#### `authenticationSettings` ([`StorefrontAuthenticationSettings`](/developers/demandhq-apis/demand-api/graphql/reference/objects/storefront-authentication-settings))
+#### [`authenticationSettings`](#) ([`StorefrontAuthenticationSettings`](/developers/demandhq-apis/demand-api/graphql/reference/objects/storefront-authentication-settings))
 
 
 
 
-#### `authenticationType` ([`StorefrontAuthenticationType`](/developers/demandhq-apis/demand-api/graphql/reference/enums/storefront-authentication-type))
+#### [`authenticationType`](#) ([`StorefrontAuthenticationType`](/developers/demandhq-apis/demand-api/graphql/reference/enums/storefront-authentication-type))
 
 
 
 
-#### `collectionTypeContents` ([`CollectionTypeContentConnection`](/developers/demandhq-apis/demand-api/graphql/reference/objects/collection-type-content-connection))
+#### [`collectionTypeContents`](#) ([`CollectionTypeContentConnection!`](/developers/demandhq-apis/demand-api/graphql/reference/objects/collection-type-content-connection))
 
 Get all collectionTypeContents for a storefront.
             
 Requires the collectiontypecontent/read scope on the associated DemandHq
-- ##### `after` ([`String`](/developers/demandhq-apis/demand-api/graphql/reference/scalars/string))
+- ##### [`after`](#) ([`String`](/developers/demandhq-apis/demand-api/graphql/reference/scalars/string))
 
 Returns the elements in the list that come after the specified cursor.
 
 
-- ##### `before` ([`String`](/developers/demandhq-apis/demand-api/graphql/reference/scalars/string))
+- ##### [`before`](#) ([`String`](/developers/demandhq-apis/demand-api/graphql/reference/scalars/string))
 
 Returns the elements in the list that come before the specified cursor.
 
 
-- ##### `first` ([`Int`](/developers/demandhq-apis/demand-api/graphql/reference/scalars/int))
+- ##### [`first`](#) ([`Int`](/developers/demandhq-apis/demand-api/graphql/reference/scalars/int))
 
 Returns the first n elements from the list.
 
 
-- ##### `last` ([`Int`](/developers/demandhq-apis/demand-api/graphql/reference/scalars/int))
+- ##### [`last`](#) ([`Int`](/developers/demandhq-apis/demand-api/graphql/reference/scalars/int))
 
 Returns the last n elements from the list.
 
 
-#### `createdAt` ([`Date`](/developers/demandhq-apis/demand-api/graphql/reference/scalars/date))
+#### [`createdAt`](#) ([`Date!`](/developers/demandhq-apis/demand-api/graphql/reference/scalars/date))
 
 
 
 
-#### `customer` ([`Customer`](/developers/demandhq-apis/demand-api/graphql/reference/objects/customer))
+#### [`customer`](#) ([`Customer`](/developers/demandhq-apis/demand-api/graphql/reference/objects/customer))
 
 Get a Customer by their customerId.
             
 Requires the customer/read permission for the associated DemandHq.
-- ##### `customerId` ([`ID`](/developers/demandhq-apis/demand-api/graphql/reference/scalars/id))
+- ##### [`customerId`](#) ([`ID!`](/developers/demandhq-apis/demand-api/graphql/reference/scalars/id))
 
 
 
 
-#### `customers` ([`CustomerConnectionWithSearch`](/developers/demandhq-apis/demand-api/graphql/reference/objects/customer-connection-with-search))
+#### [`customers`](#) ([`CustomerConnectionWithSearch!`](/developers/demandhq-apis/demand-api/graphql/reference/objects/customer-connection-with-search))
 
 Get a list of Customers.
 
 Requires the customer/read permission for the associated DemandHq.
-- ##### `after` ([`String`](/developers/demandhq-apis/demand-api/graphql/reference/scalars/string))
+- ##### [`after`](#) ([`String`](/developers/demandhq-apis/demand-api/graphql/reference/scalars/string))
 
 Returns the elements in the list that come after the specified cursor.
 
 
-- ##### `before` ([`String`](/developers/demandhq-apis/demand-api/graphql/reference/scalars/string))
+- ##### [`before`](#) ([`String`](/developers/demandhq-apis/demand-api/graphql/reference/scalars/string))
 
 Returns the elements in the list that come before the specified cursor.
 
 
-- ##### `customerIds` ([`ID`](/developers/demandhq-apis/demand-api/graphql/reference/scalars/id))
+- ##### [`customerIds`](#) ([`[ID]`](/developers/demandhq-apis/demand-api/graphql/reference/scalars/id))
 
 
 
 
-- ##### `first` ([`Int`](/developers/demandhq-apis/demand-api/graphql/reference/scalars/int))
+- ##### [`first`](#) ([`Int`](/developers/demandhq-apis/demand-api/graphql/reference/scalars/int))
 
 Returns the first n elements from the list.
 
 
-- ##### `last` ([`Int`](/developers/demandhq-apis/demand-api/graphql/reference/scalars/int))
+- ##### [`last`](#) ([`Int`](/developers/demandhq-apis/demand-api/graphql/reference/scalars/int))
 
 Returns the last n elements from the list.
 
 
-#### `demandHqId` ([`ID`](/developers/demandhq-apis/demand-api/graphql/reference/scalars/id))
+#### [`demandHqId`](#) ([`ID!`](/developers/demandhq-apis/demand-api/graphql/reference/scalars/id))
 
 
 
 
-#### `description` ([`String`](/developers/demandhq-apis/demand-api/graphql/reference/scalars/string))
+#### [`description`](#) ([`String`](/developers/demandhq-apis/demand-api/graphql/reference/scalars/string))
 
 
 
 
-#### `name` ([`String`](/developers/demandhq-apis/demand-api/graphql/reference/scalars/string))
+#### [`name`](#) ([`String!`](/developers/demandhq-apis/demand-api/graphql/reference/scalars/string))
 
 
 
 
-#### `navs` ([`NavConnection`](/developers/demandhq-apis/demand-api/graphql/reference/objects/nav-connection))
+#### [`navs`](#) ([`NavConnection!`](/developers/demandhq-apis/demand-api/graphql/reference/objects/nav-connection))
 
 List Navs for a storefront.
 
 Requires the user to have the nav/read permission on the associated DemandHq.
-- ##### `after` ([`String`](/developers/demandhq-apis/demand-api/graphql/reference/scalars/string))
+- ##### [`after`](#) ([`String`](/developers/demandhq-apis/demand-api/graphql/reference/scalars/string))
 
 Returns the elements in the list that come after the specified cursor.
 
 
-- ##### `before` ([`String`](/developers/demandhq-apis/demand-api/graphql/reference/scalars/string))
+- ##### [`before`](#) ([`String`](/developers/demandhq-apis/demand-api/graphql/reference/scalars/string))
 
 Returns the elements in the list that come before the specified cursor.
 
 
-- ##### `first` ([`Int`](/developers/demandhq-apis/demand-api/graphql/reference/scalars/int))
+- ##### [`first`](#) ([`Int`](/developers/demandhq-apis/demand-api/graphql/reference/scalars/int))
 
 Returns the first n elements from the list.
 
 
-- ##### `href` ([`String`](/developers/demandhq-apis/demand-api/graphql/reference/scalars/string))
+- ##### [`href`](#) ([`String`](/developers/demandhq-apis/demand-api/graphql/reference/scalars/string))
 
 
 
 
-- ##### `hrefPrefix` ([`String`](/developers/demandhq-apis/demand-api/graphql/reference/scalars/string))
+- ##### [`hrefPrefix`](#) ([`String`](/developers/demandhq-apis/demand-api/graphql/reference/scalars/string))
 
 
 
 
-- ##### `last` ([`Int`](/developers/demandhq-apis/demand-api/graphql/reference/scalars/int))
+- ##### [`last`](#) ([`Int`](/developers/demandhq-apis/demand-api/graphql/reference/scalars/int))
 
 Returns the last n elements from the list.
 
 
-- ##### `linkSlug` ([`String`](/developers/demandhq-apis/demand-api/graphql/reference/scalars/string))
+- ##### [`linkSlug`](#) ([`String`](/developers/demandhq-apis/demand-api/graphql/reference/scalars/string))
 
 
 
 
-- ##### `linkType` ([`String`](/developers/demandhq-apis/demand-api/graphql/reference/scalars/string))
+- ##### [`linkType`](#) ([`String`](/developers/demandhq-apis/demand-api/graphql/reference/scalars/string))
 
 
 
 
-- ##### `navIds` ([`ID`](/developers/demandhq-apis/demand-api/graphql/reference/scalars/id))
+- ##### [`navIds`](#) ([`[ID]`](/developers/demandhq-apis/demand-api/graphql/reference/scalars/id))
 
 
 
 
-- ##### `navLevel` ([`Int`](/developers/demandhq-apis/demand-api/graphql/reference/scalars/int))
+- ##### [`navLevel`](#) ([`Int`](/developers/demandhq-apis/demand-api/graphql/reference/scalars/int))
 
 
 
 
-- ##### `navType` ([`String`](/developers/demandhq-apis/demand-api/graphql/reference/scalars/string))
+- ##### [`navType`](#) ([`String`](/developers/demandhq-apis/demand-api/graphql/reference/scalars/string))
 
 
 
 
-#### `pageTypeContents` ([`PageTypeContentConnection`](/developers/demandhq-apis/demand-api/graphql/reference/objects/page-type-content-connection))
+#### [`pageTypeContents`](#) ([`PageTypeContentConnection!`](/developers/demandhq-apis/demand-api/graphql/reference/objects/page-type-content-connection))
 
 Get all pageTypeContents for a storefront.
             
 Requires the pagetypecontent/read scope on the associated DemandHq
-- ##### `after` ([`String`](/developers/demandhq-apis/demand-api/graphql/reference/scalars/string))
+- ##### [`after`](#) ([`String`](/developers/demandhq-apis/demand-api/graphql/reference/scalars/string))
 
 Returns the elements in the list that come after the specified cursor.
 
 
-- ##### `before` ([`String`](/developers/demandhq-apis/demand-api/graphql/reference/scalars/string))
+- ##### [`before`](#) ([`String`](/developers/demandhq-apis/demand-api/graphql/reference/scalars/string))
 
 Returns the elements in the list that come before the specified cursor.
 
 
-- ##### `first` ([`Int`](/developers/demandhq-apis/demand-api/graphql/reference/scalars/int))
+- ##### [`first`](#) ([`Int`](/developers/demandhq-apis/demand-api/graphql/reference/scalars/int))
 
 Returns the first n elements from the list.
 
 
-- ##### `last` ([`Int`](/developers/demandhq-apis/demand-api/graphql/reference/scalars/int))
+- ##### [`last`](#) ([`Int`](/developers/demandhq-apis/demand-api/graphql/reference/scalars/int))
 
 Returns the last n elements from the list.
 
 
-#### `storefrontId` ([`ID`](/developers/demandhq-apis/demand-api/graphql/reference/scalars/id))
+#### [`storefrontId`](#) ([`ID!`](/developers/demandhq-apis/demand-api/graphql/reference/scalars/id))
 
 
 
 
-#### `storefrontIdentities` ([`StorefrontIdentity`](/developers/demandhq-apis/demand-api/graphql/reference/objects/storefront-identity))
+#### [`storefrontIdentities`](#) ([`[StorefrontIdentity!]`](/developers/demandhq-apis/demand-api/graphql/reference/objects/storefront-identity))
 
 
 
 
-#### `updatedAt` ([`Date`](/developers/demandhq-apis/demand-api/graphql/reference/scalars/date))
+#### [`updatedAt`](#) ([`Date!`](/developers/demandhq-apis/demand-api/graphql/reference/scalars/date))
 
 
 
 
-#### `updatedBy` ([`ID`](/developers/demandhq-apis/demand-api/graphql/reference/scalars/id))
+#### [`updatedBy`](#) ([`ID!`](/developers/demandhq-apis/demand-api/graphql/reference/scalars/id))
 
 
 
 
-#### `urlDomain` ([`String`](/developers/demandhq-apis/demand-api/graphql/reference/scalars/string))
+#### [`urlDomain`](#) ([`String!`](/developers/demandhq-apis/demand-api/graphql/reference/scalars/string))
 
 
 
