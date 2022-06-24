@@ -1,11 +1,11 @@
 ---
 id: nav-update-input
 title: NavUpdateInput
+hide_table_of_contents: false
 ---
 
 
 The input for updating a Nav.
-
 
 ```graphql
 input NavUpdateInput {
@@ -21,17 +21,17 @@ input NavUpdateInput {
 
 ### Fields
 
-#### `href` ([`String`](/developers/demandhq-apis/demand-api/graphql/reference/scalars/string))
+#### [`href`](#) ([`String`](/developers/demandhq-apis/demand-api/graphql/reference/scalars/string))
 
 Where this Nav link should lead to. Can be an absolute or relative url. 768 character limit.
 
 
-#### `label` ([`String`](/developers/demandhq-apis/demand-api/graphql/reference/scalars/string))
+#### [`label`](#) ([`String`](/developers/demandhq-apis/demand-api/graphql/reference/scalars/string))
 
 The label for this Nav, limit 64 characters.
 
 
-#### `linkSlug` ([`String`](/developers/demandhq-apis/demand-api/graphql/reference/scalars/string))
+#### [`linkSlug`](#) ([`String`](/developers/demandhq-apis/demand-api/graphql/reference/scalars/string))
 
 This has two primary purposes:
 To make this Nav "lookupable" in combination with linkType.
@@ -40,18 +40,18 @@ reserved system linkTypes in combination with entitySlugs (i.e. Collection and
 a collection slug).
 
 
-#### `linkType` ([`String`](/developers/demandhq-apis/demand-api/graphql/reference/scalars/string))
+#### [`linkType`](#) ([`String`](/developers/demandhq-apis/demand-api/graphql/reference/scalars/string))
 
 This can be any string, but certain values have special meaning (like "collection").
 These are restricted to the specified values in NavSettings.
 
 
-#### `navId` ([`ID`](/developers/demandhq-apis/demand-api/graphql/reference/scalars/id))
+#### [`navId`](#) ([`ID!`](/developers/demandhq-apis/demand-api/graphql/reference/scalars/id))
 
 
 
 
-#### `position` ([`Int`](/developers/demandhq-apis/demand-api/graphql/reference/scalars/int))
+#### [`position`](#) ([`Int`](/developers/demandhq-apis/demand-api/graphql/reference/scalars/int))
 
 Where this Nav should be located with respect to other Navs. Need not be sequential or unique.
 

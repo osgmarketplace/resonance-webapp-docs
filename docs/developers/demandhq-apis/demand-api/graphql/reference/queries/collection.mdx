@@ -1,6 +1,7 @@
 ---
 id: collection
 title: collection
+hide_table_of_contents: false
 ---
 
 
@@ -8,25 +9,23 @@ Get a collection by collectionId.
             
 Required collection/read permission on the given DemandHq.
 
-
 ```graphql
 collection(
   collectionId: ID!
 ): Collection
-
 ```
 
 
 ### Arguments
 
-#### `collectionId` ([`ID`](/developers/demandhq-apis/demand-api/graphql/reference/scalars/id))
+#### [`collectionId`](#) ([`ID!`](/developers/demandhq-apis/demand-api/graphql/reference/scalars/id))
 
 
 
 
 ### Type
 
-#### [`Collection`](/developers/demandhq-apis/demand-api/graphql/reference/objects/collection) 
+#### [`Collection`](/developers/demandhq-apis/demand-api/graphql/reference/objects/collection)
 
 A Collection is a group of products, what may often be referred to as a "Category Page" of some variety.
 In reality, a collection is far more flexible and can be used to represent any

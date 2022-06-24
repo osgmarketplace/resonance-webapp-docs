@@ -1,11 +1,11 @@
 ---
 id: supply-event-subscriptions
 title: supplyEventSubscriptions
+hide_table_of_contents: false
 ---
 
 
 List supplyEventSubscriptions by filtering. Requires you to own the subscriptions.
-
 
 ```graphql
 supplyEventSubscriptions(
@@ -19,54 +19,53 @@ supplyEventSubscriptions(
   subscriptionEntityId: ID
   subscriptionOwnerId: ID
 ): SupplyEventSubscriptionConnection!
-
 ```
 
 
 ### Arguments
 
-#### `after` ([`String`](/developers/supplier-apis/supply-api/graphql/reference/scalars/string))
+#### [`after`](#) ([`String`](/developers/supplier-apis/supply-api/graphql/reference/scalars/string))
 
 Returns the elements in the list that come after the specified cursor.
 
 
-#### `before` ([`String`](/developers/supplier-apis/supply-api/graphql/reference/scalars/string))
+#### [`before`](#) ([`String`](/developers/supplier-apis/supply-api/graphql/reference/scalars/string))
 
 Returns the elements in the list that come before the specified cursor.
 
 
-#### `eventSubscriptionIds` ([`ID`](/developers/supplier-apis/supply-api/graphql/reference/scalars/id))
+#### [`eventSubscriptionIds`](#) ([`[ID!]`](/developers/supplier-apis/supply-api/graphql/reference/scalars/id))
 
 This filter should be used alone, including without any relay parameters.
             It will supercede all other parameters.
 
 
-#### `first` ([`Int`](/developers/supplier-apis/supply-api/graphql/reference/scalars/int))
+#### [`first`](#) ([`Int`](/developers/supplier-apis/supply-api/graphql/reference/scalars/int))
 
 Returns the first n elements from the list.
 
 
-#### `itemType` ([`String`](/developers/supplier-apis/supply-api/graphql/reference/scalars/string))
+#### [`itemType`](#) ([`String`](/developers/supplier-apis/supply-api/graphql/reference/scalars/string))
 
 In order to use this filter, you must also provide subscriptionEntityId
 
 
-#### `last` ([`Int`](/developers/supplier-apis/supply-api/graphql/reference/scalars/int))
+#### [`last`](#) ([`Int`](/developers/supplier-apis/supply-api/graphql/reference/scalars/int))
 
 Returns the last n elements from the list.
 
 
-#### `mutationType` ([`SupplyEventMutationType`](/developers/supplier-apis/supply-api/graphql/reference/enums/supply-event-mutation-type))
+#### [`mutationType`](#) ([`SupplyEventMutationType`](/developers/supplier-apis/supply-api/graphql/reference/enums/supply-event-mutation-type))
 
 In order to use this filter, you must also include itemType and subscriptionEntityId
 
 
-#### `subscriptionEntityId` ([`ID`](/developers/supplier-apis/supply-api/graphql/reference/scalars/id))
+#### [`subscriptionEntityId`](#) ([`ID`](/developers/supplier-apis/supply-api/graphql/reference/scalars/id))
 
 This filter can be used with or without subscriptionOwnerId
 
 
-#### `subscriptionOwnerId` ([`ID`](/developers/supplier-apis/supply-api/graphql/reference/scalars/id))
+#### [`subscriptionOwnerId`](#) ([`ID`](/developers/supplier-apis/supply-api/graphql/reference/scalars/id))
 
 If you are not using eventSubscriptionIds, and are not querying for an identityId event subscription,
 this filter is highly recommended to use to ensure you have permissions on the returned eventSubscriptions.
@@ -75,7 +74,7 @@ Otherwise, you may not have permissions on the returned eventSubscriptions, and 
 
 ### Type
 
-#### [`SupplyEventSubscriptionConnection`](/developers/supplier-apis/supply-api/graphql/reference/objects/supply-event-subscription-connection) 
+#### [`SupplyEventSubscriptionConnection`](/developers/supplier-apis/supply-api/graphql/reference/objects/supply-event-subscription-connection)
 
 Paginate through SupplyEventSubscriptions
 

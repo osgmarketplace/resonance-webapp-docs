@@ -1,11 +1,11 @@
 ---
 id: delete-supplier-quick-link
 title: deleteSupplierQuickLink
+hide_table_of_contents: false
 ---
 
 
 Delete a SupplierQuickLink
-
 
 ```graphql
 deleteSupplierQuickLink(
@@ -13,30 +13,29 @@ deleteSupplierQuickLink(
   quickLinkType: SupplierQuickLinkType!
   supplierId: ID!
 ): SupplierQuickLinkDeletedResponse!
-
 ```
 
 
 ### Arguments
 
-#### `appId` ([`ID`](/developers/supplier-apis/supply-api/graphql/reference/scalars/id))
+#### [`appId`](#) ([`ID!`](/developers/supplier-apis/supply-api/graphql/reference/scalars/id))
 
 
 
 
-#### `quickLinkType` ([`SupplierQuickLinkType`](/developers/supplier-apis/supply-api/graphql/reference/enums/supplier-quick-link-type))
+#### [`quickLinkType`](#) ([`SupplierQuickLinkType!`](/developers/supplier-apis/supply-api/graphql/reference/enums/supplier-quick-link-type))
 
 
 
 
-#### `supplierId` ([`ID`](/developers/supplier-apis/supply-api/graphql/reference/scalars/id))
+#### [`supplierId`](#) ([`ID!`](/developers/supplier-apis/supply-api/graphql/reference/scalars/id))
 
 
 
 
 ### Type
 
-#### [`SupplierQuickLinkDeletedResponse`](/developers/supplier-apis/supply-api/graphql/reference/objects/supplier-quick-link-deleted-response) 
+#### [`SupplierQuickLinkDeletedResponse`](/developers/supplier-apis/supply-api/graphql/reference/objects/supplier-quick-link-deleted-response)
 
 The response shape when a SupplierQuickLink is deleted
 

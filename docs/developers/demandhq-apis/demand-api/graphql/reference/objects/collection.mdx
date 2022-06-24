@@ -1,13 +1,13 @@
 ---
 id: collection
 title: Collection
+hide_table_of_contents: false
 ---
 
 
 A Collection is a group of products, what may often be referred to as a "Category Page" of some variety.
 In reality, a collection is far more flexible and can be used to represent any
 product grouping, and the collectionType can help differentiate between them.
-
 
 ```graphql
 type Collection {
@@ -19,6 +19,9 @@ type Collection {
   createdAt: Date!
   demandHqId: ID!
   description: String
+  descriptionOrExcerpt(
+  numberOfCharacters: Int
+): String
   featuredProductIds: [ID]
   primaryImageUrl: String
   products(
@@ -57,201 +60,209 @@ type Collection {
 
 ### Fields
 
-#### `collectionId` ([`ID`](/developers/demandhq-apis/demand-api/graphql/reference/scalars/id))
+#### [`collectionId`](#) ([`ID!`](/developers/demandhq-apis/demand-api/graphql/reference/scalars/id))
 
 
 
 
-#### `collectionType` ([`String`](/developers/demandhq-apis/demand-api/graphql/reference/scalars/string))
+#### [`collectionType`](#) ([`String!`](/developers/demandhq-apis/demand-api/graphql/reference/scalars/string))
 
 Any string to declare a category of this collection, can be used to filter collections, limit 128 characters.
 
 
-#### `content` ([`CollectionContent`](/developers/demandhq-apis/demand-api/graphql/reference/objects/collection-content))
+#### [`content`](#) ([`CollectionContent`](/developers/demandhq-apis/demand-api/graphql/reference/objects/collection-content))
 
 Get the content of the collection.
 
 
-#### `contentItemIds` ([`ID`](/developers/demandhq-apis/demand-api/graphql/reference/scalars/id))
+#### [`contentItemIds`](#) ([`[ID!]`](/developers/demandhq-apis/demand-api/graphql/reference/scalars/id))
 
 The ContentItemIds of the Content Items that are associated with this collection.
 
 
-#### `contentItems` ([`CollectionContentItem`](/developers/demandhq-apis/demand-api/graphql/reference/objects/collection-content-item))
+#### [`contentItems`](#) ([`[CollectionContentItem]`](/developers/demandhq-apis/demand-api/graphql/reference/objects/collection-content-item))
 
 Get the content items of the collection.
 
 
-#### `createdAt` ([`Date`](/developers/demandhq-apis/demand-api/graphql/reference/scalars/date))
+#### [`createdAt`](#) ([`Date!`](/developers/demandhq-apis/demand-api/graphql/reference/scalars/date))
 
 
 
 
-#### `demandHqId` ([`ID`](/developers/demandhq-apis/demand-api/graphql/reference/scalars/id))
+#### [`demandHqId`](#) ([`ID!`](/developers/demandhq-apis/demand-api/graphql/reference/scalars/id))
 
 
 
 
-#### `description` ([`String`](/developers/demandhq-apis/demand-api/graphql/reference/scalars/string))
+#### [`description`](#) ([`String`](/developers/demandhq-apis/demand-api/graphql/reference/scalars/string))
 
 A short description of the collection, limit 1000 characters.
 
 
-#### `featuredProductIds` ([`ID`](/developers/demandhq-apis/demand-api/graphql/reference/scalars/id))
+#### [`descriptionOrExcerpt`](#) ([`String`](/developers/demandhq-apis/demand-api/graphql/reference/scalars/string))
+
+Get the description if it exists, or fallback to the excerpt of content for the collection.
+- ##### [`numberOfCharacters`](#) ([`Int`](/developers/demandhq-apis/demand-api/graphql/reference/scalars/int))
+
+The number of characters to return, defaults to 200.
+
+
+#### [`featuredProductIds`](#) ([`[ID]`](/developers/demandhq-apis/demand-api/graphql/reference/scalars/id))
 
 This can be used to pin certain products to the top of a collection when using certain sorts.
 Max number of products is 20.
 
 
-#### `primaryImageUrl` ([`String`](/developers/demandhq-apis/demand-api/graphql/reference/scalars/string))
+#### [`primaryImageUrl`](#) ([`String`](/developers/demandhq-apis/demand-api/graphql/reference/scalars/string))
 
 A primary image url for this collection, can be generated from a Collection ContentItem.
 
 
-#### `products` ([`ProductConnectionWithSearch`](/developers/demandhq-apis/demand-api/graphql/reference/objects/product-connection-with-search))
+#### [`products`](#) ([`ProductConnectionWithSearch!`](/developers/demandhq-apis/demand-api/graphql/reference/objects/product-connection-with-search))
 
 Paginate through products in a collection.
 
 Requires the product/read scope.
-- ##### `after` ([`String`](/developers/demandhq-apis/demand-api/graphql/reference/scalars/string))
+- ##### [`after`](#) ([`String`](/developers/demandhq-apis/demand-api/graphql/reference/scalars/string))
 
 Returns the elements in the list that come after the specified cursor.
 
 
-- ##### `before` ([`String`](/developers/demandhq-apis/demand-api/graphql/reference/scalars/string))
+- ##### [`before`](#) ([`String`](/developers/demandhq-apis/demand-api/graphql/reference/scalars/string))
 
 Returns the elements in the list that come before the specified cursor.
 
 
-- ##### `first` ([`Int`](/developers/demandhq-apis/demand-api/graphql/reference/scalars/int))
+- ##### [`first`](#) ([`Int`](/developers/demandhq-apis/demand-api/graphql/reference/scalars/int))
 
 Returns the first n elements from the list.
 
 
-- ##### `last` ([`Int`](/developers/demandhq-apis/demand-api/graphql/reference/scalars/int))
+- ##### [`last`](#) ([`Int`](/developers/demandhq-apis/demand-api/graphql/reference/scalars/int))
 
 Returns the last n elements from the list.
 
 
-- ##### `manufacturer` ([`StringFilterInput`](/developers/demandhq-apis/demand-api/graphql/reference/inputs/string-filter-input))
+- ##### [`manufacturer`](#) ([`[StringFilterInput]`](/developers/demandhq-apis/demand-api/graphql/reference/inputs/string-filter-input))
 
 Optionally filter by manufacturer.
 
 
-- ##### `msrp` ([`FloatRangeFilterInput`](/developers/demandhq-apis/demand-api/graphql/reference/inputs/float-range-filter-input))
+- ##### [`msrp`](#) ([`[FloatRangeFilterInput]`](/developers/demandhq-apis/demand-api/graphql/reference/inputs/float-range-filter-input))
 
 Optionally filter by msrp.
 
 
-- ##### `price` ([`FloatRangeFilterInput`](/developers/demandhq-apis/demand-api/graphql/reference/inputs/float-range-filter-input))
+- ##### [`price`](#) ([`[FloatRangeFilterInput]`](/developers/demandhq-apis/demand-api/graphql/reference/inputs/float-range-filter-input))
 
 Optionally filter by price.
 
 
-- ##### `productIds` ([`ID`](/developers/demandhq-apis/demand-api/graphql/reference/scalars/id))
+- ##### [`productIds`](#) ([`[ID]`](/developers/demandhq-apis/demand-api/graphql/reference/scalars/id))
 
 Filter Products to a set of productIds
 
 
-- ##### `query` ([`String`](/developers/demandhq-apis/demand-api/graphql/reference/scalars/string))
+- ##### [`query`](#) ([`String`](/developers/demandhq-apis/demand-api/graphql/reference/scalars/string))
 
 Query products for certain terms. Searches several fields, including
 product.tags, product.title, product.vendor, productLocales.description,
 productLocales.featureBullets, variant.barcode, variant.mpn, variant.sku
 
 
-- ##### `slugs` ([`String`](/developers/demandhq-apis/demand-api/graphql/reference/scalars/string))
+- ##### [`slugs`](#) ([`[String]`](/developers/demandhq-apis/demand-api/graphql/reference/scalars/string))
 
 Filter Products to a set of slugs
 
 
-- ##### `sortOrder` ([`ProductSortInput`](/developers/demandhq-apis/demand-api/graphql/reference/inputs/product-sort-input))
+- ##### [`sortOrder`](#) ([`[ProductSortInput]`](/developers/demandhq-apis/demand-api/graphql/reference/inputs/product-sort-input))
 
 Sort Products by a series of fields and directions, defaults to CREATED_AT/ASC.
 
 
-- ##### `standardizedColor` ([`ProductStandardizedColorFilterInput`](/developers/demandhq-apis/demand-api/graphql/reference/inputs/product-standardized-color-filter-input))
+- ##### [`standardizedColor`](#) ([`[ProductStandardizedColorFilterInput]`](/developers/demandhq-apis/demand-api/graphql/reference/inputs/product-standardized-color-filter-input))
 
 Optionally filter by standardized color.
 
 
-- ##### `status` ([`ProductStatusFilterInput`](/developers/demandhq-apis/demand-api/graphql/reference/inputs/product-status-filter-input))
+- ##### [`status`](#) ([`ProductStatusFilterInput`](/developers/demandhq-apis/demand-api/graphql/reference/inputs/product-status-filter-input))
 
 Filter Products using Status.
 
 
-- ##### `storefrontIds` ([`IDFilterInput`](/developers/demandhq-apis/demand-api/graphql/reference/inputs/idfilter-input))
+- ##### [`storefrontIds`](#) ([`IDFilterInput`](/developers/demandhq-apis/demand-api/graphql/reference/inputs/idfilter-input))
 
 Optionally filter by storefrontIds.
 
 
-- ##### `tags` ([`StringFilterInput`](/developers/demandhq-apis/demand-api/graphql/reference/inputs/string-filter-input))
+- ##### [`tags`](#) ([`[StringFilterInput]`](/developers/demandhq-apis/demand-api/graphql/reference/inputs/string-filter-input))
 
 Optionally filter by tags.
 
 
-- ##### `vendor` ([`StringFilterInput`](/developers/demandhq-apis/demand-api/graphql/reference/inputs/string-filter-input))
+- ##### [`vendor`](#) ([`StringFilterInput`](/developers/demandhq-apis/demand-api/graphql/reference/inputs/string-filter-input))
 
 Optionally filter by vendor.
 
 
-#### `publishedAt` ([`Date`](/developers/demandhq-apis/demand-api/graphql/reference/scalars/date))
+#### [`publishedAt`](#) ([`Date`](/developers/demandhq-apis/demand-api/graphql/reference/scalars/date))
 
 ISO format date when the collection was published. Note that ensuing updates
 with status set to PUBLISHED will republish and re-set this date.
 
 
-#### `rules` ([`CollectionRules`](/developers/demandhq-apis/demand-api/graphql/reference/objects/collection-rules))
+#### [`rules`](#) ([`CollectionRules`](/developers/demandhq-apis/demand-api/graphql/reference/objects/collection-rules))
 
 A map of rules to determine whether a Product should be part of this Collection.
 
 
-#### `seoDescription` ([`String`](/developers/demandhq-apis/demand-api/graphql/reference/scalars/string))
+#### [`seoDescription`](#) ([`String`](/developers/demandhq-apis/demand-api/graphql/reference/scalars/string))
 
 Description specific for SEO purposes, limit 170 characters.
 
 
-#### `seoTitle` ([`String`](/developers/demandhq-apis/demand-api/graphql/reference/scalars/string))
+#### [`seoTitle`](#) ([`String`](/developers/demandhq-apis/demand-api/graphql/reference/scalars/string))
 
 Title specific for SEO purposes, limit 256 characters.
 
 
-#### `slug` ([`String`](/developers/demandhq-apis/demand-api/graphql/reference/scalars/string))
+#### [`slug`](#) ([`String!`](/developers/demandhq-apis/demand-api/graphql/reference/scalars/string))
 
 Slug for the URL for this collection. Limit 128 characters.
 
 
-#### `status` ([`CollectionStatus`](/developers/demandhq-apis/demand-api/graphql/reference/enums/collection-status))
+#### [`status`](#) ([`CollectionStatus!`](/developers/demandhq-apis/demand-api/graphql/reference/enums/collection-status))
 
 The status of the collection, can be DRAFT or PUBLISHED.
 
 
-#### `storefrontIds` ([`ID`](/developers/demandhq-apis/demand-api/graphql/reference/scalars/id))
+#### [`storefrontIds`](#) ([`[ID]`](/developers/demandhq-apis/demand-api/graphql/reference/scalars/id))
 
 Which storefronts should have access to this collection?
 
 
-#### `subtitle` ([`String`](/developers/demandhq-apis/demand-api/graphql/reference/scalars/string))
+#### [`subtitle`](#) ([`String`](/developers/demandhq-apis/demand-api/graphql/reference/scalars/string))
 
 The subtitle of the collection, limit 256 characters.
 
 
-#### `tags` ([`CollectionTags`](/developers/demandhq-apis/demand-api/graphql/reference/objects/collection-tags))
+#### [`tags`](#) ([`CollectionTags`](/developers/demandhq-apis/demand-api/graphql/reference/objects/collection-tags))
 
 Get the tags of the collection.
 
 
-#### `title` ([`String`](/developers/demandhq-apis/demand-api/graphql/reference/scalars/string))
+#### [`title`](#) ([`String!`](/developers/demandhq-apis/demand-api/graphql/reference/scalars/string))
 
 The title of the collection, limit 256 characters.
 
 
-#### `updatedAt` ([`Date`](/developers/demandhq-apis/demand-api/graphql/reference/scalars/date))
+#### [`updatedAt`](#) ([`Date!`](/developers/demandhq-apis/demand-api/graphql/reference/scalars/date))
 
 
 
 
-#### `updatedBy` ([`ID`](/developers/demandhq-apis/demand-api/graphql/reference/scalars/id))
+#### [`updatedBy`](#) ([`ID!`](/developers/demandhq-apis/demand-api/graphql/reference/scalars/id))
 
 
 

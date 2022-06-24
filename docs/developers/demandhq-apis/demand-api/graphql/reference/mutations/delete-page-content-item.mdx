@@ -1,6 +1,7 @@
 ---
 id: delete-page-content-item
 title: deletePageContentItem
+hide_table_of_contents: false
 ---
 
 
@@ -8,31 +9,29 @@ Delete a PageContentItem from a Page.
 
 Requires the page/write permission on the given DemandHq
 
-
 ```graphql
 deletePageContentItem(
   contentItemId: ID!
   pageId: ID!
 ): DeletePageContentItemResponse!
-
 ```
 
 
 ### Arguments
 
-#### `contentItemId` ([`ID`](/developers/demandhq-apis/demand-api/graphql/reference/scalars/id))
+#### [`contentItemId`](#) ([`ID!`](/developers/demandhq-apis/demand-api/graphql/reference/scalars/id))
 
 
 
 
-#### `pageId` ([`ID`](/developers/demandhq-apis/demand-api/graphql/reference/scalars/id))
+#### [`pageId`](#) ([`ID!`](/developers/demandhq-apis/demand-api/graphql/reference/scalars/id))
 
 
 
 
 ### Type
 
-#### [`DeletePageContentItemResponse`](/developers/demandhq-apis/demand-api/graphql/reference/objects/delete-page-content-item-response) 
+#### [`DeletePageContentItemResponse`](/developers/demandhq-apis/demand-api/graphql/reference/objects/delete-page-content-item-response)
 
 Returned object from deletePageContentItem
 

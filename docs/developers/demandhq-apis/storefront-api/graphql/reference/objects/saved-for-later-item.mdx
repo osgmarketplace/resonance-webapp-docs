@@ -1,11 +1,11 @@
 ---
 id: saved-for-later-item
 title: SavedForLaterItem
+hide_table_of_contents: false
 ---
 
 
 This is an item being saved for later, waiting for a future purchase day.
-
 
 ```graphql
 type SavedForLaterItem {
@@ -18,19 +18,19 @@ type SavedForLaterItem {
 
 ### Fields
 
-#### `position` ([`Int`](/developers/demandhq-apis/storefront-api/graphql/reference/scalars/int))
+#### [`position`](#) ([`Int`](/developers/demandhq-apis/storefront-api/graphql/reference/scalars/int))
 
 
 
 
-#### `variant` ([`PublicVariant`](/developers/demandhq-apis/storefront-api/graphql/reference/objects/public-variant))
+#### [`variant`](#) ([`PublicVariant`](/developers/demandhq-apis/storefront-api/graphql/reference/objects/public-variant))
 
 The variant that this saved for later item is associated with.
             
 Requires publicvariant/read permission on the requesting identity.
 
 
-#### `variantId` ([`ID`](/developers/demandhq-apis/storefront-api/graphql/reference/scalars/id))
+#### [`variantId`](#) ([`ID!`](/developers/demandhq-apis/storefront-api/graphql/reference/scalars/id))
 
 
 

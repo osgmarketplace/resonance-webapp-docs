@@ -1,11 +1,11 @@
 ---
 id: nav
 title: Nav
+hide_table_of_contents: false
 ---
 
 
 Nav is an item within a navigational heirarchy of some kind, most often viewed as a menu.
-
 
 ```graphql
 type Nav {
@@ -35,27 +35,27 @@ type Nav {
 
 ### Fields
 
-#### `createdAt` ([`Date`](/developers/demandhq-apis/demand-api/graphql/reference/scalars/date))
+#### [`createdAt`](#) ([`Date!`](/developers/demandhq-apis/demand-api/graphql/reference/scalars/date))
 
 
 
 
-#### `demandHqId` ([`ID`](/developers/demandhq-apis/demand-api/graphql/reference/scalars/id))
+#### [`demandHqId`](#) ([`ID!`](/developers/demandhq-apis/demand-api/graphql/reference/scalars/id))
 
 
 
 
-#### `href` ([`String`](/developers/demandhq-apis/demand-api/graphql/reference/scalars/string))
+#### [`href`](#) ([`String!`](/developers/demandhq-apis/demand-api/graphql/reference/scalars/string))
 
 Where this Nav link should lead to. Can be an absolute or relative url. 768 character limit.
 
 
-#### `label` ([`String`](/developers/demandhq-apis/demand-api/graphql/reference/scalars/string))
+#### [`label`](#) ([`String!`](/developers/demandhq-apis/demand-api/graphql/reference/scalars/string))
 
 The label for this Nav, limit 64 characters.
 
 
-#### `linkSlug` ([`String`](/developers/demandhq-apis/demand-api/graphql/reference/scalars/string))
+#### [`linkSlug`](#) ([`String!`](/developers/demandhq-apis/demand-api/graphql/reference/scalars/string))
 
 This has two primary purposes:
 To make this Nav "lookupable" in combination with linkType.
@@ -64,74 +64,74 @@ reserved system linkTypes in combination with entitySlugs (i.e. Collection and
 a collection slug).
 
 
-#### `linkType` ([`String`](/developers/demandhq-apis/demand-api/graphql/reference/scalars/string))
+#### [`linkType`](#) ([`String!`](/developers/demandhq-apis/demand-api/graphql/reference/scalars/string))
 
 This can be any string, but certain values have special meaning (like "collection").
 These are restricted to the specified values in NavSettings.
 
 
-#### `navId` ([`ID`](/developers/demandhq-apis/demand-api/graphql/reference/scalars/id))
+#### [`navId`](#) ([`ID!`](/developers/demandhq-apis/demand-api/graphql/reference/scalars/id))
 
 
 
 
-#### `navLevel` ([`Int`](/developers/demandhq-apis/demand-api/graphql/reference/scalars/int))
+#### [`navLevel`](#) ([`Int!`](/developers/demandhq-apis/demand-api/graphql/reference/scalars/int))
 
 A number, representing where this Nav resides in the heirarchy. Immutable, and
 limited to 0 through 6. 0 is the top level, 1 is the second level, etc.
 
 
-#### `navType` ([`String`](/developers/demandhq-apis/demand-api/graphql/reference/scalars/string))
+#### [`navType`](#) ([`String!`](/developers/demandhq-apis/demand-api/graphql/reference/scalars/string))
 
 A string indicating the purpose of this Nav hierarchy, must match parentNav if applicable. Limit 128 characters.
 
 
-#### `navs` ([`NavConnection`](/developers/demandhq-apis/demand-api/graphql/reference/objects/nav-connection))
+#### [`navs`](#) ([`NavConnection!`](/developers/demandhq-apis/demand-api/graphql/reference/objects/nav-connection))
 
 List Child Navs for a nav.
 
 Requires the user to have the nav/read permission on the associated DemandHq.
-- ##### `after` ([`String`](/developers/demandhq-apis/demand-api/graphql/reference/scalars/string))
+- ##### [`after`](#) ([`String`](/developers/demandhq-apis/demand-api/graphql/reference/scalars/string))
 
 Returns the elements in the list that come after the specified cursor.
 
 
-- ##### `before` ([`String`](/developers/demandhq-apis/demand-api/graphql/reference/scalars/string))
+- ##### [`before`](#) ([`String`](/developers/demandhq-apis/demand-api/graphql/reference/scalars/string))
 
 Returns the elements in the list that come before the specified cursor.
 
 
-- ##### `first` ([`Int`](/developers/demandhq-apis/demand-api/graphql/reference/scalars/int))
+- ##### [`first`](#) ([`Int`](/developers/demandhq-apis/demand-api/graphql/reference/scalars/int))
 
 Returns the first n elements from the list.
 
 
-- ##### `last` ([`Int`](/developers/demandhq-apis/demand-api/graphql/reference/scalars/int))
+- ##### [`last`](#) ([`Int`](/developers/demandhq-apis/demand-api/graphql/reference/scalars/int))
 
 Returns the last n elements from the list.
 
 
-#### `parentNavId` ([`ID`](/developers/demandhq-apis/demand-api/graphql/reference/scalars/id))
+#### [`parentNavId`](#) ([`ID`](/developers/demandhq-apis/demand-api/graphql/reference/scalars/id))
 
 All Navs besides the root (Level 0) have a parentNavId. Immutable.
 
 
-#### `position` ([`Int`](/developers/demandhq-apis/demand-api/graphql/reference/scalars/int))
+#### [`position`](#) ([`Int`](/developers/demandhq-apis/demand-api/graphql/reference/scalars/int))
 
 Where this Nav should be located with respect to other Navs. Need not be sequential or unique.
 
 
-#### `storefrontId` ([`ID`](/developers/demandhq-apis/demand-api/graphql/reference/scalars/id))
+#### [`storefrontId`](#) ([`ID!`](/developers/demandhq-apis/demand-api/graphql/reference/scalars/id))
 
 
 
 
-#### `updatedAt` ([`Date`](/developers/demandhq-apis/demand-api/graphql/reference/scalars/date))
+#### [`updatedAt`](#) ([`Date!`](/developers/demandhq-apis/demand-api/graphql/reference/scalars/date))
 
 
 
 
-#### `updatedBy` ([`ID`](/developers/demandhq-apis/demand-api/graphql/reference/scalars/id))
+#### [`updatedBy`](#) ([`ID!`](/developers/demandhq-apis/demand-api/graphql/reference/scalars/id))
 
 
 

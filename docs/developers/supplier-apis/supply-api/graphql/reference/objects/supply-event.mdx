@@ -1,11 +1,11 @@
 ---
 id: supply-event
 title: SupplyEvent
+hide_table_of_contents: false
 ---
 
 
 Contains before and after snapshots for every event that occurs within the Supply domain
-
 
 ```graphql
 type SupplyEvent {
@@ -19,23 +19,23 @@ type SupplyEvent {
 
 ### Fields
 
-#### `message` ([`SupplyEventMessage`](/developers/supplier-apis/supply-api/graphql/reference/objects/supply-event-message))
+#### [`message`](#) ([`SupplyEventMessage`](/developers/supplier-apis/supply-api/graphql/reference/objects/supply-event-message))
 
 This is the event data and metadata.
 The data is variable, but most typically contains a newItem and oldItem.
 
 
-#### `messageId` ([`String`](/developers/supplier-apis/supply-api/graphql/reference/scalars/string))
+#### [`messageId`](#) ([`String!`](/developers/supplier-apis/supply-api/graphql/reference/scalars/string))
 
 UUID
 
 
-#### `subject` ([`String`](/developers/supplier-apis/supply-api/graphql/reference/scalars/string))
+#### [`subject`](#) ([`String`](/developers/supplier-apis/supply-api/graphql/reference/scalars/string))
 
 A human-friendly string summarizing the event
 
 
-#### `timestamp` ([`Date`](/developers/supplier-apis/supply-api/graphql/reference/scalars/date))
+#### [`timestamp`](#) ([`Date!`](/developers/supplier-apis/supply-api/graphql/reference/scalars/date))
 
 ISO Date that the event occurred
 

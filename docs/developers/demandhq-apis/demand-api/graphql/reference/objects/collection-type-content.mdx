@@ -1,21 +1,32 @@
 ---
 id: collection-type-content
 title: CollectionTypeContent
+hide_table_of_contents: false
 ---
 
 
 This holds content specific to a collectionType. This is generally used on a
 page that lists all collections for a collectionType.
 
-
 ```graphql
 type CollectionTypeContent {
   collectionType: String!
   collectionTypeContentId: ID!
+  contentAsHtml: String
   contentAsString: String
   createdAt: Date!
   demandHqId: ID!
+  description: String
+  descriptionOrExcerpt(
+  numberOfCharacters: Int
+): String
+  excerpt(
+  numberOfCharacters: Int
+): String
+  secondaryContentAsHtml: String
   secondaryContentAsString: String
+  seoDescription: String
+  seoTitle: String
   storefrontId: ID!
   subtitle: String
   title: String
@@ -27,57 +38,101 @@ type CollectionTypeContent {
 
 ### Fields
 
-#### `collectionType` ([`String`](/developers/demandhq-apis/demand-api/graphql/reference/scalars/string))
+#### [`collectionType`](#) ([`String!`](/developers/demandhq-apis/demand-api/graphql/reference/scalars/string))
 
 
 
 
-#### `collectionTypeContentId` ([`ID`](/developers/demandhq-apis/demand-api/graphql/reference/scalars/id))
+#### [`collectionTypeContentId`](#) ([`ID!`](/developers/demandhq-apis/demand-api/graphql/reference/scalars/id))
 
 
 
 
-#### `contentAsString` ([`String`](/developers/demandhq-apis/demand-api/graphql/reference/scalars/string))
+#### [`contentAsHtml`](#) ([`String`](/developers/demandhq-apis/demand-api/graphql/reference/scalars/string))
+
+Get the markdown content of the collectionTypeContent as parsed HTML. Do not
+use this field without purifying or sanitizing the HTML in your webapp.
+
+
+#### [`contentAsString`](#) ([`String`](/developers/demandhq-apis/demand-api/graphql/reference/scalars/string))
 
 
 
 
-#### `createdAt` ([`Date`](/developers/demandhq-apis/demand-api/graphql/reference/scalars/date))
+#### [`createdAt`](#) ([`Date!`](/developers/demandhq-apis/demand-api/graphql/reference/scalars/date))
 
 
 
 
-#### `demandHqId` ([`ID`](/developers/demandhq-apis/demand-api/graphql/reference/scalars/id))
+#### [`demandHqId`](#) ([`ID!`](/developers/demandhq-apis/demand-api/graphql/reference/scalars/id))
 
 
 
 
-#### `secondaryContentAsString` ([`String`](/developers/demandhq-apis/demand-api/graphql/reference/scalars/string))
+#### [`description`](#) ([`String`](/developers/demandhq-apis/demand-api/graphql/reference/scalars/string))
+
+A short description of the collectionTypeContent, limit 1000 characters. This
+is typically used off of the collectionTypeContent page itself.
+
+
+#### [`descriptionOrExcerpt`](#) ([`String`](/developers/demandhq-apis/demand-api/graphql/reference/scalars/string))
+
+Get the description if it exists, or fallback to the excerpt of content for the CollectionTypeContent.
+- ##### [`numberOfCharacters`](#) ([`Int`](/developers/demandhq-apis/demand-api/graphql/reference/scalars/int))
+
+The number of characters to return, defaults to 200.
+
+
+#### [`excerpt`](#) ([`String`](/developers/demandhq-apis/demand-api/graphql/reference/scalars/string))
+
+Get an excerpt of the CollectionTypeContent.
+- ##### [`numberOfCharacters`](#) ([`Int`](/developers/demandhq-apis/demand-api/graphql/reference/scalars/int))
+
+The number of characters to return, defaults to 200.
+
+
+#### [`secondaryContentAsHtml`](#) ([`String`](/developers/demandhq-apis/demand-api/graphql/reference/scalars/string))
+
+Get the secondary markdown content of the collectionTypeContent as parsed
+HTML. Do not use this field without purifying or sanitizing the HTML in your webapp.
+
+
+#### [`secondaryContentAsString`](#) ([`String`](/developers/demandhq-apis/demand-api/graphql/reference/scalars/string))
 
 
 
 
-#### `storefrontId` ([`ID`](/developers/demandhq-apis/demand-api/graphql/reference/scalars/id))
+#### [`seoDescription`](#) ([`String`](/developers/demandhq-apis/demand-api/graphql/reference/scalars/string))
+
+Description specific for SEO purposes, limit 170 characters.
+
+
+#### [`seoTitle`](#) ([`String`](/developers/demandhq-apis/demand-api/graphql/reference/scalars/string))
+
+Title specific for SEO purposes, limit 256 characters.
+
+
+#### [`storefrontId`](#) ([`ID!`](/developers/demandhq-apis/demand-api/graphql/reference/scalars/id))
 
 
 
 
-#### `subtitle` ([`String`](/developers/demandhq-apis/demand-api/graphql/reference/scalars/string))
+#### [`subtitle`](#) ([`String`](/developers/demandhq-apis/demand-api/graphql/reference/scalars/string))
+
+The subtitle of the collectionTypeContent, limit 256 characters.
+
+
+#### [`title`](#) ([`String`](/developers/demandhq-apis/demand-api/graphql/reference/scalars/string))
+
+The title of the collectionTypeContent, limit 256 characters.
+
+
+#### [`updatedAt`](#) ([`Date!`](/developers/demandhq-apis/demand-api/graphql/reference/scalars/date))
 
 
 
 
-#### `title` ([`String`](/developers/demandhq-apis/demand-api/graphql/reference/scalars/string))
-
-
-
-
-#### `updatedAt` ([`Date`](/developers/demandhq-apis/demand-api/graphql/reference/scalars/date))
-
-
-
-
-#### `updatedBy` ([`ID`](/developers/demandhq-apis/demand-api/graphql/reference/scalars/id))
+#### [`updatedBy`](#) ([`ID!`](/developers/demandhq-apis/demand-api/graphql/reference/scalars/id))
 
 
 

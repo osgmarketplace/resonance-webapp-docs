@@ -1,11 +1,11 @@
 ---
 id: app-create-input
 title: AppCreateInput
+hide_table_of_contents: false
 ---
 
 
 The necessary fields in order to create a new app
-
 
 ```graphql
 input AppCreateInput {
@@ -21,34 +21,34 @@ input AppCreateInput {
 
 ### Fields
 
-#### `appType` ([`AppType`](/developers/shared-apis/adminidentity-api/graphql/reference/enums/app-type))
+#### [`appType`](#) ([`AppType!`](/developers/shared-apis/adminidentity-api/graphql/reference/enums/app-type))
 
 
 
 
-#### `description` ([`String`](/developers/shared-apis/adminidentity-api/graphql/reference/scalars/string))
+#### [`description`](#) ([`String`](/developers/shared-apis/adminidentity-api/graphql/reference/scalars/string))
 
 Short description of the app
 Limited to 8000 characters
 
 
-#### `name` ([`String`](/developers/shared-apis/adminidentity-api/graphql/reference/scalars/string))
+#### [`name`](#) ([`String!`](/developers/shared-apis/adminidentity-api/graphql/reference/scalars/string))
 
 The name of the app
 Limited to 128 characters
 
 
-#### `partnerId` ([`ID`](/developers/shared-apis/adminidentity-api/graphql/reference/scalars/id))
+#### [`partnerId`](#) ([`ID!`](/developers/shared-apis/adminidentity-api/graphql/reference/scalars/id))
 
 
 
 
-#### `requestedScopes` ([`String`](/developers/shared-apis/adminidentity-api/graphql/reference/scalars/string))
+#### [`requestedScopes`](#) ([`[String]`](/developers/shared-apis/adminidentity-api/graphql/reference/scalars/string))
 
 
 
 
-#### `status` ([`AppStatus`](/developers/shared-apis/adminidentity-api/graphql/reference/enums/app-status))
+#### [`status`](#) ([`AppStatus!`](/developers/shared-apis/adminidentity-api/graphql/reference/enums/app-status))
 
 
 

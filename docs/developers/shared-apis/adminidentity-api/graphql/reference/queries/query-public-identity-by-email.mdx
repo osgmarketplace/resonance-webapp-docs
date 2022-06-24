@@ -1,30 +1,29 @@
 ---
 id: query-public-identity-by-email
 title: queryPublicIdentityByEmail
+hide_table_of_contents: false
 ---
 
 
 Given an email, returns PublicUser if the user exists. Exact match.
 
-
 ```graphql
 queryPublicIdentityByEmail(
   email: String!
 ): PublicIdentity
-
 ```
 
 
 ### Arguments
 
-#### `email` ([`String`](/developers/shared-apis/adminidentity-api/graphql/reference/scalars/string))
+#### [`email`](#) ([`String!`](/developers/shared-apis/adminidentity-api/graphql/reference/scalars/string))
 
 
 
 
 ### Type
 
-#### [`PublicIdentity`](/developers/shared-apis/adminidentity-api/graphql/reference/objects/public-identity) 
+#### [`PublicIdentity`](/developers/shared-apis/adminidentity-api/graphql/reference/objects/public-identity)
 
 This type is returned on routes with no permissions attached to protect
 Personally Identifiable Information, but still provide minimal data.

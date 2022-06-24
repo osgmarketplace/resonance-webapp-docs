@@ -1,12 +1,12 @@
 ---
 id: product-locale
 title: ProductLocale
+hide_table_of_contents: false
 ---
 
 
 This has a many to one relationship with Product, and provides localized language data for the appropriate fields.
 There will often only be one of these, and it should be the one set in defaultLocale for the supplier.
-
 
 ```graphql
 type ProductLocale {
@@ -24,42 +24,42 @@ type ProductLocale {
 
 ### Fields
 
-#### `createdAt` ([`String`](/developers/demandhq-apis/demand-api/graphql/reference/scalars/string))
+#### [`createdAt`](#) ([`String!`](/developers/demandhq-apis/demand-api/graphql/reference/scalars/string))
 
 
 
 
-#### `demandHqId` ([`ID`](/developers/demandhq-apis/demand-api/graphql/reference/scalars/id))
+#### [`demandHqId`](#) ([`ID!`](/developers/demandhq-apis/demand-api/graphql/reference/scalars/id))
 
 
 
 
-#### `description` ([`String`](/developers/demandhq-apis/demand-api/graphql/reference/scalars/string))
+#### [`description`](#) ([`String`](/developers/demandhq-apis/demand-api/graphql/reference/scalars/string))
 
 
 
 
-#### `featureBullets` ([`String`](/developers/demandhq-apis/demand-api/graphql/reference/scalars/string))
+#### [`featureBullets`](#) ([`[String]`](/developers/demandhq-apis/demand-api/graphql/reference/scalars/string))
 
 Limited to 5 bullets
 
 
-#### `localeType` ([`ResonanceLocaleType`](/developers/demandhq-apis/demand-api/graphql/reference/enums/resonance-locale-type))
+#### [`localeType`](#) ([`ResonanceLocaleType!`](/developers/demandhq-apis/demand-api/graphql/reference/enums/resonance-locale-type))
 
 
 
 
-#### `productId` ([`ID`](/developers/demandhq-apis/demand-api/graphql/reference/scalars/id))
+#### [`productId`](#) ([`ID!`](/developers/demandhq-apis/demand-api/graphql/reference/scalars/id))
 
 
 
 
-#### `updatedAt` ([`String`](/developers/demandhq-apis/demand-api/graphql/reference/scalars/string))
+#### [`updatedAt`](#) ([`String!`](/developers/demandhq-apis/demand-api/graphql/reference/scalars/string))
 
 
 
 
-#### `updatedBy` ([`String`](/developers/demandhq-apis/demand-api/graphql/reference/scalars/string))
+#### [`updatedBy`](#) ([`String!`](/developers/demandhq-apis/demand-api/graphql/reference/scalars/string))
 
 
 

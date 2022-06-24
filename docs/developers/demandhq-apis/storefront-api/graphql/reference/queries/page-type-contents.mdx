@@ -1,13 +1,13 @@
 ---
 id: page-type-contents
 title: pageTypeContents
+hide_table_of_contents: false
 ---
 
 
 Get all pageTypeContents for a storefront.
             
 Requires the pagetypecontent/read scope on the associated DemandHq
-
 
 ```graphql
 pageTypeContents(
@@ -16,35 +16,34 @@ pageTypeContents(
   first: Int
   last: Int
 ): PublicPageTypeContentConnection!
-
 ```
 
 
 ### Arguments
 
-#### `after` ([`String`](/developers/demandhq-apis/storefront-api/graphql/reference/scalars/string))
+#### [`after`](#) ([`String`](/developers/demandhq-apis/storefront-api/graphql/reference/scalars/string))
 
 Returns the elements in the list that come after the specified cursor.
 
 
-#### `before` ([`String`](/developers/demandhq-apis/storefront-api/graphql/reference/scalars/string))
+#### [`before`](#) ([`String`](/developers/demandhq-apis/storefront-api/graphql/reference/scalars/string))
 
 Returns the elements in the list that come before the specified cursor.
 
 
-#### `first` ([`Int`](/developers/demandhq-apis/storefront-api/graphql/reference/scalars/int))
+#### [`first`](#) ([`Int`](/developers/demandhq-apis/storefront-api/graphql/reference/scalars/int))
 
 Returns the first n elements from the list.
 
 
-#### `last` ([`Int`](/developers/demandhq-apis/storefront-api/graphql/reference/scalars/int))
+#### [`last`](#) ([`Int`](/developers/demandhq-apis/storefront-api/graphql/reference/scalars/int))
 
 Returns the last n elements from the list.
 
 
 ### Type
 
-#### [`PublicPageTypeContentConnection`](/developers/demandhq-apis/storefront-api/graphql/reference/objects/public-page-type-content-connection) 
+#### [`PublicPageTypeContentConnection`](/developers/demandhq-apis/storefront-api/graphql/reference/objects/public-page-type-content-connection)
 
 Pagination object for PublicPageTypeContent.
 

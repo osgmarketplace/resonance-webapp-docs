@@ -1,11 +1,11 @@
 ---
 id: public-apps
 title: publicApps
+hide_table_of_contents: false
 ---
 
 
 Get a list of PublicApps
-
 
 ```graphql
 publicApps(
@@ -16,45 +16,44 @@ publicApps(
   last: Int
   partnerId: ID
 ): PublicAppConnection!
-
 ```
 
 
 ### Arguments
 
-#### `after` ([`String`](/developers/shared-apis/adminidentity-api/graphql/reference/scalars/string))
+#### [`after`](#) ([`String`](/developers/shared-apis/adminidentity-api/graphql/reference/scalars/string))
 
 Returns the elements in the list that come after the specified cursor.
 
 
-#### `appIds` ([`ID`](/developers/shared-apis/adminidentity-api/graphql/reference/scalars/id))
+#### [`appIds`](#) ([`[ID!]`](/developers/shared-apis/adminidentity-api/graphql/reference/scalars/id))
 
 
 
 
-#### `before` ([`String`](/developers/shared-apis/adminidentity-api/graphql/reference/scalars/string))
+#### [`before`](#) ([`String`](/developers/shared-apis/adminidentity-api/graphql/reference/scalars/string))
 
 Returns the elements in the list that come before the specified cursor.
 
 
-#### `first` ([`Int`](/developers/shared-apis/adminidentity-api/graphql/reference/scalars/int))
+#### [`first`](#) ([`Int`](/developers/shared-apis/adminidentity-api/graphql/reference/scalars/int))
 
 Returns the first n elements from the list.
 
 
-#### `last` ([`Int`](/developers/shared-apis/adminidentity-api/graphql/reference/scalars/int))
+#### [`last`](#) ([`Int`](/developers/shared-apis/adminidentity-api/graphql/reference/scalars/int))
 
 Returns the last n elements from the list.
 
 
-#### `partnerId` ([`ID`](/developers/shared-apis/adminidentity-api/graphql/reference/scalars/id))
+#### [`partnerId`](#) ([`ID`](/developers/shared-apis/adminidentity-api/graphql/reference/scalars/id))
 
 
 
 
 ### Type
 
-#### [`PublicAppConnection`](/developers/shared-apis/adminidentity-api/graphql/reference/objects/public-app-connection) 
+#### [`PublicAppConnection`](/developers/shared-apis/adminidentity-api/graphql/reference/objects/public-app-connection)
 
 Paginate through PublicApps
 

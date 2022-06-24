@@ -1,11 +1,11 @@
 ---
 id: page-update-input
 title: PageUpdateInput
+hide_table_of_contents: false
 ---
 
 
 ID Fields are required, but all other fields are optional, only included fields will be updated.
-
 
 ```graphql
 input PageUpdateInput {
@@ -30,78 +30,78 @@ input PageUpdateInput {
 
 ### Fields
 
-#### `author` ([`String`](/developers/demandhq-apis/demand-api/graphql/reference/scalars/string))
+#### [`author`](#) ([`String`](/developers/demandhq-apis/demand-api/graphql/reference/scalars/string))
 
 The author of the page, limit 256 characters.
 
 
-#### `contentItemIds` ([`ID`](/developers/demandhq-apis/demand-api/graphql/reference/scalars/id))
+#### [`contentItemIds`](#) ([`[ID!]`](/developers/demandhq-apis/demand-api/graphql/reference/scalars/id))
 
 The ContentItemIds of the Content Items that are associated with this page.
 
 
-#### `description` ([`String`](/developers/demandhq-apis/demand-api/graphql/reference/scalars/string))
+#### [`description`](#) ([`String`](/developers/demandhq-apis/demand-api/graphql/reference/scalars/string))
 
 A short description of the page, limit 1000 characters.
 
 
-#### `pageId` ([`ID`](/developers/demandhq-apis/demand-api/graphql/reference/scalars/id))
+#### [`pageId`](#) ([`ID!`](/developers/demandhq-apis/demand-api/graphql/reference/scalars/id))
 
 
 
 
-#### `pageType` ([`String`](/developers/demandhq-apis/demand-api/graphql/reference/scalars/string))
+#### [`pageType`](#) ([`String`](/developers/demandhq-apis/demand-api/graphql/reference/scalars/string))
 
 Any string to declare a category of this page, can be used to filter pages, limit 128 characters.
 
 
-#### `primaryImageUrl` ([`String`](/developers/demandhq-apis/demand-api/graphql/reference/scalars/string))
+#### [`primaryImageUrl`](#) ([`String`](/developers/demandhq-apis/demand-api/graphql/reference/scalars/string))
 
 A primary image url for this page, can be generated from a Page ContentItem.
 
 
-#### `publishedAt` ([`Date`](/developers/demandhq-apis/demand-api/graphql/reference/scalars/date))
+#### [`publishedAt`](#) ([`Date`](/developers/demandhq-apis/demand-api/graphql/reference/scalars/date))
 
 ISO format date when the page was published. Note that ensuing updates with
 status set to PUBLISHED will republish and re-set this date.
 
 
-#### `seoDescription` ([`String`](/developers/demandhq-apis/demand-api/graphql/reference/scalars/string))
+#### [`seoDescription`](#) ([`String`](/developers/demandhq-apis/demand-api/graphql/reference/scalars/string))
 
 Description specific for SEO purposes, limit 170 characters.
 
 
-#### `seoTitle` ([`String`](/developers/demandhq-apis/demand-api/graphql/reference/scalars/string))
+#### [`seoTitle`](#) ([`String`](/developers/demandhq-apis/demand-api/graphql/reference/scalars/string))
 
 Title specific for SEO purposes, limit 256 characters.
 
 
-#### `slug` ([`String`](/developers/demandhq-apis/demand-api/graphql/reference/scalars/string))
+#### [`slug`](#) ([`String`](/developers/demandhq-apis/demand-api/graphql/reference/scalars/string))
 
 Slug for the URL for this page. Limit 128 characters.
 
 
-#### `status` ([`PageStatus`](/developers/demandhq-apis/demand-api/graphql/reference/enums/page-status))
+#### [`status`](#) ([`PageStatus`](/developers/demandhq-apis/demand-api/graphql/reference/enums/page-status))
 
 The status of the page, can be DRAFT or PUBLISHED.
 
 
-#### `storefrontIds` ([`ID`](/developers/demandhq-apis/demand-api/graphql/reference/scalars/id))
+#### [`storefrontIds`](#) ([`[ID]`](/developers/demandhq-apis/demand-api/graphql/reference/scalars/id))
 
 Which storefronts should have access to this page?
 
 
-#### `subtitle` ([`String`](/developers/demandhq-apis/demand-api/graphql/reference/scalars/string))
+#### [`subtitle`](#) ([`String`](/developers/demandhq-apis/demand-api/graphql/reference/scalars/string))
 
 The subtitle of the page, limit 256 characters.
 
 
-#### `tags` ([`String`](/developers/demandhq-apis/demand-api/graphql/reference/scalars/string))
+#### [`tags`](#) ([`[String]`](/developers/demandhq-apis/demand-api/graphql/reference/scalars/string))
 
 
 
 
-#### `title` ([`String`](/developers/demandhq-apis/demand-api/graphql/reference/scalars/string))
+#### [`title`](#) ([`String`](/developers/demandhq-apis/demand-api/graphql/reference/scalars/string))
 
 The title of the page, limit 256 characters.
 

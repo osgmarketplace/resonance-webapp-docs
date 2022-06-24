@@ -1,11 +1,11 @@
 ---
 id: page-connection-with-search
 title: PageConnectionWithSearch
+hide_table_of_contents: false
 ---
 
 
 Paginate through Pages
-
 
 ```graphql
 type PageConnectionWithSearch {
@@ -19,22 +19,22 @@ type PageConnectionWithSearch {
 
 ### Fields
 
-#### `edges` ([`PageEdge`](/developers/demandhq-apis/demand-api/graphql/reference/objects/page-edge))
+#### [`edges`](#) ([`[PageEdge]!`](/developers/demandhq-apis/demand-api/graphql/reference/objects/page-edge))
 
 
 
 
-#### `nodes` ([`Page`](/developers/demandhq-apis/demand-api/graphql/reference/objects/page))
+#### [`nodes`](#) ([`[Page]!`](/developers/demandhq-apis/demand-api/graphql/reference/objects/page))
 
 
 
 
-#### `pageInfo` ([`PageInfo`](/developers/demandhq-apis/demand-api/graphql/reference/objects/page-info))
+#### [`pageInfo`](#) ([`PageInfo!`](/developers/demandhq-apis/demand-api/graphql/reference/objects/page-info))
 
 
 
 
-#### `querySuggestions` ([`JSON`](/developers/demandhq-apis/demand-api/graphql/reference/scalars/json))
+#### [`querySuggestions`](#) ([`JSON`](/developers/demandhq-apis/demand-api/graphql/reference/scalars/json))
 
 This is an object with terms in the query as keys, and a suggestion for that
 term as the value. This is often referred to as 'Did you mean?'

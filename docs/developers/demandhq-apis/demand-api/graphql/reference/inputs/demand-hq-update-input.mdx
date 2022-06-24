@@ -1,11 +1,11 @@
 ---
 id: demand-hq-update-input
 title: DemandHqUpdateInput
+hide_table_of_contents: false
 ---
 
 
 The possible fields in order to update a demandHq.
-
 
 ```graphql
 input DemandHqUpdateInput {
@@ -21,33 +21,33 @@ input DemandHqUpdateInput {
 
 ### Fields
 
-#### `demandHqId` ([`ID`](/developers/demandhq-apis/demand-api/graphql/reference/scalars/id))
+#### [`demandHqId`](#) ([`ID!`](/developers/demandhq-apis/demand-api/graphql/reference/scalars/id))
 
 
 
 
-#### `demandSubscriptionCodes` ([`DemandSubscriptionCode`](/developers/demandhq-apis/demand-api/graphql/reference/enums/demand-subscription-code))
+#### [`demandSubscriptionCodes`](#) ([`[DemandSubscriptionCode!]`](/developers/demandhq-apis/demand-api/graphql/reference/enums/demand-subscription-code))
 
 
 
 
-#### `description` ([`String`](/developers/demandhq-apis/demand-api/graphql/reference/scalars/string))
+#### [`description`](#) ([`String`](/developers/demandhq-apis/demand-api/graphql/reference/scalars/string))
 
 
 
 
-#### `name` ([`String`](/developers/demandhq-apis/demand-api/graphql/reference/scalars/string))
+#### [`name`](#) ([`String`](/developers/demandhq-apis/demand-api/graphql/reference/scalars/string))
 
 
 
 
-#### `notificationUserNames` ([`DemandHqNotificationUserNamesInput`](/developers/demandhq-apis/demand-api/graphql/reference/inputs/demand-hq-notification-user-names-input))
+#### [`notificationUserNames`](#) ([`DemandHqNotificationUserNamesInput`](/developers/demandhq-apis/demand-api/graphql/reference/inputs/demand-hq-notification-user-names-input))
 
 These users will get notified if something requires attention for this DemandHq.
 If none are provided, ownerUserName will be notified.
 
 
-#### `ownerUserName` ([`String`](/developers/demandhq-apis/demand-api/graphql/reference/scalars/string))
+#### [`ownerUserName`](#) ([`String`](/developers/demandhq-apis/demand-api/graphql/reference/scalars/string))
 
 
 

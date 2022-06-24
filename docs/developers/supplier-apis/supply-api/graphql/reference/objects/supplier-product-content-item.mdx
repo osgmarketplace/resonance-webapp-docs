@@ -1,11 +1,11 @@
 ---
 id: supplier-product-content-item
 title: SupplierProductContentItem
+hide_table_of_contents: false
 ---
 
 
 This has a many to one relationship with SupplierProduct, and provides a connection to the CDN items.
-
 
 ```graphql
 type SupplierProductContentItem {
@@ -26,58 +26,58 @@ type SupplierProductContentItem {
 
 ### Fields
 
-#### `alt` ([`String`](/developers/supplier-apis/supply-api/graphql/reference/scalars/string))
+#### [`alt`](#) ([`String!`](/developers/supplier-apis/supply-api/graphql/reference/scalars/string))
 
 
 
 
-#### `category` ([`String`](/developers/supplier-apis/supply-api/graphql/reference/scalars/string))
+#### [`category`](#) ([`String`](/developers/supplier-apis/supply-api/graphql/reference/scalars/string))
 
 
 
 
-#### `contentItemId` ([`ID`](/developers/supplier-apis/supply-api/graphql/reference/scalars/id))
+#### [`contentItemId`](#) ([`ID!`](/developers/supplier-apis/supply-api/graphql/reference/scalars/id))
 
 
 
 
-#### `contentKey` ([`String`](/developers/supplier-apis/supply-api/graphql/reference/scalars/string))
+#### [`contentKey`](#) ([`String!`](/developers/supplier-apis/supply-api/graphql/reference/scalars/string))
 
 The key to the file in the CDN
 
 
-#### `contentType` ([`SupplierProductContentType`](/developers/supplier-apis/supply-api/graphql/reference/enums/supplier-product-content-type))
+#### [`contentType`](#) ([`SupplierProductContentType!`](/developers/supplier-apis/supply-api/graphql/reference/enums/supplier-product-content-type))
 
 
 
 
-#### `createdAt` ([`Date`](/developers/supplier-apis/supply-api/graphql/reference/scalars/date))
+#### [`createdAt`](#) ([`Date!`](/developers/supplier-apis/supply-api/graphql/reference/scalars/date))
 
 
 
 
-#### `position` ([`Int`](/developers/supplier-apis/supply-api/graphql/reference/scalars/int))
+#### [`position`](#) ([`Int`](/developers/supplier-apis/supply-api/graphql/reference/scalars/int))
 
 Used to determine what order the content comes out in.
 Positive Integers are allowed, up to 9,999,999,999, and it does not have to be unique or sequential.
 
 
-#### `supplierId` ([`ID`](/developers/supplier-apis/supply-api/graphql/reference/scalars/id))
+#### [`supplierId`](#) ([`ID!`](/developers/supplier-apis/supply-api/graphql/reference/scalars/id))
 
 
 
 
-#### `supplierProductId` ([`ID`](/developers/supplier-apis/supply-api/graphql/reference/scalars/id))
+#### [`supplierProductId`](#) ([`ID!`](/developers/supplier-apis/supply-api/graphql/reference/scalars/id))
 
 
 
 
-#### `updatedAt` ([`Date`](/developers/supplier-apis/supply-api/graphql/reference/scalars/date))
+#### [`updatedAt`](#) ([`Date!`](/developers/supplier-apis/supply-api/graphql/reference/scalars/date))
 
 
 
 
-#### `updatedBy` ([`String`](/developers/supplier-apis/supply-api/graphql/reference/scalars/string))
+#### [`updatedBy`](#) ([`String!`](/developers/supplier-apis/supply-api/graphql/reference/scalars/string))
 
 
 

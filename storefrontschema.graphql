@@ -57,14 +57,39 @@ enum CartType {
 type CollectionContent {
   collectionId: ID!
 
-  """Get the markdown content of the collection as parsed HTML."""
+  """
+  Get the markdown content of the collection as parsed HTML. Do not use this
+  field without purifying or sanitizing the HTML in your webapp.
+  """
   contentAsHtml: String
   contentAsString: String!
 
-  """Get the secondary markdown content of the collection as parsed HTML."""
+  """Get an excerpt of the collection content."""
+  excerpt(
+    """The number of characters to return, defaults to 200."""
+    numberOfCharacters: Int
+  ): String
+
+  """
+  Get the secondary markdown content of the collection as parsed HTML. Do not
+  use this field without purifying or sanitizing the HTML in your webapp.
+  """
   secondaryContentAsHtml: String
   secondaryContentAsString: String
   updatedAt: String
+}
+
+"""Indicates which field to sort by"""
+enum CollectionSortField {
+  PUBLISHED_AT
+  RELEVANCE
+  TITLE
+}
+
+"""Sort Collections by a field and direction."""
+input CollectionSortInput {
+  direction: SortDirection!
+  field: CollectionSortField!
 }
 
 """These are the tags associated to the collection"""
@@ -80,6 +105,12 @@ type CollectionTags {
     key: String
   ): [ParsedTag]
   raw: [String]
+}
+
+"""A Map of several fields of Collection and term aggregations for each"""
+type CollectionTermAggregations {
+  collectionTypes: [TermAggregation!]
+  tags: [TermAggregation!]
 }
 
 """
@@ -480,7 +511,10 @@ type Mutation {
 
 """This is the actual content of the page"""
 type PageContent {
-  """Get the markdown content of the page as parsed HTML."""
+  """
+  Get the markdown content of the page as parsed HTML. Do not use this field
+  without purifying or sanitizing the HTML in your webapp.
+  """
   contentAsHtml: String
   contentAsString: String!
 
@@ -634,6 +668,14 @@ type PublicCollection {
   description: String
 
   """
+  Get the description if it exists, or fallback to the excerpt of content for the collection.
+  """
+  descriptionOrExcerpt(
+    """The number of characters to return, defaults to 200."""
+    numberOfCharacters: Int
+  ): String
+
+  """
   This can be used to pin certain products to the top of a collection when using certain sorts.
   Max number of products is 20.
   """
@@ -748,11 +790,53 @@ page that lists all collections for a collectionType.
 type PublicCollectionTypeContent {
   collectionType: String!
   collectionTypeContentId: ID!
+
+  """
+  Get the markdown content of the collectionTypeContent as parsed HTML. Do not
+  use this field without purifying or sanitizing the HTML in your webapp.
+  """
+  contentAsHtml: String
   contentAsString: String
   demandHqId: ID!
+
+  """
+  A short description of the collectionTypeContent, limit 1000 characters. This
+  is typically used off of the collectionTypeContent page itself.
+  """
+  description: String
+
+  """
+  Get the description if it exists, or fallback to the excerpt of content for the CollectionTypeContent.
+  """
+  descriptionOrExcerpt(
+    """The number of characters to return, defaults to 200."""
+    numberOfCharacters: Int
+  ): String
+
+  """Get an excerpt of the CollectionTypeContent."""
+  excerpt(
+    """The number of characters to return, defaults to 200."""
+    numberOfCharacters: Int
+  ): String
+
+  """
+  Get the secondary markdown content of the collectionTypeContent as parsed
+  HTML. Do not use this field without purifying or sanitizing the HTML in your webapp.
+  """
+  secondaryContentAsHtml: String
   secondaryContentAsString: String
+
+  """Description specific for SEO purposes, limit 170 characters."""
+  seoDescription: String
+
+  """Title specific for SEO purposes, limit 256 characters."""
+  seoTitle: String
   storefrontId: ID!
+
+  """The subtitle of the collectionTypeContent, limit 256 characters."""
   subtitle: String
+
+  """The title of the collectionTypeContent, limit 256 characters."""
   title: String
 }
 
@@ -933,13 +1017,54 @@ type PublicPageEdge {
 This holds content specific to a pageType. This is generally used on a page that lists all pages for a pageType.
 """
 type PublicPageTypeContent {
+  """
+  Get the markdown content of the pageTypeContent as parsed HTML. Do not use
+  this field without purifying or sanitizing the HTML in your webapp.
+  """
+  contentAsHtml: String
   contentAsString: String
   demandHqId: ID!
+
+  """
+  A short description of the pageTypeContent, limit 1000 characters. This is
+  typically used off of the pageTypeContent page itself.
+  """
+  description: String
+
+  """
+  Get the description if it exists, or fallback to the excerpt of content for the CollectionTypeContent.
+  """
+  descriptionOrExcerpt(
+    """The number of characters to return, defaults to 200."""
+    numberOfCharacters: Int
+  ): String
+
+  """Get an excerpt of the CollectionTypeContent."""
+  excerpt(
+    """The number of characters to return, defaults to 200."""
+    numberOfCharacters: Int
+  ): String
   pageType: String!
   pageTypeContentId: ID!
+
+  """
+  Get the secondary markdown content of the pageTypeContent as parsed HTML. Do
+  not use this field without purifying or sanitizing the HTML in your webapp.
+  """
+  secondaryContentAsHtml: String
   secondaryContentAsString: String
+
+  """Description specific for SEO purposes, limit 170 characters."""
+  seoDescription: String
+
+  """Title specific for SEO purposes, limit 256 characters."""
+  seoTitle: String
   storefrontId: ID!
+
+  """The subtitle of the pageTypeContent, limit 256 characters."""
   subtitle: String
+
+  """The title of the pageTypeContent, limit 256 characters."""
   title: String
 }
 
@@ -967,7 +1092,7 @@ type PublicProduct {
               
   Requires the "publicproductlocale/read" permission.
   """
-  locale: PublicProductLocale
+  locale(localeType: ResonanceLocaleType!): PublicProductLocale
 
   """
   The labels for the possible option groups for this product, i.e. "Color", "Size", "Material", etc.
@@ -1158,6 +1283,14 @@ type Query {
   collection(slug: String!): PublicCollection
 
   """
+  Term aggregations for Collections, typically used to suggest terms to use in Search Filters.
+  """
+  collectionTermAggregations(
+    """The number of aggregations to return for each type."""
+    numberOfResults: Int!
+  ): CollectionTermAggregations
+
+  """
   Get a collectionTypeContent by collectionType.
                   
   Requires the collectiontypecontent/read scope on the associated DemandHq
@@ -1191,8 +1324,38 @@ type Query {
   Requires the publiccollection/read scope.
   """
   collections(
+    """Returns the elements in the list that come after the specified cursor."""
+    after: String
+
+    """
+    Returns the elements in the list that come before the specified cursor.
+    """
+    before: String
+
+    """Filter Collections using collectionType"""
+    collectionType: StringFilterInput
+
+    """Returns the first n elements from the list."""
+    first: Int
+
+    """Returns the last n elements from the list."""
+    last: Int
+
+    """
+    Query collections for certain terms. Searches several fields, including
+    collection.description, collection.subtitle, collection.title, and
+    collectionTags.
+    """
+    query: String
+
     """Filter Collections using slugs"""
     slugs: [String]
+
+    """Sort Collections by a series of fields and directions."""
+    sortOrder: [CollectionSortInput]
+
+    """Filter Collections using Tags."""
+    tags: [StringFilterInput]
   ): PublicCollectionConnectionWithSearch!
 
   """

@@ -1,6 +1,7 @@
 ---
 id: device-cart
 title: deviceCart
+hide_table_of_contents: false
 ---
 
 
@@ -8,25 +9,23 @@ The cart for an anonymous user. Will create a blank cart if one does not exist, 
             
 Requires the publiccart/read scope.
 
-
 ```graphql
 deviceCart(
   deviceId: String!
 ): Cart!
-
 ```
 
 
 ### Arguments
 
-#### `deviceId` ([`String`](/developers/demandhq-apis/storefront-api/graphql/reference/scalars/string))
+#### [`deviceId`](#) ([`String!`](/developers/demandhq-apis/storefront-api/graphql/reference/scalars/string))
 
 
 
 
 ### Type
 
-#### [`Cart`](/developers/demandhq-apis/storefront-api/graphql/reference/objects/cart) 
+#### [`Cart`](/developers/demandhq-apis/storefront-api/graphql/reference/objects/cart)
 
 A cart is a temporary container for products that a customer or anonymous user wants to buy
 

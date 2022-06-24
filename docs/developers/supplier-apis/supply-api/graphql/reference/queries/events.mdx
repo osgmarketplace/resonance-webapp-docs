@@ -1,11 +1,11 @@
 ---
 id: events
 title: events
+hide_table_of_contents: false
 ---
 
 
 See changes that have been made to this SupplierVariant
-
 
 ```graphql
 events(
@@ -16,45 +16,44 @@ events(
   last: Int
   supplierId: ID!
 ): SupplyEventConnection!
-
 ```
 
 
 ### Arguments
 
-#### `after` ([`String`](/developers/supplier-apis/supply-api/graphql/reference/scalars/string))
+#### [`after`](#) ([`String`](/developers/supplier-apis/supply-api/graphql/reference/scalars/string))
 
 Returns the elements in the list that come after the specified cursor.
 
 
-#### `before` ([`String`](/developers/supplier-apis/supply-api/graphql/reference/scalars/string))
+#### [`before`](#) ([`String`](/developers/supplier-apis/supply-api/graphql/reference/scalars/string))
 
 Returns the elements in the list that come before the specified cursor.
 
 
-#### `entityId` ([`ID`](/developers/supplier-apis/supply-api/graphql/reference/scalars/id))
+#### [`entityId`](#) ([`ID!`](/developers/supplier-apis/supply-api/graphql/reference/scalars/id))
 
 The entity to retrieve events for, like a SupplierVariantId
 
 
-#### `first` ([`Int`](/developers/supplier-apis/supply-api/graphql/reference/scalars/int))
+#### [`first`](#) ([`Int`](/developers/supplier-apis/supply-api/graphql/reference/scalars/int))
 
 Returns the first n elements from the list.
 
 
-#### `last` ([`Int`](/developers/supplier-apis/supply-api/graphql/reference/scalars/int))
+#### [`last`](#) ([`Int`](/developers/supplier-apis/supply-api/graphql/reference/scalars/int))
 
 Returns the last n elements from the list.
 
 
-#### `supplierId` ([`ID`](/developers/supplier-apis/supply-api/graphql/reference/scalars/id))
+#### [`supplierId`](#) ([`ID!`](/developers/supplier-apis/supply-api/graphql/reference/scalars/id))
 
 The SupplierId to retrieve events for
 
 
 ### Type
 
-#### [`SupplyEventConnection`](/developers/supplier-apis/supply-api/graphql/reference/objects/supply-event-connection) 
+#### [`SupplyEventConnection`](/developers/supplier-apis/supply-api/graphql/reference/objects/supply-event-connection)
 
 Paginate through SupplyEvents
 

@@ -1,11 +1,11 @@
 ---
 id: supplier-variant-in-composite-create-input
 title: SupplierVariantInCompositeCreateInput
+hide_table_of_contents: false
 ---
 
 
 The necessary fields in order to create a new supplierVariant inside a SupplierProductCompositeCreateInput
-
 
 ```graphql
 input SupplierVariantInCompositeCreateInput {
@@ -20,27 +20,27 @@ input SupplierVariantInCompositeCreateInput {
 
 ### Fields
 
-#### `contentItemIds` ([`ID`](/developers/supplier-apis/supply-api/graphql/reference/scalars/id))
+#### [`contentItemIds`](#) ([`[ID]`](/developers/supplier-apis/supply-api/graphql/reference/scalars/id))
 
 Associates contentItems with this variant
 
 
-#### `externalVariantId` ([`String`](/developers/supplier-apis/supply-api/graphql/reference/scalars/string))
+#### [`externalVariantId`](#) ([`String!`](/developers/supplier-apis/supply-api/graphql/reference/scalars/string))
 
 
 
 
-#### `inventoryPolicy` ([`SupplierVariantInventoryPolicy`](/developers/supplier-apis/supply-api/graphql/reference/enums/supplier-variant-inventory-policy))
+#### [`inventoryPolicy`](#) ([`SupplierVariantInventoryPolicy!`](/developers/supplier-apis/supply-api/graphql/reference/enums/supplier-variant-inventory-policy))
 
 
 
 
-#### `inventoryQuantity` ([`Int`](/developers/supplier-apis/supply-api/graphql/reference/scalars/int))
+#### [`inventoryQuantity`](#) ([`Int!`](/developers/supplier-apis/supply-api/graphql/reference/scalars/int))
 
 
 
 
-#### `optionValues` ([`String`](/developers/supplier-apis/supply-api/graphql/reference/scalars/string))
+#### [`optionValues`](#) ([`[String!]!`](/developers/supplier-apis/supply-api/graphql/reference/scalars/string))
 
 An array of the option values that make up this variant.
 For example, a product with a color and size option would have two option values,

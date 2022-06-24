@@ -1,6 +1,7 @@
 ---
 id: create-supplier-variant-supplement
 title: createSupplierVariantSupplement
+hide_table_of_contents: false
 ---
 
 
@@ -8,25 +9,23 @@ Create a new supplierVariantSupplement
 
 Requires suppliervariantsupplement/write permission on the requesting identity
 
-
 ```graphql
 createSupplierVariantSupplement(
   input: SupplierVariantSupplementCreateInput!
 ): SupplierVariantSupplement!
-
 ```
 
 
 ### Arguments
 
-#### `input` ([`SupplierVariantSupplementCreateInput`](/developers/supplier-apis/supply-api/graphql/reference/inputs/supplier-variant-supplement-create-input))
+#### [`input`](#) ([`SupplierVariantSupplementCreateInput!`](/developers/supplier-apis/supply-api/graphql/reference/inputs/supplier-variant-supplement-create-input))
 
 
 
 
 ### Type
 
-#### [`SupplierVariantSupplement`](/developers/supplier-apis/supply-api/graphql/reference/objects/supplier-variant-supplement) 
+#### [`SupplierVariantSupplement`](/developers/supplier-apis/supply-api/graphql/reference/objects/supplier-variant-supplement)
 
 This has a one to one relationship with SupplierVariant, and provides supplemental data for the SupplierVariant.
 These items get updated at a lower frequency, and are therefore separate.

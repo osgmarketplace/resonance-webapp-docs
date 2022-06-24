@@ -1,11 +1,11 @@
 ---
 id: collection-create-input
 title: CollectionCreateInput
+hide_table_of_contents: false
 ---
 
 
 Exactly like Collection, but no publishedAt or Status (Status is set to DRAFT on create).
-
 
 ```graphql
 input CollectionCreateInput {
@@ -28,67 +28,67 @@ input CollectionCreateInput {
 
 ### Fields
 
-#### `collectionType` ([`String`](/developers/demandhq-apis/demand-api/graphql/reference/scalars/string))
+#### [`collectionType`](#) ([`String!`](/developers/demandhq-apis/demand-api/graphql/reference/scalars/string))
 
 Any string to declare a category of this collection, can be used to filter collections, limit 128 characters.
 
 
-#### `contentItemIds` ([`ID`](/developers/demandhq-apis/demand-api/graphql/reference/scalars/id))
+#### [`contentItemIds`](#) ([`[ID!]`](/developers/demandhq-apis/demand-api/graphql/reference/scalars/id))
 
 The ContentItemIds of the Content Items that are associated with this collection.
 
 
-#### `demandHqId` ([`ID`](/developers/demandhq-apis/demand-api/graphql/reference/scalars/id))
+#### [`demandHqId`](#) ([`ID!`](/developers/demandhq-apis/demand-api/graphql/reference/scalars/id))
 
 
 
 
-#### `description` ([`String`](/developers/demandhq-apis/demand-api/graphql/reference/scalars/string))
+#### [`description`](#) ([`String`](/developers/demandhq-apis/demand-api/graphql/reference/scalars/string))
 
 A short description of the collection, limit 1000 characters.
 
 
-#### `primaryImageUrl` ([`String`](/developers/demandhq-apis/demand-api/graphql/reference/scalars/string))
+#### [`primaryImageUrl`](#) ([`String`](/developers/demandhq-apis/demand-api/graphql/reference/scalars/string))
 
 A primary image url for this collection, can be generated from a Collection ContentItem.
 
 
-#### `rules` ([`CollectionRulesInput`](/developers/demandhq-apis/demand-api/graphql/reference/inputs/collection-rules-input))
+#### [`rules`](#) ([`CollectionRulesInput`](/developers/demandhq-apis/demand-api/graphql/reference/inputs/collection-rules-input))
 
 A map of rules to determine whether a Product should be part of this Collection.
 
 
-#### `seoDescription` ([`String`](/developers/demandhq-apis/demand-api/graphql/reference/scalars/string))
+#### [`seoDescription`](#) ([`String`](/developers/demandhq-apis/demand-api/graphql/reference/scalars/string))
 
 Description specific for SEO purposes, limit 170 characters.
 
 
-#### `seoTitle` ([`String`](/developers/demandhq-apis/demand-api/graphql/reference/scalars/string))
+#### [`seoTitle`](#) ([`String`](/developers/demandhq-apis/demand-api/graphql/reference/scalars/string))
 
 Title specific for SEO purposes, limit 256 characters.
 
 
-#### `slug` ([`String`](/developers/demandhq-apis/demand-api/graphql/reference/scalars/string))
+#### [`slug`](#) ([`String!`](/developers/demandhq-apis/demand-api/graphql/reference/scalars/string))
 
 Slug for the URL for this collection. Limit 128 characters.
 
 
-#### `storefrontIds` ([`ID`](/developers/demandhq-apis/demand-api/graphql/reference/scalars/id))
+#### [`storefrontIds`](#) ([`[ID]`](/developers/demandhq-apis/demand-api/graphql/reference/scalars/id))
 
 Which storefronts should have access to this collection?
 
 
-#### `subtitle` ([`String`](/developers/demandhq-apis/demand-api/graphql/reference/scalars/string))
+#### [`subtitle`](#) ([`String`](/developers/demandhq-apis/demand-api/graphql/reference/scalars/string))
 
 The subtitle of the collection, limit 256 characters.
 
 
-#### `tags` ([`String`](/developers/demandhq-apis/demand-api/graphql/reference/scalars/string))
+#### [`tags`](#) ([`[String]`](/developers/demandhq-apis/demand-api/graphql/reference/scalars/string))
 
 
 
 
-#### `title` ([`String`](/developers/demandhq-apis/demand-api/graphql/reference/scalars/string))
+#### [`title`](#) ([`String!`](/developers/demandhq-apis/demand-api/graphql/reference/scalars/string))
 
 The title of the collection, limit 256 characters.
 

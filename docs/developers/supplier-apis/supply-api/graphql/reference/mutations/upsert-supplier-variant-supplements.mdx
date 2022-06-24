@@ -1,6 +1,7 @@
 ---
 id: upsert-supplier-variant-supplements
 title: upsertSupplierVariantSupplements
+hide_table_of_contents: false
 ---
 
 
@@ -13,25 +14,23 @@ SupplierVariantSupplementUpdateInput.
 Requires suppliervariantsupplement/write permission on the requesting identity
 Note that if there are Permission or UserInput Errors, the entire group will fail, not partially succeed.
 
-
 ```graphql
 upsertSupplierVariantSupplements(
   inputs: [SupplierVariantSupplementUpdateInput!]
 ): [SupplierVariantSupplement!]
-
 ```
 
 
 ### Arguments
 
-#### `inputs` ([`SupplierVariantSupplementUpdateInput`](/developers/supplier-apis/supply-api/graphql/reference/inputs/supplier-variant-supplement-update-input))
+#### [`inputs`](#) ([`[SupplierVariantSupplementUpdateInput!]`](/developers/supplier-apis/supply-api/graphql/reference/inputs/supplier-variant-supplement-update-input))
 
 
 
 
 ### Type
 
-#### [`SupplierVariantSupplement`](/developers/supplier-apis/supply-api/graphql/reference/objects/supplier-variant-supplement) 
+#### [`SupplierVariantSupplement`](/developers/supplier-apis/supply-api/graphql/reference/objects/supplier-variant-supplement)
 
 This has a one to one relationship with SupplierVariant, and provides supplemental data for the SupplierVariant.
 These items get updated at a lower frequency, and are therefore separate.

@@ -1,6 +1,7 @@
 ---
 id: nav
 title: nav
+hide_table_of_contents: false
 ---
 
 
@@ -8,25 +9,23 @@ Get a Nav by its id.
             
 Requires the user to have the nav/read permission on the associated DemandHq.
 
-
 ```graphql
 nav(
   navId: ID!
 ): Nav
-
 ```
 
 
 ### Arguments
 
-#### `navId` ([`ID`](/developers/demandhq-apis/demand-api/graphql/reference/scalars/id))
+#### [`navId`](#) ([`ID!`](/developers/demandhq-apis/demand-api/graphql/reference/scalars/id))
 
 
 
 
 ### Type
 
-#### [`Nav`](/developers/demandhq-apis/demand-api/graphql/reference/objects/nav) 
+#### [`Nav`](/developers/demandhq-apis/demand-api/graphql/reference/objects/nav)
 
 Nav is an item within a navigational heirarchy of some kind, most often viewed as a menu.
 

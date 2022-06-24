@@ -1,6 +1,7 @@
 ---
 id: collection-type-content
 title: collectionTypeContent
+hide_table_of_contents: false
 ---
 
 
@@ -8,25 +9,23 @@ Get a collectionTypeContent by collectionTypeContentId.
                 
 Requires the collectiontypecontent/read scope on the associated DemandHq
 
-
 ```graphql
 collectionTypeContent(
   collectionTypeContentId: ID!
 ): CollectionTypeContent
-
 ```
 
 
 ### Arguments
 
-#### `collectionTypeContentId` ([`ID`](/developers/demandhq-apis/demand-api/graphql/reference/scalars/id))
+#### [`collectionTypeContentId`](#) ([`ID!`](/developers/demandhq-apis/demand-api/graphql/reference/scalars/id))
 
 
 
 
 ### Type
 
-#### [`CollectionTypeContent`](/developers/demandhq-apis/demand-api/graphql/reference/objects/collection-type-content) 
+#### [`CollectionTypeContent`](/developers/demandhq-apis/demand-api/graphql/reference/objects/collection-type-content)
 
 This holds content specific to a collectionType. This is generally used on a
 page that lists all collections for a collectionType.

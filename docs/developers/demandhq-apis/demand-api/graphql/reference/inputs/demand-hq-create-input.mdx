@@ -1,11 +1,11 @@
 ---
 id: demand-hq-create-input
 title: DemandHqCreateInput
+hide_table_of_contents: false
 ---
 
 
 The necessary fields in order to create a new demandHq
-
 
 ```graphql
 input DemandHqCreateInput {
@@ -21,32 +21,32 @@ input DemandHqCreateInput {
 
 ### Fields
 
-#### `defaultCurrency` ([`ResonanceCurrency`](/developers/demandhq-apis/demand-api/graphql/reference/enums/resonance-currency))
+#### [`defaultCurrency`](#) ([`ResonanceCurrency!`](/developers/demandhq-apis/demand-api/graphql/reference/enums/resonance-currency))
 
 
 
 
-#### `defaultLocaleType` ([`ResonanceLocaleType`](/developers/demandhq-apis/demand-api/graphql/reference/enums/resonance-locale-type))
+#### [`defaultLocaleType`](#) ([`ResonanceLocaleType!`](/developers/demandhq-apis/demand-api/graphql/reference/enums/resonance-locale-type))
 
 
 
 
-#### `demandSubscriptionCodes` ([`DemandSubscriptionCode`](/developers/demandhq-apis/demand-api/graphql/reference/enums/demand-subscription-code))
+#### [`demandSubscriptionCodes`](#) ([`[DemandSubscriptionCode!]`](/developers/demandhq-apis/demand-api/graphql/reference/enums/demand-subscription-code))
 
 
 
 
-#### `description` ([`String`](/developers/demandhq-apis/demand-api/graphql/reference/scalars/string))
+#### [`description`](#) ([`String`](/developers/demandhq-apis/demand-api/graphql/reference/scalars/string))
 
 
 
 
-#### `name` ([`String`](/developers/demandhq-apis/demand-api/graphql/reference/scalars/string))
+#### [`name`](#) ([`String!`](/developers/demandhq-apis/demand-api/graphql/reference/scalars/string))
 
 
 
 
-#### `notificationUserNames` ([`DemandHqNotificationUserNamesInput`](/developers/demandhq-apis/demand-api/graphql/reference/inputs/demand-hq-notification-user-names-input))
+#### [`notificationUserNames`](#) ([`DemandHqNotificationUserNamesInput`](/developers/demandhq-apis/demand-api/graphql/reference/inputs/demand-hq-notification-user-names-input))
 
 These users will get notified if something requires attention for this DemandHq.
 If none are provided, ownerUserName will be notified.

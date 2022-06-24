@@ -1,11 +1,11 @@
 ---
 id: app-update-input
 title: AppUpdateInput
+hide_table_of_contents: false
 ---
 
 
 The possible fields in order to update an existing app
-
 
 ```graphql
 input AppUpdateInput {
@@ -20,29 +20,29 @@ input AppUpdateInput {
 
 ### Fields
 
-#### `appId` ([`ID`](/developers/shared-apis/adminidentity-api/graphql/reference/scalars/id))
+#### [`appId`](#) ([`ID!`](/developers/shared-apis/adminidentity-api/graphql/reference/scalars/id))
 
 
 
 
-#### `description` ([`String`](/developers/shared-apis/adminidentity-api/graphql/reference/scalars/string))
+#### [`description`](#) ([`String`](/developers/shared-apis/adminidentity-api/graphql/reference/scalars/string))
 
 Short description of the app
 Limited to 8000 characters
 
 
-#### `name` ([`String`](/developers/shared-apis/adminidentity-api/graphql/reference/scalars/string))
+#### [`name`](#) ([`String`](/developers/shared-apis/adminidentity-api/graphql/reference/scalars/string))
 
 The name of the app
 Limited to 128 characters
 
 
-#### `requestedScopes` ([`String`](/developers/shared-apis/adminidentity-api/graphql/reference/scalars/string))
+#### [`requestedScopes`](#) ([`[String]`](/developers/shared-apis/adminidentity-api/graphql/reference/scalars/string))
 
 
 
 
-#### `status` ([`AppStatus`](/developers/shared-apis/adminidentity-api/graphql/reference/enums/app-status))
+#### [`status`](#) ([`AppStatus`](/developers/shared-apis/adminidentity-api/graphql/reference/enums/app-status))
 
 
 

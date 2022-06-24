@@ -1,13 +1,13 @@
 ---
 id: public-identities
 title: publicIdentities
+hide_table_of_contents: false
 ---
 
 
 Get several public identities by their IDs.
 In the case of using the identityIds arg, will return in exact order of the
 IDs passed in, with null for missing identities.
-
 
 ```graphql
 publicIdentities(
@@ -17,40 +17,39 @@ publicIdentities(
   identityIds: [ID!]
   last: Int
 ): PublicIdentityConnection!
-
 ```
 
 
 ### Arguments
 
-#### `after` ([`String`](/developers/shared-apis/adminidentity-api/graphql/reference/scalars/string))
+#### [`after`](#) ([`String`](/developers/shared-apis/adminidentity-api/graphql/reference/scalars/string))
 
 Returns the elements in the list that come after the specified cursor.
 
 
-#### `before` ([`String`](/developers/shared-apis/adminidentity-api/graphql/reference/scalars/string))
+#### [`before`](#) ([`String`](/developers/shared-apis/adminidentity-api/graphql/reference/scalars/string))
 
 Returns the elements in the list that come before the specified cursor.
 
 
-#### `first` ([`Int`](/developers/shared-apis/adminidentity-api/graphql/reference/scalars/int))
+#### [`first`](#) ([`Int`](/developers/shared-apis/adminidentity-api/graphql/reference/scalars/int))
 
 Returns the first n elements from the list.
 
 
-#### `identityIds` ([`ID`](/developers/shared-apis/adminidentity-api/graphql/reference/scalars/id))
+#### [`identityIds`](#) ([`[ID!]`](/developers/shared-apis/adminidentity-api/graphql/reference/scalars/id))
 
 
 
 
-#### `last` ([`Int`](/developers/shared-apis/adminidentity-api/graphql/reference/scalars/int))
+#### [`last`](#) ([`Int`](/developers/shared-apis/adminidentity-api/graphql/reference/scalars/int))
 
 Returns the last n elements from the list.
 
 
 ### Type
 
-#### [`PublicIdentityConnection`](/developers/shared-apis/adminidentity-api/graphql/reference/objects/public-identity-connection) 
+#### [`PublicIdentityConnection`](/developers/shared-apis/adminidentity-api/graphql/reference/objects/public-identity-connection)
 
 Paginate through PublicIdentities
 
